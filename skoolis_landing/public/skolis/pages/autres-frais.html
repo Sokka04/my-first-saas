@@ -1,0 +1,964 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autres Frais - Skoolis</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link href="../assets/css/fonts.css" rel="stylesheet">
+    <script src="../assets/js/chart.umd.min.js" defer></script>
+    <script src="../assets/js/charts.js" defer></script>
+    <script src="../assets/js/app.js" defer></script>
+    <script src="../assets/js/utils.js" defer></script>
+    <script src="../assets/js/skoolis-core.js" defer></script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Sidebar (identique aux autres pages) -->
+        <nav class="sidebar">
+            <div class="logo-container">
+                <div class="logo">
+                    <div class="logo-top">
+                        <span class="logo-icon">S</span>
+                        <h1>Skoolis</h1>
+                    </div>
+                    <div class="current-schoolyear">Année Scolaire : 2023-2024</div>
+                </div>
+                <button class="toggle-sidebar" id="toggleSidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <div class="nav-section">
+                <h3 class="section-title">Principal</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="../index.html">
+                            <i class="fas fa-home"></i>
+                            <span>Tableau de bord</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="classes.html">
+                            <i class="fas fa-chalkboard"></i>
+                            <span>Classes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="eleves.html">
+                            <i class="fas fa-user-graduate"></i>
+                            <span>Élèves</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="professeurs.html">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <span>Professeurs</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="notes.html">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Notes & Moyennes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="matieres.html">
+                            <i class="fas fa-book"></i>
+                            <span>Matières</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Comptabilité</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="inscription.html">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                            <span>Frais d'inscription</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="ecolage.html">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Frais d'Ecolage</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="arriere_ecolage.html">
+                            <i class="fas fa-clock"></i>
+                            <span>Arriéré d'écolage</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="autres-frais.html">
+                            <i class="fas fa-receipt"></i>
+                            <span>Autres Frais</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bilan.html">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Bilan général</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bilan-journalier.html">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Bilan journalier / périodique</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="authentification.html">
+                            <i class="fas fa-stamp"></i>
+                            <span>Authentification de reçu</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Sections Administration, Examens, Aide restent identiques -->
+            <div class="nav-section">
+                <h3 class="section-title">Administration</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="configuration.html">
+                            <i class="fas fa-cog"></i>
+                            <span>Configuration</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="admin.html">
+                            <i class="fas fa-user-shield"></i>
+                            <span>Administrateur</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="users.html">
+                            <i class="fas fa-users"></i>
+                            <span>Utilisateurs</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Examens</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="resultats.html"><i class="fas fa-poll"></i>
+                            <span>Résultats</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bepc-blanc.html"><i class="fas fa-file-alt"></i>
+                            <span>BEPC Blanc</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Aide</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="aide.html">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Aide & Support</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Déconnexion</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <h4>Admin Principal</h4>
+                        <p>admin@skoolis.com</p>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <h2>Autres Frais</h2>
+                    <p>Gestion des frais divers (uniforme, matériel, cantine, activités, etc.)</p>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Rechercher...">
+                    </div>
+                    <div class="header-icons">
+                        <button class="icon-btn notification">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge">2</span>
+                        </button>
+                        <button class="icon-btn" id="themeToggle">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        <button class="icon-btn" id="reloadPage">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Navigation des fonctionnalités -->
+            <div class="features-nav">
+                <button class="feature-btn active" data-feature="configuration-frais">
+                    <i class="fas fa-cog"></i>
+                    Configuration des Frais
+                </button>
+                <button class="feature-btn" data-feature="frais-eleve">
+                    <i class="fas fa-user-graduate"></i>
+                    Frais par Élève
+                </button>
+                <button class="feature-btn" data-feature="frais-classe">
+                    <i class="fas fa-chalkboard"></i>
+                    Frais par Classe
+                </button>
+                <button class="feature-btn" data-feature="payer-frais">
+                    <i class="fas fa-credit-card"></i>
+                    Payer Frais
+                </button>
+                <button class="feature-btn" data-feature="etat-financier">
+                    <i class="fas fa-chart-pie"></i>
+                    État Financier
+                </button>
+            </div>
+
+            <!-- Section Configuration des Frais -->
+            <div class="feature-section active" id="configuration-frais">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3><i class="fas fa-cog"></i> Configuration des Frais</h3>
+                        <p>Créez et configurez les différents types de frais pour l'école</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-primary" onclick="saveFraisConfiguration()">
+                            <i class="fas fa-save"></i>
+                            Enregistrer
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <div class="form-section">
+                        <h4 class="form-section-title">
+                            <i class="fas fa-plus-circle"></i>
+                            Ajouter un nouveau Frais
+                        </h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="nom_frais"><i class="fas fa-tag"></i> Nom du frais</label>
+                                <input type="text" id="nom_frais" placeholder="Ex: Uniforme, Matériel, Cantine...">
+                            </div>
+                            <div class="form-group">
+                                <label for="type_frais"><i class="fas fa-list"></i> Frais</label>
+                                <select id="type_frais">
+                                    <option value="unique">Unique (une fois)</option>
+                                    <option value="journalier">Journalier</option>
+                                    <option value="periodique">Périodique (mensuel/trimestriel)</option>
+                                    <option value="occasionnel">Occasionnel</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="classe_assignee"><i class="fas fa-chalkboard"></i> Classe assignée</label>
+                                <select id="classe_assignee">
+                                    <option value="toutes">Toutes les classes</option>
+                                    <option value="6A">6ème A</option>
+                                    <option value="5B">5ème B</option>
+                                    <option value="4C">4ème C</option>
+                                    <option value="3A">3ème A</option>
+                                    <option value="TD">Terminale D</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="montant_garcon"><i class="fas fa-male"></i> Montant Garçon (FCFA)</label>
+                                <input type="number" id="montant_garcon" placeholder="0" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="montant_fille"><i class="fas fa-female"></i> Montant Fille (FCFA)</label>
+                                <input type="number" id="montant_fille" placeholder="0" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="date_limite"><i class="fas fa-calendar-times"></i> Date limite</label>
+                                <input type="date" id="date_limite">
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="description_frais"><i class="fas fa-align-left"></i> Description</label>
+                                <textarea id="description_frais" rows="3"
+                                    placeholder="Description détaillée du frais..."></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button class="btn btn-secondary" onclick="resetFraisConfiguration()">
+                                <i class="fas fa-times"></i>
+                                Annuler
+                            </button>
+                            <button class="btn btn-primary" onclick="addFraisType()">
+                                <i class="fas fa-plus"></i>
+                                Ajouter ce frais
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4 class="form-section-title">
+                            <i class="fas fa-list"></i>
+                            Liste des frais configurés
+                        </h4>
+                        <div class="table-responsive">
+                            <table class="frais-table">
+                                <thead>
+                                    <tr>
+                                        <th>Nom</th>
+                                        <th>Type</th>
+                                        <th>Classes assignées</th>
+                                        <th>Garçon (FCFA)</th>
+                                        <th>Fille (FCFA)</th>
+                                        <th>Date limite</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="frais-configures-list">
+                                    <!-- Les frais configurés seront ajoutés ici dynamiquement -->
+                                    <tr class="empty-row">
+                                        <td colspan="7" class="text-center">
+                                            <div class="empty-state">
+                                                <i class="fas fa-receipt"></i>
+                                                <p>Aucun frais configuré</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- FIN Section Configuration des Frais -->
+
+            <!-- Section Frais par Élève -->
+            <div class="feature-section" id="frais-eleve">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3><i class="fas fa-user-graduate"></i> Frais par Élève</h3>
+                        <p>Assignation et gestion des frais individuellement par élève</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-primary" onclick="saveFraisEleve()">
+                            <i class="fas fa-save"></i>
+                            Enregistrer
+                        </button>
+                    </div>
+                </div>
+
+                <div class="frais-eleve-container">
+                    <div class="form-container">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="eleve_classe"><i class="fas fa-chalkboard"></i> Classe</label>
+                                <select id="eleve_classe" onchange="loadElevesForFrais()">
+                                    <option value="">Sélectionner une classe</option>
+                                    <option value="6A">6ème A</option>
+                                    <option value="5B">5ème B</option>
+                                    <option value="4C">4ème C</option>
+                                    <option value="3A">3ème A</option>
+                                    <option value="TD">Terminale D</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="eleve_select"><i class="fas fa-user-graduate"></i> Élève</label>
+                                <select id="eleve_select" onchange="loadFraisForEleve()">
+                                    <option value="">Sélectionner un élève</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="type_frais_eleve"><i class="fas fa-tag"></i> Selection du frais</label>
+                                <select id="type_frais_eleve">
+                                    <option value="">Sélectionner un frais</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="montant_eleve"><i class="fas fa-money-bill"></i> Montant (FCFA)</label>
+                                <input type="number" id="montant_eleve" placeholder="0" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="statut_frais_eleve"><i class="fas fa-check-circle"></i> Statut</label>
+                                <select id="statut_frais_eleve">
+                                    <option value="du">Dû</option>
+                                    <option value="partiel">Partiellement payé</option>
+                                    <option value="paye">Payé</option>
+                                    <option value="exonere">Exonéré</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="date_assignation"><i class="fas fa-calendar"></i> Date d'assignation</label>
+                                <input type="date" id="date_assignation">
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="remarques_eleve"><i class="fas fa-sticky-note"></i> Remarques</label>
+                                <textarea id="remarques_eleve" rows="2"
+                                    placeholder="Remarques additionnelles..."></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Liste des frais de l'élève -->
+                        <div class="frais-eleve-liste">
+                            <h4 class="form-section-title">
+                                <i class="fas fa-list-alt"></i>
+                                Frais assignés à l'élève
+                            </h4>
+                            <div class="table-responsive">
+                                <table class="frais-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Frais</th>
+                                            <th>Montant (FCFA)</th>
+                                            <th>Assigné le</th>
+                                            <th>Statut</th>
+                                            <th>Montant payé</th>
+                                            <th>Reste</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="liste-frais-eleve">
+                                        <!-- Les frais de l'élève seront ajoutés ici dynamiquement -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button class="btn btn-secondary" onclick="resetFraisEleveForm()">
+                                <i class="fas fa-times"></i>
+                                Annuler
+                            </button>
+                            <button class="btn btn-primary" onclick="assignerFraisEleve()">
+                                <i class="fas fa-plus"></i>
+                                Assigner le frais
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- FIN Section Frais par Élève -->
+
+            <!-- Section Frais par Classe -->
+            <div class="feature-section" id="frais-classe">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3><i class="fas fa-chalkboard"></i> Frais par Classe</h3>
+                        <p>Assignation en masse des frais à toute une classe</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-primary" onclick="saveFraisClasse()">
+                            <i class="fas fa-save"></i>
+                            Enregistrer pour la classe
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <div class="form-section">
+                        <h4 class="form-section-title">
+                            <i class="fas fa-users"></i>
+                            Configuration des frais pour une classe
+                        </h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="classe_frais"><i class="fas fa-chalkboard"></i> Classe</label>
+                                <select id="classe_frais" onchange="loadFraisForClasse()">
+                                    <option value="">Sélectionner une classe</option>
+                                    <option value="6A">6ème A</option>
+                                    <option value="5B">5ème B</option>
+                                    <option value="4C">4ème C</option>
+                                    <option value="3A">3ème A</option>
+                                    <option value="TD">Terminale D</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="frais_type_classe"><i class="fas fa-tag"></i> Frais</label>
+                                <select id="frais_type_classe">
+                                    <option value="">Sélectionner un Frais</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="montant_garcon_classe"><i class="fas fa-male"></i> Montant Garçon
+                                    (FCFA)</label>
+                                <input type="number" id="montant_garcon_classe" placeholder="0" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="montant_fille_classe"><i class="fas fa-female"></i> Montant Fille
+                                    (FCFA)</label>
+                                <input type="number" id="montant_fille_classe" placeholder="0" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="date_assignation_classe"><i class="fas fa-calendar"></i> Date
+                                    d'assignation</label>
+                                <input type="date" id="date_assignation_classe">
+                            </div>
+                            <div class="form-group">
+                                <label for="date_limite_classe"><i class="fas fa-calendar-times"></i> Date
+                                    limite</label>
+                                <input type="date" id="date_limite_classe">
+                            </div>
+                        </div>
+
+                        <!-- Statistiques de la classe -->
+                        <div class="classe-stats">
+                            <h4 class="form-section-title">
+                                <i class="fas fa-chart-bar"></i>
+                                Statistiques de la classe
+                            </h4>
+                            <div class="stats-grid">
+                                <div class="stat-card">
+                                    <div class="stat-icon">
+                                        <i class="fas fa-user-graduate"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <h5>Nombre d'élèves</h5>
+                                        <div class="stat-value" id="total-eleves">0</div>
+                                    </div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-icon">
+                                        <i class="fas fa-money-bill-wave"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <h5>Total attendu (Garçons)</h5>
+                                        <div class="stat-value" id="total-garcons">0 FCFA</div>
+                                    </div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-icon">
+                                        <i class="fas fa-money-bill-wave"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <h5>Total attendu (Filles)</h5>
+                                        <div class="stat-value" id="total-filles">0 FCFA</div>
+                                    </div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-icon">
+                                        <i class="fas fa-calculator"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <h5>Total général</h5>
+                                        <div class="stat-value" id="total-general">0 FCFA</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button class="btn btn-secondary" onclick="resetFraisClasseForm()">
+                                <i class="fas fa-times"></i>
+                                Annuler
+                            </button>
+                            <button class="btn btn-primary" onclick="assignerFraisClasse()">
+                                <i class="fas fa-users"></i>
+                                Assigner à toute la classe
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- FIN Section Frais par Classe -->
+
+            <!-- Section Payer Frais -->
+            <div class="feature-section" id="payer-frais">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3><i class="fas fa-credit-card"></i> Payer Frais</h3>
+                        <p>Enregistrement des paiements pour les frais divers</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-primary" onclick="imprimerRecuFrais()">
+                            <i class="fas fa-print"></i>
+                            Imprimer reçu
+                        </button>
+                    </div>
+                </div>
+
+                <div class="payer-frais-container">
+                    <div class="form-container">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="payer_classe"><i class="fas fa-chalkboard"></i> Classe</label>
+                                <select id="payer_classe" onchange="loadElevesForPaiement()">
+                                    <option value="">Sélectionner une classe</option>
+                                    <option value="6A">6ème A</option>
+                                    <option value="5B">5ème B</option>
+                                    <option value="4C">4ème C</option>
+                                    <option value="3A">3ème A</option>
+                                    <option value="TD">Terminale D</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="payer_eleve"><i class="fas fa-user-graduate"></i> Élève</label>
+                                <select id="payer_eleve" onchange="loadFraisAPayer()">
+                                    <option value="">Sélectionner un élève</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="frais_a_payer"><i class="fas fa-receipt"></i> Frais à payer</label>
+                                <select id="frais_a_payer">
+                                    <option value="">Sélectionner un frais</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="montant_total_frais"><i class="fas fa-money-bill-wave"></i> Montant total
+                                    (FCFA)</label>
+                                <input type="text" id="montant_total_frais" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="montant_deja_paye"><i class="fas fa-money-bill"></i> Déjà payé
+                                    (FCFA)</label>
+                                <input type="text" id="montant_deja_paye" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="montant_paye"><i class="fas fa-money-bill-wave"></i> Montant à payer
+                                    (FCFA)</label>
+                                <input type="number" id="montant_paye" placeholder="0" min="0"
+                                    oninput="calculerResteFrais()">
+                            </div>
+                            <div class="form-group">
+                                <label for="reste_a_payer_frais"><i class="fas fa-calculator"></i> Reste après paiement
+                                    (FCFA)</label>
+                                <input type="text" id="reste_a_payer_frais" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="date_paiement_frais"><i class="fas fa-calendar"></i> Date de
+                                    paiement</label>
+                                <input type="date" id="date_paiement_frais">
+                            </div>
+                            <div class="form-group">
+                                <label for="mode_paiement_frais"><i class="fas fa-credit-card"></i> Mode de
+                                    paiement</label>
+                                <select id="mode_paiement_frais">
+                                    <option value="especes">Espèces</option>
+                                    <option value="cheque">Chèque</option>
+                                    <option value="virement">Virement</option>
+                                    <option value="mobile">Mobile Money</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="reference_paiement_frais"><i class="fas fa-hashtag"></i> Référence</label>
+                                <input type="text" id="reference_paiement_frais"
+                                    placeholder="Numéro de chèque/transaction">
+                            </div>
+                        </div>
+
+                        <!-- Historique des paiements -->
+                        <div class="historique-paiements">
+                            <h4 class="form-section-title">
+                                <i class="fas fa-history"></i>
+                                Historique des paiements
+                            </h4>
+                            <div class="table-responsive">
+                                <table class="paiements-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Frais</th>
+                                            <th>Montant payé (FCFA)</th>
+                                            <th>Mode</th>
+                                            <th>Référence</th>
+                                            <th>Statut</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="historique-paiements-frais">
+                                        <!-- L'historique sera généré dynamiquement -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button class="btn btn-secondary" onclick="resetPaiementFraisForm()">
+                                <i class="fas fa-times"></i>
+                                Annuler
+                            </button>
+                            <button class="btn btn-primary" onclick="enregistrerPaiementFrais()">
+                                <i class="fas fa-save"></i>
+                                Enregistrer le paiement
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- FIN Section Payer Frais -->
+
+            <!-- Section État Financier -->
+            <div class="feature-section" id="etat-financier">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3><i class="fas fa-chart-pie"></i> État Financier</h3>
+                        <p>Consultation des états financiers par date, période, classe ou élève</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-primary" onclick="genererRapport()">
+                            <i class="fas fa-file-export"></i>
+                            Générer rapport
+                        </button>
+                    </div>
+                </div>
+
+                <div class="etat-financier-container">
+                    <div class="form-container">
+                        <div class="form-section">
+                            <h4 class="form-section-title">
+                                <i class="fas fa-filter"></i>
+                                Filtres de recherche
+                            </h4>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="filtre_type"><i class="fas fa-filter"></i> Type de rapport</label>
+                                    <select id="filtre_type" onchange="toggleFiltres()">
+                                        <option value="date">Par date spécifique</option>
+                                        <option value="periode">Par période</option>
+                                        <option value="classe">Par classe</option>
+                                        <option value="eleve">Par élève</option>
+                                        <option value="type_frais">Par Frais</option>
+                                    </select>
+                                </div>
+
+                                <!-- Filtres par date -->
+                                <div class="form-group filtres-date">
+                                    <label for="date_specifique"><i class="fas fa-calendar-day"></i> Date
+                                        spécifique</label>
+                                    <input type="date" id="date_specifique">
+                                </div>
+
+                                <!-- Filtres par période -->
+                                <div class="form-group filtres-periode" style="display: none;">
+                                    <label for="date_debut"><i class="fas fa-calendar-alt"></i> Date début</label>
+                                    <input type="date" id="date_debut">
+                                </div>
+                                <div class="form-group filtres-periode" style="display: none;">
+                                    <label for="date_fin"><i class="fas fa-calendar-alt"></i> Date fin</label>
+                                    <input type="date" id="date_fin">
+                                </div>
+
+                                <!-- Filtres par classe -->
+                                <div class="form-group filtres-classe" style="display: none;">
+                                    <label for="classe_rapport"><i class="fas fa-chalkboard"></i> Classe</label>
+                                    <select id="classe_rapport">
+                                        <option value="">Toutes les classes</option>
+                                        <option value="6A">6ème A</option>
+                                        <option value="5B">5ème B</option>
+                                        <option value="4C">4ème C</option>
+                                        <option value="3A">3ème A</option>
+                                        <option value="TD">Terminale D</option>
+                                    </select>
+                                </div>
+
+                                <!-- Filtres par élève -->
+                                <div class="form-group filtres-eleve" style="display: none;">
+                                    <label for="eleve_rapport"><i class="fas fa-user-graduate"></i> Élève</label>
+                                    <select id="eleve_rapport">
+                                        <option value="">Tous les élèves</option>
+                                    </select>
+                                </div>
+
+                                <!-- Filtres par Frais -->
+                                <div class="form-group filtres-type-frais" style="display: none;">
+                                    <label for="type_frais_rapport"><i class="fas fa-tag"></i> Frais</label>
+                                    <select id="type_frais_rapport">
+                                        <option value="">Tous les frais</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button class="btn btn-secondary" onclick="resetFiltresEtat()">
+                                    <i class="fas fa-redo"></i>
+                                    Réinitialiser
+                                </button>
+                                <button class="btn btn-primary" onclick="appliquerFiltresEtat()">
+                                    <i class="fas fa-search"></i>
+                                    Appliquer les filtres
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Résultats -->
+                        <div class="resultats-etat">
+                            <h4 class="form-section-title">
+                                <i class="fas fa-chart-line"></i>
+                                Résultats
+                            </h4>
+                            <div class="etat-summary">
+                                <div class="summary-card">
+                                    <div class="summary-icon">
+                                        <i class="fas fa-money-bill-wave"></i>
+                                    </div>
+                                    <div class="summary-content">
+                                        <h5>Total attendu</h5>
+                                        <div class="summary-value" id="total-attendu">0 FCFA</div>
+                                    </div>
+                                </div>
+                                <div class="summary-card">
+                                    <div class="summary-icon">
+                                        <i class="fas fa-money-check"></i>
+                                    </div>
+                                    <div class="summary-content">
+                                        <h5>Total perçu</h5>
+                                        <div class="summary-value" id="total-percu">0 FCFA</div>
+                                    </div>
+                                </div>
+                                <div class="summary-card">
+                                    <div class="summary-icon">
+                                        <i class="fas fa-calculator"></i>
+                                    </div>
+                                    <div class="summary-content">
+                                        <h5>Total restant</h5>
+                                        <div class="summary-value" id="total-restant">0 FCFA</div>
+                                    </div>
+                                </div>
+                                <div class="summary-card">
+                                    <div class="summary-icon">
+                                        <i class="fas fa-percentage"></i>
+                                    </div>
+                                    <div class="summary-content">
+                                        <h5>Taux de recouvrement</h5>
+                                        <div class="summary-value" id="taux-recouvrement">0%</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Détails par Frais -->
+                            <div class="details-etat">
+                                <h5 class="details-title">
+                                    <i class="fas fa-list-ul"></i>
+                                    Détails par Frais
+                                </h5>
+                                <div class="table-responsive">
+                                    <table class="details-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Frais</th>
+                                                <th>Nombre d'élèves</th>
+                                                <th>Total attendu</th>
+                                                <th>Total perçu</th>
+                                                <th>Reste à percevoir</th>
+                                                <th>Taux de recouvrement</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="details-frais">
+                                            <!-- Les détails seront générés dynamiquement -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Graphique -->
+                            <div class="graphique-container">
+                                <h5 class="details-title">
+                                    <i class="fas fa-chart-bar"></i>
+                                    Répartition des frais
+                                </h5>
+                                <div class="graphique-placeholder" id="graphique-placeholder">
+                                    <div class="empty-state">
+                                        <i class="fas fa-chart-pie"></i>
+                                        <p>Appliquez des filtres pour voir la répartition graphique</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- FIN Section État Financier -->
+
+            <!-- Footer -->
+            <footer class="main-footer">
+                <p>© 2026 Skoolis - School Management System. Created by Skoolis Technologies.</p>
+                <div class="footer-links">
+                    <a href="#">Confidentialité</a>
+                    <a href="#">Conditions d'utilisation</a>
+                    <a href="aide.html">Aide</a>
+                    <a href="#">Contact</a>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Popup de reçu de paiement -->
+    <div class="popup" id="receiptFraisPopup">
+        <div class="popup-overlay" onclick="closePopup('receiptFraisPopup')"></div>
+        <div class="popup-content wide-popup">
+            <div class="popup-header">
+                <h4><i class="fas fa-receipt"></i> Reçu de Paiement - Autres Frais</h4>
+                <button class="popup-close" onclick="closePopup('receiptFraisPopup')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="popup-body">
+                <div class="receipt-container" id="receiptFraisContent">
+                    <!-- Le contenu du reçu sera généré ici -->
+                </div>
+            </div>
+            <div class="popup-footer">
+                <button class="btn btn-secondary" onclick="closePopup('receiptFraisPopup')">
+                    <i class="fas fa-times"></i>
+                    Fermer
+                </button>
+                <button class="btn btn-primary" onclick="printReceiptFrais()">
+                    <i class="fas fa-print"></i>
+                    Imprimer
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup de rapport -->
+    <div class="popup" id="rapportPopup">
+        <div class="popup-overlay" onclick="closePopup('rapportPopup')"></div>
+        <div class="popup-content extra-wide-popup">
+            <div class="popup-header">
+                <h4><i class="fas fa-file-alt"></i> Rapport des Autres Frais</h4>
+                <button class="popup-close" onclick="closePopup('rapportPopup')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="popup-body">
+                <div class="rapport-container" id="rapportContent">
+                    <!-- Le contenu du rapport sera généré ici -->
+                </div>
+            </div>
+            <div class="popup-footer">
+                <button class="btn btn-secondary" onclick="closePopup('rapportPopup')">
+                    <i class="fas fa-times"></i>
+                    Fermer
+                </button>
+                <button class="btn btn-primary" onclick="printRapport()">
+                    <i class="fas fa-print"></i>
+                    Imprimer
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

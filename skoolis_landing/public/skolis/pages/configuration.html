@@ -1,0 +1,897 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuration - Skoolis</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link href="../assets/css/fonts.css" rel="stylesheet">
+    <script src="../assets/js/chart.umd.min.js" defer></script>
+    <script src="../assets/js/charts.js" defer></script>
+    <script src="../assets/js/app.js" defer></script>
+    <script src="../assets/js/utils.js" defer></script>
+    <script src="../assets/js/skoolis-core.js" defer></script>
+    <link rel="icon" type="image/x-icon" href="../assets/images/favicon.ico">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo-container">
+                <div class="logo">
+                    <div class="logo-top">
+                        <span class="logo-icon">S</span>
+                        <h1>Skoolis</h1>
+                    </div>
+                    <div class="current-schoolyear">Année Scolaire : 2023-2024</div>
+                </div>
+                <button class="toggle-sidebar" id="toggleSidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <div class="nav-section">
+                <h3 class="section-title">Principal</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="../index.html">
+                            <i class="fas fa-home"></i>
+                            <span>Tableau de bord</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="classes.html">
+                            <i class="fas fa-chalkboard"></i>
+                            <span>Classes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="eleves.html">
+                            <i class="fas fa-user-graduate"></i>
+                            <span>Élèves</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="professeurs.html">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <span>Professeurs</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="notes.html">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Notes & Moyennes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="matieres.html">
+                            <i class="fas fa-book"></i>
+                            <span>Matières</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Comptabilité</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="inscription.html">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                            <span>Frais d'inscription</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="ecolage.html">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Frais d'Ecolage</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="arriere_ecolage.html">
+                            <i class="fas fa-clock"></i>
+                            <span>Arriéré d'écolage</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="autres-frais.html">
+                            <i class="fas fa-receipt"></i>
+                            <span>Autres Frais</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bilan.html">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Bilan général</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bilan-journalier.html">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Bilan journalier / périodique</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="authentification.html">
+                            <i class="fas fa-stamp"></i>
+                            <span>Authentification de reçu</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Administration</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item active">
+                        <a href="configuration.html">
+                            <i class="fas fa-cog"></i>
+                            <span>Configuration</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="admin.html">
+                            <i class="fas fa-user-shield"></i>
+                            <span>Administrateur</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="users.html">
+                            <i class="fas fa-users"></i>
+                            <span>Utilisateurs</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Examens</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="resultats.html"><i class="fas fa-poll"></i>
+                            <span>Résultats</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bepc-blanc.html"><i class="fas fa-file-alt"></i>
+                            <span>BEPC Blanc</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Aide</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="aide.html">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Aide & Support</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" onclick="BackupManager && BackupManager.openPanel(); return false;">
+                            <i class="fas fa-floppy-disk"></i>
+                            <span>Sauvegarde</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Déconnexion</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <h4>Admin Principal</h4>
+                        <p>admin@skoolis.com</p>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <h2>Configuration du système</h2>
+                    <p>Gérez les paramètres scolaires et système de Skoolis</p>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Rechercher un paramètre...">
+                    </div>
+                    <div class="header-icons">
+                        <button class="icon-btn notification">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge">3</span>
+                        </button>
+                        <button class="icon-btn">
+                            <i class="fas fa-envelope"></i>
+                            <span class="badge">5</span>
+                        </button>
+                        <button class="icon-btn" id="themeToggle">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        <button class="icon-btn">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Configuration Tabs -->
+            <div class="config-tabs">
+                <button class="config-tab active" data-tab="school">
+                    <i class="fas fa-school"></i>
+                    <span>Configuration Scolaire</span>
+                </button>
+                <button class="config-tab" data-tab="system">
+                    <i class="fas fa-cogs"></i>
+                    <span>Configuration Système</span>
+                </button>
+            </div>
+
+            <!-- School Configuration -->
+            <div class="config-section active" id="school-config">
+                <div class="config-header">
+                    <h3><i class="fas fa-school"></i> Configuration Scolaire</h3>
+                    <p>Gérez les paramètres relatifs à l'établissement et à l'année scolaire</p>
+                </div>
+
+                <div class="config-grid">
+                    <!-- Année Scolaire -->
+                    <div class="config-card">
+                        <div class="config-card-header">
+                            <h4><i class="fas fa-calendar-alt"></i> Année Scolaire</h4>
+                            <span class="config-badge">Obligatoire</span>
+                        </div>
+                        <div class="config-card-body">
+                            <!-- Creer une année scolaire -->
+                            <div class="form-group">
+                                <label for="newSchoolYear">Créer une nouvelle année scolaire</label>
+                                <div class="input-group">
+                                    <input type="text" id="newSchoolYear" placeholder="Ex: 2024-2025"
+                                        class="form-control">
+                                </div>
+                                <br />
+                                <button class="btn btn-primary" id="createSchoolYear">
+                                    <i class="fas fa-plus"></i> Ajouter l'année scolaire
+                                </button>
+                                <p class="help-text">L'année scolaire doit être au format "AAAA-AAAA"</p>
+                            </div>
+
+                            <!-- Année scolaire actuelle -->
+                            <div class="form-group">
+                                <label for="schoolYear">Année scolaire actuelle</label>
+                                <select id="schoolYear" class="form-control">
+                                    <option value="2023-2024" selected>2023-2024</option>
+                                    <option value="2024-2025">2024-2025</option>
+                                    <option value="2025-2026">2025-2026</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Périodes de l'année scolaire</label>
+                                <div class="periods-list" id="periodsList">
+                                    <!-- Les périodes seront ajoutées dynamiquement -->
+                                    <div class="period-item">
+                                        <span>1er Trimestre</span>
+                                        <span class="period-dates">09/2023 - 12/2023</span>
+                                    </div>
+                                    <div class="period-item">
+                                        <span>2ème Trimestre</span>
+                                        <span class="period-dates">01/2024 - 03/2024</span>
+                                    </div>
+                                    <div class="period-item">
+                                        <span>3ème Trimestre</span>
+                                        <span class="period-dates">04/2024 - 06/2024</span>
+                                    </div>
+                                </div>
+
+                                <!-- Je vais permettre à l'utilisateur de creer une nouvelle periode pendant la création de l'année scolaire -->
+                                <button class="btn btn-secondary" id="managePeriods">
+                                    <i class="fas fa-calendar-plus"></i> Gérer les périodes
+                                </button>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Passage des élèves</label>
+                                <div class="form-actions">
+                                    <button class="btn btn-secondary" id="manualPromotion">
+                                        <i class="fas fa-user-graduate"></i> Passer les élèves manuellement
+                                    </button>
+                                    <p class="help-text">Permet de contrôler individuellement le passage des élèves</p>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-primary">
+                                <i class="fas fa-save"></i> Enregistrer
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Informations Établissement -->
+                    <div class="config-card">
+                        <div class="config-card-header">
+                            <h4><i class="fas fa-university"></i> Informations Établissement</h4>
+                            <span class="config-badge warning">Modification limitée</span>
+                        </div>
+                        <div class="config-card-body">
+                            <div class="logo-upload">
+                                <div class="logo-preview">
+                                    <img src="../assets/images/logo-placeholder.png" alt="Logo établissement"
+                                        id="schoolLogo">
+                                </div>
+                                <div class="logo-controls">
+                                    <button class="btn btn-secondary" id="uploadLogo">
+                                        <i class="fas fa-upload"></i> Changer le logo
+                                    </button>
+                                    <p class="help-text">Format recommandé: PNG, JPG, JPEG</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="schoolName">Nom de l'établissement</label>
+                                <input type="text" id="schoolName" value="Notre Dame de la Trinité" class="form-control"
+                                    readonly>
+                                <p class="help-text warning">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    Modifiable une seule fois après contact du support
+                                </p>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="schoolMinistere">Ministère de tutelle</label>
+                                <input type="text" id="schoolMinistere" value="Ministère de l'Éducation Nationale"
+                                    class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="schoolBP">Boîte Postale (BP)</label>
+                                <input type="text" id="schoolBP" value="1234" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="schoolPhone">Téléphone</label>
+                                <input type="tel" id="schoolPhone" value="+237 6XX XXX XXX" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="schoolAddress">Adresse complète</label>
+                                <textarea id="schoolAddress" class="form-control"
+                                    rows="3">Quartier Bastos, Yaoundé, Cameroun</textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="schoolDirector">Chef d'établissement / Proviseur</label>
+                                <input type="text" id="schoolDirector" value="Père Jean Dupont" class="form-control"
+                                    readonly>
+                                <p class="help-text warning">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    Modifiable une seule fois
+                                </p>
+                            </div>
+
+                            <button class="btn btn-primary">
+                                <i class="fas fa-save"></i> Enregistrer
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Règles de Passage -->
+                    <div class="config-card">
+                        <div class="config-card-header">
+                            <h4><i class="fas fa-graduation-cap"></i> Règles de Passage</h4>
+                            <span class="config-badge">Important</span>
+                        </div>
+                        <div class="config-card-body">
+                            <div class="form-group">
+                                <label for="passingAverage">Moyenne minimale de passage</label>
+                                <div class="input-with-unit">
+                                    <input type="number" id="passingAverage" value="10" min="6" max="20" step="0.5"
+                                        class="form-control">
+                                    <span class="input-unit">/20</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="maxFailingSubjects">Nombre maximal de matières en échec (optionnel)</label>
+                                <input type="number" id="maxFailingSubjects" value="8" min="0" max="10"
+                                    class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Critères supplémentaires(optionnel)</label>
+                                <div class="checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" checked>
+                                        <span>Assiduité requise (≥ 80%)</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" checked>
+                                        <span>Notes de conduite considérées</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox">
+                                        <span>Projet de fin d'année obligatoire</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="passingRules">Règles personnalisées</label>
+                                <textarea id="passingRules" class="form-control" rows="4"
+                                    placeholder="Ajoutez des règles spécifiques..."></textarea>
+                            </div>
+
+                            <button class="btn btn-primary">
+                                <i class="fas fa-save"></i> Appliquer les règles
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Configuration -->
+            <div class="config-section" id="system-config">
+                <div class="config-header">
+                    <h3><i class="fas fa-cogs"></i> Configuration Système</h3>
+                    <p>Paramètres généraux et maintenance du logiciel</p>
+                </div>
+
+                <div class="config-grid">
+                    <!-- Date et Heure -->
+                    <div class="config-card">
+                        <div class="config-card-header">
+                            <h4><i class="fas fa-clock"></i> Date et Heure</h4>
+                            <span class="config-badge">Synchronisé</span>
+                        </div>
+                        <div class="config-card-body">
+                            <div class="current-time">
+                                <div class="time-display">
+                                    <i class="fas fa-clock"></i>
+                                    <span id="currentTime">--:--:--</span>
+                                </div>
+                                <div class="date-display">
+                                    <i class="fas fa-calendar"></i>
+                                    <span id="currentDate">--/--/----</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="timezone">Fuseau horaire actuelle</label>
+                                <select id="timezone" class="form-control">
+                                    <option value="UTC+1">UTC+1 (Afrique de l'Ouest)</option>
+                                    <option value="UTC+0" selected>UTC+0 (GMT)</option>
+                                    <option value="UTC+2">UTC+2 (Afrique Centrale)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="dateFormat">Format de date</label>
+                                <select id="dateFormat" class="form-control">
+                                    <option value="dd/mm/yyyy" selected>JJ/MM/AAAA</option>
+                                    <option value="mm/dd/yyyy">MM/JJ/AAAA</option>
+                                    <option value="yyyy-mm-dd">AAAA-MM-JJ</option>
+                                </select>
+                            </div>
+
+                            <button class="btn btn-primary">
+                                <i class="fas fa-sync"></i> Synchroniser
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Thème et Apparence -->
+                    <div class="config-card">
+                        <div class="config-card-header">
+                            <h4><i class="fas fa-palette"></i> Thème et Apparence</h4>
+                            <span class="config-badge">Personnalisable</span>
+                        </div>
+                        <div class="config-card-body">
+                            <div class="form-group">
+                                <label for="theme">Thème du système</label>
+                                <select id="theme" class="form-control">
+                                    <option value="light">Blanc</option>
+                                    <option value="dark">Sombre</option>
+                                    <option value="purple">Violet Skoolis</option>
+                                    <option value="blue">Bleu Professionnel</option>
+                                    <option value="green">Vert Émeraude</option>
+                                </select>
+                            </div>
+
+                            <div class="theme-preview">
+                                <div class="theme-option active" data-theme="light">
+                                    <div class="theme-color"
+                                        style="background: linear-gradient(135deg, #ffffff, #f5f5f5);"></div>
+                                    <span>Blanc</span>
+                                </div>
+                                <div class="theme-option" data-theme="purple">
+                                    <div class="theme-color"
+                                        style="background: linear-gradient(135deg, #7b1fa2, #9c27b0);"></div>
+                                    <span>Violet Skoolis</span>
+                                </div>
+                                <div class="theme-option" data-theme="dark">
+                                    <div class="theme-color"
+                                        style="background: linear-gradient(135deg, #121212, #333);"></div>
+                                    <span>Sombre</span>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="language">Langue du système</label>
+                                <select id="language" class="form-control">
+                                    <option value="fr" selected>Français</option>
+                                    <option value="en">Anglais</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="currency">Devise du système</label>
+                                <select id="currency" class="form-control">
+                                    <option value="XAF" selected>FCFA (XOF)</option>
+                                    <option value="EUR">Euro (€)</option>
+                                    <option value="USD">Dollar US ($)</option>
+                                    <option value="CAD">Dollar Canadien (C$)</option>
+                                </select>
+                            </div>
+
+                            <button class="btn btn-primary">
+                                <i class="fas fa-check"></i> Appliquer
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Base de données -->
+                    <div class="config-card">
+                        <div class="config-card-header">
+                            <h4><i class="fas fa-database"></i> Base de données</h4>
+                            <span class="config-badge warning">Administrateur</span>
+                        </div>
+                        <div class="config-card-body">
+                            <div class="db-info">
+                                <div class="info-item">
+                                    <span class="info-label">Taille de la base</span>
+                                    <span class="info-value">245.7 MB</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Dernière sauvegarde</span>
+                                    <span class="info-value">Hier, 22:30</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Statut</span>
+                                    <span class="info-value success">Connecté</span>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <button class="btn btn-secondary" id="loadOldDB">
+                                    <i class="fas fa-upload"></i> Charger ancienne base
+                                </button>
+                                <p class="help-text">
+                                    <i class="fas fa-info-circle"></i>
+                                    Lecture seule - Déconnexion requise
+                                </p>
+                            </div>
+
+                            <div class="form-group">
+                                <button class="btn btn-secondary" id="clearCache">
+                                    <i class="fas fa-broom"></i> Vider le cache
+                                </button>
+                                <span class="cache-size">(87.3 MB)</span>
+                            </div>
+
+                            <div class="form-group">
+                                <button class="btn btn-danger" id="resetApp">
+                                    <i class="fas fa-exclamation-triangle"></i> Réinitialiser
+                                </button>
+                                <p class="help-text danger">
+                                    <i class="fas fa-radiation"></i>
+                                    Action irréversible - Triple confirmation requise
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mise à jour du logiciel-->
+
+                <div class="config-card">
+                    <div class="config-card-header">
+                        <h4><i class="fas fa-software"></i> Mise à jour du logiciel</h4>
+                        <span class="config-badge">Recommandé</span>
+                    </div>
+                    <div class="config-card-body">
+                        <div class="update-info">
+                            <div class="info-item">
+                                <span class="info-label">Version actuelle</span>
+                                <span class="info-value">1.0.0</span>
+                            </div>
+                            <!-- Commentaire sur cette mise à jour -->
+                            <div class="info-item">
+                                <span class="info-label">Description</span>
+                                <span class="info-value">Mise à jour de sécurité(CODE_DE_LA_MÀJ) -
+                                    Mise à jour de la base de données, corrige les bugs et améliore les performances.
+                                    Mise à jour de sécurité(CODE_DE_LA_MÀJ) - corrige les bugs et améliore les
+                                    performances.. </span>
+                            </div>
+                            <!-- Commentaire sur cette mise à jour -->
+                            <div class="info-item">
+                                <span class="info-label">Auteur</span>
+                                <span class="info-value">Skoolis Technologies</span>
+                            </div>
+
+                            <div class="info-item">
+                                <span class="info-label">Dernière mise à jour</span>
+                                <span class="info-value">Il y a 2 jours</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-primary">
+                                <i class="fas fa-download"></i> Mettre à jour
+                            </button>
+
+                            <button class="btn btn-secondary" id="checkUpdates">
+                                <i class="fas fa-sync"></i> Vérifier les mises à jour
+                            </button>
+                        </div>
+                        <!-- Nouvelle mise à jour disponible-->
+                        <div class="update-notification success">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Votre logiciel est à jour !</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Footer -->
+            <footer class="main-footer">
+                <p>© 2026 Skoolis - School Management System. Created by Skoolis Technologies.</p>
+                <div class="footer-links">
+                    <a href="#">Confidentialité</a>
+                    <a href="#">Conditions d'utilisation</a>
+                    <a href="aide.html">Aide</a>
+                    <a href="#">Contact</a>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Nouveau pop-up pour gérer les périodes -->
+    <div class="popup" id="periodsPopup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h3><i class="fas fa-calendar-plus"></i> Gérer les périodes scolaires</h3>
+                <button class="popup-close">&times;</button>
+            </div>
+            <div class="popup-body">
+                <div class="form-group">
+                    <label for="selectedYear">Année scolaire</label>
+                    <select id="selectedYear" class="form-control">
+                        <option value="2023-2024">2023-2024</option>
+                        <option value="2024-2025">2024-2025</option>
+                        <option value="2025-2026">2025-2026</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Système de périodes</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="periodSystem" value="trimestres" checked>
+                            <span>Trimestres (3 périodes)</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="periodSystem" value="semestres">
+                            <span>Semestres (2 périodes)</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="periodSystem" value="personnalise">
+                            <span>Personnalisé</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div id="customPeriodsContainer" style="display: none;">
+                    <div class="form-group">
+                        <label>Périodes personnalisées</label>
+                        <div class="periods-inputs">
+                            <div class="period-input-row">
+                                <input type="text" placeholder="Nom (ex: 1er Trimestre)"
+                                    class="form-control period-name">
+                                <input type="month" class="form-control period-start">
+                                <span>à</span>
+                                <input type="month" class="form-control period-end">
+                                <button class="btn-icon remove-period">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary" id="addPeriod">
+                            <i class="fas fa-plus"></i> Ajouter une période
+                        </button>
+                    </div>
+                </div>
+
+                <div id="autoPeriodsContainer">
+                    <div class="form-group">
+                        <label>Périodes automatiques</label>
+                        <div class="periods-preview">
+                            <div class="period-preview">
+                                <span>1er Trimestre</span>
+                                <span>Sept 2024 - Déc 2024</span>
+                            </div>
+                            <div class="period-preview">
+                                <span>2ème Trimestre</span>
+                                <span>Jan 2025 - Mars 2025</span>
+                            </div>
+                            <div class="period-preview">
+                                <span>3ème Trimestre</span>
+                                <span>Avr 2025 - Juin 2025</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="help-box">
+                    <i class="fas fa-info-circle"></i>
+                    <p>Les périodes définissent les différentes sessions d'évaluation de l'année scolaire.</p>
+                </div>
+            </div>
+            <div class="popup-footer">
+                <button class="btn btn-secondary popup-close">Annuler</button>
+                <button class="btn btn-primary" id="savePeriods">
+                    <i class="fas fa-save"></i> Enregistrer les périodes
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pop-up pour passer les élèves manuellement -->
+    <div class="popup" id="manualPromotionPopup">
+        <div class="popup-content large-popup">
+            <div class="popup-header">
+                <h3><i class="fas fa-user-graduate"></i> Passage manuel des élèves</h3>
+                <button class="popup-close">&times;</button>
+            </div>
+            <div class="popup-body">
+                <div class="promotion-controls">
+                    <div class="form-group">
+                        <label for="promotionYear">Année scolaire de départ</label>
+                        <select id="promotionYear" class="form-control">
+                            <option value="2023-2024">2023-2024</option>
+                            <option value="2024-2025" selected>2024-2025</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="promotionClass">Classe actuelle</label>
+                        <select id="promotionClass" class="form-control">
+                            <option value="all">Toutes les classes</option>
+                            <option value="6eme">6ème</option>
+                            <option value="5eme">5ème</option>
+                            <option value="4eme">4ème</option>
+                            <option value="3eme">3ème</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Options de passage</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="promotionType" value="automatic" checked>
+                                <span>Passage automatique selon les règles</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="promotionType" value="manual">
+                                <span>Sélection manuelle des élèves</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="promotionType" value="redoublement">
+                                <span>Redoublement général</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="students-list-container">
+                    <h4>Liste des élèves</h4>
+                    <div class="students-list">
+                        <div class="student-item selected">
+                            <label class="checkbox-label">
+                                <input type="checkbox" checked>
+                                <span class="student-name">Jean Dupont</span>
+                            </label>
+                            <span class="student-class">6ème A</span>
+                            <span class="student-average">14.5/20</span>
+                            <span class="student-status success">Passer</span>
+                        </div>
+                        <div class="student-item">
+                            <label class="checkbox-label">
+                                <input type="checkbox">
+                                <span class="student-name">Marie Curie</span>
+                            </label>
+                            <span class="student-class">6ème A</span>
+                            <span class="student-average">9.5/20</span>
+                            <span class="student-status warning">Redoubler</span>
+                        </div>
+                        <div class="student-item selected">
+                            <label class="checkbox-label">
+                                <input type="checkbox" checked>
+                                <span class="student-name">Pierre Durand</span>
+                            </label>
+                            <span class="student-class">6ème B</span>
+                            <span class="student-average">12.0/20</span>
+                            <span class="student-status success">Passer</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="promotion-summary">
+                    <h4>Résumé du passage</h4>
+                    <div class="summary-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Élèves sélectionnés</span>
+                            <span class="stat-value">45</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Passeront en classe supérieure</span>
+                            <span class="stat-value">38</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Redoubleront</span>
+                            <span class="stat-value">7</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Nouvelle année scolaire</span>
+                            <span class="stat-value">2025-2026</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="popup-footer">
+                <button class="btn btn-secondary popup-close">Annuler</button>
+                <button class="btn btn-primary" id="confirmPromotion">
+                    <i class="fas fa-check"></i> Confirmer le passage
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pop-ups existants (gardés pour compatibilité) -->
+    <div class="popup" id="loadDbPopup">
+        <!-- Contenu existant... -->
+    </div>
+
+    <div class="popup" id="resetPopup1">
+        <!-- Contenu existant... -->
+    </div>
+
+    <div class="popup" id="resetPopup2">
+        <!-- Contenu existant... -->
+    </div>
+
+    <div class="popup" id="resetPopup3">
+        <!-- Contenu existant... -->
+    </div>
+</body>
+<script>
+
+</script>
+
+</html>

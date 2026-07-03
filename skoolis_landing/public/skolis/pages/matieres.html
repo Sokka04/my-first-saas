@@ -1,0 +1,760 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matières - Skoolis</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link href="../assets/css/fonts.css" rel="stylesheet">
+    <script src="../assets/js/chart.umd.min.js" defer></script>
+    <script src="../assets/js/charts.js" defer></script>
+    <script src="../assets/js/app.js" defer></script>
+    <script src="../assets/js/utils.js" defer></script>
+    <script src="../assets/js/skoolis-core.js" defer></script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="logo-container">
+                <div class="logo">
+                    <div class="logo-top">
+                        <span class="logo-icon">S</span>
+                        <h1>Skoolis</h1>
+                    </div>
+                    <div class="current-schoolyear">Année Scolaire : 2023-2024</div>
+                </div>
+                <button class="toggle-sidebar" id="toggleSidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <div class="nav-section">
+                <h3 class="section-title">Principal</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="../index.html">
+                            <i class="fas fa-home"></i>
+                            <span>Tableau de bord</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="classes.html">
+                            <i class="fas fa-chalkboard"></i>
+                            <span>Classes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="eleves.html">
+                            <i class="fas fa-user-graduate"></i>
+                            <span>Élèves</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="professeurs.html">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <span>Professeurs</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="notes.html">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Notes & Moyennes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="matieres.html">
+                            <i class="fas fa-book"></i>
+                            <span>Matières</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Comptabilité</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="inscription.html">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                            <span>Frais d'inscription</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="ecolage.html">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Frais d'Ecolage</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="arriere_ecolage.html">
+                            <i class="fas fa-clock"></i>
+                            <span>Arriéré d'écolage</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="autres-frais.html">
+                            <i class="fas fa-receipt"></i>
+                            <span>Autres Frais</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bilan.html">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Bilan général</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bilan-journalier.html">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Bilan journalier / périodique</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="authentification.html">
+                            <i class="fas fa-stamp"></i>
+                            <span>Authentification de reçu</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Administration</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="configuration.html">
+                            <i class="fas fa-cog"></i>
+                            <span>Configuration</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="admin.html">
+                            <i class="fas fa-user-shield"></i>
+                            <span>Administrateur</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="users.html">
+                            <i class="fas fa-users"></i>
+                            <span>Utilisateurs</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Examens</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="resultats.html"><i class="fas fa-poll"></i>
+                            <span>Résultats</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bepc-blanc.html"><i class="fas fa-file-alt"></i>
+                            <span>BEPC Blanc</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Aide</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="aide.html">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Aide & Support</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Déconnexion</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <h4>Admin Principal</h4>
+                        <p>admin@skoolis.com</p>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <h2>Gestion des Matières</h2>
+                    <p>Créez, gérez et attribuez les matières aux classes et professeurs</p>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Rechercher une matière...">
+                    </div>
+                    <div class="header-icons">
+                        <button class="icon-btn notification">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge">3</span>
+                        </button>
+                        <button class="icon-btn" id="themeToggle">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        <button class="icon-btn" id="reloadPage">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Navigation des fonctionnalités -->
+            <div class="features-nav">
+                <button class="feature-btn active" data-feature="enregistrement">
+                    <i class="fas fa-plus-circle"></i>
+                    Enregistrer une matière
+                </button>
+                <button class="feature-btn" data-feature="liste">
+                    <i class="fas fa-list"></i>
+                    Liste des matières
+                </button>
+                <button class="feature-btn" data-feature="attribution">
+                    <i class="fas fa-link"></i>
+                    Attribution matières
+                </button>
+                <button class="feature-btn" data-feature="par-classe">
+                    <i class="fas fa-chalkboard"></i>
+                    Matières par classe
+                </button>
+                <button class="feature-btn" data-feature="par-prof">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    Matières par prof
+                </button>
+            </div>
+
+            <!-- Section Enregistrement d'une matière -->
+            <div class="feature-section active" id="enregistrement">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3>Enregistrement d'une nouvelle matière</h3>
+                        <p>Créez une nouvelle matière avec ses détails</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-secondary" onclick="resetMatiereForm()">
+                            <i class="fas fa-times"></i>
+                            Annuler
+                        </button>
+                        <button class="btn btn-primary" onclick="saveMatiere()">
+                            <i class="fas fa-save"></i>
+                            Enregistrer
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <form id="matiereForm">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="matiere_code">Code de la matière</label>
+                                <input type="text" id="matiere_code" placeholder="MATH, FR, PCT">
+                                <small class="form-help">Optionnel - si non spécifié, généré automatiquement</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="matiere_nom">Nom de la matière *</label>
+                                <input type="text" id="matiere_nom" placeholder="Ex: Mathématiques, Français..."
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <label for="matiere_categorie">Catégorie *</label>
+                                <select id="matiere_categorie" required>
+                                    <option value="">Sélectionner</option>
+                                    <option value="scientifique">Scientifique</option>
+                                    <option value="litteraire">Littéraire</option>
+                                    <option value="technique">Technique</option>
+                                    <option value="art">Art</option>
+                                    <option value="sport">Éducation Physique</option>
+                                    <option value="langue">Langue</option>
+                                </select>
+                            </div>
+                            <div class="form-group" required>
+                                <label for="matiere_coefficient">Coefficient*</label>
+                                <input type="number" id="matiere_coefficient" min="1" max="10" value="1" step="0.5">
+                                <small class="form-help">Coefficient pour le calcul des moyennes</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="matiere_volume_horaire">Volume horaire (h/semaine)</label>
+                                <input type="number" id="matiere_volume_horaire" min="1" max="20" value="4">
+                            </div>
+                            <div class="form-group">
+                                <label for="matiere_description">Description</label>
+                                <textarea id="matiere_description" rows="3"
+                                    placeholder="Description de la matière..."></textarea>
+                            </div>
+                            <div class="form-group full-width">
+                                <label>Types d'évaluation* (sélectionnez au moins 2)</label>
+                                <div class="checkbox-group" required>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="evaluation_type" value="interrogation" checked>
+                                        <span class="checkbox-custom"></span>
+                                        Interrogations
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="evaluation_type" value="devoir">
+                                        <span class="checkbox-custom"></span>
+                                        Devoirs
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="evaluation_type" value="composition">
+                                        <span class="checkbox-custom"></span>
+                                        Compositions
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="evaluation_type" value="oral">
+                                        <span class="checkbox-custom"></span>
+                                        Examens oraux
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="evaluation_type" value="pratique">
+                                        <span class="checkbox-custom"></span>
+                                        Épreuves pratiques
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Section Liste des matières -->
+            <div class="feature-section" id="liste">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3>Liste des matières</h3>
+                        <p><span id="totalMatieres">0</span> matières enregistrées</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-primary" onclick="openPopup('importMatierePopup')">
+                            <i class="fas fa-file-import"></i>
+                            Importer
+                        </button>
+                        <button class="btn btn-secondary" onclick="openPopup('exportMatierePopup')">
+                            <i class="fas fa-file-export"></i>
+                            Exporter
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Filtres -->
+                <div class="filters-container">
+                    <div class="filter-group">
+                        <label>Catégorie:</label>
+                        <select class="form-select" id="filter_categorie" onchange="filterMatieres()">
+                            <option value="">Toutes les catégories</option>
+                            <option value="scientifique">Scientifique</option>
+                            <option value="litteraire">Littéraire</option>
+                            <option value="technique">Technique</option>
+                            <option value="art">Art</option>
+                            <option value="sport">Éducation Physique</option>
+                            <option value="langue">Langue</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Niveau:</label>
+                        <select class="form-select" id="filter_niveau" onchange="filterMatieres()">
+                            <option value="">Tous les niveaux</option>
+                            <option value="primaire">Primaire</option>
+                            <option value="college">Collège</option>
+                            <option value="lycee">Lycée</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Recherche:</label>
+                        <input type="text" class="form-select" placeholder="Nom ou code de matière..."
+                            oninput="filterMatieres()" id="filter_recherche">
+                    </div>
+                </div>
+
+                <!-- Tableau des matières -->
+                <div class="table-container full-width">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Nom</th>
+                                <th>Catégorie</th>
+                                <th>Coefficient</th>
+                                <th>Volume Horaire</th>
+                                <th>Classes</th>
+                                <th>Professeurs</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="matieresTableBody">
+                            <!-- Les données seront chargées dynamiquement -->
+                        </tbody>
+                    </table>
+
+                    <div class="pagination">
+                        <button class="pagination-btn" disabled onclick="changePage(-1)">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="pagination-btn active">1</button>
+                        <button class="pagination-btn">2</button>
+                        <button class="pagination-btn">3</button>
+                        <span class="pagination-ellipsis">...</span>
+                        <button class="pagination-btn">10</button>
+                        <button class="pagination-btn" onclick="changePage(1)">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Attribution des matières -->
+            <div class="feature-section" id="attribution">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3>Attribution des matières</h3>
+                        <p>Attribuez les matières aux classes et aux professeurs</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-primary" onclick="saveAttribution()">
+                            <i class="fas fa-save"></i>
+                            Enregistrer l'attribution
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <div class="attribution-form">
+                        <div class="form-section">
+                            <h4 class="form-section-title">
+                                <i class="fas fa-chalkboard"></i>
+                                Sélection de la classe
+                            </h4>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="attribution_classe">Classe *</label>
+                                    <select id="attribution_classe" onchange="loadMatiereForClass()" required>
+                                        <option value="">Sélectionner une classe</option>
+                                        <option value="6A">6ème A</option>
+                                        <option value="5B">5ème B</option>
+                                        <option value="4C">4ème C</option>
+                                        <option value="3A">3ème A</option>
+                                        <option value="TD">Terminale D</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="attribution_niveau">Niveau</label>
+                                    <select id="attribution_niveau" disabled>
+                                        <option value="college">Collège</option>
+                                        <option value="lycee">Lycée</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h4 class="form-section-title">
+                                <i class="fas fa-book"></i>
+                                Matières à attribuer
+                            </h4>
+                            <div class="matieres-selection" id="matieresSelection">
+                                <!-- Les matières seront chargées ici -->
+                                <p class="no-selection">Sélectionnez d'abord une classe pour voir les matières
+                                    disponibles</p>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h4 class="form-section-title">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                                Attribution aux professeurs
+                            </h4>
+                            <div id="professeursAttribution">
+                                <p class="no-selection">Les professeurs apparaîtront ici après la sélection des matières
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Matières par classe -->
+            <div class="feature-section" id="par-classe">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3>Matières par classe</h3>
+                        <p>Visualisez et gérez les matières attribuées à chaque classe</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-secondary" onclick="printClasseMatieres()">
+                            <i class="fas fa-print"></i>
+                            Imprimer
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <div class="form-group">
+                        <label for="classe_selection">Sélectionner la classe</label>
+                        <select id="classe_selection" onchange="loadMatiereForSelectedClass()">
+                            <option value="">Choisir une classe</option>
+                            <option value="6A">6ème A</option>
+                            <option value="5B">5ème B</option>
+                            <option value="4C">4ème C</option>
+                            <option value="3A">3ème A</option>
+                            <option value="TD">Terminale D</option>
+                        </select>
+                    </div>
+
+                    <div class="classe-matieres-container" id="classeMatieresContainer">
+                        <!-- Les matières de la classe seront affichées ici -->
+                        <div class="no-selection">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <p>Sélectionnez une classe pour voir ses matières</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Matières par professeur -->
+            <div class="feature-section" id="par-prof">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3>Matières par professeur</h3>
+                        <p>Visualisez les matières dispensées par chaque enseignant</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-secondary" onclick="openPopup('assignProfPopup')">
+                            <i class="fas fa-user-plus"></i>
+                            Assigner un prof
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <div class="form-group">
+                        <label for="prof_selection">Sélectionner le professeur</label>
+                        <select id="prof_selection" onchange="loadMatieresForProf()">
+                            <option value="">Choisir un professeur</option>
+                            <!-- Les options seront chargées dynamiquement -->
+                        </select>
+                    </div>
+
+                    <div class="prof-matieres-container" id="profMatieresContainer">
+                        <!-- Les matières du professeur seront affichées ici -->
+                        <div class="no-selection">
+                            <i class="fas fa-user-tie"></i>
+                            <p>Sélectionnez un professeur pour voir ses matières</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="main-footer">
+                <p>© 2026 Skoolis - School Management System. Created by Skoolis Technologies.</p>
+                <div class="footer-links">
+                    <a href="#">Confidentialité</a>
+                    <a href="#">Conditions d'utilisation</a>
+                    <a href="../views/aide.html">Aide</a>
+                    <a href="#">Contact</a>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Popups -->
+
+    <!-- Popup Détails Matière -->
+    <div class="popup" id="detailsMatierePopup">
+        <div class="popup-content wide-popup">
+            <div class="popup-header">
+                <h4>Détails de la matière</h4>
+                <button class="popup-close" onclick="closePopup('detailsMatierePopup')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="popup-body" id="detailsMatiereBody">
+                <!-- Contenu chargé dynamiquement -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup Modifier Matière -->
+    <div class="popup" id="modifierMatierePopup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h4>Modifier la matière</h4>
+                <button class="popup-close" onclick="closePopup('modifierMatierePopup')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="popup-body">
+                <!-- Formulaire de modification chargé dynamiquement -->
+            </div>
+            <div class="popup-footer">
+                <button class="btn btn-secondary" onclick="closePopup('modifierMatierePopup')">
+                    Annuler
+                </button>
+                <button class="btn btn-primary" onclick="updateMatiere()">
+                    <i class="fas fa-save"></i>
+                    Enregistrer
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup Assigner un professeur -->
+    <div class="popup" id="assignProfPopup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h4>Assigner un professeur à une matière</h4>
+                <button class="popup-close" onclick="closePopup('assignProfPopup')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="popup-body">
+                <div class="form-group">
+                    <label for="assign_matiere">Matière</label>
+                    <select id="assign_matiere">
+                        <option value="">Sélectionner une matière</option>
+                        <!-- Chargé dynamiquement -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="assign_prof">Professeur</label>
+                    <select id="assign_prof">
+                        <option value="">Sélectionner un professeur</option>
+                        <!-- Chargé dynamiquement -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="assign_classe">Classe(s)</label>
+                    <select id="assign_classe" multiple>
+                        <option value="6A">6ème A</option>
+                        <option value="5B">5ème B</option>
+                        <option value="4C">4ème C</option>
+                        <option value="3A">3ème A</option>
+                        <option value="TD">Terminale D</option>
+                    </select>
+                    <small class="form-help">Maintenez Ctrl pour sélectionner plusieurs classes</small>
+                </div>
+            </div>
+            <div class="popup-footer">
+                <button class="btn btn-secondary" onclick="closePopup('assignProfPopup')">
+                    Annuler
+                </button>
+                <button class="btn btn-primary" onclick="saveAssignation()">
+                    <i class="fas fa-save"></i>
+                    Assigner
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup Import Matières -->
+    <div class="popup" id="importMatierePopup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h4>Importer des matières</h4>
+                <button class="popup-close" onclick="closePopup('importMatierePopup')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="popup-body">
+                <div class="upload-area">
+                    <i class="fas fa-file-import"></i>
+                    <h5>Importer un fichier Excel</h5>
+                    <p>Téléchargez un modèle ou importez votre fichier</p>
+                    <input type="file" id="importFile" accept=".xlsx,.xls,.csv" hidden>
+                    <button class="btn btn-secondary" type="button"
+                        onclick="document.getElementById('importFile').click()">
+                        <i class="fas fa-folder-open"></i>
+                        Choisir un fichier
+                    </button>
+                    <small>Formats acceptés: Excel (.xlsx, .xls), CSV</small>
+                </div>
+                <div class="import-preview" id="importPreview">
+                    <p>Aucun fichier sélectionné</p>
+                </div>
+            </div>
+            <div class="popup-footer">
+                <button class="btn btn-secondary" onclick="closePopup('importMatierePopup')">
+                    Annuler
+                </button>
+                <button class="btn btn-primary" onclick="importMatieres()">
+                    <i class="fas fa-upload"></i>
+                    Importer
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup Export Matières -->
+    <div class="popup" id="exportMatierePopup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h4>Exporter des matières</h4>
+                <button class="popup-close" onclick="closePopup('exportMatierePopup')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="popup-body">
+                <div class="form-group">
+                    <label>Format d'exportation</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="export_format" value="excel" checked>
+                            <span class="radio-custom"></span>
+                            Excel (.xlsx)
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="export_format" value="csv">
+                            <span class="radio-custom"></span>
+                            CSV
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="export_format" value="pdf">
+                            <span class="radio-custom"></span>
+                            PDF
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="export_filter">Filtrer par</label>
+                    <select id="export_filter">
+                        <option value="all">Toutes les matières</option>
+                        <option value="category">Par catégorie</option>
+                        <option value="classe">Par classe</option>
+                        <option value="prof">Par professeur</option>
+                    </select>
+                </div>
+            </div>
+            <div class="popup-footer">
+                <button class="btn btn-secondary" onclick="closePopup('exportMatierePopup')">
+                    Annuler
+                </button>
+                <button class="btn btn-primary" onclick="exportMatieres()">
+                    <i class="fas fa-download"></i>
+                    Exporter
+                </button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,5 @@
+/* Espacement vertical — mobile d’abord (plus resserré), puis desktop */
+:root {
+  --section-py: clamp(2.75rem, 7vw, 6.25rem);
+  --section-y-tight: clamp(2rem, 5vw, 3.75rem);
+}

@@ -1,0 +1,13 @@
+# Dépendances à ignorer (partout dans le projet)
+node_modules/
+**/node_modules/
+vendor/
+
+# Fichiers de configuration locale / Secrets
+.env
+.env.local
+
+# Dossiers de build (si tu utilises Next.js, React, Nuxt...)
+.next/
+dist/
+build/

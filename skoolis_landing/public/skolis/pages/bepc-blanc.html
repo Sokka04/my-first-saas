@@ -1,0 +1,348 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BEPC Blanc - Skoolis</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link href="../assets/css/fonts.css" rel="stylesheet">
+    <script src="../assets/js/chart.umd.min.js" defer></script>
+    <script src="../assets/js/charts.js" defer></script>
+    <script src="../assets/js/app.js" defer></script>
+    <script src="../assets/js/utils.js" defer></script>
+    <script src="../assets/js/skoolis-core.js" defer></script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="logo-container">
+                <div class="logo">
+                    <div class="logo-top">
+                        <span class="logo-icon">S</span>
+                        <h1>Skoolis</h1>
+                    </div>
+                    <div class="current-schoolyear">Année Scolaire : 2023-2024</div>
+                </div>
+                <button class="toggle-sidebar" id="toggleSidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <div class="nav-section">
+                <h3 class="section-title">Principal</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="../index.html">
+                            <i class="fas fa-home"></i>
+                            <span>Tableau de bord</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="classes.html">
+                            <i class="fas fa-chalkboard"></i>
+                            <span>Classes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="eleves.html">
+                            <i class="fas fa-user-graduate"></i>
+                            <span>Élèves</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="professeurs.html">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <span>Professeurs</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="notes.html">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Notes & Moyennes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="matieres.html">
+                            <i class="fas fa-book"></i>
+                            <span>Matières</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Comptabilité</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="inscription.html"><i class="fas fa-file-invoice-dollar"></i><span>Frais d'inscription</span></a></li>
+                    <li class="nav-item"><a href="ecolage.html"><i class="fas fa-credit-card"></i><span>Frais d'Ecolage</span></a></li>
+                    <li class="nav-item"><a href="arriere_ecolage.html"><i class="fas fa-clock"></i><span>Arriéré d'écolage</span></a></li>
+                    <li class="nav-item"><a href="autres-frais.html"><i class="fas fa-receipt"></i><span>Autres Frais</span></a></li>
+                    <li class="nav-item"><a href="bilan.html"><i class="fas fa-chart-bar"></i><span>Bilan général</span></a></li>
+                    <li class="nav-item"><a href="bilan-journalier.html"><i class="fas fa-calendar-alt"></i><span>Bilan journalier / périodique</span></a></li>
+                    <li class="nav-item"><a href="authentification.html"><i class="fas fa-stamp"></i><span>Authentification de reçu</span></a></li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Administration</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="configuration.html"><i class="fas fa-cog"></i><span>Configuration</span></a></li>
+                    <li class="nav-item"><a href="admin.html"><i class="fas fa-user-shield"></i><span>Administrateur</span></a></li>
+                    <li class="nav-item"><a href="users.html"><i class="fas fa-users"></i><span>Utilisateurs</span></a></li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Examens</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="resultats.html">
+                            <i class="fas fa-poll"></i>
+                            <span>Résultats</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="bepc-blanc.html">
+                            <i class="fas fa-file-alt"></i>
+                            <span>BEPC Blanc</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Aide</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="aide.html"><i class="fas fa-question-circle"></i><span>Aide & Support</span></a></li>
+                    <li class="nav-item"><a href="#"><i class="fas fa-sign-out-alt"></i><span>Déconnexion</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="avatar"><i class="fas fa-user"></i></div>
+                    <div class="user-details">
+                        <h4>Admin Principal</h4>
+                        <p>admin@skoolis.com</p>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-left">
+                    <h2>BEPC Blanc</h2>
+                    <p>Simulation et préparation au Brevet d'Études du Premier Cycle</p>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Rechercher...">
+                    </div>
+                    <div class="header-icons">
+                        <button class="icon-btn notification">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge">2</span>
+                        </button>
+                        <button class="icon-btn" id="themeToggle">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        <button class="icon-btn" id="reloadPage">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page de présentation BEPC Blanc -->
+            <div class="page-content" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:calc(100vh - 200px); padding: 40px 20px;">
+                <div style="text-align:center; max-width:600px;">
+                    <!-- Icône animée -->
+                    <div style="
+                        width: 120px; height: 120px;
+                        background: linear-gradient(135deg, rgba(123,31,162,0.12), rgba(123,31,162,0.25));
+                        border-radius: 50%;
+                        display: flex; align-items: center; justify-content: center;
+                        margin: 0 auto 32px;
+                        border: 3px solid rgba(123,31,162,0.3);
+                        animation: pulse-bepc 2.5s infinite;
+                    ">
+                        <i class="fas fa-graduation-cap" style="font-size:52px; color:var(--primary-color);"></i>
+                    </div>
+
+                    <h2 style="font-size:28px; color:var(--text-color); margin-bottom:12px;">
+                        Module BEPC Blanc
+                    </h2>
+                    <p style="font-size:16px; color:var(--text-muted); line-height:1.7; margin-bottom:32px;">
+                        Ce module permettra d'organiser et gérer les examens blancs du BEPC pour votre établissement.
+                        Il est actuellement en cours de développement et sera disponible prochainement.
+                    </p>
+
+                    <!-- Fonctionnalités à venir -->
+                    <div style="
+                        background: var(--white);
+                        border: 1px solid var(--border-color);
+                        border-radius: 12px;
+                        padding: 24px;
+                        text-align:left;
+                        margin-bottom: 32px;
+                        box-shadow: var(--box-shadow);
+                    ">
+                        <h4 style="margin:0 0 16px; color:var(--primary-color);">
+                            <i class="fas fa-list-check"></i>
+                            Fonctionnalités prévues
+                        </h4>
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                            <div style="display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px dashed var(--border-color);">
+                                <i class="fas fa-clock" style="color:#ff9800; width:18px;"></i>
+                                <span style="font-size:14px;">Planification des sessions d'examen</span>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px dashed var(--border-color);">
+                                <i class="fas fa-clock" style="color:#ff9800; width:18px;"></i>
+                                <span style="font-size:14px;">Génération de numéros de table</span>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px dashed var(--border-color);">
+                                <i class="fas fa-clock" style="color:#ff9800; width:18px;"></i>
+                                <span style="font-size:14px;">Saisie des notes par matière</span>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px dashed var(--border-color);">
+                                <i class="fas fa-clock" style="color:#ff9800; width:18px;"></i>
+                                <span style="font-size:14px;">Classement et résultats BEPC</span>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:10px; padding:8px 0;">
+                                <i class="fas fa-clock" style="color:#ff9800; width:18px;"></i>
+                                <span style="font-size:14px;">Génération de convocations</span>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:10px; padding:8px 0;">
+                                <i class="fas fa-clock" style="color:#ff9800; width:18px;"></i>
+                                <span style="font-size:14px;">Statistiques et taux de réussite</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Badge "En développement" -->
+                    <div style="
+                        display: inline-flex; align-items:center; gap:10px;
+                        background: rgba(255,152,0,0.1);
+                        border: 1px solid rgba(255,152,0,0.4);
+                        border-radius: 30px;
+                        padding: 10px 24px;
+                        margin-bottom: 28px;
+                    ">
+                        <span style="width:10px; height:10px; background:#ff9800; border-radius:50%; animation:blink-dot 1.2s infinite;"></span>
+                        <span style="color:#e65100; font-weight:600; font-size:14px;">Module en développement</span>
+                    </div>
+
+                    <div style="display:flex; gap:12px; justify-content:center;">
+                        <button class="btn btn-primary" onclick="openPopup('bepcComingSoonPopup')">
+                            <i class="fas fa-info-circle"></i>
+                            Plus d'informations
+                        </button>
+                        <a href="resultats.html" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i>
+                            Retour aux Résultats
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="main-footer">
+                <p>© 2026 Skoolis - School Management System. Created by Skoolis Technologies.</p>
+                <div class="footer-links">
+                    <a href="#">Confidentialité</a>
+                    <a href="#">Conditions d'utilisation</a>
+                    <a href="#">Aide</a>
+                    <a href="#">Contact</a>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Popup BEPC Blanc Coming Soon -->
+    <div class="popup" id="bepcComingSoonPopup">
+        <div class="popup-content" style="max-width:480px;">
+            <div class="popup-header" style="background: linear-gradient(135deg, #7b1fa2, #9c27b0); color:white; border-radius:8px 8px 0 0;">
+                <h4 style="color:white;">
+                    <i class="fas fa-graduation-cap"></i>
+                    Module BEPC Blanc
+                </h4>
+                <button class="popup-close" onclick="closePopup('bepcComingSoonPopup')" style="color:white;">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="popup-body" style="padding: 28px;">
+                <!-- Icône centrale -->
+                <div style="text-align:center; margin-bottom:20px;">
+                    <div style="
+                        width:72px; height:72px;
+                        background: linear-gradient(135deg, #7b1fa2, #9c27b0);
+                        border-radius:50%;
+                        display:inline-flex; align-items:center; justify-content:center;
+                        margin-bottom:12px;
+                    ">
+                        <i class="fas fa-tools" style="font-size:28px; color:white;"></i>
+                    </div>
+                    <h3 style="color:var(--primary-color); margin:0 0 8px;">Fonctionnalité en cours de développement</h3>
+                    <p style="color:var(--text-muted); font-size:14px; line-height:1.6; margin:0;">
+                        Le module <strong>BEPC Blanc</strong> est actuellement en développement par l'équipe Skoolis.
+                        Il sera disponible dans une prochaine mise à jour de l'application.
+                    </p>
+                </div>
+
+                <div style="background:rgba(123,31,162,0.06); border-radius:8px; padding:16px; margin-bottom:16px;">
+                    <p style="margin:0 0 8px; font-weight:600; font-size:13px; color:var(--primary-color);">
+                        <i class="fas fa-calendar-check"></i> Disponibilité prévue
+                    </p>
+                    <p style="margin:0; font-size:13px; color:var(--text-muted);">
+                        Ce module sera intégré lors de la prochaine version majeure de Skoolis.
+                        Vous serez notifié automatiquement dès sa disponibilité.
+                    </p>
+                </div>
+
+                <div style="background:rgba(33,150,243,0.06); border-radius:8px; padding:16px;">
+                    <p style="margin:0 0 8px; font-weight:600; font-size:13px; color:#1565c0;">
+                        <i class="fas fa-lightbulb"></i> En attendant
+                    </p>
+                    <p style="margin:0; font-size:13px; color:var(--text-muted);">
+                        Vous pouvez utiliser le module <a href="resultats.html" style="color:var(--primary-color); text-decoration:none; font-weight:600;">Résultats & Bulletins</a>
+                        pour gérer les notes et délibérations de vos élèves.
+                    </p>
+                </div>
+            </div>
+            <div class="popup-footer" style="justify-content:center;">
+                <button class="btn btn-primary" onclick="closePopup('bepcComingSoonPopup'); window.location.href='resultats.html';">
+                    <i class="fas fa-poll"></i>
+                    Aller aux Résultats
+                </button>
+                <button class="btn btn-secondary" onclick="closePopup('bepcComingSoonPopup')">
+                    Fermer
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        @keyframes pulse-bepc {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(123,31,162,0.25); }
+            50% { transform: scale(1.04); box-shadow: 0 0 0 12px rgba(123,31,162,0); }
+        }
+        @keyframes blink-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.2; }
+        }
+    </style>
+
+    <script>
+        // Auto-ouvrir le popup d'information au chargement
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                if (window.openPopup) openPopup('bepcComingSoonPopup');
+            }, 500);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,758 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frais d'Inscription - Skoolis</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link href="../assets/css/fonts.css" rel="stylesheet">
+    <script src="../assets/js/chart.umd.min.js" defer></script>
+    <script src="../assets/js/charts.js" defer></script>
+    <script src="../assets/js/app.js" defer></script>
+    <script src="../assets/js/utils.js" defer></script>
+    <script src="../assets/js/skoolis-core.js" defer></script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="logo-container">
+                <div class="logo">
+                    <div class="logo-top">
+                        <span class="logo-icon">S</span>
+                        <h1>Skoolis</h1>
+                    </div>
+                    <div class="current-schoolyear">Année Scolaire : 2023-2024</div>
+                </div>
+                <button class="toggle-sidebar" id="toggleSidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <div class="nav-section">
+                <h3 class="section-title">Principal</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="../index.html">
+                            <i class="fas fa-home"></i>
+                            <span>Tableau de bord</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="classes.html">
+                            <i class="fas fa-chalkboard"></i>
+                            <span>Classes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="eleves.html">
+                            <i class="fas fa-user-graduate"></i>
+                            <span>Élèves</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="professeurs.html">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <span>Professeurs</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="notes.html">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Notes & Moyennes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="matieres.html">
+                            <i class="fas fa-book"></i>
+                            <span>Matières</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Comptabilité</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item active">
+                        <a href="inscription.html">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                            <span>Frais d'inscription</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="ecolage.html">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Frais d'Ecolage</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="arriere_ecolage.html">
+                            <i class="fas fa-clock"></i>
+                            <span>Arriéré d'écolage</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="autres-frais.html">
+                            <i class="fas fa-receipt"></i>
+                            <span>Autres Frais</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bilan.html">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Bilan général</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bilan-journalier.html">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Bilan journalier / périodique</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="authentification.html">
+                            <i class="fas fa-stamp"></i>
+                            <span>Authentification de reçu</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Administration</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="configuration.html">
+                            <i class="fas fa-cog"></i>
+                            <span>Configuration</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="admin.html">
+                            <i class="fas fa-user-shield"></i>
+                            <span>Administrateur</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="users.html">
+                            <i class="fas fa-users"></i>
+                            <span>Utilisateurs</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Examens</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="resultats.html"><i class="fas fa-poll"></i>
+                            <span>Résultats</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bepc-blanc.html"><i class="fas fa-file-alt"></i>
+                            <span>BEPC Blanc</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Aide</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="aide.html">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Aide & Support</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Déconnexion</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <h4>Admin Principal</h4>
+                        <p>admin@skoolis.com</p>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <h2>Frais d'Inscription</h2>
+                    <p>Gestion des frais d'inscription et des paiements</p>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Rechercher...">
+                    </div>
+                    <div class="header-icons">
+                        <button class="icon-btn notification">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge">2</span>
+                        </button>
+                        <button class="icon-btn" id="themeToggle">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        <button class="icon-btn" id="reloadPage">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Navigation des fonctionnalités -->
+            <div class="features-nav">
+                <button class="feature-btn active" data-feature="tarifs">
+                    <i class="fas fa-money-bill-wave"></i>
+                    Montant des Frais
+                </button>
+                <button class="feature-btn" data-feature="paiement">
+                    <i class="fas fa-credit-card"></i>
+                    Payer Inscription
+                </button>
+                <button class="feature-btn" data-feature="etats">
+                    <i class="fas fa-file-invoice"></i>
+                    États Financiers
+                </button>
+                <button class="feature-btn" data-feature="recherche">
+                    <i class="fas fa-search"></i>
+                    Recherche Reçu
+                </button>
+                <button class="feature-btn" data-feature="anciennete">
+                    <i class="fas fa-award"></i>
+                    Remise Ancienneté
+                </button>
+            </div>
+
+            <!-- Section Montant des Frais d'inscription -->
+            <div class="feature-section active" id="tarifs">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3><i class="fas fa-money-bill-wave"></i> Montant des Frais d'inscription</h3>
+                        <p>Configurez les frais d'inscription par classe et par sexe</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-secondary" onclick="resetTarifsForm()">
+                            <i class="fas fa-times"></i>
+                            Annuler
+                        </button>
+                        <button class="btn btn-primary" onclick="saveTarifs()">
+                            <i class="fas fa-save"></i>
+                            Enregistrer les tarifs
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <div class="form-section">
+                        <h4 class="form-section-title">
+                            <i class="fas fa-school"></i>
+                            Configuration des tarifs
+                        </h4>
+                        <div class="tarifs-table-container">
+                            <div class="table-responsive">
+                                <table class="tarifs-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Classe</th>
+                                            <th>Garçon (FCFA)</th>
+                                            <th>Fille (FCFA)</th>
+                                            <th>Date d'application</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tarifsTableBody">
+                                        <tr>
+                                            <td>
+                                                <select class="form-select" name="classe">
+                                                    <option value="">Sélectionner une classe</option>
+                                                    <option value="6A">6ème A</option>
+                                                    <option value="5B">5ème B</option>
+                                                    <option value="4C">4ème C</option>
+                                                    <option value="3A">3ème A</option>
+                                                    <option value="TD">Terminale D</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input type="number" name="garcon" placeholder="0" min="0">
+                                            </td>
+                                            <td>
+                                                <input type="number" name="fille" placeholder="0" min="0">
+                                            </td>
+                                            <td>
+                                                <input type="date" name="date_application">
+                                            </td>
+                                            <td>
+                                                <button type="button" class="action-btn delete"
+                                                    onclick="removeTarifRow(this)">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="table-actions">
+                                <button type="button" class="btn btn-secondary" onclick="addTarifRow()">
+                                    <i class="fas fa-plus"></i>
+                                    Ajouter une ligne
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4 class="form-section-title">
+                            <i class="fas fa-chart-bar"></i>
+                            Vue d'ensemble des tarifs
+                        </h4>
+                        <div class="tarifs-summary">
+                            <div class="summary-card">
+                                <div class="summary-icon">
+                                    <i class="fas fa-male"></i>
+                                </div>
+                                <div class="summary-content">
+                                    <h5>Tarif moyen Garçon</h5>
+                                    <div class="summary-value" id="moyenGarcon">0 FCFA</div>
+                                </div>
+                            </div>
+                            <div class="summary-card">
+                                <div class="summary-icon">
+                                    <i class="fas fa-female"></i>
+                                </div>
+                                <div class="summary-content">
+                                    <h5>Tarif moyen Fille</h5>
+                                    <div class="summary-value" id="moyenFille">0 FCFA</div>
+                                </div>
+                            </div>
+                            <div class="summary-card">
+                                <div class="summary-icon">
+                                    <i class="fas fa-graduation-cap"></i>
+                                </div>
+                                <div class="summary-content">
+                                    <h5>Nombre de classes</h5>
+                                    <div class="summary-value" id="nombreClasses">0</div>
+                                </div>
+                            </div>
+                            <div class="summary-card">
+                                <div class="summary-icon">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                                <div class="summary-content">
+                                    <h5>Année scolaire</h5>
+                                    <div class="summary-value">2023-2024</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Payer frais d'inscription -->
+            <div class="feature-section" id="paiement">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3><i class="fas fa-credit-card"></i> Payer frais d'inscription</h3>
+                        <p>Enregistrement des paiements d'inscription</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-primary" onclick="imprimerRecu()">
+                            <i class="fas fa-print"></i>
+                            Imprimer reçu
+                        </button>
+                    </div>
+                </div>
+
+                <div class="paiement-container">
+                    <div class="form-container">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="paiement_classe"><i class="fas fa-chalkboard"></i> Classe</label>
+                                <select id="paiement_classe" onchange="loadElevesForPaiement()">
+                                    <option value="">Sélectionner une classe</option>
+                                    <option value="6A">6ème A</option>
+                                    <option value="5B">5ème B</option>
+                                    <option value="4C">4ème C</option>
+                                    <option value="3A">3ème A</option>
+                                    <option value="TD">Terminale D</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="paiement_eleve"><i class="fas fa-user-graduate"></i> Élève</label>
+                                <select id="paiement_eleve" onchange="loadEleveDetails()">
+                                    <option value="">Sélectionner un élève</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="paiement_montant"><i class="fas fa-money-bill"></i> Montant à payer</label>
+                                <input type="text" id="paiement_montant" placeholder="0" readonly>
+                                <small>Montant calculé automatiquement</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="paiement_remise"><i class="fas fa-money-bill-wave"></i> Montant payé (F
+                                    CFA)</label>
+                                <input type="number" id="montant_paye" placeholder="0" min="0"
+                                    oninput="calculateMontantFinal()">
+                            </div>
+                            <div class="form-group">
+                                <label for="paiement_montant_final"><i class="fas fa-calculator"></i> Montant
+                                    final</label>
+                                <input type="text" id="paiement_montant_final" placeholder="0" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="paiement_date"><i class="fas fa-calendar"></i> Date de paiement</label>
+                                <input type="date" id="paiement_date">
+                            </div>
+                            <div class="form-group">
+                                <label for="paiement_mode"><i class="fas fa-credit-card"></i> Mode de paiement</label>
+                                <select id="paiement_mode">
+                                    <option value="especes">Espèces</option>
+                                    <option value="cheque">Chèque</option>
+                                    <option value="virement">Virement</option>
+                                    <option value="mobile">Mobile Money</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="paiement_reference"><i class="fas fa-hashtag"></i>
+                                    Référence(Optionnel)</label>
+                                <input type="text" id="paiement_reference" placeholder="Numéro de chèque/transaction">
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button class="btn btn-secondary" onclick="resetPaiementForm()">
+                                <i class="fas fa-times"></i>
+                                Annuler
+                            </button>
+                            <button class="btn btn-primary" onclick="savePaiement()">
+                                <i class="fas fa-save"></i>
+                                Enregistrer le paiement
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Liste des élèves de la classe -->
+                    <div class="eleves-liste-container">
+                        <div class="section-header">
+                            <h4><i class="fas fa-list"></i> Liste des élèves (Classe sélectionnée)</h4>
+                            <span class="badge" id="eleveCount">0</span>
+                        </div>
+                        <div class="eleves-liste" id="elevesListe">
+                            <div class="empty-state">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                                <p>Sélectionnez une classe pour afficher les élèves</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section États Financiers -->
+            <div class="feature-section" id="etats">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3><i class="fas fa-file-invoice"></i> États Financiers</h3>
+                        <p>Consultation des états financiers par classe et par période</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-primary" onclick="genererEtatFinancier()">
+                            <i class="fas fa-file-export"></i>
+                            Générer rapport
+                        </button>
+                    </div>
+                </div>
+
+                <div class="etats-container">
+                    <div class="etats-grid">
+                        <!-- État financier d'une classe -->
+                        <div class="etat-card">
+                            <div class="etat-icon">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                            </div>
+                            <div class="etat-content">
+                                <h4>État financier d'une classe</h4>
+                                <p>Générez un rapport détaillé des paiements pour une classe spécifique</p>
+                                <div class="form-group">
+                                    <label for="etat_classe">Sélectionner la classe</label>
+                                    <select id="etat_classe">
+                                        <option value="">Toutes les classes</option>
+                                        <option value="6A">6ème A</option>
+                                        <option value="5B">5ème B</option>
+                                        <option value="4C">4ème C</option>
+                                        <option value="3A">3ème A</option>
+                                        <option value="TD">Terminale D</option>
+                                    </select>
+                                </div>
+                                </br>
+                                <button class="btn btn-primary" onclick="genererEtatClasse()">
+                                    <i class="fas fa-chart-bar"></i>
+                                    Générer l'état
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- État financier par période -->
+                        <div class="etat-card">
+                            <div class="etat-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div class="etat-content">
+                                <h4>État financier par période</h4>
+                                <p>Générez un rapport des paiements sur une période donnée</p>
+                                <div class="form-grid compact">
+                                    <div class="form-group">
+                                        <label for="etat_date_debut">Date de début</label>
+                                        <input type="date" id="etat_date_debut">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="etat_date_fin">Date de fin</label>
+                                        <input type="date" id="etat_date_fin">
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary" onclick="genererEtatPeriode()">
+                                    <i class="fas fa-chart-line"></i>
+                                    Générer l'état
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Résultats des états -->
+                    <div class="etat-results" id="etatResults">
+                        <div class="empty-state">
+                            <i class="fas fa-chart-bar"></i>
+                            <p>Aucun état généré. Sélectionnez une option ci-dessus.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Recherche Reçu -->
+            <div class="feature-section" id="recherche">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3><i class="fas fa-search"></i> Recherche de Reçu</h3>
+                        <p>Recherchez et consultez les reçus de paiement</p>
+                    </div>
+                </div>
+
+                <div class="search-container">
+                    <div class="search-options">
+                        <div class="search-option active" data-search="numero">
+                            <i class="fas fa-receipt"></i>
+                            <span>Numéro de reçu</span>
+                        </div>
+                        <div class="search-option" data-search="eleve">
+                            <i class="fas fa-user-graduate"></i>
+                            <span>Nom de l'élève</span>
+                        </div>
+                        <div class="search-option" data-search="date">
+                            <i class="fas fa-calendar"></i>
+                            <span>Date de paiement</span>
+                        </div>
+                    </div>
+
+                    <div class="search-form">
+                        <!-- Recherche par numéro -->
+                        <div class="search-input-group" id="search-numero">
+                            <div class="form-group">
+                                <label for="search_numero_receipt">Numéro de reçu</label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-receipt"></i>
+                                    <input type="text" id="search_numero_receipt" placeholder="Ex: REC-2024-001">
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" onclick="searchReceipt()">
+                                <i class="fas fa-search"></i>
+                                Rechercher
+                            </button>
+                        </div>
+
+                        <!-- Recherche par élève -->
+                        <div class="search-input-group" id="search-eleve" style="display: none;">
+                            <div class="form-group">
+                                <label for="search_eleve_nom">Nom de l'élève</label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-user"></i>
+                                    <input type="text" id="search_eleve_nom" placeholder="Nom de famille">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="search_eleve_prenom">Prénom de l'élève</label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-user"></i>
+                                    <input type="text" id="search_eleve_prenom" placeholder="Prénom">
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" onclick="searchReceipt()">
+                                <i class="fas fa-search"></i>
+                                Rechercher
+                            </button>
+                        </div>
+
+                        <!-- Recherche par date -->
+                        <div class="search-input-group" id="search-date" style="display: none;">
+                            <div class="form-group">
+                                <label for="search_date_paiement">Date de paiement</label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-calendar"></i>
+                                    <input type="date" id="search_date_paiement">
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" onclick="searchReceipt()">
+                                <i class="fas fa-search"></i>
+                                Rechercher
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Résultats de recherche -->
+                    <div class="search-results" id="receiptResults">
+                        <div class="section-header">
+                            <h4>Résultats de recherche</h4>
+
+                        </div>
+                        <div class="empty-state">
+                            <i class="fas fa-search"></i>
+                            <p>Aucune recherche effectuée</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Remise Ancienneté -->
+            <div class="feature-section" id="anciennete">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3><i class="fas fa-award"></i> Remise Inscription</h3>
+                        <p>Gérez les remises sur inscription pour les élèves</p>
+                    </div>
+                </div>
+                <div class="anciennete-container">
+                    <div class="form-container">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for=" anciennete_eleve">
+                                    <i class="fas fa-graduation-cap"></i> Classe</label>
+                                <select id="anciennete_eleve">
+                                    <option value="">Sélectionner une classe
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <!--Liste de la classe sélectionnée -->
+                        <div class="eleves-liste-container">
+                            <div class="section-header">
+                                <h4><i class="fas fa-list"></i> Liste des élèves (Classe sélectionnée)</h4>
+                            </div>
+                            <div class="eleves-liste" id="elevesAncienneteListe">
+                                <div class="empty-state">
+                                    <i class="fas fa-chalkboard-teacher"></i>
+                                    <p>Sélectionnez une classe pour afficher les élèves</p>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button class="btn btn-secondary" onclick="resetAncienneteForm()">
+                                    <i class="fas fa-times"></i>
+                                    Annuler
+                                </button>
+                                <button class="btn btn-primary" onclick="saveAnciennete()">
+                                    <i class="fas fa-save"></i>
+                                    Enregistrer la remise
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Footer -->
+                <footer class="main-footer">
+                    <p>© 2026 Skoolis - School Management System. Created by Skoolis Technologies.</p>
+                    <div class="footer-links">
+                        <a href="#">Confidentialité</a>
+                        <a href="#">Conditions d'utilisation</a>
+                        <a href="../views/aide.html">Aide</a>
+                        <a href="#">Contact</a>
+                    </div>
+                </footer>
+        </main>
+    </div>
+
+    <!-- Popup d'impression de reçu -->
+    <div class="popup" id="receiptPopup">
+        <div class="popup-overlay" onclick="closePopup('receiptPopup')"></div>
+        <div class="popup-content wide-popup">
+            <div class="popup-header">
+                <h4><i class="fas fa-receipt"></i> Reçu de Paiement</h4>
+                <button class="popup-close" onclick="closePopup('receiptPopup')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="popup-body">
+                <div class="receipt-container" id="receiptContent">
+                    <!-- Le contenu du reçu sera généré ici -->
+                </div>
+            </div>
+            <div class="popup-footer">
+                <button class="btn btn-secondary" onclick="closePopup('receiptPopup')">
+                    <i class="fas fa-times"></i>
+                    Fermer
+                </button>
+                <button class="btn btn-primary" onclick="printReceipt()">
+                    <i class="fas fa-print"></i>
+                    Imprimer
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup d'état financier -->
+    <div class="popup" id="etatPopup">
+        <div class="popup-overlay" onclick="closePopup('etatPopup')"></div>
+        <div class="popup-content extra-wide-popup">
+            <div class="popup-header">
+                <h4><i class="fas fa-chart-bar"></i> État Financier</h4>
+                <button class="popup-close" onclick="closePopup('etatPopup')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="popup-body">
+                <div class="etat-details" id="etatDetails">
+                    <!-- Le contenu de l'état financier sera généré ici -->
+                </div>
+            </div>
+            <div class="popup-footer">
+                <button class="btn btn-secondary" onclick="closePopup('etatPopup')">
+                    <i class="fas fa-times"></i>
+                    Fermer
+                </button>
+                <button class="btn btn-primary" onclick="printEtat()">
+                    <i class="fas fa-print"></i>
+                    Imprimer
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

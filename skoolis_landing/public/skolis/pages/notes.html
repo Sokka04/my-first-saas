@@ -1,0 +1,706 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes & Moyennes - Skoolis</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link href="../assets/css/fonts.css" rel="stylesheet">
+    <script src="../assets/js/chart.umd.min.js" defer></script>
+    <script src="../assets/js/charts.js" defer></script>
+    <script src="../assets/js/app.js" defer></script>
+    <script src="../assets/js/utils.js" defer></script>
+    <script src="../assets/js/skoolis-core.js" defer></script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="logo-container">
+                <div class="logo">
+                    <div class="logo-top">
+                        <span class="logo-icon">S</span>
+                        <h1>Skoolis</h1>
+                    </div>
+                    <div class="current-schoolyear">Année Scolaire : 2023-2024</div>
+                </div>
+                <button class="toggle-sidebar" id="toggleSidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <div class="nav-section">
+                <h3 class="section-title">Principal</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="../index.html">
+                            <i class="fas fa-home"></i>
+                            <span>Tableau de bord</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="classes.html">
+                            <i class="fas fa-chalkboard"></i>
+                            <span>Classes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="eleves.html">
+                            <i class="fas fa-user-graduate"></i>
+                            <span>Élèves</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="professeurs.html">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <span>Professeurs</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="notes.html">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Notes & Moyennes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="matieres.html">
+                            <i class="fas fa-book"></i>
+                            <span>Matières</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Comptabilité</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="inscription.html">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                            <span>Frais d'inscription</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="ecolage.html">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Frais d'Ecolage</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="arriere_ecolage.html">
+                            <i class="fas fa-clock"></i>
+                            <span>Arriéré d'écolage</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="autres-frais.html">
+                            <i class="fas fa-receipt"></i>
+                            <span>Autres Frais</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bilan.html">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Bilan général</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bilan-journalier.html">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Bilan journalier / périodique</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="authentification.html">
+                            <i class="fas fa-stamp"></i>
+                            <span>Authentification de reçu</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Administration</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="configuration.html">
+                            <i class="fas fa-cog"></i>
+                            <span>Configuration</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="admin.html">
+                            <i class="fas fa-user-shield"></i>
+                            <span>Administrateur</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="users.html">
+                            <i class="fas fa-users"></i>
+                            <span>Utilisateurs</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Examens</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="resultats.html"><i class="fas fa-poll"></i>
+                            <span>Résultats</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bepc-blanc.html"><i class="fas fa-file-alt"></i>
+                            <span>BEPC Blanc</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Aide</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="aide.html">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Aide & Support</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" onclick="BackupManager && BackupManager.openPanel(); return false;">
+                            <i class="fas fa-floppy-disk"></i>
+                            <span>Sauvegarde</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Déconnexion</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <h4>Admin Principal</h4>
+                        <p>admin@skoolis.com</p>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <h2>Gestion des Notes & Moyennes</h2>
+                    <p>Saisissez et gérez les notes des élèves</p>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Rechercher un élève...">
+                    </div>
+                    <div class="header-icons">
+                        <button class="icon-btn notification">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge">3</span>
+                        </button>
+                        <button class="icon-btn" id="themeToggle">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        <button class="icon-btn" id="reloadPage">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Navigation des fonctionnalités -->
+            <div class="features-nav">
+                <button class="feature-btn active" data-feature="enregistrement">
+                    <i class="fas fa-plus-circle"></i>
+                    Enregistrer des notes
+                </button>
+                <button class="feature-btn" data-feature="liste">
+                    <i class="fas fa-list"></i>
+                    Voir les notes
+                </button>
+                <button class="feature-btn" data-feature="note-eleve">
+                    <i class="fas fa-user-graduate"></i>
+                    Note d'un élève
+                </button>
+                <button class="feature-btn" data-feature="moyenne-periodique">
+                    <i class="fas fa-calendar-alt"></i>
+                    Moyenne Périodique
+                </button>
+                <button class="feature-btn" data-feature="moyenne-annuelle">
+                    <i class="fas fa-chart-bar"></i>
+                    Moyenne Annuelle
+                </button>
+            </div>
+
+            <!-- Section Enregistrement des notes -->
+            <div class="feature-section active" id="enregistrement">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3>Enregistrement des notes</h3>
+                        <p>Saisissez les notes pour une classe, période et matière spécifiques</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-secondary" onclick="resetNoteForm()">
+                            <i class="fas fa-times"></i>
+                            Annuler
+                        </button>
+                        <button class="btn btn-primary" onclick="saveNotes()">
+                            <i class="fas fa-save"></i>
+                            Enregistrer
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="note_classe">Classe *</label>
+                            <select id="note_classe" onchange="loadElevesForClasse()" required>
+                                <option value="">Sélectionner une classe</option>
+                                <option value="6A">6ème A</option>
+                                <option value="5B">5ème B</option>
+                                <option value="4C">4ème C</option>
+                                <option value="3A">3ème A</option>
+                                <option value="TD">Terminale D</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="note_periode">Période *</label>
+                            <select id="note_periode" required>
+                                <option value="">Sélectionner une période</option>
+                                <option value="1">1er Trimestre</option>
+                                <option value="2">2ème Trimestre</option>
+                                <option value="3">3ème Trimestre</option>
+                                <option value="1er">1er Semestre</option>
+                                <option value="2e">2ème Semestre</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="note_matiere">Matière *</label>
+                            <select id="note_matiere" onchange="loadEvaluationTypes()" required>
+                                <option value="">Sélectionner une matière</option>
+                                <!-- Les matières seront chargées dynamiquement -->
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Types d'évaluation disponibles:</label>
+                        <div class="evaluation-types" id="evaluationTypes">
+                            <label>
+                                <input type="checkbox" id="eval_interro" checked disabled>
+                                Interrogation
+                            </label>
+                            <label>
+                                <input type="checkbox" id="eval_devoir" checked disabled>
+                                Devoir
+                            </label>
+                            <label>
+                                <input type="checkbox" id="eval_composition" checked disabled>
+                                Composition
+                            </label>
+                            <label>
+                                <input type="checkbox" id="eval_exam_pratique" checked disabled>
+                                Examen Pratique
+                            </label>
+                        </div>
+                    </div>
+
+                    <!--Creer des cases de saisie pour les notes des élèves selon les evaluations disponibles-->
+                    <div class="space">
+                        </br>
+                    </div>
+
+                    <!-- Indicateur des notes en cours de saisie -->
+                    <div class="note-indicator" id="noteIndicator">
+                        <h4>Notes en cours de saisie :</h4>
+                        <div class="indicator-list" id="indicatorList">
+                            <p>Sélectionnez d'abord une classe et une matière</p>
+                        </div>
+                    </div>
+
+                    <!-- Tableau des notes -->
+                    <div class="table-container full-width">
+                        <table class="data-table notes-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Élève</th>
+                                    <th>Interro</th>
+                                    <th>Devoir</th>
+                                    <th>Moy.classe</th>
+                                    <th>Compo</th>
+                                    <th>Moy.gle</th>
+                                    <th>Coef</th>
+                                    <th>Appréciations</th>
+                                    <th>Rang</th>
+                                    <th>Prof</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="notesTableBody">
+                                <!-- Les données seront chargées dynamiquement -->
+                                <tr>
+                                    <td colspan="12" class="empty-table">
+                                        Sélectionnez d'abord une classe, une période et une matière
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Voir les notes -->
+            <div class="feature-section" id="liste">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3>Liste des notes</h3>
+                        <p>Consultez toutes les notes enregistrées</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-secondary" onclick="exportNotes()">
+                            <i class="fas fa-file-export"></i>
+                            Exporter
+                        </button>
+                        <button class="btn btn-primary" onclick="openPopup('filterNotesPopup')">
+                            <i class="fas fa-filter"></i>
+                            Filtrer
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Filtres rapides -->
+                <div class="filters-container">
+                    <div class="filter-group">
+                        <label>Classe:</label>
+                        <select class="form-select" id="filter_liste_classe" onchange="filterNotesList()">
+                            <option value="">Toutes les classes</option>
+                            <option value="6A">6ème A</option>
+                            <option value="5B">5ème B</option>
+                            <option value="4C">4ème C</option>
+                            <option value="3A">3ème A</option>
+                            <option value="TD">Terminale D</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Période:</label>
+                        <select class="form-select" id="filter_liste_periode" onchange="filterNotesList()">
+                            <option value="">Toutes les périodes</option>
+                            <option value="1">1er Trimestre</option>
+                            <option value="2">2ème Trimestre</option>
+                            <option value="3">3ème Trimestre</option>
+                            <option value="1er">1er Semestre</option>
+                            <option value="2e">2ème Semestre</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Matière:</label>
+                        <select class="form-select" id="filter_liste_matiere" onchange="filterNotesList()">
+                            <option value="">Toutes les matières</option>
+                            <!-- Chargé dynamiquement -->
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Tableau des notes -->
+                <div class="table-container full-width">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Élève</th>
+                                <th>Classe</th>
+                                <th>Période</th>
+                                <th>Matière</th>
+                                <th>Interro</th>
+                                <th>Devoir</th>
+                                <th>Moy.classe</th>
+                                <th>Compo</th>
+                                <th>Moy.gle</th>
+                                <th>Coef</th>
+                                <th>Appréciations</th>
+                                <th>Rang</th>
+                                <th>Prof</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="notesListTableBody">
+                            <!-- Les données seront chargées dynamiquement -->
+                        </tbody>
+                    </table>
+
+                    <div class="pagination">
+                        <button class="pagination-btn" disabled onclick="changePageList(-1)">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="pagination-btn active">1</button>
+                        <button class="pagination-btn">2</button>
+                        <button class="pagination-btn">3</button>
+                        <span class="pagination-ellipsis">...</span>
+                        <button class="pagination-btn">10</button>
+                        <button class="pagination-btn" onclick="changePageList(1)">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Note d'un élève -->
+            <div class="feature-section" id="note-eleve">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3>Notes d'un élève</h3>
+                        <p>Consultez les notes détaillées d'un élève spécifique</p>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="eleve_selection">Sélectionner une classe</label>
+                            <select id="classe_selection" onchange="loadElevesForClasseEleve()">
+                                <option value="">Choisir une classe</option>
+                                <option value="6A">6ème A</option>
+                                <option value="5B">5ème B</option>
+                                <option value="4C">4ème C</option>
+                                <option value="3A">3ème A</option>
+                                <option value="TD">Terminale D</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="eleve_selection">Selectionner un élève</label>
+                            <select id="eleve_selection" onchange="loadNotesForEleve()">
+                                <option value="">Choisir un élève</option>
+                                <!-- Chargé dynamiquement -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="periode_eleve">Période</label>
+                            <select id="periode_eleve" onchange="loadNotesForEleve()">
+                                <option value="all">Toutes les périodes</option>
+                                <option value="1">1er Trimestre</option>
+                                <option value="2">2ème Trimestre</option>
+                                <option value="3">3ème Trimestre</option>
+                                <option value="1er">1er Semestre</option>
+                                <option value="2e">2ème Semestre</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="eleve-notes-container" id="eleveNotesContainer">
+                        <div class="no-selection">
+                            <i class="fas fa-user-graduate"></i>
+                            <p>Sélectionnez un élève pour voir ses notes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Moyenne Périodique MODIFIÉE -->
+            <div class="feature-section" id="moyenne-periodique">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3>Moyennes Périodiques</h3>
+                        <p>Consultez les moyennes par période</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-secondary" onclick="actualiserMoyennes()">
+                            <i class="fas fa-sync-alt"></i>
+                            Actualiser
+                        </button>
+                        <button class="btn btn-secondary" onclick="printMoyennes()">
+                            <i class="fas fa-print"></i>
+                            Imprimer
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="moyenne_classe">Classe</label>
+                            <select id="moyenne_classe" onchange="loadMoyennesPeriodiques()">
+                                <option value="">Toutes les classes</option>
+                                <option value="6A">6ème A</option>
+                                <option value="5B">5ème B</option>
+                                <option value="4C">4ème C</option>
+                                <option value="3A">3ème A</option>
+                                <option value="TD">Terminale D</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="moyenne_periode">Période</label>
+                            <select id="moyenne_periode" onchange="loadMoyennesPeriodiques()">
+                                <option value="all">Toutes les périodes</option>
+                                <option value="1">1er Trimestre</option>
+                                <option value="2">2ème Trimestre</option>
+                                <option value="3">3ème Trimestre</option>
+                                <option value="1er">1er Semestre</option>
+                                <option value="2e">2ème Semestre</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="moyennes-container" id="moyennesPeriodiquesContainer">
+                        <div class="no-selection">
+                            <i class="fas fa-chart-line"></i>
+                            <p>Sélectionnez une classe pour voir les moyennes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Moyenne Annuelle MODIFIÉE -->
+            <div class="feature-section" id="moyenne-annuelle">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3>Moyennes Annuelles</h3>
+                        <p>Consultez les moyennes annuelles des élèves</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-secondary" onclick="printMoyennesAnnuelle()">
+                            <i class="fas fa-print"></i>
+                            Imprimer
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="moyenne_annuelle_classe">Classe</label>
+                            <select id="moyenne_annuelle_classe" onchange="loadMoyennesAnnuelles()">
+                                <option value="">Sélectionner une classe</option>
+                                <option value="6A">6ème A</option>
+                                <option value="5B">5ème B</option>
+                                <option value="4C">4ème C</option>
+                                <option value="3A">3ème A</option>
+                                <option value="TD">Terminale D</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="moyennes-container" id="moyennesAnnuellesContainer">
+                        <div class="no-selection">
+                            <i class="fas fa-chart-bar"></i>
+                            <p>Sélectionnez une classe pour voir les moyennes annuelles</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="main-footer">
+                <p>© 2026 Skoolis - School Management System. Created by Skoolis Technologies.</p>
+                <div class="footer-links">
+                    <a href="#">Confidentialité</a>
+                    <a href="#">Conditions d'utilisation</a>
+                    <a href="../views/aide.html">Aide</a>
+                    <a href="#">Contact</a>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Popups -->
+    <!-- Popup Modifier Note -->
+    <div class="popup" id="modifierNotePopup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h4>Modifier la note</h4>
+                <button class="popup-close" onclick="closePopup('modifierNotePopup')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="popup-body">
+                <form id="modifierNoteForm">
+                    <div class="form-group">
+                        <label for="edit_interro">Interrogation</label>
+                        <input type="number" id="edit_interro" min="0" max="20" step="0.5">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_devoir">Devoir</label>
+                        <input type="number" id="edit_devoir" min="0" max="20" step="0.5">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_composition">Composition</label>
+                        <input type="number" id="edit_composition" min="0" max="20" step="0.5">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_appreciation">Appréciation</label>
+                        <textarea id="edit_appreciation" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="popup-footer">
+                <button class="btn btn-secondary" onclick="closePopup('modifierNotePopup')">
+                    Annuler
+                </button>
+                <button class="btn btn-primary" onclick="updateNote()">
+                    <i class="fas fa-save"></i>
+                    Enregistrer
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup Filtrer Notes -->
+    <div class="popup" id="filterNotesPopup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h4>Filtrer les notes</h4>
+                <button class="popup-close" onclick="closePopup('filterNotesPopup')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="popup-body">
+                <div class="form-group">
+                    <label for="filter_date_debut">Date de début</label>
+                    <input type="date" id="filter_date_debut">
+                </div>
+                <div class="form-group">
+                    <label for="filter_date_fin">Date de fin</label>
+                    <input type="date" id="filter_date_fin">
+                </div>
+                <div class="form-group">
+                    <label for="filter_min_moyenne">Moyenne minimale</label>
+                    <input type="number" id="filter_min_moyenne" min="0" max="20" step="0.5">
+                </div>
+                <div class="form-group">
+                    <label for="filter_max_moyenne">Moyenne maximale</label>
+                    <input type="number" id="filter_max_moyenne" min="0" max="20" step="0.5">
+                </div>
+            </div>
+            <div class="popup-footer">
+                <button class="btn btn-secondary" onclick="closePopup('filterNotesPopup')">
+                    Annuler
+                </button>
+                <button class="btn btn-primary" onclick="applyFilterNotes()">
+                    <i class="fas fa-filter"></i>
+                    Appliquer
+                </button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

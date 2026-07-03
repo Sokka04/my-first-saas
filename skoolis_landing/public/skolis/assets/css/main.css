@@ -1,0 +1,32 @@
+/* ============================================
+   MAIN.CSS - Point d'entrée principal
+   ============================================ */
+
+/*
+ * Ce fichier importe tous les modules CSS dans le bon ordre.
+ * Utilisez ce fichier unique dans vos pages HTML :
+ * <link rel="stylesheet" href="assets/css/main.css">
+ */
+
+/* 1. Core - Variables, reset et utilitaires de base */
+@import url('core.css');
+
+/* 2. Components - Composants réutilisables */
+@import url('components.css');
+
+/* 3. Layouts - Structure de mise en page */
+@import url('layouts.css');
+
+/* 4. Pages - Styles spécifiques aux pages */
+@import url('pages.css');
+
+/* 5. Fonts - Polices personnalisées (Font Awesome, Google Fonts, etc.) */
+@import url('all.min.css');
+
+/* 6. Custom - Correctifs et surcharges */
+@import url('custom.css');
+/*
+ * Note : Si vous avez besoin de personnaliser certains styles,
+ * créez un fichier custom.css et importez-le ici en dernier :
+ * @import url('custom.css');
+ */

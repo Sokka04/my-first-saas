@@ -1,0 +1,783 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Résultats - Skoolis</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link href="../assets/css/fonts.css" rel="stylesheet">
+    <script src="../assets/js/chart.umd.min.js" defer></script>
+    <script src="../assets/js/charts.js" defer></script>
+    <script src="../assets/js/app.js" defer></script>
+    <script src="../assets/js/utils.js" defer></script>
+    <script src="../assets/js/skoolis-core.js" defer></script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="logo-container">
+                <div class="logo">
+                    <div class="logo-top">
+                        <span class="logo-icon">S</span>
+                        <h1>Skoolis</h1>
+                    </div>
+                    <div class="current-schoolyear">Année Scolaire : 2023-2024</div>
+                </div>
+                <button class="toggle-sidebar" id="toggleSidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <div class="nav-section">
+                <h3 class="section-title">Principal</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="../index.html"><i class="fas fa-home"></i><span>Tableau de bord</span></a></li>
+                    <li class="nav-item"><a href="classes.html"><i class="fas fa-chalkboard"></i><span>Classes</span></a></li>
+                    <li class="nav-item"><a href="eleves.html"><i class="fas fa-user-graduate"></i><span>Élèves</span></a></li>
+                    <li class="nav-item"><a href="professeurs.html"><i class="fas fa-chalkboard-teacher"></i><span>Professeurs</span></a></li>
+                    <li class="nav-item"><a href="notes.html"><i class="fas fa-chart-line"></i><span>Notes & Moyennes</span></a></li>
+                    <li class="nav-item"><a href="matieres.html"><i class="fas fa-book"></i><span>Matières</span></a></li>
+                </ul>
+            </div>
+            <div class="nav-section">
+                <h3 class="section-title">Comptabilité</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="inscription.html"><i class="fas fa-file-invoice-dollar"></i><span>Frais d'inscription</span></a></li>
+                    <li class="nav-item"><a href="ecolage.html"><i class="fas fa-credit-card"></i><span>Frais d'Ecolage</span></a></li>
+                    <li class="nav-item"><a href="arriere_ecolage.html"><i class="fas fa-clock"></i><span>Arriéré d'écolage</span></a></li>
+                    <li class="nav-item"><a href="autres-frais.html"><i class="fas fa-receipt"></i><span>Autres Frais</span></a></li>
+                    <li class="nav-item"><a href="bilan.html"><i class="fas fa-chart-bar"></i><span>Bilan général</span></a></li>
+                    <li class="nav-item"><a href="bilan-journalier.html"><i class="fas fa-calendar-alt"></i><span>Bilan journalier / périodique</span></a></li>
+                    <li class="nav-item"><a href="authentification.html"><i class="fas fa-stamp"></i><span>Authentification de reçu</span></a></li>
+                </ul>
+            </div>
+            <div class="nav-section">
+                <h3 class="section-title">Administration</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="configuration.html"><i class="fas fa-cog"></i><span>Configuration</span></a></li>
+                    <li class="nav-item"><a href="admin.html"><i class="fas fa-user-shield"></i><span>Administrateur</span></a></li>
+                    <li class="nav-item"><a href="users.html"><i class="fas fa-users"></i><span>Utilisateurs</span></a></li>
+                </ul>
+            </div>
+            <div class="nav-section">
+                <h3 class="section-title">Examens</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item active"><a href="resultats.html"><i class="fas fa-poll"></i><span>Résultats</span></a></li>
+                    <li class="nav-item"><a href="bepc-blanc.html"><i class="fas fa-file-alt"></i><span>BEPC Blanc</span></a></li>
+                </ul>
+            </div>
+            <div class="nav-section">
+                <h3 class="section-title">Aide</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="aide.html"><i class="fas fa-question-circle"></i><span>Aide & Support</span></a></li>
+                    <li class="nav-item"><a href="#" onclick="BackupManager && BackupManager.openPanel(); return false;"><i class="fas fa-floppy-disk"></i><span>Sauvegarde</span></a></li>
+                    <li class="nav-item"><a href="#"><i class="fas fa-sign-out-alt"></i><span>Déconnexion</span></a></li>
+                </ul>
+            </div>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="avatar"><i class="fas fa-user"></i></div>
+                    <div class="user-details">
+                        <h4>Admin Principal</h4>
+                        <p>admin@skoolis.com</p>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <h2>Résultats & Bulletins</h2>
+                    <p>Classements, bulletins et délibérations scolaires</p>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Rechercher un élève...">
+                    </div>
+                    <div class="header-icons">
+                        <button class="icon-btn notification">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge">2</span>
+                        </button>
+                        <button class="icon-btn" id="themeToggle">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Stats rapides -->
+            <div class="stats-cards">
+                <div class="card">
+                    <div class="card-icon" style="background-color:rgba(123,31,162,0.1); color:var(--primary-color);">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="card-info"><h3>420</h3><p>Élèves évalués</p></div>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="background-color:rgba(76,175,80,0.1); color:#4caf50;">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="card-info"><h3>76%</h3><p>Taux de réussite</p></div>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="background-color:rgba(33,150,243,0.1); color:#2196f3;">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="card-info"><h3>12.4/20</h3><p>Moyenne générale</p></div>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="background-color:rgba(255,152,0,0.1); color:#ff9800;">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div class="card-info"><h3 id="bulletinsGeneres">0</h3><p>Bulletins générés</p></div>
+                </div>
+            </div>
+
+            <!-- Onglets fonctionnalités -->
+            <div class="features-nav">
+                <button class="feature-btn active" data-feature="resultats-classe">
+                    <i class="fas fa-list-ol"></i>
+                    Résultats par classe
+                </button>
+                <button class="feature-btn" data-feature="bulletins">
+                    <i class="fas fa-file-invoice"></i>
+                    Générer bulletins
+                </button>
+                <button class="feature-btn" data-feature="deliberation">
+                    <i class="fas fa-gavel"></i>
+                    Délibération
+                </button>
+                <button class="feature-btn" data-feature="statistiques">
+                    <i class="fas fa-chart-bar"></i>
+                    Statistiques
+                </button>
+            </div>
+
+            <!-- ============================================================
+                 SECTION 1 – RÉSULTATS PAR CLASSE
+                 ============================================================ -->
+            <div class="feature-section active" id="resultats-classe">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3>Résultats par classe</h3>
+                        <p>Consultez et imprimez les résultats triés par ordre de mérite ou alphabétique</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-primary" onclick="imprimerClassement()">
+                            <i class="fas fa-print"></i> Imprimer
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Filtres + tri -->
+                <div class="filters-container" style="flex-wrap:wrap; gap:12px;">
+                    <div class="filter-group">
+                        <label>Classe :</label>
+                        <select class="form-select" id="rc_classe" onchange="refreshClassement()">
+                            <option value="3A">3ème A</option>
+                            <option value="3B">3ème B</option>
+                            <option value="4A">4ème A</option>
+                            <option value="5A">5ème A</option>
+                            <option value="6A">6ème A</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Période :</label>
+                        <select class="form-select" id="rc_periode">
+                            <option value="t1">1er Trimestre</option>
+                            <option value="t2">2ème Trimestre</option>
+                            <option value="t3">3ème Trimestre</option>
+                            <option value="annuel">Annuel</option>
+                        </select>
+                    </div>
+                    <div class="classement-sort-bar" style="margin-bottom:0;">
+                        <button class="sort-btn active" id="sortMerite" onclick="setSortMode('merite')">
+                            <i class="fas fa-trophy"></i> Ordre de mérite
+                        </button>
+                        <button class="sort-btn" id="sortAlpha" onclick="setSortMode('alpha')">
+                            <i class="fas fa-sort-alpha-down"></i> Ordre alphabétique
+                        </button>
+                    </div>
+                </div>
+
+                <div class="table-card">
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Rang</th>
+                                    <th>Nom & Prénom</th>
+                                    <th>Matricule</th>
+                                    <th>Moy. T1</th>
+                                    <th>Moy. T2</th>
+                                    <th>Moy. T3</th>
+                                    <th>Moyenne</th>
+                                    <th>Mention</th>
+                                    <th>Décision</th>
+                                </tr>
+                            </thead>
+                            <tbody id="classementTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================================
+                 SECTION 2 – GÉNÉRER BULLETINS
+                 ============================================================ -->
+            <div class="feature-section" id="bulletins">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3>Générer les bulletins de notes</h3>
+                        <p>Configurez et imprimez les bulletins de classe ou individuels</p>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <form id="bulletinForm" onsubmit="return false;">
+
+                        <!-- Critères -->
+                        <div class="form-section">
+                            <h4 class="form-section-title">
+                                <i class="fas fa-filter"></i> Critères de génération
+                            </h4>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="bull_annee">Année scolaire *</label>
+                                    <select id="bull_annee" required>
+                                        <option value="2023-2024">2023-2024</option>
+                                        <option value="2024-2025">2024-2025</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="bull_periode">Période *</label>
+                                    <select id="bull_periode" required>
+                                        <option value="">Sélectionner une période</option>
+                                        <option value="1er Trimestre">1er Trimestre</option>
+                                        <option value="2ème Trimestre">2ème Trimestre</option>
+                                        <option value="3ème Trimestre">3ème Trimestre</option>
+                                        <option value="Bilan annuel">Bilan annuel</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="bull_classe">Classe *</label>
+                                    <select id="bull_classe" required onchange="updateEleveSelect()">
+                                        <option value="">Sélectionner une classe</option>
+                                        <option value="3A">3ème A</option>
+                                        <option value="3B">3ème B</option>
+                                        <option value="4A">4ème A</option>
+                                        <option value="5A">5ème A</option>
+                                        <option value="6A">6ème A</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Date du conseil -->
+                        <div class="form-section">
+                            <h4 class="form-section-title">
+                                <i class="fas fa-calendar-check"></i> Date du conseil de classe
+                            </h4>
+                            <div class="conseil-date-group">
+                                <i class="fas fa-calendar-alt" style="color:var(--primary-color);"></i>
+                                <label for="dateConseil">Date du conseil :</label>
+                                <input type="date" id="dateConseil">
+                            </div>
+                        </div>
+
+                        <!-- Impression -->
+                        <div class="form-section">
+                            <h4 class="form-section-title">
+                                <i class="fas fa-print"></i> Options d'impression
+                            </h4>
+                            <div style="display:flex; flex-direction:column; gap:12px;">
+
+                                <label class="backup-toggle-row" style="cursor:default;">
+                                    <div>
+                                        <strong>Un seul élève</strong>
+                                        <p style="font-size:12px; color:var(--text-light); margin:2px 0 0;">Sélectionner un élève spécifique</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="modeUnEleve" onchange="toggleModeEleve(this.checked)">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </label>
+
+                                <div id="eleveSelectGroup" style="display:none; padding:10px 16px; background:var(--bg-color); border-radius:10px; border:1.5px solid var(--border-color);">
+                                    <label for="bull_eleve" style="font-size:14px; font-weight:500;">Élève :</label>
+                                    <select id="bull_eleve" class="form-select" style="margin-top:8px; width:100%;">
+                                        <option value="">— Sélectionner un élève —</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="form-actions" style="margin-top:20px; display:flex; gap:12px; justify-content:flex-end; flex-wrap:wrap;">
+                            <button type="button" class="btn btn-secondary" onclick="document.getElementById('bulletinForm').reset(); document.getElementById('eleveSelectGroup').style.display='none';">
+                                <i class="fas fa-times"></i> Réinitialiser
+                            </button>
+                            <button type="button" class="btn btn-outline" onclick="aperçuBulletins()">
+                                <i class="fas fa-eye"></i> Aperçu
+                            </button>
+                            <button type="button" class="btn btn-primary" onclick="genererEtImprimer()">
+                                <i class="fas fa-print"></i> Générer & Imprimer
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Historique bulletins générés -->
+                <div class="table-card" style="margin-top:24px;">
+                    <div class="table-header">
+                        <h3>Bulletins récemment générés</h3>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Élève / Classe</th>
+                                    <th>Période</th>
+                                    <th>Moyenne</th>
+                                    <th>Date de génération</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bulletinsHistorique">
+                                <tr>
+                                    <td colspan="5" style="text-align:center; padding:32px; color:var(--text-muted);">
+                                        <i class="fas fa-inbox" style="font-size:28px; margin-bottom:8px; display:block; opacity:.3;"></i>
+                                        Aucun bulletin généré pour le moment.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================================
+                 SECTION 3 – DÉLIBÉRATION
+                 ============================================================ -->
+            <div class="feature-section" id="deliberation">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3>Délibération</h3>
+                        <p>Validez les décisions : admission, passage, redoublement</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-primary" onclick="openPopup('validerDelibPopup')">
+                            <i class="fas fa-gavel"></i> Valider la délibération
+                        </button>
+                    </div>
+                </div>
+
+                <div class="filters-container">
+                    <div class="filter-group">
+                        <label>Classe :</label>
+                        <select class="form-select" id="delib_classe">
+                            <option value="3A">3ème A</option>
+                            <option value="3B">3ème B</option>
+                            <option value="4A">4ème A</option>
+                            <option value="5A">5ème A</option>
+                            <option value="6A">6ème A</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Année scolaire :</label>
+                        <select class="form-select">
+                            <option>2023-2024</option>
+                            <option>2024-2025</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="table-card">
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Élève</th>
+                                    <th>Matricule</th>
+                                    <th>Moy. T1</th>
+                                    <th>Moy. T2</th>
+                                    <th>Moy. T3</th>
+                                    <th>Moy. Annuelle</th>
+                                    <th>Décision</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>ABALO Kossi</td><td>EL-2024-001</td>
+                                    <td>16.5</td><td>17.4</td><td>18.2</td>
+                                    <td><strong>17.4</strong></td>
+                                    <td>
+                                        <select class="form-select" style="min-width:130px;">
+                                            <option selected>Admis(e)</option>
+                                            <option>Passage en classe sup.</option>
+                                            <option>Redoublement</option>
+                                            <option>Exclusion</option>
+                                        </select>
+                                    </td>
+                                    <td><button class="btn btn-small btn-success" onclick="validerEleve(this)">Valider</button></td>
+                                </tr>
+                                <tr>
+                                    <td>AKAKPO Ama</td><td>EL-2024-002</td>
+                                    <td>15.0</td><td>16.8</td><td>17.5</td>
+                                    <td><strong>16.4</strong></td>
+                                    <td>
+                                        <select class="form-select" style="min-width:130px;">
+                                            <option selected>Admis(e)</option>
+                                            <option>Passage en classe sup.</option>
+                                            <option>Redoublement</option>
+                                            <option>Exclusion</option>
+                                        </select>
+                                    </td>
+                                    <td><button class="btn btn-small btn-success" onclick="validerEleve(this)">Valider</button></td>
+                                </tr>
+                                <tr>
+                                    <td>KPOGO Séna</td><td>EL-2024-010</td>
+                                    <td>8.2</td><td>7.5</td><td>8.8</td>
+                                    <td><strong style="color:#f44336;">8.2</strong></td>
+                                    <td>
+                                        <select class="form-select" style="min-width:130px;">
+                                            <option>Admis(e)</option>
+                                            <option>Passage en classe sup.</option>
+                                            <option selected>Redoublement</option>
+                                            <option>Exclusion</option>
+                                        </select>
+                                    </td>
+                                    <td><button class="btn btn-small btn-success" onclick="validerEleve(this)">Valider</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================================
+                 SECTION 4 – STATISTIQUES
+                 ============================================================ -->
+            <div class="feature-section" id="statistiques">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3>Statistiques des résultats</h3>
+                        <p>Analysez les performances scolaires par période et par classe</p>
+                    </div>
+                </div>
+                <div class="stats-container">
+                    <div class="stats-chart-container">
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h3>Répartition des moyennes par classe</h3>
+                            </div>
+                            <div class="chart-placeholder">
+                                <canvas id="resultatsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="summary-cards">
+                        <div class="summary-card">
+                            <div class="summary-icon" style="background:rgba(76,175,80,0.1);"><i class="fas fa-trophy" style="color:#4caf50;"></i></div>
+                            <div class="summary-info"><h4>Très Bien (≥16)</h4><h3>42 élèves</h3></div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="summary-icon" style="background:rgba(33,150,243,0.1);"><i class="fas fa-star" style="color:#2196f3;"></i></div>
+                            <div class="summary-info"><h4>Bien (14 – 15.9)</h4><h3>98 élèves</h3></div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="summary-icon" style="background:rgba(255,152,0,0.1);"><i class="fas fa-check" style="color:#ff9800;"></i></div>
+                            <div class="summary-info"><h4>Assez Bien (12 – 13.9)</h4><h3>145 élèves</h3></div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="summary-icon" style="background:rgba(244,67,54,0.1);"><i class="fas fa-exclamation-triangle" style="color:#f44336;"></i></div>
+                            <div class="summary-info"><h4>Échec (&lt; 10)</h4><h3>52 élèves</h3></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="main-footer">
+                <p>© 2026 Skoolis - School Management System. Created by Skoolis Technologies.</p>
+                <div class="footer-links">
+                    <a href="#">Confidentialité</a>
+                    <a href="#">Conditions d'utilisation</a>
+                    <a href="#">Aide</a>
+                    <a href="#">Contact</a>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- ===== POPUP : VALIDATION DÉLIBÉRATION ===== -->
+    <div class="popup" id="validerDelibPopup">
+        <div class="popup-content" style="max-width:480px;">
+            <div class="popup-header">
+                <h4><i class="fas fa-gavel"></i> &nbsp;Valider la délibération</h4>
+                <button class="popup-close" onclick="closePopup('validerDelibPopup')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="popup-body" style="padding:24px;">
+                <div style="background:rgba(255,152,0,0.1); border-left:4px solid #ff9800; padding:14px 18px; border-radius:6px; margin-bottom:16px;">
+                    <p style="margin:0; font-size:14px;"><i class="fas fa-exclamation-triangle" style="color:#ff9800;"></i>
+                    &nbsp;<strong>Attention :</strong> Cette action est irréversible. Les décisions seront définitivement enregistrées.</p>
+                </div>
+                <div class="form-group">
+                    <label for="delib_motif">Observations (optionnel)</label>
+                    <textarea id="delib_motif" rows="3" style="width:100%; resize:none; padding:10px; border:1px solid var(--border-color); border-radius:6px; font-family:'Poppins',sans-serif;" placeholder="Ajouter une observation pour le procès-verbal..."></textarea>
+                </div>
+            </div>
+            <div class="popup-footer">
+                <button class="btn btn-secondary" onclick="closePopup('validerDelibPopup')">Annuler</button>
+                <button class="btn btn-primary" onclick="confirmerDeliberation()">
+                    <i class="fas fa-check-circle"></i> Confirmer la délibération
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== POPUP : APERÇU BULLETINS ===== -->
+    <div class="popup" id="aperçuBulletinsPopup">
+        <div class="popup-content" style="max-width:800px;">
+            <div class="popup-header">
+                <h4><i class="fas fa-eye"></i> &nbsp;Aperçu des bulletins</h4>
+                <button class="popup-close" onclick="closePopup('aperçuBulletinsPopup')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="popup-body" style="padding:24px;">
+                <div class="bulletins-preview-container" id="bulletinsPreviewContent"></div>
+            </div>
+            <div class="popup-footer">
+                <button class="btn btn-secondary" onclick="closePopup('aperçuBulletinsPopup')">Fermer</button>
+                <button class="btn btn-primary" onclick="lancerImpression()">
+                    <i class="fas fa-print"></i> Imprimer
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* ============================================================
+           RÉSULTATS PAR CLASSE
+           ============================================================ */
+        let currentSortMode = 'merite';
+
+        function setSortMode(mode) {
+            currentSortMode = mode;
+            document.getElementById('sortMerite').classList.toggle('active', mode === 'merite');
+            document.getElementById('sortAlpha').classList.toggle('active', mode === 'alpha');
+            refreshClassement();
+        }
+
+        function refreshClassement() {
+            const classe = document.getElementById('rc_classe').value;
+            const tbody = document.getElementById('classementTableBody');
+            if (window.ResultatsManager) {
+                ResultatsManager.buildClassementTable(classe, tbody, currentSortMode);
+            }
+        }
+
+        function imprimerClassement() {
+            const classe = document.getElementById('rc_classe').value;
+            const periode = document.getElementById('rc_periode').options[document.getElementById('rc_periode').selectedIndex].text;
+            const mode = currentSortMode === 'merite' ? 'Ordre de mérite' : 'Ordre alphabétique';
+            window.showNotification && showNotification(`Impression du classement ${classe} – ${periode} – ${mode}`, 'info');
+            setTimeout(() => window.print(), 300);
+        }
+
+        /* ============================================================
+           BULLETINS
+           ============================================================ */
+        function toggleModeEleve(checked) {
+            document.getElementById('eleveSelectGroup').style.display = checked ? 'block' : 'none';
+        }
+
+        function updateEleveSelect() {
+            const classe = document.getElementById('bull_classe').value;
+            const sel = document.getElementById('bull_eleve');
+            sel.innerHTML = '<option value="">— Sélectionner un élève —</option>';
+            if (!classe || !window.ResultatsManager) return;
+            const students = ResultatsManager.sampleStudents[classe] || [];
+            students.forEach(s => {
+                const opt = document.createElement('option');
+                opt.value = s.mat;
+                opt.textContent = s.nom + ' (' + s.mat + ')';
+                sel.appendChild(opt);
+            });
+        }
+
+        function getBulletinStudents() {
+            const classe = document.getElementById('bull_classe').value;
+            const unEleve = document.getElementById('modeUnEleve').checked;
+            const eleveMat = document.getElementById('bull_eleve').value;
+
+            if (!classe || !window.ResultatsManager) return [];
+            const students = ResultatsManager.sampleStudents[classe] || [];
+
+            if (unEleve && eleveMat) {
+                return students.filter(s => s.mat === eleveMat);
+            }
+            return students;
+        }
+
+        function aperçuBulletins() {
+            const periode = document.getElementById('bull_periode').value;
+            const classe = document.getElementById('bull_classe').value;
+            if (!periode || !classe) {
+                showNotification && showNotification('Veuillez sélectionner une classe et une période', 'warning');
+                return;
+            }
+
+            const dateConseil = document.getElementById('dateConseil').value;
+            const dateLabel = dateConseil ? new Date(dateConseil).toLocaleDateString('fr-FR') : '';
+            const students = getBulletinStudents();
+
+            if (!students.length) {
+                showNotification && showNotification('Aucun élève trouvé pour cette sélection', 'warning');
+                return;
+            }
+
+            const html = students.map(s => ResultatsManager.buildBulletinHTML(s, classe, periode, dateLabel)).join('');
+            document.getElementById('bulletinsPreviewContent').innerHTML = html;
+            openPopup('aperçuBulletinsPopup');
+        }
+
+        function genererEtImprimer() {
+            const periode = document.getElementById('bull_periode').value;
+            const classe = document.getElementById('bull_classe').value;
+            if (!periode || !classe) {
+                showNotification && showNotification('Veuillez remplir tous les champs obligatoires', 'warning');
+                return;
+            }
+
+            const students = getBulletinStudents();
+            if (!students.length) { showNotification && showNotification('Aucun élève trouvé', 'warning'); return; }
+
+            const dateConseil = document.getElementById('dateConseil').value;
+            const dateLabel = dateConseil ? new Date(dateConseil).toLocaleDateString('fr-FR') : '';
+            const html = students.map(s => ResultatsManager.buildBulletinHTML(s, classe, periode, dateLabel)).join('');
+
+            // Ouvrir dans une nouvelle fenêtre pour impression propre
+            const win = window.open('', '_blank');
+            win.document.write(`<!DOCTYPE html><html><head>
+                <meta charset="UTF-8">
+                <title>Bulletins – ${classe} – ${periode}</title>
+                <link rel="stylesheet" href="../assets/css/main.css">
+                <link href="../assets/css/fonts.css" rel="stylesheet">
+                <style>
+                    body { font-family: 'Poppins', sans-serif; background: #f5f5f5; padding: 20px; }
+                    .bulletin-sheet { background:white; padding:28px 32px; border-radius:8px; border:1px solid #ddd; margin-bottom:24px; font-size:13px; page-break-after:always; }
+                    .bulletin-header { display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:16px; padding-bottom:16px; border-bottom:2px solid #7b1fa2; margin-bottom:16px; }
+                    .bulletin-header-center { text-align:center; }
+                    .bulletin-header-center h3 { color:#7b1fa2; font-size:1.1rem; margin:0 0 4px; }
+                    .bulletin-header-center p { font-size:12px; color:#555; margin:2px 0; }
+                    .bulletin-header-right { text-align:right; }
+                    .bulletin-logo-circle { width:40px; height:40px; border-radius:50%; background:linear-gradient(135deg,#7b1fa2,#9c27b0); color:white; font-size:1.3rem; font-weight:700; display:inline-flex; align-items:center; justify-content:center; }
+                    .bulletin-student-info { display:grid; grid-template-columns:1fr 1fr; gap:8px; padding:12px 16px; background:#f9f0ff; border-radius:8px; margin-bottom:16px; font-size:13px; }
+                    .bulletin-table { width:100%; border-collapse:collapse; font-size:13px; margin-bottom:16px; }
+                    .bulletin-table th { background:#7b1fa2; color:white; padding:8px 10px; text-align:left; font-weight:600; }
+                    .bulletin-table td { padding:7px 10px; border-bottom:1px solid #eee; }
+                    .bulletin-table tbody tr:nth-child(even) { background:#fafafa; }
+                    .bulletin-table tfoot td { padding:10px; font-weight:700; color:white; background:#7b1fa2; }
+                    .bulletin-footer { display:flex; justify-content:space-between; margin-top:24px; gap:24px; }
+                    .bulletin-sign-box { flex:1; text-align:center; }
+                    .bulletin-sign-box p { font-size:12px; font-weight:600; margin-bottom:8px; }
+                    .bulletin-sign-area { height:60px; border-bottom:1.5px solid #bbb; }
+                    @media print { .no-print{display:none;} .bulletin-sheet{page-break-after:always; border:none;} }
+                </style>
+            </head><body>
+                <div class="no-print" style="text-align:center; margin-bottom:20px;">
+                    <button onclick="window.print()" style="padding:10px 24px; background:#7b1fa2; color:white; border:none; border-radius:8px; font-size:14px; cursor:pointer; font-family:'Poppins',sans-serif;">
+                        <i class="fas fa-print"></i> Imprimer tous les bulletins
+                    </button>
+                    <button onclick="window.close()" style="padding:10px 24px; background:#eee; color:#333; border:none; border-radius:8px; font-size:14px; cursor:pointer; margin-left:10px; font-family:'Poppins',sans-serif;">Fermer</button>
+                </div>
+                ${html}
+            </body></html>`);
+            win.document.close();
+
+            // Mettre à jour le compteur
+            const counter = document.getElementById('bulletinsGeneres');
+            counter.textContent = parseInt(counter.textContent || 0) + students.length;
+
+            // Ajouter à l'historique
+            ajouterHistoriqueBullletin(students, classe, periode);
+            showNotification && showNotification(`${students.length} bulletin(s) généré(s) avec succès !`, 'success');
+        }
+
+        function lancerImpression() {
+            closePopup('aperçuBulletinsPopup');
+            setTimeout(() => genererEtImprimer(), 200);
+        }
+
+        function ajouterHistoriqueBullletin(students, classe, periode) {
+            const tbody = document.getElementById('bulletinsHistorique');
+            const now = new Date().toLocaleDateString('fr-FR') + ' ' + new Date().toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'});
+
+            // Enlever la ligne vide si présente
+            if (tbody.querySelector('td[colspan]')) tbody.innerHTML = '';
+
+            students.forEach(s => {
+                const moy = ResultatsManager.moy(s);
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><strong>${s.nom}</strong> <span style="color:var(--text-light); font-size:12px;">${classe}</span></td>
+                    <td>${periode}</td>
+                    <td style="font-weight:700; color:${moy >= 10 ? '#4caf50' : '#f44336'};">${moy}</td>
+                    <td style="font-size:13px; color:var(--text-light);">${now}</td>
+                    <td>
+                        <button class="btn btn-small btn-primary" onclick="reimprimerBulletin('${s.mat}', '${classe}', '${periode}')">
+                            <i class="fas fa-print"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.insertBefore(tr, tbody.firstChild);
+            });
+        }
+
+        function reimprimerBulletin(mat, classe, periode) {
+            const s = (ResultatsManager.sampleStudents[classe] || []).find(x => x.mat === mat);
+            if (!s) return;
+            const win = window.open('', '_blank');
+            win.document.write('<html><body>' + ResultatsManager.buildBulletinHTML(s, classe, periode, '') + '<script>window.print();<\/script></body></html>');
+            win.document.close();
+        }
+
+        /* ============================================================
+           DÉLIBÉRATION
+           ============================================================ */
+        function validerEleve(btn) {
+            const row = btn.closest('tr');
+            const nom = row.cells[0].textContent;
+            btn.textContent = '✓ Validé';
+            btn.disabled = true;
+            btn.style.background = '#2e7d32';
+            showNotification && showNotification(`Décision validée pour ${nom}`, 'success', 2500);
+        }
+
+        function confirmerDeliberation() {
+            closePopup('validerDelibPopup');
+            showNotification && showNotification('Délibération enregistrée avec succès', 'success');
+        }
+
+        /* ============================================================
+           INIT AU CHARGEMENT
+           ============================================================ */
+        document.addEventListener('DOMContentLoaded', () => {
+            // Charger le classement initial après que ResultatsManager soit prêt
+            setTimeout(() => {
+                if (window.ResultatsManager) {
+                    ResultatsManager.buildClassementTable('3A', document.getElementById('classementTableBody'), 'merite');
+                }
+            }, 100);
+        });
+    </script>
+</body>
+</html>

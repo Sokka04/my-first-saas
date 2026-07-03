@@ -1,0 +1,748 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arriéré d'Ecolage - Skoolis</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link href="../assets/css/fonts.css" rel="stylesheet">
+    <script src="../assets/js/chart.umd.min.js" defer></script>
+    <script src="../assets/js/charts.js" defer></script>
+    <script src="../assets/js/app.js" defer></script>
+    <script src="../assets/js/utils.js" defer></script>
+    <script src="../assets/js/skoolis-core.js" defer></script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="logo-container">
+                <div class="logo">
+                    <div class="logo-top">
+                        <span class="logo-icon">S</span>
+                        <h1>Skoolis</h1>
+                    </div>
+                    <div class="current-schoolyear">Année Scolaire : 2023-2024</div>
+                </div>
+                <button class="toggle-sidebar" id="toggleSidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <div class="nav-section">
+                <h3 class="section-title">Principal</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="../index.html">
+                            <i class="fas fa-home"></i>
+                            <span>Tableau de bord</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="classes.html">
+                            <i class="fas fa-chalkboard"></i>
+                            <span>Classes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="eleves.html">
+                            <i class="fas fa-user-graduate"></i>
+                            <span>Élèves</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="professeurs.html">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <span>Professeurs</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="notes.html">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Notes & Moyennes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="matieres.html">
+                            <i class="fas fa-book"></i>
+                            <span>Matières</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Comptabilité</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="inscription.html">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                            <span>Frais d'inscription</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="ecolage.html">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Frais d'Ecolage</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="arriere_ecolage.html">
+                            <i class="fas fa-clock"></i>
+                            <span>Arriéré d'écolage</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="autres-frais.html">
+                            <i class="fas fa-receipt"></i>
+                            <span>Autres Frais</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bilan.html">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Bilan général</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bilan-journalier.html">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Bilan journalier / périodique</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="authentification.html">
+                            <i class="fas fa-stamp"></i>
+                            <span>Authentification de reçu</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Administration</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="configuration.html">
+                            <i class="fas fa-cog"></i>
+                            <span>Configuration</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="admin.html">
+                            <i class="fas fa-user-shield"></i>
+                            <span>Administrateur</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="users.html">
+                            <i class="fas fa-users"></i>
+                            <span>Utilisateurs</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Examens</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="resultats.html"><i class="fas fa-poll"></i>
+                            <span>Résultats</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bepc-blanc.html"><i class="fas fa-file-alt"></i>
+                            <span>BEPC Blanc</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Aide</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="aide.html">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Aide & Support</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Déconnexion</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <h4>Admin Principal</h4>
+                        <p>admin@skoolis.com</p>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <h2>Arriéré d'Ecolage</h2>
+                    <p>Gestion des paiements en retard et des remises</p>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Rechercher..." id="global-search">
+                    </div>
+                    <div class="header-icons">
+                        <button class="icon-btn notification">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge">3</span>
+                        </button>
+                        <button class="icon-btn" id="themeToggle">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        <button class="icon-btn" id="reloadPage">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Statistiques -->
+            <div class="stats-grid" id="statsGrid">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #f44336;">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Total Arriéré</h3>
+                        <p id="total-arriere">0 FCFA</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #ff9800;">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Élèves concernés</h3>
+                        <p id="eleves-concernes">0</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #2196f3;">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Recouvré ce mois</h3>
+                        <p id="recouvre-mois">0 FCFA</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #4caf50;">
+                        <i class="fas fa-percentage"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Remises accordées</h3>
+                        <p id="total-remises">0 FCFA</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation des fonctionnalités -->
+            <div class="features-nav">
+                <button class="feature-btn active" data-feature="payer-arriere">
+                    <i class="fas fa-money-check-alt"></i>
+                    Payer arriéré
+                </button>
+                <button class="feature-btn" data-feature="remise-arriere">
+                    <i class="fas fa-percentage"></i>
+                    Remise sur Arriéré
+                </button>
+                <button class="feature-btn" data-feature="rechercher-recu">
+                    <i class="fas fa-search-dollar"></i>
+                    Rechercher reçu
+                </button>
+                <button class="feature-btn" data-feature="gracier">
+                    <i class="fas fa-hand-holding-heart"></i>
+                    Gracier
+                </button>
+            </div>
+
+            <!-- Section Payer arriéré d'écolage -->
+            <div class="feature-section active" id="payer-arriere">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3><i class="fas fa-money-check-alt"></i> Payer arriéré d'écolage</h3>
+                        <p>Enregistrement des paiements pour les écolages en retard</p>
+                    </div>
+                </div>
+
+                <div class="arriere-paiement-container">
+                    <div class="form-container">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="arriere_classe"><i class="fas fa-chalkboard"></i> Classe</label>
+                                <select id="arriere_classe" onchange="loadElevesPourArriere()">
+                                    <option value="">Sélectionner une classe</option>
+                                    <option value="6A">6ème A</option>
+                                    <option value="5B">5ème B</option>
+                                    <option value="4C">4ème C</option>
+                                    <option value="3A">3ème A</option>
+                                    <option value="TD">Terminale D</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="arriere_eleve"><i class="fas fa-user-graduate"></i> Élève</label>
+                                <select id="arriere_eleve" onchange="loadDetailsArriere()">
+                                    <option value="">Sélectionner un élève</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="montant_arriere_total"><i class="fas fa-money-bill-wave"></i> Arriéré total
+                                    (FCFA)</label>
+                                <input type="text" id="montant_arriere_total" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="montant_remise"><i class="fas fa-percentage"></i> Remise appliquée
+                                    (FCFA)</label>
+                                <input type="text" id="montant_remise" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="montant_a_payer"><i class="fas fa-calculator"></i> Montant à payer
+                                    (FCFA)</label>
+                                <input type="text" id="montant_a_payer" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="montant_paye_arriere"><i class="fas fa-money-bill"></i> Montant payé
+                                    (FCFA)</label>
+                                <input type="number" id="montant_paye_arriere" placeholder="0" min="0"
+                                    oninput="calculerResteArriere()">
+                            </div>
+                            <div class="form-group">
+                                <label for="reste_apres_paiement"><i class="fas fa-balance-scale"></i> Reste après
+                                    paiement (FCFA)</label>
+                                <input type="text" id="reste_apres_paiement" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="date_paiement_arriere"><i class="fas fa-calendar"></i> Date de
+                                    paiement</label>
+                                <input type="date" id="date_paiement_arriere">
+                            </div>
+                            <div class="form-group">
+                                <label for="mode_paiement_arriere"><i class="fas fa-credit-card"></i> Mode de
+                                    paiement</label>
+                                <select id="mode_paiement_arriere">
+                                    <option value="especes">Espèces</option>
+                                    <option value="cheque">Chèque</option>
+                                    <option value="virement">Virement</option>
+                                    <option value="mobile">Mobile Money</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="reference_paiement_arriere"><i class="fas fa-hashtag"></i> Référence
+                                    (Optionnel)</label>
+                                <input type="text" id="reference_paiement_arriere"
+                                    placeholder="Numéro de chèque/transaction">
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="notes_paiement_arriere"><i class="fas fa-sticky-note"></i> Notes
+                                    (Optionnel)</label>
+                                <textarea id="notes_paiement_arriere" rows="2"
+                                    placeholder="Informations supplémentaires..."></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button class="btn btn-secondary" onclick="resetPaiementArriereForm()">
+                                <i class="fas fa-times"></i>
+                                Annuler
+                            </button>
+                            <button class="btn btn-primary" onclick="enregistrerPaiementArriere()">
+                                <i class="fas fa-save"></i>
+                                Enregistrer le paiement
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Détails de l'arriéré -->
+                    <div class="details-arriere-container">
+                        <div class="section-header">
+                            <h4><i class="fas fa-info-circle"></i> Détails de l'arriéré</h4>
+                        </div>
+                        <div class="details-content">
+                            <div id="details-arriere-content">
+                                <div class="empty-state">
+                                    <i class="fas fa-user-graduate"></i>
+                                    <p>Sélectionnez un élève pour voir les détails</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Remise sur Arriéré -->
+            <div class="feature-section" id="remise-arriere">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3><i class="fas fa-percentage"></i> Remise sur Arriéré</h3>
+                        <p>Application de remises sur les arriérés d'écolage</p>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="remise_classe"><i class="fas fa-chalkboard"></i> Classe</label>
+                            <select id="remise_classe" onchange="loadElevesPourRemise()">
+                                <option value="">Sélectionner une classe</option>
+                                <option value="6A">6ème A</option>
+                                <option value="5B">5ème B</option>
+                                <option value="4C">4ème C</option>
+                                <option value="3A">3ème A</option>
+                                <option value="TD">Terminale D</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="remise_eleve"><i class="fas fa-user-graduate"></i> Élève</label>
+                            <select id="remise_eleve" onchange="loadArrierePourRemise()">
+                                <option value="">Sélectionner un élève</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="montant_arriere_remise"><i class="fas fa-money-bill-wave"></i> Arriéré actuel
+                                (FCFA)</label>
+                            <input type="text" id="montant_arriere_remise" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="type_remise"><i class="fas fa-calculator"></i> Type de remise</label>
+                            <select id="type_remise" onchange="togglePourcentageMontant()">
+                                <option value="pourcentage">Pourcentage (%)</option>
+                                <option value="montant">Montant fixe (FCFA)</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="groupe-pourcentage">
+                            <label for="pourcentage_remise"><i class="fas fa-percent"></i> Pourcentage de remise</label>
+                            <input type="number" id="pourcentage_remise" min="0" max="100" value="0" step="0.5"
+                                oninput="calculerMontantRemise()">
+                        </div>
+                        <div class="form-group" id="groupe-montant" style="display: none;">
+                            <label for="montant_remise_fixe"><i class="fas fa-money-bill"></i> Montant de la remise
+                                (FCFA)</label>
+                            <input type="number" id="montant_remise_fixe" min="0" value="0"
+                                oninput="calculerPourcentageRemise()">
+                        </div>
+                        <div class="form-group">
+                            <label for="montant_remise_calcule"><i class="fas fa-calculator"></i> Montant de la remise
+                                (FCFA)</label>
+                            <input type="text" id="montant_remise_calcule" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="nouvel_arriere"><i class="fas fa-money-bill-wave"></i> Nouvel arriéré après
+                                remise (FCFA)</label>
+                            <input type="text" id="nouvel_arriere" readonly>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="motif_remise"><i class="fas fa-comment-alt"></i> Motif de la remise</label>
+                            <select id="motif_remise">
+                                <option value="difficulte_financiere">Difficulté financière</option>
+                                <option value="ancien_eleve">Ancien élève fidèle</option>
+                                <option value="paiement_anticipé">Paiement anticipé</option>
+                                <option value="accord_special">Accord spécial</option>
+                                <option value="autre">Autre raison</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="details_remise"><i class="fas fa-sticky-note"></i> Détails
+                                supplémentaires</label>
+                            <textarea id="details_remise" rows="3"
+                                placeholder="Détails de la remise accordée..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="btn btn-secondary" onclick="resetRemiseForm()">
+                            <i class="fas fa-times"></i>
+                            Annuler
+                        </button>
+                        <button class="btn btn-primary" onclick="appliquerRemise()">
+                            <i class="fas fa-check-circle"></i>
+                            Appliquer la remise
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Rechercher un reçu de paiement d'arriéré -->
+            <div class="feature-section" id="rechercher-recu">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3><i class="fas fa-search-dollar"></i> Rechercher un reçu de paiement d'arriéré</h3>
+                        <p>Recherche et consultation des reçus de paiement d'arriéré</p>
+                    </div>
+                </div>
+
+                <div class="recherche-container">
+                    <div class="form-container">
+                        <div class="form-grid compact">
+                            <div class="form-group">
+                                <label for="recherche_numero"><i class="fas fa-hashtag"></i> Numéro de reçu</label>
+                                <input type="text" id="recherche_numero" placeholder="AR-2024-001">
+                            </div>
+                            <div class="form-group">
+                                <label for="recherche_matricule"><i class="fas fa-id-card"></i> Matricule élève</label>
+                                <input type="text" id="recherche_matricule" placeholder="STD-2023-XXX">
+                            </div>
+                            <div class="form-group">
+                                <label for="recherche_date"><i class="fas fa-calendar"></i> Date de paiement</label>
+                                <input type="date" id="recherche_date">
+                            </div>
+                            <div class="form-group">
+                                <label for="recherche_classe_recu"><i class="fas fa-chalkboard"></i> Classe</label>
+                                <select id="recherche_classe_recu">
+                                    <option value="">Toutes les classes</option>
+                                    <option value="6A">6ème A</option>
+                                    <option value="5B">5ème B</option>
+                                    <option value="4C">4ème C</option>
+                                    <option value="3A">3ème A</option>
+                                    <option value="TD">Terminale D</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button class="btn btn-secondary" onclick="resetRechercheForm()">
+                                <i class="fas fa-redo"></i>
+                                Réinitialiser
+                            </button>
+                            <button class="btn btn-primary" onclick="rechercherRecu()">
+                                <i class="fas fa-search"></i>
+                                Rechercher
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Résultats de recherche -->
+                    <div class="resultats-recherche-container">
+                        <div class="section-header">
+                            <h4><i class="fas fa-list"></i> Résultats de recherche</h4>
+                            <span class="badge" id="resultats-count">0</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="resultats-table">
+                                <thead>
+                                    <tr>
+                                        <th>Numéro reçu</th>
+                                        <th>Date</th>
+                                        <th>Élève</th>
+                                        <th>Classe</th>
+                                        <th>Montant payé</th>
+                                        <th>Mode paiement</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="resultats-recherche">
+                                    <tr>
+                                        <td colspan="7" style="text-align: center; padding: 40px;">
+                                            <div class="empty-state">
+                                                <i class="fas fa-search"></i>
+                                                <p>Utilisez le formulaire pour rechercher un reçu</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Gracier -->
+            <div class="feature-section" id="gracier">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3><i class="fas fa-hand-holding-heart"></i> Gracier un arriéré</h3>
+                        <p>Annulation partielle ou totale d'un arriéré d'écolage</p>
+                    </div>
+                </div>
+
+                <div class="gracier-container">
+                    <div class="form-container">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="gracier_classe"><i class="fas fa-chalkboard"></i> Classe</label>
+                                <select id="gracier_classe" onchange="loadElevesPourGracier()">
+                                    <option value="">Sélectionner une classe</option>
+                                    <option value="6A">6ème A</option>
+                                    <option value="5B">5ème B</option>
+                                    <option value="4C">4ème C</option>
+                                    <option value="3A">3ème A</option>
+                                    <option value="TD">Terminale D</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="gracier_eleve"><i class="fas fa-user-graduate"></i> Élève</label>
+                                <select id="gracier_eleve" onchange="loadArrierePourGracier()">
+                                    <option value="">Sélectionner un élève</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="montant_arriere_gracier"><i class="fas fa-money-bill-wave"></i> Arriéré
+                                    actuel (FCFA)</label>
+                                <input type="text" id="montant_arriere_gracier" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="type_grace"><i class="fas fa-calculator"></i> Type de grâce</label>
+                                <select id="type_grace" onchange="toggleGraceTotalPartiel()">
+                                    <option value="partiel">Grâce partielle</option>
+                                    <option value="total">Grâce totale</option>
+                                </select>
+                            </div>
+                            <div class="form-group" id="groupe-grace-partielle">
+                                <label for="montant_grace"><i class="fas fa-money-bill"></i> Montant à gracier
+                                    (FCFA)</label>
+                                <input type="number" id="montant_grace" min="0" value="0"
+                                    oninput="calculerApresGrace()">
+                            </div>
+                            <div class="form-group">
+                                <label for="montant_apres_grace"><i class="fas fa-money-bill-wave"></i> Arriéré après
+                                    grâce (FCFA)</label>
+                                <input type="text" id="montant_apres_grace" readonly>
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="motif_grace"><i class="fas fa-comment-alt"></i> Motif de la grâce</label>
+                                <select id="motif_grace">
+                                    <option value="cas_social">Cas social</option>
+                                    <option value="deces_parent">Décès d'un parent</option>
+                                    <option value="maladie_grave">Maladie grave</option>
+                                    <option value="catastrophe_naturelle">Catastrophe naturelle</option>
+                                    <option value="decision_administration">Décision de l'administration</option>
+                                    <option value="autre">Autre raison</option>
+                                </select>
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="justificatif_grace"><i class="fas fa-file-alt"></i> Justificatif</label>
+                                <textarea id="justificatif_grace" rows="3"
+                                    placeholder="Détails du justificatif (certificat, rapport, décision...)"
+                                    required></textarea>
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="commentaires_grace"><i class="fas fa-sticky-note"></i> Commentaires
+                                    additionnels</label>
+                                <textarea id="commentaires_grace" rows="2"
+                                    placeholder="Commentaires supplémentaires..."></textarea>
+                            </div>
+                        </div>
+
+                        <div class="warning-box">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <div class="warning-content">
+                                <h4>Attention !</h4>
+                                <p>La grâce est une action définitive qui annule définitivement la dette. Cette action
+                                    doit être validée par un administrateur.</p>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button class="btn btn-secondary" onclick="resetGraceForm()">
+                                <i class="fas fa-times"></i>
+                                Annuler
+                            </button>
+                            <button class="btn btn-danger" onclick="appliquerGrace()">
+                                <i class="fas fa-hand-holding-heart"></i>
+                                Appliquer la grâce
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="main-footer">
+                <p>© 2026 Skoolis - School Management System. Created by Skoolis Technologies.</p>
+                <div class="footer-links">
+                    <a href="#">Confidentialité</a>
+                    <a href="#">Conditions d'utilisation</a>
+                    <a href="../views/aide.html">Aide</a>
+                    <a href="#">Contact</a>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Popup d'impression de reçu arriéré -->
+    <div class="popup" id="receiptArrierePopup">
+        <div class="popup-overlay" onclick="closePopup('receiptArrierePopup')"></div>
+        <div class="popup-content wide-popup">
+            <div class="popup-header">
+                <h4><i class="fas fa-receipt"></i> Reçu de Paiement - Arriéré</h4>
+                <button class="popup-close" onclick="closePopup('receiptArrierePopup')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="popup-body">
+                <div class="receipt-container" id="receiptArriereContent">
+                    <!-- Le contenu du reçu sera généré ici -->
+                </div>
+            </div>
+            <div class="popup-footer">
+                <button class="btn btn-secondary" onclick="closePopup('receiptArrierePopup')">
+                    <i class="fas fa-times"></i>
+                    Fermer
+                </button>
+                <button class="btn btn-primary" onclick="printReceiptArriere()">
+                    <i class="fas fa-print"></i>
+                    Imprimer
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup de confirmation de grâce -->
+    <div class="popup" id="confirmationGracePopup">
+        <div class="popup-overlay" onclick="closePopup('confirmationGracePopup')"></div>
+        <div class="popup-content">
+            <div class="popup-header">
+                <h4><i class="fas fa-exclamation-triangle"></i> Confirmation de grâce</h4>
+                <button class="popup-close" onclick="closePopup('confirmationGracePopup')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="popup-body">
+                <div class="confirmation-content">
+                    <i class="fas fa-hand-holding-heart"
+                        style="font-size: 3rem; color: #f44336; margin-bottom: 20px;"></i>
+                    <h3>Êtes-vous sûr de vouloir gracier cet arriéré ?</h3>
+                    <p id="confirmation-grace-details"></p>
+                    <div class="confirmation-warning">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span>Cette action est irréversible !</span>
+                    </div>
+                </div>
+            </div>
+            <div class="popup-footer">
+                <button class="btn btn-secondary" onclick="closePopup('confirmationGracePopup')">
+                    <i class="fas fa-times"></i>
+                    Annuler
+                </button>
+                <button class="btn btn-danger" onclick="confirmerGrace()">
+                    <i class="fas fa-check-circle"></i>
+                    Confirmer la grâce
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
