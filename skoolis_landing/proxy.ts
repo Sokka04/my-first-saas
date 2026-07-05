@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 const BLOCKED_LEGACY_HTML = /^\/skolis\/(index\.html|pages\/[a-z0-9-]+\.html)$/i;
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   if (BLOCKED_LEGACY_HTML.test(pathname)) {
