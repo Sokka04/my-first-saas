@@ -22,6 +22,8 @@ const LEGACY_SCRIPT_ORDER = [
   "app.js",
   "skoolis-core.js",
 ];
+const LEGACY_DEV_ASSET_VERSION =
+  process.env.NODE_ENV !== "production" ? Date.now().toString(36) : "";
 
 function sortLegacyScripts(scripts: LegacyScript[]): LegacyScript[] {
   const orderIndex = (src: string) => {
@@ -45,6 +47,14 @@ function normalizeAssetPath(rawUrl: string): string {
   }
 
   return rawUrl;
+}
+
+function withDevAssetVersion(url: string): string {
+  if (!LEGACY_DEV_ASSET_VERSION || !url.startsWith("/skolis/assets/")) {
+    return url;
+  }
+
+  return `${url}${url.includes("?") ? "&" : "?"}v=${LEGACY_DEV_ASSET_VERSION}`;
 }
 
 function normalizeNavigationPath(rawUrl: string, isNestedPage: boolean): string {
@@ -101,7 +111,9 @@ function extractStyles(headHtml: string): string[] {
   const matches = headHtml.matchAll(
     /<link[^>]+rel=["']stylesheet["'][^>]*href=["']([^"']+)["'][^>]*>/gi
   );
-  return [...matches].map((match) => normalizeAssetPath(match[1]));
+  return [...matches].map((match) =>
+    withDevAssetVersion(normalizeAssetPath(match[1]))
+  );
 }
 
 function extractScripts(headHtml: string): LegacyScript[] {
@@ -114,7 +126,7 @@ function extractScripts(headHtml: string): LegacyScript[] {
     if (!srcMatch) continue;
 
     scripts.push({
-      src: normalizeAssetPath(srcMatch[1]),
+      src: withDevAssetVersion(normalizeAssetPath(srcMatch[1])),
       defer: /\sdefer(\s|$)/i.test(attrs),
     });
   }

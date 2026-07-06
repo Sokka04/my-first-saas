@@ -27,7 +27,7 @@ export async function SkolisLegacyPage({ slug }: SkolisLegacyPageProps) {
       {legacyDoc.scripts.map((script) => (
         <Script
           key={script.src}
-          id={`legacy-script-${script.src.split("/").pop()}`}
+          id={`legacy-script-${script.src.split("/").pop()?.split("?")[0]}`}
           src={script.src}
           strategy="afterInteractive"
         />

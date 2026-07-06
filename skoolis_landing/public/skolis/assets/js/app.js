@@ -20,18 +20,17 @@ const AppConfig = {
 
 // ========== GESTION DU THÈME ==========
 const ThemeManager = {
+    boundToggle: null,
+
     /**
      * Initialise le gestionnaire de thème
      */
     init() {
         const themeToggleBtn = document.getElementById('themeToggle');
 
-        if (!themeToggleBtn) return;
-
-        const themeIcon = themeToggleBtn.querySelector('i');
-
         // Restaurer le thème sauvegardé ou utiliser la préférence système
-        const savedTheme = Utils.storage.get(AppConfig.theme.storageKey);
+        const savedTheme = Utils.storage.get(AppConfig.theme.storageKey)
+            || document.documentElement.getAttribute('data-theme');
 
         if (savedTheme) {
             this.applyTheme(savedTheme);
@@ -40,11 +39,15 @@ const ThemeManager = {
             this.applyTheme(prefersDark ? 'dark' : 'light');
         }
 
+        if (!themeToggleBtn || this.boundToggle === themeToggleBtn) return;
+
         // Gestionnaire de clic sur le bouton
         themeToggleBtn.addEventListener('click', () => {
             const currentTheme = document.documentElement.getAttribute('data-theme');
             this.applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
         });
+
+        this.boundToggle = themeToggleBtn;
     },
 
     /**
@@ -57,12 +60,14 @@ const ThemeManager = {
 
         if (theme === 'dark') {
             document.documentElement.setAttribute('data-theme', 'dark');
+            document.body?.setAttribute('data-theme', 'dark');
             if (themeIcon) {
                 themeIcon.classList.remove('fa-moon');
                 themeIcon.classList.add('fa-sun');
             }
         } else {
             document.documentElement.removeAttribute('data-theme');
+            document.body?.removeAttribute('data-theme');
             if (themeIcon) {
                 themeIcon.classList.remove('fa-sun');
                 themeIcon.classList.add('fa-moon');
@@ -790,6 +795,7 @@ const startSkoolisApp = () => {
     }
 
     if (skoolisAppInstance?.initialized) {
+        ThemeManager.init();
         NavigationManager.refreshActiveNavigation();
         ChartManager.init();
         FeatureManager.init();

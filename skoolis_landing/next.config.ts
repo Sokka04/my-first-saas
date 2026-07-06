@@ -30,7 +30,12 @@ const nextConfig: NextConfig = {
         source: "/skolis/assets/:path*",
         headers: [
           { key: "X-Content-Type-Options", value: "nosniff" },
-          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+          {
+            key: "Cache-Control",
+            value: isDev
+              ? "no-store"
+              : "public, max-age=31536000, immutable",
+          },
         ],
       },
     ];
