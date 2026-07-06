@@ -3,6 +3,7 @@ import { Footer } from "@/components/footer";
 import { HeroSection } from "@/sections/hero-section";
 import { TrustSection } from "@/sections/trust-section";
 import { ProblemSection } from "@/sections/problem-section";
+import { MobileShowcaseSection } from "@/sections/mobile-showcase-section";
 import { ShowcaseSection } from "@/sections/showcase-section";
 import { TestimonialsSection } from "@/sections/testimonials-section";
 import { CommentsSection } from "@/sections/comments-section";
@@ -24,6 +25,7 @@ export default function Home() {
           <HeroSection />
           <TrustSection />
           <ProblemSection />
+          <MobileShowcaseSection />
           <ShowcaseSection />
           <TestimonialsSection />
           <CommentsSection />

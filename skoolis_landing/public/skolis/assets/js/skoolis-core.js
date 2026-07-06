@@ -679,14 +679,25 @@ const ResultatsManager = {
 /* ======================================================
    5. INITIALISATION GLOBALE DES MODULES
    ====================================================== */
-document.addEventListener('DOMContentLoaded', () => {
+const initSkoolisCoreModules = () => {
+    if (window.__skoolisCoreInitialized) return;
+    window.__skoolisCoreInitialized = true;
+
     ServerStatusManager.init();
     UpdateManager.init();
     BackupManager.init();
 
-    // Exposer globalement
     window.ServerStatusManager = ServerStatusManager;
     window.UpdateManager       = UpdateManager;
     window.BackupManager       = BackupManager;
     window.ResultatsManager    = ResultatsManager;
-});
+};
+
+if (!window.__skoolisCoreBootstrapped) {
+    window.__skoolisCoreBootstrapped = true;
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initSkoolisCoreModules, { once: true });
+    } else {
+        setTimeout(initSkoolisCoreModules, 0);
+    }
+}

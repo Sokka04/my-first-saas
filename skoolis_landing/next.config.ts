@@ -13,7 +13,7 @@ const nextConfig: NextConfig = {
         value:
           `default-src 'self'; script-src 'self' 'unsafe-inline'${
             isDev ? " 'unsafe-eval'" : ""
-          }; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; img-src 'self' data: blob:; font-src 'self' data: https://fonts.gstatic.com https://cdnjs.cloudflare.com; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'`,
+          }; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; img-src 'self' data: blob:; font-src 'self' data: https://fonts.gstatic.com https://cdnjs.cloudflare.com; connect-src 'self' https://status.skoolis.app; frame-ancestors 'none'; base-uri 'self'; form-action 'self'`,
       },
     ];
 

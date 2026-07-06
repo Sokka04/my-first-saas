@@ -70,7 +70,11 @@ const ThemeManager = {
         }
 
         Utils.storage.set(AppConfig.theme.storageKey, theme);
-        document.cookie = `skoolis-theme=${theme}; path=/; max-age=${oneYearSeconds}; SameSite=Lax`;
+        const cookieMatch = document.cookie.match(/(?:^|;\s*)skoolis-theme=([^;]*)/);
+        const currentCookie = cookieMatch ? decodeURIComponent(cookieMatch[1]) : null;
+        if (currentCookie !== theme) {
+            document.cookie = `skoolis-theme=${theme}; path=/; max-age=${oneYearSeconds}; SameSite=Lax`;
+        }
 
         // Mettre à jour les graphiques si Chart.js est présent
         if (typeof Chart !== 'undefined' && window.chartInstances) {
@@ -196,46 +200,65 @@ const NavigationManager = {
         this.initDropdownNavigation();
     },
 
-    /**
-     * Gère la navigation active
-     */
-    initActiveNavigation() {
+    refreshActiveNavigation() {
         const navItems = document.querySelectorAll('.nav-item:not(.dropdown)');
-        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        const pathname = window.location.pathname.replace(/\/+$/, '') || '/app';
+        const currentRoute = pathname === '/app' || pathname.endsWith('/app')
+            ? '/app'
+            : pathname;
 
         navItems.forEach(item => {
             const link = item.querySelector('a');
             if (!link) return;
 
             const href = link.getAttribute('href');
+            if (!href || href === '#') return;
 
-            // Vérifier si ce lien correspond à la page actuelle
-            if (href === currentPage ||
-                (currentPage === 'index.html' && href === 'index.html') ||
-                (href !== '#' && currentPage.includes(href.replace('../', '').replace('views/', '')))) {
+            const normalizedHref = href.startsWith('/app')
+                ? href.replace(/\/+$/, '')
+                : href;
 
-                // Retirer la classe active de tous les items
+            item.classList.toggle('active', normalizedHref === currentRoute);
+        });
+    },
+
+    /**
+     * Gère la navigation active
+     */
+    initActiveNavigation() {
+        const navItems = document.querySelectorAll('.nav-item:not(.dropdown)');
+        const pathname = window.location.pathname.replace(/\/+$/, '') || '/app';
+        const currentRoute = pathname === '/app' || pathname.endsWith('/app')
+            ? '/app'
+            : pathname;
+
+        navItems.forEach(item => {
+            const link = item.querySelector('a');
+            if (!link) return;
+
+            const href = link.getAttribute('href');
+            if (!href || href === '#') return;
+
+            const normalizedHref = href.startsWith('/app')
+                ? href.replace(/\/+$/, '')
+                : href;
+
+            if (normalizedHref === currentRoute) {
                 document.querySelectorAll('.nav-item:not(.dropdown)').forEach(navItem =>
                     navItem.classList.remove('active')
                 );
-
-                // Ajouter la classe active à l'item actuel
                 item.classList.add('active');
             }
 
-            // Ajouter un gestionnaire de clic
             link.addEventListener('click', (e) => {
                 if (link.getAttribute('href') === '#') return;
 
-                // Retirer la classe active de tous les items
                 document.querySelectorAll('.nav-item:not(.dropdown)').forEach(navItem =>
                     navItem.classList.remove('active')
                 );
 
-                // Ajouter la classe active à l'item actuel
                 item.classList.add('active');
 
-                // Fermer la sidebar sur mobile
                 if (window.innerWidth <= 992) {
                     SidebarManager.close();
                 }
@@ -758,13 +781,27 @@ class SkoolisApp {
 }
 
 // ========== DÉMARRAGE DE L'APPLICATION ==========
+let skoolisAppInstance = null;
+
 const startSkoolisApp = () => {
-    const app = new SkoolisApp();
-    app.init();
+    if (typeof Utils === 'undefined') {
+        setTimeout(startSkoolisApp, 16);
+        return;
+    }
+
+    if (skoolisAppInstance?.initialized) {
+        NavigationManager.refreshActiveNavigation();
+        ChartManager.init();
+        FeatureManager.init();
+        return;
+    }
+
+    skoolisAppInstance = new SkoolisApp();
+    skoolisAppInstance.init();
 
     // Exposer les gestionnaires globalement
     window.Skoolis = {
-        app,
+        app: skoolisAppInstance,
         Theme: ThemeManager,
         Sidebar: SidebarManager,
         Navigation: NavigationManager,
@@ -785,11 +822,13 @@ const startSkoolisApp = () => {
 
 window.__initSkoolisApp = startSkoolisApp;
 
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', startSkoolisApp);
-} else {
-    // Les scripts legacy peuvent être injectés après le chargement du DOM.
-    setTimeout(startSkoolisApp, 0);
+if (!window.__skoolisAppBootstrapped) {
+    window.__skoolisAppBootstrapped = true;
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', startSkoolisApp, { once: true });
+    } else {
+        setTimeout(startSkoolisApp, 0);
+    }
 }
 // ========== GESTION DES ONGLETS FEATURE ==========
 const FeatureManager = {

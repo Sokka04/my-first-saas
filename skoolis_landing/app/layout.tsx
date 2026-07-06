@@ -114,7 +114,11 @@ export default async function RootLayout({
     } else {
       document.documentElement.removeAttribute("data-theme");
     }
-    document.cookie = "skoolis-theme=" + theme + "; path=/; max-age=31536000; SameSite=Lax";
+    const cookieMatch = document.cookie.match(/(?:^|;\\s*)skoolis-theme=([^;]*)/);
+    const currentCookie = cookieMatch ? decodeURIComponent(cookieMatch[1]) : null;
+    if (currentCookie !== theme) {
+      document.cookie = "skoolis-theme=" + theme + "; path=/; max-age=31536000; SameSite=Lax";
+    }
   } catch {}
 })();`}
         </Script>

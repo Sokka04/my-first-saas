@@ -1,4 +1,7 @@
 // Charts for Skoolis Dashboard
+let savedGradesChartInstance = null;
+let savedAttendanceChartInstance = null;
+
 function destroyExistingChart(canvas) {
     if (!canvas || typeof Chart === 'undefined' || !Chart.getChart) return;
     const existing = Chart.getChart(canvas);
@@ -6,10 +9,36 @@ function destroyExistingChart(canvas) {
 }
 
 function initSkoolisCharts() {
+    // Éviter complètement les réinitialisations multiples
+    if (window.__skoolisChartsInitialized) {
+        return;
+    }
+
     // Initialize grades chart
     const gradesCtx = document.getElementById('gradesChart');
     
     if (gradesCtx) {
+        // Vérifier si un graphique existe déjà sur ce canvas
+        const existingChart = Chart.getChart(gradesCtx);
+        if (existingChart) {
+            // Sauvegarder l'instance pour restauration ultérieure
+            savedGradesChartInstance = existingChart;
+            window.__skoolisChartsInitialized = true;
+            return;
+        }
+        
+        // Si on a une instance sauvegartée, la restaurer
+        if (savedGradesChartInstance) {
+            // Recréer le graphique avec les mêmes données
+            new Chart(gradesCtx, {
+                type: savedGradesChartInstance.config.type,
+                data: savedGradesChartInstance.data,
+                options: savedGradesChartInstance.options
+            });
+            window.__skoolisChartsInitialized = true;
+            return;
+        }
+        
         destroyExistingChart(gradesCtx);
         // Créer un conteneur parent pour le canvas
         const chartContainer = gradesCtx.parentElement;
@@ -141,6 +170,9 @@ function initSkoolisCharts() {
                 }
             }
         });
+
+        // Sauvegarder l'instance
+        savedGradesChartInstance = gradesChart;
         
         // Fonction pour mettre à jour les couleurs du thème
         function updateChartTheme() {
@@ -186,6 +218,13 @@ function initSkoolisCharts() {
     const attendanceCtx = document.getElementById('attendanceChart');
     
     if (attendanceCtx) {
+        // Vérifier si un graphique existe déjà
+        const existingAttendanceChart = Chart.getChart(attendanceCtx);
+        if (existingAttendanceChart) {
+            window.__skoolisChartsInitialized = true;
+            return;
+        }
+        
         destroyExistingChart(attendanceCtx);
         new Chart(attendanceCtx, {
             type: 'doughnut',
@@ -245,12 +284,21 @@ function initSkoolisCharts() {
             }
         });
     }
+
+    // Marquer comme initialisé
+    window.__skoolisChartsInitialized = true;
 }
 
 window.__initSkoolisCharts = initSkoolisCharts;
 
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initSkoolisCharts);
-} else {
-    setTimeout(initSkoolisCharts, 0);
+if (!window.__skoolisChartsBootstrapped) {
+    window.__skoolisChartsBootstrapped = true;
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initSkoolisCharts, { once: true });
+    } else {
+        setTimeout(initSkoolisCharts, 0);
+    }
 }
+
+// Flag pour éviter les réinitialisations multiples depuis le conteneur React
+window.__skoolisChartsInitialized = false;

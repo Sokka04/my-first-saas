@@ -15,6 +15,23 @@ type LegacyDocument = {
 
 const LEGACY_ROOT = path.join(process.cwd(), "public", "skolis");
 const SLUG_PATTERN = /^[a-z0-9_-]+$/i;
+const LEGACY_SCRIPT_ORDER = [
+  "chart.umd.min.js",
+  "utils.js",
+  "charts.js",
+  "app.js",
+  "skoolis-core.js",
+];
+
+function sortLegacyScripts(scripts: LegacyScript[]): LegacyScript[] {
+  const orderIndex = (src: string) => {
+    const fileName = src.split("/").pop() ?? src;
+    const index = LEGACY_SCRIPT_ORDER.indexOf(fileName);
+    return index === -1 ? LEGACY_SCRIPT_ORDER.length : index;
+  };
+
+  return [...scripts].sort((a, b) => orderIndex(a.src) - orderIndex(b.src));
+}
 
 function normalizeAssetPath(rawUrl: string): string {
   if (/^(https?:)?\/\//i.test(rawUrl) || rawUrl.startsWith("#")) {
@@ -63,13 +80,21 @@ function normalizeBodyHtml(html: string, isNestedPage: boolean): string {
   const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
   const bodyContent = bodyMatch?.[1] ?? html;
 
-  return bodyContent.replace(
+  let normalized = bodyContent.replace(
     /(href|src|action)=["']([^"']+)["']/gi,
     (full, attribute, rawUrl: string) => {
       const normalizedUrl = normalizeNavigationPath(rawUrl, isNestedPage);
       return `${attribute}="${normalizedUrl}"`;
     }
   );
+
+  // Retirer le canvas du graphique pour le gérer séparément
+  normalized = normalized.replace(
+    /<canvas id="gradesChart"[^>]*><\/canvas>/g,
+    '<div id="gradesChart-placeholder" data-chart-placeholder="true"></div>'
+  );
+
+  return normalized;
 }
 
 function extractStyles(headHtml: string): string[] {
@@ -123,6 +148,6 @@ export async function getLegacyDocument(slug?: string): Promise<LegacyDocument> 
   return {
     bodyHtml: normalizeBodyHtml(html, !isRootPage),
     styles: extractStyles(headHtml),
-    scripts: extractScripts(headHtml),
+    scripts: sortLegacyScripts(extractScripts(headHtml)),
   };
 }

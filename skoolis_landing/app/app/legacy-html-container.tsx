@@ -16,10 +16,40 @@ function isModifiedClick(event: MouseEvent) {
   return event.metaKey || event.ctrlKey || event.shiftKey || event.altKey;
 }
 
+function ChartPreserver() {
+  const chartCanvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  useEffect(() => {
+    const ensureChartCanvas = () => {
+      const placeholder = document.querySelector('#gradesChart-placeholder');
+      if (placeholder && !chartCanvasRef.current) {
+        const canvas = document.createElement('canvas');
+        canvas.id = 'gradesChart';
+        placeholder.replaceWith(canvas);
+        chartCanvasRef.current = canvas;
+
+        setTimeout(() => {
+          const win = window as LegacyWindow;
+          win.__initSkoolisCharts?.();
+        }, 100);
+      }
+    };
+
+    ensureChartCanvas();
+
+    const observer = new MutationObserver(ensureChartCanvas);
+
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    return () => observer.disconnect();
+  }, []);
+
+  return null;
+}
+
 export function LegacyHtmlContainer({ html }: LegacyHtmlContainerProps) {
   const router = useRouter();
   const rootRef = useRef<HTMLDivElement>(null);
-  const hasMountedRef = useRef(false);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -48,23 +78,17 @@ export function LegacyHtmlContainer({ html }: LegacyHtmlContainerProps) {
   }, [router]);
 
   useEffect(() => {
-    if (!hasMountedRef.current) {
-      hasMountedRef.current = true;
-      return;
-    }
-
     const win = window as LegacyWindow;
-    // Relance l'initialisation legacy seulement après une navigation interne.
+
     const timeoutId = window.setTimeout(() => {
       window.requestAnimationFrame(() => {
         try {
           win.__initSkoolisApp?.();
-          win.__initSkoolisCharts?.();
         } catch (error) {
-          console.error("Erreur pendant la réinitialisation legacy:", error);
+          console.error("Erreur pendant l'initialisation legacy:", error);
         }
       });
-    }, 0);
+    }, 50);
 
     return () => {
       window.clearTimeout(timeoutId);
@@ -72,11 +96,14 @@ export function LegacyHtmlContainer({ html }: LegacyHtmlContainerProps) {
   }, [html]);
 
   return (
-    <div
-      ref={rootRef}
-      id="legacy-skoolis-root"
-      suppressHydrationWarning
-      dangerouslySetInnerHTML={{ __html: html }}
-    />
+    <>
+      <ChartPreserver />
+      <div
+        ref={rootRef}
+        id="legacy-skoolis-root"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
+    </>
   );
 }

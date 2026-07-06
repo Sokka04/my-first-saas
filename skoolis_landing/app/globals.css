@@ -163,4 +163,14 @@
         var(--background) 20%
       );
   }
+
+  /* L'app legacy (/app) gère son propre layout plein écran */
+  body:has(.legacy-app-shell) {
+    display: block;
+    min-height: 100vh;
+  }
+
+  body:has(.legacy-app-shell) > a[href="#contenu-principal"] {
+    display: none;
+  }
 }

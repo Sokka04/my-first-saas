@@ -113,6 +113,17 @@ export function Navbar() {
               >
                 Demander une demo
               </Link>
+              <Link
+                href={siteConfig.links.connexion}
+                onClick={() => setMobileOpen(false)}
+                className={cn(
+                  buttonVariants({ variant: "outline", size: "lg" }),
+                  "mt-2 h-12 min-h-12 w-full justify-center gap-2 text-base font-semibold"
+                )}
+              >
+                <UserRound className="size-5" aria-hidden />
+                Connexion
+              </Link>
             </nav>
           </SheetContent>
         </Sheet>
