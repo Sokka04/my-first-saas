@@ -19,7 +19,7 @@ export default function Home() {
       >
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[66vh] min-h-[34rem] bg-[linear-gradient(180deg,color-mix(in_oklch,var(--primary)_18%,var(--background))_0%,color-mix(in_oklch,var(--primary)_13%,var(--background))_48%,var(--background)_66%)]"
+          className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[66vh] min-h-[34rem] bg-[linear-gradient(180deg,color-mix(in_srgb,#7c3aed_25%,var(--background))_0%,color-mix(in_srgb,#7c3aed_15%,var(--background))_48%,var(--background)_66%)]"
         />
         <div className="relative z-10">
           <HeroSection />

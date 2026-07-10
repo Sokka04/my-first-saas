@@ -1,4 +1,4 @@
-const appUrl = process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ?? "http://localhost:3001";
+const appUrl = process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ?? "/app";
 
 export const siteConfig = {
   name: "Skoolis",
@@ -24,7 +24,7 @@ export const siteConfig = {
     tarifs: "/tarifs",
     modules: "/modules",
     produit: "/produit",
-    connexion: `${appUrl}/connexion`,
+    connexion: "/connexion",
     app: appUrl,
     mentionsLegales: "/mentions-legales",
     confidentialite: "/confidentialite",

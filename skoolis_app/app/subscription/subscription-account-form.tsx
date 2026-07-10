@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import Script from "next/script";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ChevronDown } from "lucide-react";
 import ReCAPTCHA from "react-google-recaptcha";
@@ -141,12 +140,18 @@ export function SubscriptionAccountForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isVerifyingEmail, setIsVerifyingEmail] = useState(false);
   const [debugVerificationLink, setDebugVerificationLink] = useState("");
+  const [mouseMoves, setMouseMoves] = useState(0);
+  const [keyStrokes, setKeyStrokes] = useState(0);
+  const [pasteCount, setPasteCount] = useState(0);
   const [selectedCountryCode, setSelectedCountryCode] = useState("TG");
   const [customDialCode, setCustomDialCode] = useState("+228");
   const [isCountryListOpen, setIsCountryListOpen] = useState(false);
   const [countrySearch, setCountrySearch] = useState("");
   const [account, setAccount] = useState<AccountState>(initialAccountState);
   const [recaptchaToken, setRecaptchaToken] = useState("");
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const [formStartedAt, setFormStartedAt] = useState(() => Date.now());
+  const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI";
 
   useEffect(() => {
     const timeoutId = window.setTimeout(() => {
@@ -211,7 +216,7 @@ export function SubscriptionAccountForm() {
     };
   }, [router, searchParams]);
 
-
+  // reCAPTCHA is used instead of local math challenge
 
   const selectedCountry = useMemo(
     () => countryOptions.find((country) => country.code === selectedCountryCode) ?? countryOptions[0],
@@ -357,12 +362,12 @@ export function SubscriptionAccountForm() {
       return "Le mot de passe et sa confirmation ne correspondent pas.";
     }
     if (!recaptchaToken) {
-      return "Veuillez valider le reCAPTCHA pour prouver que vous n'etes pas un robot.";
+      return "Complete la verification anti-bot.";
     }
     return "";
   }
 
-
+  // No longer needed
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -385,6 +390,11 @@ export function SubscriptionAccountForm() {
       formData.set("password", account.password);
       formData.set("confirmPassword", account.confirmPassword);
       formData.set("recaptchaToken", recaptchaToken);
+      formData.set("formStartedAt", String(formStartedAt));
+      formData.set("mouseMoves", String(mouseMoves));
+      formData.set("keyStrokes", String(keyStrokes));
+      formData.set("pasteCount", String(pasteCount));
+      formData.set("website", "");
       if (account.profilePhoto) {
         formData.set("profilePhoto", account.profilePhoto);
       }
@@ -402,6 +412,8 @@ export function SubscriptionAccountForm() {
 
       if (!response.ok || !data.ok) {
         setError(data.error ?? "Inscription refusee.");
+        recaptchaRef.current?.reset();
+        setRecaptchaToken("");
         return;
       }
 
@@ -416,6 +428,8 @@ export function SubscriptionAccountForm() {
       }
     } catch {
       setError("Erreur reseau pendant l'inscription. Reessaie.");
+      recaptchaRef.current?.reset();
+      setRecaptchaToken("");
     } finally {
       setIsSubmitting(false);
     }
@@ -432,6 +446,9 @@ export function SubscriptionAccountForm() {
         className="mt-6 space-y-5"
         onSubmit={onSubmit}
         autoComplete="on"
+        onMouseMove={() => setMouseMoves((prev) => prev + 1)}
+        onKeyDown={() => setKeyStrokes((prev) => prev + 1)}
+        onPaste={() => setPasteCount((prev) => prev + 1)}
       >
         <div className="grid gap-5 md:grid-cols-2">
           <div className="space-y-2">
@@ -615,14 +632,33 @@ export function SubscriptionAccountForm() {
           </div>
         </div>
 
+        <div className="hidden" aria-hidden="true">
+          <Label htmlFor="website">Website</Label>
+          <Input
+            id="website"
+            name="website"
+            tabIndex={-1}
+            autoComplete="off"
+            defaultValue=""
+            onChange={() => {
+              // Champ leurre anti-bot: doit rester vide.
+            }}
+          />
+        </div>
+
         <div className="space-y-2">
           <Label>Verification anti-bot</Label>
-          <div className="flex justify-center overflow-hidden rounded-md border border-border py-3">
+          {recaptchaSiteKey ? (
             <ReCAPTCHA
-              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"}
-              onChange={(token) => setRecaptchaToken(token ?? "")}
+              ref={recaptchaRef}
+              sitekey={recaptchaSiteKey}
+              onChange={(val) => setRecaptchaToken(val || "")}
             />
-          </div>
+          ) : (
+            <p className="text-destructive text-xs">
+              CAPTCHA non configure: ajoute NEXT_PUBLIC_RECAPTCHA_SITE_KEY.
+            </p>
+          )}
         </div>
 
         <div className="space-y-2">

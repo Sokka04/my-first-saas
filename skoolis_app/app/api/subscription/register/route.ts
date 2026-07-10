@@ -11,8 +11,6 @@ import {
   isNameValid,
   isPhoneDialValid,
   isPhoneLocalValid,
-  isPhoneDialValid,
-  isPhoneLocalValid,
   logRegistration,
   sanitizeEmail,
   sanitizePlainText,
@@ -29,8 +27,12 @@ type ParsedPayload = {
   phoneLocal: string;
   password: string;
   confirmPassword: string;
-  confirmPassword: string;
   recaptchaToken: string;
+  honeypot: string;
+  formStartedAt: string;
+  mouseMoves: string;
+  keyStrokes: string;
+  pasteCount: string;
 };
 
 function parsePayload(formData: FormData): ParsedPayload {
@@ -42,9 +44,12 @@ function parsePayload(formData: FormData): ParsedPayload {
     phoneLocal: sanitizePlainText(String(formData.get("phoneLocal") ?? "")),
     password: String(formData.get("password") ?? ""),
     confirmPassword: String(formData.get("confirmPassword") ?? ""),
-    password: String(formData.get("password") ?? ""),
-    confirmPassword: String(formData.get("confirmPassword") ?? ""),
     recaptchaToken: sanitizePlainText(String(formData.get("recaptchaToken") ?? "")),
+    honeypot: String(formData.get("website") ?? ""),
+    formStartedAt: String(formData.get("formStartedAt") ?? ""),
+    mouseMoves: String(formData.get("mouseMoves") ?? ""),
+    keyStrokes: String(formData.get("keyStrokes") ?? ""),
+    pasteCount: String(formData.get("pasteCount") ?? ""),
   };
 }
 
@@ -54,8 +59,6 @@ function validatePayload(payload: ParsedPayload) {
     !payload.firstName ||
     !payload.email ||
     !payload.phoneDial ||
-    !payload.phoneLocal ||
-    !payload.password ||
     !payload.phoneLocal ||
     !payload.password ||
     !payload.confirmPassword
@@ -105,15 +108,49 @@ export async function POST(request: Request) {
   const formData = await request.formData();
   const payload = parsePayload(formData);
 
-  const captchaCheck = await verifyRecaptchaToken(payload.recaptchaToken);
-  if (!captchaCheck.ok) {
+  if (payload.honeypot.trim().length > 0) {
+    return NextResponse.json({ ok: false, error: "Requete refusee." }, { status: 400 });
+  }
+
+  const startedAt = Number(payload.formStartedAt);
+  const formDurationMs = Date.now() - startedAt;
+  if (!Number.isFinite(startedAt) || formDurationMs < MIN_TIME_BEFORE_SUBMIT_MS) {
     return NextResponse.json(
-      {
-        ok: false,
-        error: captchaCheck.reason ?? "Verification CAPTCHA invalide. Reessayez.",
-      },
-      { status: 403 }
+      { ok: false, error: "Soumission trop rapide, verification anti-bot en echec." },
+      { status: 400 }
     );
+  }
+
+  const payloadError = validatePayload(payload);
+  if (payloadError) {
+    return NextResponse.json({ ok: false, error: payloadError }, { status: 400 });
+  }
+
+  const recaptchaCheck = await verifyRecaptchaToken(payload.recaptchaToken, ip);
+  if (!recaptchaCheck.ok) {
+    return NextResponse.json(
+      { ok: false, error: recaptchaCheck.reason ?? "Verification reCAPTCHA echouee." },
+      { status: 400 }
+    );
+  }
+
+  if (isDisposableEmail(payload.email)) {
+    return NextResponse.json(
+      { ok: false, error: "Les emails temporaires ne sont pas acceptes." },
+      { status: 400 }
+    );
+  }
+
+  const behavior = evaluateSignupBehavior({
+    formDurationMs,
+    mouseMoves: Number(payload.mouseMoves) || 0,
+    keyStrokes: Number(payload.keyStrokes) || 0,
+    pasteCount: Number(payload.pasteCount) || 0,
+    recentIpAttempts: rateCheck.attemptsInWindow,
+  });
+
+  if (behavior.isSuspicious) {
+    console.warn(`[subscription] Suspicious behavior detected for IP ${ip}:`, behavior.reasons);
   }
 
   const imageFile = formData.get("profilePhoto");
@@ -160,29 +197,30 @@ export async function POST(request: Request) {
       message: "Inscription enregistree. Verifie ton email pour activer le compte.",
       registrationIp: ip,
       ...(process.env.NODE_ENV !== "production"
-        ? { debugVerificationLink: verificationLink }
+        ? { debugVerificationLink: verificationLink, suspiciousSignals: behavior.reasons }
         : {}),
     },
     { status: 202 }
   );
 }
 
-async function verifyRecaptchaToken(token: string) {
+async function verifyRecaptchaToken(token: string, ip: string) {
   if (!token) {
     return { ok: false, reason: "Verification reCAPTCHA manquante." };
   }
 
-  const secret = process.env.RECAPTCHA_SECRET_KEY;
+  const secret = process.env.RECAPTCHA_SECRET_KEY || "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe";
   if (!secret) {
     return {
       ok: false,
-      reason: "reCAPTCHA indisponible: configure RECAPTCHA_SECRET_KEY.",
+      reason: "CAPTCHA indisponible: configure RECAPTCHA_SECRET_KEY.",
     };
   }
 
   const payload = new URLSearchParams({
     secret,
     response: token,
+    remoteip: ip,
   });
 
   const response = await fetch("https://www.google.com/recaptcha/api/siteverify", {
