@@ -29,8 +29,9 @@ export default function StudentsPage() {
     });
     const [modPhotoFile, setModPhotoFile] = useState<File | null>(null);
 
-    // Search state
+    // Search and Filter state
     const [searchQuery, setSearchQuery] = useState('');
+    const [selectedClass, setSelectedClass] = useState('');
 
     const API_BASE_URL = 'http://127.0.0.1:8000/api/v1';
 
@@ -381,39 +382,47 @@ export default function StudentsPage() {
             </div>
 
             {/* ONGLET LISTE */}
+            {/* ONGLET LISTE */}
             <div className={`feature-section ${activeTab === 'liste' ? 'active' : ''}`} style={{ display: activeTab === 'liste' ? 'block' : 'none' }}>
-                <div className="page-header">
+                <div className="page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                     <div className="page-title">
                         <h3>Liste des élèves</h3>
                         <p>Visualisez et gérez les élèves de votre établissement</p>
                     </div>
+                    <div className="header-actions">
+                        <select value={selectedClass} onChange={(e) => setSelectedClass(e.target.value)} className="form-control" style={{width: '250px'}}>
+                            <option value="">Toutes les classes</option>
+                            {schoolClasses.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
+                        </select>
+                    </div>
                 </div>
-                <div className="card">
-                    <div className="card-body">
-                        <div className="table-container full-width">
-                            <table className="data-table">
-                                <thead>
-                                    <tr>
-                                        <th>Photo</th>
-                                        <th>Nom & Prénom</th>
-                                        <th>Matricule</th>
-                                        <th>Classe</th>
-                                        <th>Date de naissance</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
+                
+                <div className="table-container full-width">
+                    <table className="data-table">
+                        <thead>
+                            <tr>
+                                <th>Photo</th>
+                                <th>Matricule</th>
+                                <th>Nom</th>
+                                <th>Prénom(s)</th>
+                                <th>Sexe</th>
+                                <th>Date de naissance</th>
+                                <th>Classe</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
                                 <tbody>
-                                    {loading && <tr><td colSpan={6} style={{textAlign:'center', padding:'30px'}}><i className="fas fa-spinner fa-spin"></i> Chargement...</td></tr>}
-                                    {error && <tr><td colSpan={6} style={{textAlign:'center', padding:'30px', color:'var(--danger-color)'}}><i className="fas fa-exclamation-triangle"></i> {error}</td></tr>}
+                                    {loading && <tr><td colSpan={8} style={{textAlign:'center', padding:'30px'}}><i className="fas fa-spinner fa-spin"></i> Chargement...</td></tr>}
+                                    {error && <tr><td colSpan={8} style={{textAlign:'center', padding:'30px', color:'var(--danger-color)'}}><i className="fas fa-exclamation-triangle"></i> {error}</td></tr>}
                                     {!loading && !error && students.length === 0 && (
                                         <tr>
-                                            <td colSpan={6} style={{textAlign:'center', padding:'40px', color:'var(--text-light)'}}>
+                                            <td colSpan={8} style={{textAlign:'center', padding:'40px', color:'var(--text-light)'}}>
                                                 <i className="fas fa-users" style={{fontSize: '3rem', marginBottom: '10px', opacity: 0.5}}></i><br/>
                                                 Aucun élève enregistré pour le moment.
                                             </td>
                                         </tr>
                                     )}
-                                    {students.map(s => {
+                                    {students.filter(s => selectedClass ? s.enrollments?.[0]?.school_class_id === parseInt(selectedClass) : true).map(s => {
                                         const currentEnrollment = s.enrollments?.[0];
                                         const className = currentEnrollment?.school_class?.name || '-';
                                         return (
@@ -427,15 +436,37 @@ export default function StudentsPage() {
                                                     )}
                                                 </div>
                                             </td>
-                                            <td><strong>{s.last_name} {s.first_name}</strong></td>
                                             <td>{s.registration_number || <span className="text-muted">-</span>}</td>
-                                            <td>{className}</td>
+                                            <td><strong>{s.last_name}</strong></td>
+                                            <td>{s.first_name}</td>
+                                            <td>{s.gender === 'F' ? 'Féminin' : s.gender === 'M' ? 'Masculin' : '-'}</td>
                                             <td>{s.birth_date || <span className="text-muted">-</span>}</td>
+                                            <td>{className}</td>
                                             <td>
-                                                <div className="action-buttons" style={{display: 'flex', gap: '8px'}}>
+                                                <div className="action-buttons" style={{display: 'flex', gap: '8px', alignItems: 'center'}}>
                                                     <button className="btn btn-secondary btn-small" onClick={() => editStudent(s)} title="Modifier">
                                                         <i className="fas fa-edit"></i>
                                                     </button>
+                                                    <div className="dropdown" style={{position: 'relative', display: 'inline-block'}}>
+                                                        <button className="btn btn-primary btn-small" title="Imprimer" onClick={(e) => {
+                                                            const dropdown = e.currentTarget.nextElementSibling as HTMLElement;
+                                                            if (dropdown) {
+                                                                const isVisible = dropdown.style.display === 'block';
+                                                                document.querySelectorAll('.print-dropdown').forEach(d => (d as HTMLElement).style.display = 'none');
+                                                                dropdown.style.display = isVisible ? 'none' : 'block';
+                                                            }
+                                                        }}>
+                                                            <i className="fas fa-print"></i>
+                                                        </button>
+                                                        <div className="print-dropdown dropdown-menu" style={{display: 'none', position: 'absolute', right: 0, zIndex: 100, minWidth: '180px', background: 'var(--card-bg)', border: '1px solid var(--border-color)', borderRadius: '4px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)'}}>
+                                                            <a href="#" onClick={(e) => { e.preventDefault(); alert(`Impression Fiche Identité pour ${s.last_name}`); }} style={{display: 'block', padding: '8px 12px', textDecoration: 'none', color: 'var(--text-color)', borderBottom: '1px solid var(--border-color)'}}>
+                                                                <i className="fas fa-id-card" style={{marginRight: '8px', color: 'var(--primary-color)'}}></i> Fiche identité
+                                                            </a>
+                                                            <a href="#" onClick={(e) => { e.preventDefault(); alert(`Impression Fiche de Notes pour ${s.last_name}`); }} style={{display: 'block', padding: '8px 12px', textDecoration: 'none', color: 'var(--text-color)'}}>
+                                                                <i className="fas fa-file-alt" style={{marginRight: '8px', color: 'var(--primary-color)'}}></i> Fiche de notes
+                                                            </a>
+                                                        </div>
+                                                    </div>
                                                     <button className="btn btn-danger btn-small" onClick={() => handleDelete(s.id)} title="Supprimer" style={{backgroundColor: 'var(--danger-color)', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '4px', cursor: 'pointer'}}>
                                                         <i className="fas fa-trash"></i>
                                                     </button>
@@ -446,8 +477,6 @@ export default function StudentsPage() {
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-                </div>
             </div>
 
             {/* ONGLET MODIFICATIONS */}
