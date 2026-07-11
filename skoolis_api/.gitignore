@@ -22,3 +22,9 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Fichiers de debug et tests manuels
+payload.json
+test_login.js
+test_login.py
+cookies.txt
