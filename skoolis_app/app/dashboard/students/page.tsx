@@ -324,7 +324,7 @@ export default function StudentsPage() {
                             </div>
 
                             {/* TUTEUR */}
-                            <div className="form-section" style={{ marginTop: '30px' }}>
+                            <div className="form-section">
                                 <h4 className="form-section-title"><i className="fas fa-user-shield"></i> Informations du Tuteur / Parent</h4>
                                 <div className="form-grid">
                                     <div className="form-group">
@@ -351,7 +351,7 @@ export default function StudentsPage() {
                             </div>
 
                             {/* INSCRIPTION */}
-                            <div className="form-section" style={{ marginTop: '30px' }}>
+                            <div className="form-section">
                                 <h4 className="form-section-title"><i className="fas fa-graduation-cap"></i> Inscription</h4>
                                 <div className="form-grid">
                                     <div className="form-group">
@@ -370,7 +370,7 @@ export default function StudentsPage() {
                                 </div>
                             </div>
 
-                            <div className="form-actions" style={{ marginTop: '20px', textAlign: 'right' }}>
+                            <div className="form-actions" style={{ justifyContent: 'flex-end' }}>
                                 <button type="submit" className="btn btn-primary">
                                     <i className="fas fa-save"></i> Enregistrer l'élève
                                 </button>
@@ -517,7 +517,7 @@ export default function StudentsPage() {
                                     </div>
                                 </div>
 
-                                <div className="form-section" style={{ marginTop: '30px' }}>
+                                <div className="form-section">
                                     <h4 className="form-section-title"><i className="fas fa-user-shield"></i> Informations du Tuteur / Parent</h4>
                                     <div className="form-grid">
                                         <div className="form-group">
@@ -543,7 +543,7 @@ export default function StudentsPage() {
                                     </div>
                                 </div>
 
-                                <div className="form-section" style={{ marginTop: '30px' }}>
+                                <div className="form-section">
                                     <h4 className="form-section-title"><i className="fas fa-graduation-cap"></i> Inscription</h4>
                                     <div className="form-grid">
                                         <div className="form-group">
@@ -571,7 +571,7 @@ export default function StudentsPage() {
                                     </div>
                                 </div>
 
-                                <div className="form-actions" style={{ marginTop: '20px', display: 'flex', justifyContent: 'space-between' }}>
+                                <div className="form-actions">
                                     <button type="button" className="btn btn-secondary" onClick={() => setSelectedStudent(null)}>
                                         Annuler
                                     </button>
