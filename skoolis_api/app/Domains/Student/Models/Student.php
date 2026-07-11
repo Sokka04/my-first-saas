@@ -13,11 +13,32 @@ class Student extends Model
 {
     use HasFactory, HasUuids, SoftDeletes;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'school_id',
+        'first_name',
+        'last_name',
+        'birth_date',
+        'gender',
+        'registration_number',
+        'photo_path',
+        'status',
+        'birth_place',
+        'address',
+        'enrollment_date',
+        'created_by',
+        'updated_by',
+    ];
 
     protected static function newFactory()
     {
-        return \Database\Factories\StudentFactory::new();
+        return \App\Domains\Student\Database\Factories\StudentFactory::new();
+    }
+
+    public function guardians()
+    {
+        return $this->belongsToMany(Guardian::class, 'guardian_student')
+            ->withPivot('relationship', 'is_primary')
+            ->withTimestamps();
     }
 
     public function enrollments(): HasMany

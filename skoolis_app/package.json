@@ -30,6 +30,7 @@
     "@types/react-google-recaptcha": "^2.1.9",
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
+    "sass": "^1.101.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

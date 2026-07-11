@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\V1\HealthController;
 use App\Http\Controllers\Api\V1\MeController;
 use App\Domains\Auth\Controllers\Api\V1\AuthController;
 use App\Domains\Student\Controllers\Api\V1\StudentController;
+use App\Domains\School\Controllers\Api\V1\SchoolClassController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function (): void {
@@ -16,5 +17,7 @@ Route::prefix('v1')->group(function (): void {
         Route::post('/logout', [AuthController::class, 'logout'])->name('api.v1.logout');
         
         Route::apiResource('students', StudentController::class);
+        Route::get('school-classes', [SchoolClassController::class, 'index']);
+        Route::get('school-years', [\App\Domains\School\Controllers\Api\V1\SchoolYearController::class, 'index']);
     });
 });
