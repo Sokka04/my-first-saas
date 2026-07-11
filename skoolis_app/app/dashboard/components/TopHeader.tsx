@@ -8,6 +8,9 @@ export default function TopHeader() {
         // Init theme from document on mount
         const currentTheme = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
         setTheme(currentTheme);
+        if (currentTheme === "dark") {
+            document.querySelector('.container')?.setAttribute("data-theme", "dark");
+        }
     }, []);
 
     const toggleTheme = () => {
@@ -16,8 +19,10 @@ export default function TopHeader() {
         
         if (newTheme === "dark") {
             document.documentElement.setAttribute("data-theme", "dark");
+            document.querySelector('.container')?.setAttribute("data-theme", "dark");
         } else {
             document.documentElement.removeAttribute("data-theme");
+            document.querySelector('.container')?.removeAttribute("data-theme");
         }
         
         // Save to localStorage
