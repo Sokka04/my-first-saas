@@ -2,6 +2,45 @@
 
 import { useState, useEffect, useRef } from "react";
 
+const processImage = (file: File): Promise<File> => {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (event) => {
+            const img = new Image();
+            img.src = event.target?.result as string;
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                const SIZE = 400; 
+                canvas.width = SIZE;
+                canvas.height = SIZE;
+                const ctx = canvas.getContext('2d');
+                if (!ctx) return reject(new Error("Canvas not supported"));
+                
+                const minDim = Math.min(img.width, img.height);
+                const startX = (img.width - minDim) / 2;
+                const startY = (img.height - minDim) / 2;
+                
+                ctx.drawImage(img, startX, startY, minDim, minDim, 0, 0, SIZE, SIZE);
+                
+                canvas.toBlob((blob) => {
+                    if (blob) {
+                        const newFile = new File([blob], file.name.replace(/\.[^/.]+$/, "") + ".webp", {
+                            type: 'image/webp',
+                            lastModified: Date.now(),
+                        });
+                        resolve(newFile);
+                    } else {
+                        reject(new Error("Canvas toBlob failed"));
+                    }
+                }, 'image/webp', 0.85);
+            };
+            img.onerror = (e) => reject(e);
+        };
+        reader.onerror = (e) => reject(e);
+    });
+};
+
 export default function StudentsPage() {
     const [activeTab, setActiveTab] = useState("liste");
     const [students, setStudents] = useState<any[]>([]);
@@ -18,6 +57,7 @@ export default function StudentsPage() {
         classe: ''
     });
     const [photoFile, setPhotoFile] = useState<File | null>(null);
+    const [photoPreview, setPhotoPreview] = useState<string | null>(null);
 
     // Modification state
     const [selectedStudent, setSelectedStudent] = useState<any>(null);
@@ -28,6 +68,7 @@ export default function StudentsPage() {
         classe: '', annee_scolaire: ''
     });
     const [modPhotoFile, setModPhotoFile] = useState<File | null>(null);
+    const [modPhotoPreview, setModPhotoPreview] = useState<string | null>(null);
 
     // Search and Filter state
     const [searchQuery, setSearchQuery] = useState('');
@@ -129,6 +170,7 @@ export default function StudentsPage() {
                     classe: ''
                 });
                 setPhotoFile(null);
+                setPhotoPreview(null);
                 const fileInput = document.getElementById('photo-upload') as HTMLInputElement;
                 if (fileInput) fileInput.value = '';
                 setActiveTab("liste");
@@ -181,6 +223,7 @@ export default function StudentsPage() {
                 alert("Élève mis à jour avec succès !");
                 setSelectedStudent(null);
                 setModPhotoFile(null);
+                setModPhotoPreview(null);
                 const fileInput = document.getElementById('mod-photo-upload') as HTMLInputElement;
                 if (fileInput) fileInput.value = '';
                 setActiveTab("liste");
@@ -236,6 +279,7 @@ export default function StudentsPage() {
             annee_scolaire: currentEnrollment.school_year_id || ''
         });
         setModPhotoFile(null);
+        setModPhotoPreview(student.photo_path ? `http://localhost:8000/storage/${student.photo_path}` : null);
         setActiveTab("modification");
     };
 
@@ -336,10 +380,30 @@ export default function StudentsPage() {
                                         <label>Adresse</label>
                                         <input type="text" value={formData.adresse} onChange={e => setFormData({...formData, adresse: e.target.value})} className="form-control" />
                                     </div>
-                                    <div className="form-group">
-                                        <label>Photo de profil</label>
-                                        <input type="file" id="photo-upload" accept="image/jpeg, image/png, image/webp" onChange={e => setPhotoFile(e.target.files?.[0] || null)} className="form-control" />
-                                        <small className="text-muted">JPG, PNG, WEBP (Max 5Mo)</small>
+                                    <div className="form-group" style={{ gridColumn: '1 / -1' }}>
+                                        <label>Photo de l'élève (Optionnel)</label>
+                                        <div style={{display: 'flex', alignItems: 'center', gap: '15px'}}>
+                                            <div style={{width: '60px', height: '60px', borderRadius: '50%', backgroundColor: 'var(--bg-color)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', border: '1px solid var(--border-color)'}}>
+                                                {photoPreview ? <img src={photoPreview} alt="Preview" style={{width: '100%', height: '100%', objectFit: 'cover'}} /> : <i className="fas fa-camera text-muted"></i>}
+                                            </div>
+                                            <input type="file" id="photo-upload" accept="image/jpeg, image/png, image/webp" onChange={async (e) => {
+                                                const file = e.target.files?.[0];
+                                                if (file) {
+                                                    try {
+                                                        const processedFile = await processImage(file);
+                                                        setPhotoFile(processedFile);
+                                                        setPhotoPreview(URL.createObjectURL(processedFile));
+                                                    } catch (err) {
+                                                        console.error("Erreur de traitement d'image", err);
+                                                        alert("Erreur lors du traitement de l'image.");
+                                                    }
+                                                } else {
+                                                    setPhotoFile(null);
+                                                    setPhotoPreview(null);
+                                                }
+                                            }} className="form-control" style={{flex: 1}} />
+                                        </div>
+                                        <small className="text-muted" style={{display: 'block', marginTop: '5px'}}>La photo sera recadrée en carré et optimisée automatiquement (max 400x400).</small>
                                     </div>
                                 </div>
                             </div>
@@ -562,9 +626,30 @@ export default function StudentsPage() {
                                             <label>Adresse</label>
                                             <input type="text" value={modFormData.adresse} onChange={e => setModFormData({...modFormData, adresse: e.target.value})} className="form-control" />
                                         </div>
-                                        <div className="form-group">
-                                            <label>Nouvelle Photo (optionnel)</label>
-                                            <input type="file" id="mod-photo-upload" accept="image/jpeg, image/png, image/webp" onChange={e => setModPhotoFile(e.target.files?.[0] || null)} className="form-control" />
+                                        <div className="form-group" style={{ gridColumn: '1 / -1' }}>
+                                            <label>Photo de l'élève (Optionnel)</label>
+                                            <div style={{display: 'flex', alignItems: 'center', gap: '15px'}}>
+                                                <div style={{width: '60px', height: '60px', borderRadius: '50%', backgroundColor: 'var(--bg-color)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', border: '1px solid var(--border-color)'}}>
+                                                    {modPhotoPreview ? <img src={modPhotoPreview} alt="Preview" style={{width: '100%', height: '100%', objectFit: 'cover'}} /> : <i className="fas fa-camera text-muted"></i>}
+                                                </div>
+                                                <input type="file" id="mod-photo-upload" accept="image/jpeg, image/png, image/webp" onChange={async (e) => {
+                                                    const file = e.target.files?.[0];
+                                                    if (file) {
+                                                        try {
+                                                            const processedFile = await processImage(file);
+                                                            setModPhotoFile(processedFile);
+                                                            setModPhotoPreview(URL.createObjectURL(processedFile));
+                                                        } catch (err) {
+                                                            console.error("Erreur de traitement d'image", err);
+                                                            alert("Erreur lors du traitement de l'image.");
+                                                        }
+                                                    } else {
+                                                        setModPhotoFile(null);
+                                                        setModPhotoPreview(selectedStudent?.photo_path ? `http://localhost:8000/storage/${selectedStudent.photo_path}` : null);
+                                                    }
+                                                }} className="form-control" style={{flex: 1}} />
+                                            </div>
+                                            <small className="text-muted" style={{display: 'block', marginTop: '5px'}}>La photo sera recadrée en carré et optimisée automatiquement (max 400x400).</small>
                                         </div>
                                     </div>
                                 </div>
