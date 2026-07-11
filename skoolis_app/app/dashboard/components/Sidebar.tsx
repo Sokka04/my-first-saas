@@ -12,9 +12,9 @@ export default function Sidebar() {
         <nav className="sidebar">
             <div className="logo-container">
                 <div className="logo">
-                    <div className="logo-top" style={{ justifyContent: 'center', marginBottom: '15px' }}>
-                        <img src="/skoolis_logo_sombre.png" alt="Skoolis Logo" className="logo-light-theme" style={{ maxHeight: '60px', width: 'auto', maxWidth: '100%', objectFit: 'contain' }} />
-                        <img src="/skoolis_logo_clair.png" alt="Skoolis Logo" className="logo-dark-theme" style={{ maxHeight: '60px', width: 'auto', maxWidth: '100%', objectFit: 'contain' }} />
+                    <div className="logo-top" style={{ justifyContent: 'center', marginBottom: '0' }}>
+                        <img src="/skoolis_logo_sombre.png" alt="Skoolis Logo" className="logo-light-theme" style={{ maxHeight: '85px', width: 'auto', maxWidth: '100%', objectFit: 'contain', marginTop: '-10px' }} />
+                        <img src="/skoolis_logo_clair.png" alt="Skoolis Logo" className="logo-dark-theme" style={{ maxHeight: '85px', width: 'auto', maxWidth: '100%', objectFit: 'contain', marginTop: '-10px' }} />
                     </div>
                     <div className="current-schoolyear">Année Scolaire : 2026-2027</div>
                 </div>
