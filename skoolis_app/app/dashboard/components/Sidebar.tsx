@@ -12,9 +12,8 @@ export default function Sidebar() {
         <nav className="sidebar">
             <div className="logo-container">
                 <div className="logo">
-                    <div className="logo-top">
-                        <span className="logo-icon">S</span>
-                        <h1>Skoolis</h1>
+                    <div className="logo-top" style={{ justifyContent: 'center' }}>
+                        <img src="/skoolis_logo.png" alt="Skoolis Logo" style={{ maxHeight: '40px', width: 'auto', objectFit: 'contain' }} />
                     </div>
                     <div className="current-schoolyear">Année Scolaire : 2026-2027</div>
                 </div>

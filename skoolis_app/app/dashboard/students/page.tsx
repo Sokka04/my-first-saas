@@ -268,11 +268,10 @@ export default function StudentsPage() {
                         <p>Remplissez les informations et ajoutez une photo</p>
                     </div>
                 </div>
-                <div className="card">
-                    <div className="card-body">
-                        <form onSubmit={handleSave}>
-                            {/* ÉLÈVE */}
-                            <div className="form-section">
+                <div className="form-container">
+                    <form onSubmit={handleSave}>
+                        {/* ÉLÈVE */}
+                        <div className="form-section">
                                 <h4 className="form-section-title"><i className="fas fa-id-card"></i> Informations Personnelles</h4>
                                 <div className="form-grid">
                                     <div className="form-group">
@@ -378,7 +377,6 @@ export default function StudentsPage() {
                             </div>
                         </form>
                     </div>
-                </div>
             </div>
 
             {/* ONGLET LISTE */}
@@ -459,8 +457,7 @@ export default function StudentsPage() {
                         <p>Mettez à jour les informations de l'élève sélectionné</p>
                     </div>
                 </div>
-                <div className="card">
-                    <div className="card-body">
+                <div className="form-container">
                         {!selectedStudent ? (
                             <div style={{textAlign: 'center', padding: '50px 20px', color: 'var(--text-light)'}}>
                                 <i className="fas fa-hand-pointer" style={{fontSize: '3rem', marginBottom: '15px', opacity: 0.5}}></i>
@@ -579,13 +576,12 @@ export default function StudentsPage() {
                                         Annuler
                                     </button>
                                     <button type="submit" className="btn btn-primary">
-                                        <i className="fas fa-save"></i> Enregistrer les modifications
+                                        <i className="fas fa-save"></i> Mettre à jour l'élève
                                     </button>
                                 </div>
                             </form>
                         )}
                     </div>
-                </div>
             </div>
 
             {/* ONGLET RECHERCHE */}
