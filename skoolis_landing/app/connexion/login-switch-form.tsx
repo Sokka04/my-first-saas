@@ -62,24 +62,55 @@ export function LoginSwitchForm() {
     [mode]
   );
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setError(null);
+    setIsLoading(true);
 
     const formData = new FormData(event.currentTarget);
     const email = String(formData.get("email") ?? "").trim();
-    const phone = String(formData.get("numéro") ?? "").trim();
-    const identifier =
-      mode === "email"
-        ? email || "compte@mySkoolis"
-        : `${dialCode} ${phone}`.trim() || dialCode;
+    const password = String(formData.get("motDePasse") ?? "").trim();
 
-    setMyskoolisSession({
-      identifier,
-      mode,
-      loggedInAt: new Date().toISOString(),
-    });
+    try {
+      // Demander le cookie CSRF à Sanctum
+      await fetch("http://localhost:8000/sanctum/csrf-cookie", {
+        method: "GET",
+        headers: { Accept: "application/json" },
+      });
 
-    window.location.href = redirectTarget;
+      // Appel de login
+      const res = await fetch("http://localhost:8000/api/v1/login", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+        credentials: "include",
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || "Identifiants incorrects");
+      }
+
+      setMyskoolisSession({
+        identifier: email,
+        mode,
+        loggedInAt: new Date().toISOString(),
+        user: data.user,
+      });
+
+      window.location.href = redirectTarget;
+    } catch (err: any) {
+      setError(err.message || "Erreur de connexion");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -121,6 +152,12 @@ export function LoginSwitchForm() {
           Telephone
         </button>
       </div>
+
+      {error && (
+        <div className="mt-4 p-3 bg-red-500/10 border border-red-500/50 rounded-lg text-red-500 text-sm font-medium text-center">
+          {error}
+        </div>
+      )}
 
       <form className="mt-6 space-y-5" onSubmit={handleSubmit}>
         {mode === "email" ? (
@@ -209,16 +246,18 @@ export function LoginSwitchForm() {
 
         <button
           type="submit"
+          disabled={isLoading}
           className={cn(
             buttonVariants({ variant: "default", size: "lg" }),
             "min-h-12 w-full justify-center text-base font-semibold"
           )}
         >
-          Se connecter
+          {isLoading ? "Connexion en cours..." : "Se connecter"}
         </button>
 
         <button
           type="button"
+          disabled={isLoading}
           className={cn(
             buttonVariants({ variant: "outline", size: "lg" }),
             "min-h-12 w-full justify-center gap-2 text-base"
