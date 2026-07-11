@@ -278,7 +278,7 @@ export default function StudentsPage() {
                                 <div className="form-grid">
                                     <div className="form-group">
                                         <label>Matricule</label>
-                                        <input type="text" value={formData.matricule} onChange={e => setFormData({...formData, matricule: e.target.value})} className="form-control" placeholder="EX: STD-2024-001" />
+                                        <input type="text" value={formData.matricule} onChange={e => setFormData({...formData, matricule: e.target.value})} className="form-control" placeholder="Laisser vide pour gérer automatiquement" />
                                     </div>
                                     <div className="form-group">
                                         <label>Nom *</label>
@@ -436,7 +436,7 @@ export default function StudentsPage() {
                                                     )}
                                                 </div>
                                             </td>
-                                            <td>{s.registration_number || <span className="text-muted">-</span>}</td>
+                                            <td>{s.registration_number || <span className="text-muted" style={{fontSize: '0.8em', fontStyle: 'italic'}}>Géré automatiquement</span>}</td>
                                             <td><strong>{s.last_name}</strong></td>
                                             <td>{s.first_name}</td>
                                             <td>{s.gender === 'F' ? 'Féminin' : s.gender === 'M' ? 'Masculin' : '-'}</td>
@@ -501,7 +501,7 @@ export default function StudentsPage() {
                                     <div className="form-grid">
                                         <div className="form-group">
                                             <label>Matricule</label>
-                                            <input type="text" value={modFormData.matricule} onChange={e => setModFormData({...modFormData, matricule: e.target.value})} className="form-control" />
+                                            <input type="text" value={modFormData.matricule} onChange={e => setModFormData({...modFormData, matricule: e.target.value})} className="form-control" placeholder="Laisser vide pour gérer automatiquement" />
                                         </div>
                                         <div className="form-group">
                                             <label>Nom *</label>
@@ -678,7 +678,7 @@ export default function StudentsPage() {
                                                         </div>
                                                     </td>
                                                     <td><strong>{s.last_name} {s.first_name}</strong></td>
-                                                    <td>{s.registration_number || <span className="text-muted">-</span>}</td>
+                                                    <td>{s.registration_number || <span className="text-muted" style={{fontSize: '0.8em', fontStyle: 'italic'}}>Géré automatiquement</span>}</td>
                                                     <td>
                                                         <button className="btn btn-secondary btn-small" onClick={() => editStudent(s)}>
                                                             <i className="fas fa-edit"></i> Modifier
