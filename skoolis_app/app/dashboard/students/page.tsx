@@ -12,7 +12,7 @@ export default function StudentsPage() {
 
     // Form states
     const [formData, setFormData] = useState({
-        nom: '', prenom: '', sexe: '', naissance: '', matricule: '',
+        nom: '', prenom: '', sexe: '', naissance: '', matricule: '', nationalite: '',
         statut: '', lieu_naissance: '', adresse: '', date_inscription: '',
         tuteur_nom: '', tuteur_prenoms: '', tuteur_contact: '', tuteur_profession: '', tuteur_email: '',
         classe: ''
@@ -22,7 +22,7 @@ export default function StudentsPage() {
     // Modification state
     const [selectedStudent, setSelectedStudent] = useState<any>(null);
     const [modFormData, setModFormData] = useState({
-        nom: '', prenom: '', sexe: '', naissance: '', matricule: '',
+        nom: '', prenom: '', sexe: '', naissance: '', matricule: '', nationalite: '',
         statut: '', lieu_naissance: '', adresse: '', date_inscription: '',
         tuteur_nom: '', tuteur_prenoms: '', tuteur_contact: '', tuteur_profession: '', tuteur_email: '',
         classe: '', annee_scolaire: ''
@@ -101,6 +101,7 @@ export default function StudentsPage() {
             
             if (formData.statut) data.append('status', formData.statut);
             if (formData.lieu_naissance) data.append('birth_place', formData.lieu_naissance);
+            if (formData.nationalite) data.append('nationality', formData.nationalite);
             if (formData.adresse) data.append('address', formData.adresse);
             if (formData.date_inscription) data.append('enrollment_date', formData.date_inscription);
             if (formData.tuteur_nom) data.append('tuteur_nom', formData.tuteur_nom);
@@ -122,7 +123,7 @@ export default function StudentsPage() {
             if (res.ok) {
                 alert("Élève enregistré avec succès !");
                 setFormData({ 
-                    nom: '', prenom: '', sexe: '', naissance: '', matricule: '',
+                    nom: '', prenom: '', sexe: '', naissance: '', matricule: '', nationalite: '',
                     statut: '', lieu_naissance: '', adresse: '', date_inscription: '',
                     tuteur_nom: '', tuteur_prenoms: '', tuteur_contact: '', tuteur_profession: '', tuteur_email: '',
                     classe: ''
@@ -156,6 +157,7 @@ export default function StudentsPage() {
 
             if (modFormData.statut) data.append('status', modFormData.statut);
             if (modFormData.lieu_naissance) data.append('birth_place', modFormData.lieu_naissance);
+            if (modFormData.nationalite) data.append('nationality', modFormData.nationalite);
             if (modFormData.adresse) data.append('address', modFormData.adresse);
             if (modFormData.date_inscription) data.append('enrollment_date', modFormData.date_inscription);
             if (modFormData.tuteur_nom) data.append('tuteur_nom', modFormData.tuteur_nom);
@@ -220,6 +222,7 @@ export default function StudentsPage() {
             sexe: student.gender || '',
             naissance: student.birth_date || '',
             matricule: student.registration_number || '',
+            nationalite: student.nationality || '',
             statut: student.status || '',
             lieu_naissance: student.birth_place || '',
             adresse: student.address || '',
@@ -310,10 +313,26 @@ export default function StudentsPage() {
                                         <input type="date" value={formData.naissance} onChange={e => setFormData({...formData, naissance: e.target.value})} className="form-control" />
                                     </div>
                                     <div className="form-group">
-                                        <label>Lieu de Naissance</label>
+                                        <label>Lieu de naissance</label>
                                         <input type="text" value={formData.lieu_naissance} onChange={e => setFormData({...formData, lieu_naissance: e.target.value})} className="form-control" />
                                     </div>
-                                    <div className="form-group" style={{ gridColumn: '1 / -1' }}>
+                                    <div className="form-group">
+                                        <label>Nationalité</label>
+                                        <input type="text" list="nationalities-list" value={formData.nationalite} onChange={e => setFormData({...formData, nationalite: e.target.value})} className="form-control" placeholder="Ex: Ivoirienne, Française..." />
+                                        <datalist id="nationalities-list">
+                                            <option value="Ivoirienne" />
+                                            <option value="Française" />
+                                            <option value="Sénégalaise" />
+                                            <option value="Malienne" />
+                                            <option value="Burkinabè" />
+                                            <option value="Guinéenne" />
+                                            <option value="Béninoise" />
+                                            <option value="Togolaise" />
+                                            <option value="Camerounaise" />
+                                            <option value="Gabonaise" />
+                                        </datalist>
+                                    </div>
+                                    <div className="form-group">
                                         <label>Adresse</label>
                                         <input type="text" value={formData.adresse} onChange={e => setFormData({...formData, adresse: e.target.value})} className="form-control" />
                                     </div>
@@ -381,7 +400,6 @@ export default function StudentsPage() {
                     </div>
             </div>
 
-            {/* ONGLET LISTE */}
             {/* ONGLET LISTE */}
             <div className={`feature-section ${activeTab === 'liste' ? 'active' : ''}`} style={{ display: activeTab === 'liste' ? 'block' : 'none' }}>
                 <div className="page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
@@ -533,10 +551,14 @@ export default function StudentsPage() {
                                             <input type="date" value={modFormData.naissance} onChange={e => setModFormData({...modFormData, naissance: e.target.value})} className="form-control" />
                                         </div>
                                         <div className="form-group">
-                                            <label>Lieu de Naissance</label>
+                                            <label>Lieu de naissance</label>
                                             <input type="text" value={modFormData.lieu_naissance} onChange={e => setModFormData({...modFormData, lieu_naissance: e.target.value})} className="form-control" />
                                         </div>
-                                        <div className="form-group" style={{ gridColumn: '1 / -1' }}>
+                                        <div className="form-group">
+                                            <label>Nationalité</label>
+                                            <input type="text" list="nationalities-list" value={modFormData.nationalite} onChange={e => setModFormData({...modFormData, nationalite: e.target.value})} className="form-control" placeholder="Ex: Ivoirienne, Française..." />
+                                        </div>
+                                        <div className="form-group">
                                             <label>Adresse</label>
                                             <input type="text" value={modFormData.adresse} onChange={e => setModFormData({...modFormData, adresse: e.target.value})} className="form-control" />
                                         </div>
