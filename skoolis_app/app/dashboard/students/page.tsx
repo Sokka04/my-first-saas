@@ -42,7 +42,7 @@ export default function StudentsPage() {
                 credentials: 'include'
             });
             if (res.status === 401 || res.status === 419) {
-                window.location.href = '/';
+                window.location.href = '/connexion';
                 return;
             }
             if (!res.ok) throw new Error("Erreur de chargement des élèves");
