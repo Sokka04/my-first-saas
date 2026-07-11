@@ -13,8 +13,8 @@ export default function Sidebar() {
             <div className="logo-container">
                 <div className="logo">
                     <div className="logo-top" style={{ justifyContent: 'center', marginBottom: '15px' }}>
-                        <img src="/skoolis_logo_sombre.png" alt="Skoolis Logo" className="logo-light-theme" style={{ maxHeight: '38px', width: 'auto', objectFit: 'contain' }} />
-                        <img src="/skoolis_logo_clair.png" alt="Skoolis Logo" className="logo-dark-theme" style={{ maxHeight: '38px', width: 'auto', objectFit: 'contain' }} />
+                        <img src="/skoolis_logo_sombre.png" alt="Skoolis Logo" className="logo-light-theme" style={{ width: '160px', height: 'auto', objectFit: 'contain' }} />
+                        <img src="/skoolis_logo_clair.png" alt="Skoolis Logo" className="logo-dark-theme" style={{ width: '160px', height: 'auto', objectFit: 'contain' }} />
                     </div>
                     <div className="current-schoolyear">Année Scolaire : 2026-2027</div>
                 </div>
