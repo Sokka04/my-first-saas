@@ -29,7 +29,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: "Skoolis - Le systeme scolaire moderne concu pour l'Afrique",
+    default: "Skoolis - Le système scolaire moderne conçu pour l'Afrique",
     template: "%s — Skoolis",
   },
   description: siteConfig.description,
@@ -52,12 +52,12 @@ export const metadata: Metadata = {
     locale: "fr_FR",
     url: siteConfig.url,
     siteName: siteConfig.name,
-    title: "Skoolis - Le systeme scolaire moderne concu pour l'Afrique",
+    title: "Skoolis - Le système scolaire moderne conçu pour l'Afrique",
     description: siteConfig.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Skoolis - Le systeme scolaire moderne concu pour l'Afrique",
+    title: "Skoolis - Le système scolaire moderne conçu pour l'Afrique",
     description: siteConfig.description,
   },
   robots: {
@@ -93,9 +93,11 @@ export default async function RootLayout({
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full`}
     >
-      <body className="bg-background text-foreground flex min-h-full flex-col">
-        <Script id="theme-bootstrap" strategy="beforeInteractive">
-          {`(() => {
+      <head>
+        <script
+          id="theme-bootstrap"
+          dangerouslySetInnerHTML={{
+            __html: `(() => {
   try {
     const key = "skoolis-theme";
     const savedThemeRaw = window.localStorage.getItem(key);
@@ -120,8 +122,11 @@ export default async function RootLayout({
       document.cookie = "skoolis-theme=" + theme + "; path=/; max-age=31536000; SameSite=Lax";
     }
   } catch {}
-})();`}
-        </Script>
+})();`
+          }}
+        />
+      </head>
+      <body className="bg-background text-foreground flex min-h-full flex-col">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

@@ -55,7 +55,7 @@ const features = [
 
 export function FeaturesSection() {
   return (
-    <SectionShell id="fonctionnalites" muted>
+    <SectionShell id="fonctionnalités" muted>
       <SectionHeading
         eyebrow="Solution"
         title="Une plateforme unique, calme et durable."

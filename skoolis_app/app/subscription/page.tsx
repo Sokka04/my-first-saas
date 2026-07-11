@@ -7,7 +7,7 @@ import { SubscriptionAccountForm } from "./subscription-account-form";
 export const metadata: Metadata = {
   title: "Mon compte mySkoolis",
   description:
-    "Creation de ton compte mySkoolis avec informations de base et protections de securite.",
+    "Création de ton compte mySkoolis avec informations de base et protections de sécurité.",
 };
 
 export default function SubscriptionPage() {
@@ -15,7 +15,7 @@ export default function SubscriptionPage() {
     <SubpageLayout maxWidth="wide" withHomeGradient>
       <MarketingPageHeader
         title="Mon compte mySkoolis"
-        description="Cree ton compte mySkoolis avec verification securisee."
+        description="Crée ton compte mySkoolis avec vérification sécurisée."
       />
 
       <div className="mt-10">

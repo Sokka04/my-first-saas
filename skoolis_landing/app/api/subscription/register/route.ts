@@ -72,11 +72,11 @@ function validatePayload(payload: ParsedPayload) {
   }
 
   if (!isPhoneDialValid(payload.phoneDial) || !isPhoneLocalValid(payload.phoneLocal)) {
-    return "Numero de telephone invalide.";
+    return "Numéro de telephone invalide.";
   }
 
   if (payload.password.length < 8) {
-    return "Le mot de passe doit contenir au moins 8 caracteres.";
+    return "Le mot de passe doit contenir au moins 8 caractères.";
   }
 
   if (payload.password !== payload.confirmPassword) {
@@ -93,7 +93,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         ok: false,
-        error: "Trop de tentatives depuis cette adresse IP. Reessaie plus tard.",
+        error: "Trop de tentatives depuis cette adresse IP. Réessaie plus tard.",
       },
       {
         status: 429,
@@ -110,7 +110,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         ok: false,
-        error: captchaCheck.reason ?? "Verification CAPTCHA invalide. Reessayez.",
+        error: captchaCheck.reason ?? "Vérification CAPTCHA invalide. réessayez.",
       },
       { status: 403 }
     );
@@ -148,7 +148,7 @@ export async function POST(request: Request) {
 
   // TODO: brancher un provider email (Resend/SES/Postmark). Pour l'instant, log serveur.
   if (verificationLink) {
-    console.info(`[subscription] Lien de verification email: ${verificationLink}`);
+    console.info(`[subscription] Lien de vérification email: ${verificationLink}`);
   }
 
   logRegistration(ip, payload.email);
@@ -169,7 +169,7 @@ export async function POST(request: Request) {
 
 async function verifyRecaptchaToken(token: string) {
   if (!token) {
-    return { ok: false, reason: "Verification reCAPTCHA manquante." };
+    return { ok: false, reason: "Vérification reCAPTCHA manquante." };
   }
 
   const secret = process.env.RECAPTCHA_SECRET_KEY;
@@ -193,7 +193,7 @@ async function verifyRecaptchaToken(token: string) {
 
   const data = (await response.json()) as { success?: boolean };
   if (!response.ok || !data.success) {
-    return { ok: false, reason: "reCAPTCHA invalide. Reessaie." };
+    return { ok: false, reason: "reCAPTCHA invalide. Réessaie." };
   }
 
   return { ok: true as const };

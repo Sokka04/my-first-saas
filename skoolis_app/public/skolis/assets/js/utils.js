@@ -423,8 +423,8 @@ const Utils = {
     },
 
     /**
-     * Récupère les paramètres URL
-     * @returns {object} Objet contenant les paramètres
+     * Récupère les paramètrès URL
+     * @returns {object} Objet contenant les paramètrès
      */
     getUrlParams() {
         const params = {};

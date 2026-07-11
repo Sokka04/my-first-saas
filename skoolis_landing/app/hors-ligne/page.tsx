@@ -94,7 +94,7 @@ export default function HorsLignePage() {
             Chiffrement en transit (HTTPS), contrôle d’accès par rôle et par
             école, logs d’audit pour les opérations sensibles — voir aussi{" "}
             <Link
-              href="/faq#securite"
+              href="/faq#sécurité"
               className="text-primary font-medium underline-offset-4 hover:underline"
             >
               FAQ sécurité

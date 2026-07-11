@@ -48,7 +48,7 @@ export default function FaqPage() {
           </div>
         </div>
 
-        <div id="securite" className="scroll-mt-28">
+        <div id="sécurité" className="scroll-mt-28">
           <h2 className="text-foreground text-xl font-semibold">Sécurité</h2>
           <Card className="mt-4 shadow-none">
             <CardContent className="pt-6 pb-6">

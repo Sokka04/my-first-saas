@@ -2,9 +2,9 @@ const appUrl = process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ?? "/app";
 
 export const siteConfig = {
   name: "Skoolis",
-  tagline: "Le systeme scolaire moderne concu pour l'Afrique",
+  tagline: "Le système scolaire moderne conçu pour l'Afrique",
   description:
-    "Skoolis est la plateforme scolaire moderne pensee pour les ecoles africaines. Elle centralise gestion, communication, suivi pedagogique et experience parent/eleve dans une interface simple et premium.",
+    "Skoolis est la plateforme scolaire moderne pensée pour les écoles africaines. Elle centralise gestion, communication, suivi pédagogique et expérience parent/élève dans une interface simple et premium.",
   url:
     process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ??
     "https://www.skoolis.app",
@@ -33,9 +33,9 @@ export const siteConfig = {
   },
   nav: [
     { label: "Home", href: "/" },
-    { label: "Fonctionnalites", href: "/features" },
+    { label: "Fonctionnalités", href: "/features" },
     { label: "Tarifs", href: "/pricing" },
-    { label: "A propos", href: "/about" },
+    { label: "À propos", href: "/about" },
     { label: "FAQ", href: "/faq" },
     { label: "Contact", href: "/contact" },
   ],

@@ -19,7 +19,7 @@ type SubscriptionItem = {
 const subscriptions: SubscriptionItem[] = [
   {
     id: "sub-1",
-    title: "Skoolis Pro - Etablissement Principal",
+    title: "Skoolis Pro - Établissement Principal",
     period: "01 Jan 2026 - 31 Dec 2026",
     status: "active",
     activationDate: "oct. 29 2025, 16:20:45 UTC",
@@ -161,7 +161,7 @@ export function ProfileContent() {
                     <p className="text-muted-foreground text-sm">{subscription.activationDate}</p>
                   </div>
                   <div>
-                    <p className="text-foreground text-sm font-medium">Cle de la licence :</p>
+                    <p className="text-foreground text-sm font-medium">Clé de la licence :</p>
                     <p className="text-muted-foreground break-all text-sm">{subscription.licenseKey}</p>
                   </div>
                   <div className="space-y-2">

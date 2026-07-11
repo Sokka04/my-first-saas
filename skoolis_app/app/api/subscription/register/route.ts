@@ -75,11 +75,11 @@ function validatePayload(payload: ParsedPayload) {
   }
 
   if (!isPhoneDialValid(payload.phoneDial) || !isPhoneLocalValid(payload.phoneLocal)) {
-    return "Numero de telephone invalide.";
+    return "Numéro de telephone invalide.";
   }
 
   if (payload.password.length < 8) {
-    return "Le mot de passe doit contenir au moins 8 caracteres.";
+    return "Le mot de passe doit contenir au moins 8 caractères.";
   }
 
   if (payload.password !== payload.confirmPassword) {
@@ -96,7 +96,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         ok: false,
-        error: "Trop de tentatives depuis cette adresse IP. Reessaie plus tard.",
+        error: "Trop de tentatives depuis cette adresse IP. Réessaie plus tard.",
       },
       {
         status: 429,
@@ -109,14 +109,14 @@ export async function POST(request: Request) {
   const payload = parsePayload(formData);
 
   if (payload.honeypot.trim().length > 0) {
-    return NextResponse.json({ ok: false, error: "Requete refusee." }, { status: 400 });
+    return NextResponse.json({ ok: false, error: "Requete refusée." }, { status: 400 });
   }
 
   const startedAt = Number(payload.formStartedAt);
   const formDurationMs = Date.now() - startedAt;
   if (!Number.isFinite(startedAt) || formDurationMs < MIN_TIME_BEFORE_SUBMIT_MS) {
     return NextResponse.json(
-      { ok: false, error: "Soumission trop rapide, verification anti-bot en echec." },
+      { ok: false, error: "Soumission trop rapide, vérification anti-bot en echec." },
       { status: 400 }
     );
   }
@@ -129,7 +129,7 @@ export async function POST(request: Request) {
   const recaptchaCheck = await verifyRecaptchaToken(payload.recaptchaToken, ip);
   if (!recaptchaCheck.ok) {
     return NextResponse.json(
-      { ok: false, error: recaptchaCheck.reason ?? "Verification reCAPTCHA echouee." },
+      { ok: false, error: recaptchaCheck.reason ?? "Vérification reCAPTCHA echouee." },
       { status: 400 }
     );
   }
@@ -185,7 +185,7 @@ export async function POST(request: Request) {
 
   // TODO: brancher un provider email (Resend/SES/Postmark). Pour l'instant, log serveur.
   if (verificationLink) {
-    console.info(`[subscription] Lien de verification email: ${verificationLink}`);
+    console.info(`[subscription] Lien de vérification email: ${verificationLink}`);
   }
 
   logRegistration(ip, payload.email);
@@ -206,7 +206,7 @@ export async function POST(request: Request) {
 
 async function verifyRecaptchaToken(token: string, ip: string) {
   if (!token) {
-    return { ok: false, reason: "Verification reCAPTCHA manquante." };
+    return { ok: false, reason: "Vérification reCAPTCHA manquante." };
   }
 
   const secret = process.env.RECAPTCHA_SECRET_KEY || "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe";
@@ -231,7 +231,7 @@ async function verifyRecaptchaToken(token: string, ip: string) {
 
   const data = (await response.json()) as { success?: boolean };
   if (!response.ok || !data.success) {
-    return { ok: false, reason: "reCAPTCHA invalide. Reessaie." };
+    return { ok: false, reason: "reCAPTCHA invalide. Réessaie." };
   }
 
   return { ok: true as const };

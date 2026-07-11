@@ -431,7 +431,7 @@ const BackupManager = {
                         </div>
                     </div>
 
-                    <!-- Paramètres sauvegarde automatique -->
+                    <!-- Paramètrès sauvegarde automatique -->
                     <div class="backup-section">
                         <h4 class="form-section-title"><i class="fas fa-clock-rotate-left"></i> &nbsp;Sauvegarde automatique</h4>
                         <div style="display:flex; flex-direction:column; gap:12px;">

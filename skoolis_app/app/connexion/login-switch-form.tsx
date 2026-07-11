@@ -24,7 +24,7 @@ type CountryOption = {
 const countryOptions: CountryOption[] = [
   { countryCode: "TG", dialCode: "+228", label: "Togo (+228)" },
   { countryCode: "BJ", dialCode: "+229", label: "Benin (+229)" },
-  { countryCode: "CI", dialCode: "+225", label: "Cote d'Ivoire (+225)" },
+  { countryCode: "CI", dialCode: "+225", label: "Côté d'Ivoire (+225)" },
   { countryCode: "SN", dialCode: "+221", label: "Senegal (+221)" },
   { countryCode: "CM", dialCode: "+237", label: "Cameroun (+237)" },
   { countryCode: "GA", dialCode: "+241", label: "Gabon (+241)" },
@@ -67,7 +67,7 @@ export function LoginSwitchForm() {
 
     const formData = new FormData(event.currentTarget);
     const email = String(formData.get("email") ?? "").trim();
-    const phone = String(formData.get("numero") ?? "").trim();
+    const phone = String(formData.get("numéro") ?? "").trim();
     const identifier =
       mode === "email"
         ? email || "compte@mySkoolis"
@@ -138,14 +138,14 @@ export function LoginSwitchForm() {
                 name="email"
                 type="email"
                 autoComplete="email"
-                placeholder="nom@ecole.com"
+                placeholder="nom@école.com"
                 className="h-12 pl-9"
               />
             </div>
           </div>
         ) : (
           <div className="space-y-2">
-            <Label htmlFor="numero" className="text-sm font-semibold">
+            <Label htmlFor="numéro" className="text-sm font-semibold">
               Telephone
             </Label>
             <div className="flex gap-2">
@@ -167,8 +167,8 @@ export function LoginSwitchForm() {
                   aria-hidden
                 />
                 <Input
-                  id="numero"
-                  name="numero"
+                  id="numéro"
+                  name="numéro"
                   type="tel"
                   autoComplete="tel"
                   placeholder="70 00 00 00"

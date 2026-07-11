@@ -23,8 +23,8 @@ export function Footer() {
               </span>
             </p>
             <p className="text-muted-foreground mt-4 text-sm leading-relaxed">
-              Plateforme scolaire moderne pour les ecoles africaines : gestion,
-              communication parents, suivi pedagogique et pilotage de direction dans
+              Plateforme scolaire moderne pour les écoles africaines : gestion,
+              communication parents, suivi pédagogique et pilotage de direction dans
               une interface premium.
             </p>
           </div>

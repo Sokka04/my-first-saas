@@ -33,11 +33,11 @@ const points = [
 
 export function SecuritySection() {
   return (
-    <SectionShell id="securite">
+    <SectionShell id="sécurité">
       <SectionHeading
         eyebrow="Sécurité & données"
         title="Des données d’école traitées comme elles le méritent."
-        description="La confiance se construit avec la transparence : sauvegardes, périmètres d’accès et conservation responsable de l’historique académique."
+        description="La confiance se construit avec la transparence : sauvegardes, périmètrès d’accès et conservation responsable de l’historique académique."
       />
       <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2">
         {points.map((p, i) => (

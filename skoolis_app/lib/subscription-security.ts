@@ -91,7 +91,7 @@ export function createMathChallenge(ip: string) {
 export function validateMathChallenge(ip: string, challengeId: string, answer: string) {
   const entry = challengeStore.get(challengeId);
   if (!entry) {
-    return { ok: false, reason: "Challenge invalide ou deja consomme." };
+    return { ok: false, reason: "Challenge invalide ou déjà consomme." };
   }
 
   challengeStore.delete(challengeId);
@@ -214,13 +214,13 @@ export function createEmailVerificationToken(email: string, ip: string) {
 export function consumeEmailVerificationToken(token: string, email: string) {
   const entry = emailVerificationStore.get(token);
   if (!entry) {
-    return { ok: false, reason: "Token de verification invalide." };
+    return { ok: false, reason: "Token de vérification invalide." };
   }
 
   emailVerificationStore.delete(token);
 
   if (entry.expiresAt < now()) {
-    return { ok: false, reason: "Token de verification expire." };
+    return { ok: false, reason: "Token de vérification expire." };
   }
 
   if (entry.email !== email) {

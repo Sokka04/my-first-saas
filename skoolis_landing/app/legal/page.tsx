@@ -23,13 +23,13 @@ const legalLinks = [
     title: "Politique de confidentialite",
     href: "/confidentialite",
     description:
-      "Traitement des donnees, finalites, conservation, droits des utilisateurs et modalites d'exercice.",
+      "Traitement des données, finalites, conservation, droits des utilisateurs et modalites d'exercice.",
   },
   {
     title: "Conditions d'utilisation",
     href: "/conditions-utilisation",
     description:
-      "Regles d'usage de la plateforme, obligations des parties et limitations de responsabilite.",
+      "Règles d'usage de la plateforme, obligations des parties et limitations de responsabilite.",
   },
 ];
 

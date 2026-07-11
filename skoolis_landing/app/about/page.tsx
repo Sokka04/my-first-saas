@@ -9,9 +9,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "A propos",
+  title: "À propos",
   description:
-    "A propos de Skoolis : notre vision, notre mission et notre engagement pour la modernisation des ecoles africaines.",
+    "À propos de Skoolis : notre vision, notre mission et notre engagement pour la modernisation des écoles africaines.",
 };
 
 const values = [
@@ -24,19 +24,19 @@ const values = [
   {
     title: "Simple et premium",
     description:
-      "Une experience claire pour l'administration, les parents et les eleves, sans sacrifier la qualite percue.",
+      "Une expérience claire pour l'administration, les parents et les élèves, sans sacrifier la qualité percue.",
     icon: Landmark,
   },
   {
     title: "Fiable et durable",
     description:
-      "Donnees organisees sur le long terme, suivi par annee scolaire et standards de securite pour la confiance.",
+      "Données organisees sur le long terme, suivi par année scolaire et standards de sécurité pour la confiance.",
     icon: ShieldCheck,
   },
   {
     title: "Ambition long terme",
     description:
-      "Skoolis est pense comme une base scalable pour accompagner l'essor des etablissements prives.",
+      "Skoolis est pense comme une base scalable pour accompagner l'essor des établissements prives.",
     icon: Rocket,
   },
 ];
@@ -45,8 +45,8 @@ export default function AboutPage() {
   return (
     <SubpageLayout maxWidth="wide" withHomeGradient>
       <MarketingPageHeader
-        title="A propos de Skoolis"
-        description="Skoolis porte une vision claire : aider les ecoles africaines a passer d'une gestion dispersee a un pilotage moderne, structure et scalable."
+        title="À propos de Skoolis"
+        description="Skoolis porte une vision claire : aider les écoles africaines a passer d'une gestion dispersee a un pilotage moderne, structure et scalable."
       />
 
       <section className="mt-12 grid gap-5 md:grid-cols-2">
@@ -66,9 +66,9 @@ export default function AboutPage() {
       <section className="mt-12 rounded-2xl border p-6 sm:p-8">
         <h2 className="text-foreground text-xl font-semibold">Notre priorite en V1</h2>
         <p className="text-muted-foreground mt-3 max-w-3xl text-sm leading-relaxed">
-          Prouver rapidement la valeur pour les directions d&apos;etablissements : moins de
-          chaos operationnel, meilleure communication parents-ecole et meilleure capacite
-          a suivre les indicateurs cles.
+          Prouver rapidement la valeur pour les directions d&apos;établissements : moins de
+          chaos operationnel, meilleure communication parents-école et meilleure capacite
+          a suivre les indicateurs clés.
         </p>
       </section>
 
@@ -89,7 +89,7 @@ export default function AboutPage() {
             "min-h-12 justify-center px-8 text-base"
           )}
         >
-          Voir les fonctionnalites
+          Voir les fonctionnalités
         </Link>
       </div>
     </SubpageLayout>

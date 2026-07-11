@@ -17,9 +17,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Fonctionnalites",
+  title: "Fonctionnalités",
   description:
-    "Fonctionnalites Skoolis pour les etablissements africains : gestion scolaire, communication parents, suivi pedagogique et pilotage de direction.",
+    "Fonctionnalités Skoolis pour les établissements africains : gestion scolaire, communication parents, suivi pédagogique et pilotage de direction.",
 };
 
 const pillars = [
@@ -30,7 +30,7 @@ const pillars = [
     icon: BarChart3,
   },
   {
-    title: "Gestion pedagogique",
+    title: "Gestion pédagogique",
     description:
       "Saisie des notes, generation des bulletins, suivi des classes et historique annuel durable.",
     icon: FileText,
@@ -38,7 +38,7 @@ const pillars = [
   {
     title: "Communication parents",
     description:
-      "Messages ecole-parents, notifications utiles et meilleure transparence sur la vie scolaire.",
+      "Messages école-parents, notifications utiles et meilleure transparence sur la vie scolaire.",
     icon: MessageSquare,
   },
   {
@@ -48,15 +48,15 @@ const pillars = [
     icon: Wallet,
   },
   {
-    title: "Presence et discipline",
+    title: "Présence et discipline",
     description:
       "Absences, retards et incidents structures pour agir vite et reduire les zones de flou.",
     icon: CalendarDays,
   },
   {
-    title: "Roles et securite",
+    title: "Roles et sécurité",
     description:
-      "Acces par profil (direction, administration, enseignant, parent) avec controle et audit des actions.",
+      "Accès par profil (direction, administration, enseignant, parent) avec contrôle et audit des actions.",
     icon: ShieldCheck,
   },
 ];
@@ -65,8 +65,8 @@ export default function FeaturesPage() {
   return (
     <SubpageLayout maxWidth="wide" withHomeGradient>
       <MarketingPageHeader
-        title="Fonctionnalites"
-        description="Skoolis remplace les outils disperses par une plateforme unique, moderne et adaptee aux ecoles africaines."
+        title="Fonctionnalités"
+        description="Skoolis remplace les outils disperses par une plateforme unique, moderne et adaptee aux écoles africaines."
       />
 
       <section className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
@@ -90,7 +90,7 @@ export default function FeaturesPage() {
             <p className="text-muted-foreground mt-3 text-sm leading-relaxed">
               Avant : cahiers multiples, WhatsApp disperse, notes difficilement exploitables.
               Apres : operations centralisees, communication tracee, indicateurs clairs pour la
-              direction et meilleure experience parent-eleve.
+              direction et meilleure expérience parent-élève.
             </p>
           </CardContent>
         </Card>

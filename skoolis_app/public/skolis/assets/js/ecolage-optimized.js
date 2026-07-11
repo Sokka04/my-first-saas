@@ -13,7 +13,7 @@ const EcolageManager = {
         tarifs: [],
         paiements: [],
         engagements: [],
-        eleves: [],
+        élèves: [],
         relances: []
     },
     
@@ -55,7 +55,7 @@ const EcolageManager = {
         this.data.tarifs = Utils.storage.get('ecolage_tarifs', this.getDemoTarifs());
         this.data.paiements = Utils.storage.get('ecolage_paiements', []);
         this.data.engagements = Utils.storage.get('ecolage_engagements', []);
-        this.data.eleves = Utils.storage.get('eleves', this.getDemoEleves());
+        this.data.élèves = Utils.storage.get('élèves', this.getDemoEleves());
         this.data.relances = Utils.storage.get('ecolage_relances', []);
     },
     
@@ -439,8 +439,8 @@ const EcolageManager = {
         if (!select) return;
         
         select.innerHTML = '<option value="">Sélectionner un élève</option>' +
-            this.data.eleves.map(eleve => `
-                <option value="${eleve.id}">${eleve.nom} ${eleve.prenom} - ${eleve.classe}</option>
+            this.data.élèves.map(élève => `
+                <option value="${élève.id}">${élève.nom} ${élève.prenom} - ${élève.classe}</option>
             `).join('');
     },
     
@@ -449,16 +449,16 @@ const EcolageManager = {
      * @param {string} eleveId - ID de l'élève
      */
     loadEleveDetails(eleveId) {
-        const eleve = this.data.eleves.find(e => e.id === eleveId);
-        if (!eleve) return;
+        const élève = this.data.élèves.find(e => e.id === eleveId);
+        if (!élève) return;
         
         // Remplir les champs d'information
         const infosDiv = document.getElementById('infosEleve');
         if (infosDiv) {
             infosDiv.innerHTML = `
-                <p><strong>Classe:</strong> ${eleve.classe}</p>
-                <p><strong>Montant écolage:</strong> ${Utils.formatCurrency(eleve.montant_ecolage)}</p>
-                <p><strong>Nombre de tranches:</strong> ${eleve.tranches}</p>
+                <p><strong>Classe:</strong> ${élève.classe}</p>
+                <p><strong>Montant écolage:</strong> ${Utils.formatCurrency(élève.montant_ecolage)}</p>
+                <p><strong>Nombre de tranches:</strong> ${élève.tranches}</p>
             `;
         }
     },

@@ -39,7 +39,7 @@ const countryOptions: CountryPhone[] = [
   { code: "KM", name: "Comores", dial: "+269" },
   { code: "CG", name: "Congo", dial: "+242" },
   { code: "CD", name: "RDC", dial: "+243" },
-  { code: "CI", name: "Cote d'Ivoire", dial: "+225" },
+  { code: "CI", name: "Côté d'Ivoire", dial: "+225" },
   { code: "DJ", name: "Djibouti", dial: "+253" },
   { code: "EG", name: "Egypte", dial: "+20" },
   { code: "GQ", name: "Guinee equatoriale", dial: "+240" },
@@ -148,7 +148,6 @@ export function SubscriptionAccountForm() {
   const [isCountryListOpen, setIsCountryListOpen] = useState(false);
   const [countrySearch, setCountrySearch] = useState("");
   const [account, setAccount] = useState<AccountState>(initialAccountState);
-  const [recaptchaToken, setRecaptchaToken] = useState("");
   const recaptchaRef = useRef<ReCAPTCHA>(null);
   const [formStartedAt, setFormStartedAt] = useState(() => Date.now());
   const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI";
@@ -200,7 +199,7 @@ export function SubscriptionAccountForm() {
         }
       } catch {
         if (!cancelled) {
-          setError("Erreur reseau pendant la verification email.");
+          setError("Erreur reseau pendant la vérification email.");
         }
       } finally {
         if (!cancelled) {
@@ -225,12 +224,12 @@ export function SubscriptionAccountForm() {
   const selectedDialCode = customDialCode;
   const phonePlaceholder =
     phonePlaceholdersByCountry[selectedCountryCode] ??
-    (selectedCountryCode === "OTHER" ? "Numero local" : "12 34 56 78");
+    (selectedCountryCode === "OTHER" ? "Numéro local" : "12 34 56 78");
 
   const passwordChecks = useMemo(() => {
     const value = account.password;
     const checks = [
-      { label: "8 caracteres minimum", valid: value.length >= 8 },
+      { label: "8 caractères minimum", valid: value.length >= 8 },
       { label: "Au moins une majuscule", valid: /[A-Z]/.test(value) },
       { label: "Au moins une minuscule", valid: /[a-z]/.test(value) },
       { label: "Au moins un chiffre", valid: /\d/.test(value) },
@@ -244,7 +243,7 @@ export function SubscriptionAccountForm() {
     if (passwordChecks.score <= 2) return { label: "Faible", tone: "text-destructive" };
     if (passwordChecks.score <= 3) return { label: "Moyen", tone: "text-amber-500" };
     if (passwordChecks.score <= 4) return { label: "Fort", tone: "text-emerald-600" };
-    return { label: "Tres fort", tone: "text-emerald-700" };
+    return { label: "Très fort", tone: "text-emerald-700" };
   }, [passwordChecks.score]);
 
   function normalizeValue(value: string) {
@@ -356,13 +355,10 @@ export function SubscriptionAccountForm() {
       return "Renseigne un indicatif valide pour l'option Autres.";
     }
     if (account.password.length < 8) {
-      return "Le mot de passe doit contenir au moins 8 caracteres.";
+      return "Le mot de passe doit contenir au moins 8 caractères.";
     }
     if (account.password !== account.confirmPassword) {
       return "Le mot de passe et sa confirmation ne correspondent pas.";
-    }
-    if (!recaptchaToken) {
-      return "Complete la verification anti-bot.";
     }
     return "";
   }
@@ -380,8 +376,17 @@ export function SubscriptionAccountForm() {
     setError("");
     setNotice("");
 
+    // Create FormData before async call to preserve references
+    const formData = new FormData(event.currentTarget);
+
     try {
-      const formData = new FormData(event.currentTarget);
+      const token = await recaptchaRef.current?.executeAsync();
+      if (!token) {
+        setError("Validation anti-bot annulee ou echouee.");
+        setIsSubmitting(false);
+        return;
+      }
+
       formData.set("lastName", account.lastName);
       formData.set("firstName", account.firstName);
       formData.set("email", account.email);
@@ -389,7 +394,7 @@ export function SubscriptionAccountForm() {
       formData.set("phoneLocal", account.phoneLocal);
       formData.set("password", account.password);
       formData.set("confirmPassword", account.confirmPassword);
-      formData.set("recaptchaToken", recaptchaToken);
+      formData.set("recaptchaToken", token);
       formData.set("formStartedAt", String(formStartedAt));
       formData.set("mouseMoves", String(mouseMoves));
       formData.set("keyStrokes", String(keyStrokes));
@@ -411,13 +416,12 @@ export function SubscriptionAccountForm() {
       };
 
       if (!response.ok || !data.ok) {
-        setError(data.error ?? "Inscription refusee.");
+        setError(data.error ?? "Inscription refusée.");
         recaptchaRef.current?.reset();
-        setRecaptchaToken("");
         return;
       }
 
-      setNotice("Inscription reussie. Verifie ton email pour activer ton acces.");
+      setNotice("Inscription réussie. Verifie ton email pour activer ton accès.");
       if (data.debugVerificationLink) {
         setDebugVerificationLink(data.debugVerificationLink);
       } else {
@@ -427,9 +431,8 @@ export function SubscriptionAccountForm() {
         router.push("/profile-myskoolis");
       }
     } catch {
-      setError("Erreur reseau pendant l'inscription. Reessaie.");
+      setError("Erreur reseau pendant l'inscription. Réessaie.");
       recaptchaRef.current?.reset();
-      setRecaptchaToken("");
     } finally {
       setIsSubmitting(false);
     }
@@ -437,13 +440,8 @@ export function SubscriptionAccountForm() {
 
   return (
     <section className="border-border bg-card rounded-2xl border p-6 sm:p-8">
-      <h2 className="text-foreground text-xl font-semibold">Mon compte mySkoolis</h2>
-      <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
-        Renseigne les informations de base pour creer ton compte mySkoolis.
-      </p>
-
       <form
-        className="mt-6 space-y-5"
+        className="space-y-5"
         onSubmit={onSubmit}
         autoComplete="on"
         onMouseMove={() => setMouseMoves((prev) => prev + 1)}
@@ -452,7 +450,7 @@ export function SubscriptionAccountForm() {
       >
         <div className="grid gap-5 md:grid-cols-2">
           <div className="space-y-2">
-            <Label htmlFor="firstName">Prenoms</Label>
+            <Label htmlFor="firstName">Prénoms</Label>
             <Input
               id="firstName"
               name="firstName"
@@ -489,7 +487,7 @@ export function SubscriptionAccountForm() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="phone">Numero de telephone</Label>
+          <Label htmlFor="phone">Numéro de telephone</Label>
           <div className="relative">
             <button
               type="button"
@@ -646,20 +644,11 @@ export function SubscriptionAccountForm() {
           />
         </div>
 
-        <div className="space-y-2">
-          <Label>Verification anti-bot</Label>
-          {recaptchaSiteKey ? (
-            <ReCAPTCHA
-              ref={recaptchaRef}
-              sitekey={recaptchaSiteKey}
-              onChange={(val) => setRecaptchaToken(val || "")}
-            />
-          ) : (
-            <p className="text-destructive text-xs">
-              CAPTCHA non configure: ajoute NEXT_PUBLIC_RECAPTCHA_SITE_KEY.
-            </p>
-          )}
-        </div>
+        <ReCAPTCHA
+          ref={recaptchaRef}
+          size="invisible"
+          sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"}
+        />
 
         <div className="space-y-2">
           <Label htmlFor="profilePhoto">Photo de profil (optionnel)</Label>
@@ -680,7 +669,7 @@ export function SubscriptionAccountForm() {
         </div>
 
         {isVerifyingEmail ? (
-          <p className="text-muted-foreground text-sm font-medium">Verification de ton email...</p>
+          <p className="text-muted-foreground text-sm font-medium">Vérification de ton email...</p>
         ) : null}
         {notice ? <p className="text-emerald-700 text-sm font-medium">{notice}</p> : null}
         {error ? <p className="text-destructive text-sm font-medium">{error}</p> : null}
@@ -689,7 +678,7 @@ export function SubscriptionAccountForm() {
             href={debugVerificationLink}
             className="text-primary text-sm underline underline-offset-4"
           >
-            Ouvrir le lien de verification (mode dev)
+            Ouvrir le lien de vérification (mode dev)
           </a>
         ) : null}
 
@@ -699,7 +688,7 @@ export function SubscriptionAccountForm() {
           className="min-h-12 w-full text-base font-semibold"
           disabled={isSubmitting || isVerifyingEmail}
         >
-          {isSubmitting ? "Verification en cours..." : "Creer mon compte"}
+          {isSubmitting ? "Vérification en cours..." : "Créer mon compte"}
         </Button>
       </form>
     </section>

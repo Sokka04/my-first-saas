@@ -24,7 +24,7 @@ export default function ConnexionPage() {
       <div className="relative z-10 mx-auto w-full max-w-5xl">
         <MarketingPageHeader
           title="Connexion mySkoolis"
-          description="Vous n etes pas connecte. Choisissez email ou telephone puis entrez votre mot de passe."
+          description="Vous n êtes pas connecte. Choisissez email ou telephone puis entrez votre mot de passe."
           className="mx-auto max-w-2xl text-center"
         />
 
@@ -43,7 +43,7 @@ export default function ConnexionPage() {
                   "mt-3 min-h-12 w-full justify-center text-base"
                 )}
               >
-                Creer un compte mySkoolis
+                Créer un compte mySkoolis
               </Link>
             </div>
           </CardContent>

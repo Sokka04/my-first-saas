@@ -89,7 +89,7 @@ export function TrialForm() {
           name="email"
           type="email"
           required
-          placeholder="contact@ecole.tg"
+          placeholder="contact@école.tg"
           className="min-h-11 md:text-base"
           autoComplete="email"
         />

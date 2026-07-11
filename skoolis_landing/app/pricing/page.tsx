@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "Tarifs",
   description:
-    "Pricing Skoolis : offres pensees pour les ecoles africaines, avec accompagnement, migration et support.",
+    "Pricing Skoolis : offres pensées pour les écoles africaines, avec accompagnement, migration et support.",
 };
 
 const tiers = [
@@ -21,7 +21,7 @@ const tiers = [
     audience: "Petites structures",
     price: "A partir de 60 000 FCFA / an",
     features: [
-      "Dossier eleves et classes",
+      "Dossier élèves et classes",
       "Saisie notes et bulletins",
       "Support standard",
     ],
@@ -29,7 +29,7 @@ const tiers = [
   {
     id: "growth",
     name: "Growth",
-    audience: "Ecoles en acceleration",
+    audience: "Écoles en acceleration",
     price: "A partir de 90 000 FCFA / an",
     highlight: true,
     features: [
@@ -46,7 +46,7 @@ const tiers = [
     price: "A partir de 150 000 FCFA / an",
     features: [
       "Tout Growth",
-      "Gestion multi-etablissements",
+      "Gestion multi-établissements",
       "Accompagnement personnalise",
       "Priorite support",
     ],
@@ -58,7 +58,7 @@ export default function PricingPage() {
     <SubpageLayout maxWidth="wide" withHomeGradient>
       <MarketingPageHeader
         title="Tarifs"
-        description="Des offres lisibles, structurees pour accompagner la modernisation de votre ecole sans complexite inutile."
+        description="Des offres lisibles, structurees pour accompagner la modernisation de votre école sans complexite inutile."
       />
 
       <section className="mt-12 grid gap-6 lg:grid-cols-3">
@@ -103,7 +103,7 @@ export default function PricingPage() {
 
       <div className="mt-10">
         <p className="text-muted-foreground text-sm leading-relaxed">
-          Les tarifs exacts dependent du volume eleves, des modules retenus et du niveau
+          Les tarifs exacts dependent du volume élèves, des modules retenus et du niveau
           d&apos;accompagnement. Nous construisons une proposition claire apres qualification.
         </p>
       </div>

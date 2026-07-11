@@ -71,7 +71,7 @@ export function SubscriptionLicencesForm() {
 
     if (currentStep === 3) {
       if (!form.paymentMethod || !form.licenseKey || !form.deviceSignature) {
-        return "Renseigne la methode de paiement, la cle de licence et la signature machine.";
+        return "Renseigne la methode de paiement, la clé de licence et la signature machine.";
       }
     }
 
@@ -115,7 +115,7 @@ export function SubscriptionLicencesForm() {
       <div className="border-border bg-card rounded-2xl border p-8 text-center">
         <p className="text-foreground text-lg font-semibold">Souscription enregistree.</p>
         <p className="text-muted-foreground mt-2 text-sm">
-          La verification definitive des licences et de la securite se fera cote serveur.
+          La vérification définitive des licences et de la sécurité se fera côté serveur.
         </p>
       </div>
     );
@@ -163,7 +163,7 @@ export function SubscriptionLicencesForm() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="maxStudents">Nombre maximal d'eleves</Label>
+              <Label htmlFor="maxStudents">Nombre maximal d'élèves</Label>
               <Input
                 id="maxStudents"
                 type="number"
@@ -275,7 +275,7 @@ export function SubscriptionLicencesForm() {
               </select>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="licenseKey">Cle de licence</Label>
+              <Label htmlFor="licenseKey">Clé de licence</Label>
               <Input
                 id="licenseKey"
                 className="h-11"
@@ -305,8 +305,8 @@ export function SubscriptionLicencesForm() {
           <div className="border-primary/30 bg-primary/5 mt-6 rounded-xl border p-4">
             <p className="text-foreground text-sm font-semibold">Important</p>
             <p className="text-muted-foreground mt-1 text-sm">
-              Ne jamais utiliser la cle licence comme seule securite. La verification doit
-              toujours se faire cote serveur.
+              Ne jamais utiliser la clé licence comme seule sécurité. La vérification doit
+              toujours se faire côté serveur.
             </p>
           </div>
         </section>
@@ -332,7 +332,7 @@ export function SubscriptionLicencesForm() {
                 checked={form.confirmServerSecurity}
                 onChange={(event) => updateField("confirmServerSecurity", event.target.checked)}
               />
-              <span>Je confirme que le controle des licences sera verifie cote serveur.</span>
+              <span>Je confirme que le contrôle des licences sera verifie côté serveur.</span>
             </label>
           </div>
         </section>
@@ -351,7 +351,7 @@ export function SubscriptionLicencesForm() {
             Valider cette etape
           </Button>
         ) : (
-          <Button type="submit">Creer l'abonnement</Button>
+          <Button type="submit">Créer l'abonnement</Button>
         )}
       </div>
     </form>
