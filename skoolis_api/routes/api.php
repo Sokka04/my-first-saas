@@ -16,6 +16,8 @@ Route::prefix('v1')->group(function (): void {
         Route::get('/me', MeController::class)->name('api.v1.me');
         Route::post('/logout', [AuthController::class, 'logout'])->name('api.v1.logout');
         
+        Route::get('/dashboard/stats', [\App\Http\Controllers\Api\V1\DashboardController::class, 'stats']);
+
         Route::apiResource('students', StudentController::class);
         Route::get('school-classes', [SchoolClassController::class, 'index']);
         Route::get('school-years', [\App\Domains\School\Controllers\Api\V1\SchoolYearController::class, 'index']);
