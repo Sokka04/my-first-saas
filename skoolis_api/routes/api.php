@@ -19,7 +19,8 @@ Route::prefix('v1')->group(function (): void {
         Route::get('/dashboard/stats', [\App\Http\Controllers\Api\V1\DashboardController::class, 'stats']);
 
         Route::apiResource('students', StudentController::class);
-        Route::get('school-classes', [SchoolClassController::class, 'index']);
+        Route::apiResource('school-classes', SchoolClassController::class);
+        Route::apiResource('teachers', \App\Domains\Teacher\Controllers\Api\V1\TeacherController::class);
         Route::get('school-years', [\App\Domains\School\Controllers\Api\V1\SchoolYearController::class, 'index']);
     });
 });

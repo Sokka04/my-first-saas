@@ -23,4 +23,9 @@ class SchoolClass extends Model
     {
         return $this->hasMany(Enrollment::class);
     }
+
+    public function teacher(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(\App\Domains\Teacher\Models\Teacher::class);
+    }
 }

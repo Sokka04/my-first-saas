@@ -31,8 +31,8 @@ export default function Sidebar() {
                             <span>Tableau de bord</span>
                         </Link>
                     </li>
-                    <li className={`nav-item ${isActive('/app/classes') ? 'active' : ''}`}>
-                        <Link href="/app/classes">
+                    <li className={`nav-item ${isActive('/dashboard/classes') ? 'active' : ''}`}>
+                        <Link href="/dashboard/classes">
                             <i className="fas fa-chalkboard"></i>
                             <span>Classes</span>
                         </Link>
