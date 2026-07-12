@@ -5,11 +5,17 @@ export default function TopHeader() {
     const [theme, setTheme] = useState<"light" | "dark">("light");
 
     useEffect(() => {
-        // Init theme from document on mount
-        const currentTheme = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+        // Init theme from localStorage on mount
+        const savedTheme = window.localStorage.getItem("skoolis-theme");
+        const currentTheme = savedTheme === "dark" ? "dark" : "light";
+        
         setTheme(currentTheme);
         if (currentTheme === "dark") {
+            document.documentElement.setAttribute("data-theme", "dark");
             document.querySelector('.container')?.setAttribute("data-theme", "dark");
+        } else {
+            document.documentElement.removeAttribute("data-theme");
+            document.querySelector('.container')?.removeAttribute("data-theme");
         }
     }, []);
 
