@@ -19,6 +19,11 @@ export default function ClassesPage() {
         teacher_id: ''
     });
 
+    const [assignForm, setAssignForm] = useState({
+        class_id: '',
+        teacher_id: ''
+    });
+
     const API_BASE_URL = 'http://127.0.0.1:8000/api/v1';
 
     const fetchClasses = async () => {
@@ -93,6 +98,36 @@ export default function ClassesPage() {
         }
     };
 
+    const handleAssignTeacher = async (e: any) => {
+        e.preventDefault();
+        if (!assignForm.class_id || !assignForm.teacher_id) {
+            alert("Veuillez sélectionner une classe et un professeur.");
+            return;
+        }
+        try {
+            const res = await fetch(`${API_BASE_URL}/school-classes/${assignForm.class_id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify({ teacher_id: assignForm.teacher_id })
+            });
+            if (res.ok) {
+                alert("Professeur assigné avec succès !");
+                setAssignForm({ class_id: '', teacher_id: '' });
+                fetchClasses();
+                setActiveTab("liste");
+            } else {
+                const errData = await res.json();
+                throw new Error(errData.message || "Erreur lors de l'assignation");
+            }
+        } catch(e: any) {
+            alert(e.message);
+        }
+    };
+
     // Calculate Stats
     const totalClasses = classes.length;
     const totalStudents = classes.reduce((acc, cls) => acc + (cls.students_count || 0), 0);
@@ -155,11 +190,16 @@ export default function ClassesPage() {
                 >
                     <i className="fas fa-plus-circle"></i> Nouvelle classe
                 </button>
-                {/* Attribuer Titulaire and Effectifs are mockups for now to match UI */}
-                <button className="feature-btn">
+                <button 
+                    className={`feature-btn ${activeTab === 'titulaire' ? 'active' : ''}`}
+                    onClick={() => setActiveTab('titulaire')}
+                >
                     <i className="fas fa-user-tie"></i> Attribuer titulaire
                 </button>
-                <button className="feature-btn">
+                <button 
+                    className={`feature-btn ${activeTab === 'effectif' ? 'active' : ''}`}
+                    onClick={() => setActiveTab('effectif')}
+                >
                     <i className="fas fa-chart-pie"></i> Effectifs & Statistiques
                 </button>
             </div>
@@ -326,6 +366,197 @@ export default function ClassesPage() {
                 </div>
             )}
 
+            {/* Section Attribuer titulaire */}
+            {activeTab === 'titulaire' && (
+                <div className="feature-section active" id="titulaire">
+                    <div className="page-header">
+                        <div className="page-title">
+                            <h3>Attribuer un titulaire à une classe</h3>
+                            <p>Assignez ou changez le professeur titulaire d'une classe</p>
+                        </div>
+                    </div>
+
+                    <div className="form-container">
+                        <div className="form-grid">
+                            <div className="form-group">
+                                <label>Sélectionner la classe</label>
+                                <select 
+                                    className="form-control" 
+                                    value={assignForm.class_id} 
+                                    onChange={e => setAssignForm({...assignForm, class_id: e.target.value})}
+                                >
+                                    <option value="">Choisir une classe</option>
+                                    {classes.map(cls => (
+                                        <option key={cls.id} value={cls.id}>{cls.name}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="form-group">
+                                <label>Sélectionner le titulaire</label>
+                                <select 
+                                    className="form-control"
+                                    value={assignForm.teacher_id} 
+                                    onChange={e => setAssignForm({...assignForm, teacher_id: e.target.value})}
+                                >
+                                    <option value="">Choisir un professeur</option>
+                                    {teachers.map(teacher => (
+                                        <option key={teacher.id} value={teacher.id}>
+                                            {teacher.first_name} {teacher.last_name}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>
+
+                        {assignForm.class_id && (() => {
+                            const selectedCls = classes.find(c => c.id.toString() === assignForm.class_id);
+                            if (!selectedCls) return null;
+                            return (
+                                <div className="class-info-card">
+                                    <div className="class-info-header">
+                                        <h4>Informations de la classe</h4>
+                                    </div>
+                                    <div className="class-info-body">
+                                        <div className="info-row">
+                                            <span className="info-label">Classe:</span>
+                                            <span className="info-value">{selectedCls.name}</span>
+                                        </div>
+                                        <div className="info-row">
+                                            <span className="info-label">Niveau:</span>
+                                            <span className="info-value">{selectedCls.level || '-'}</span>
+                                        </div>
+                                        <div className="info-row">
+                                            <span className="info-label">Effectif actuel:</span>
+                                            <span className="info-value">{selectedCls.students_count || 0}</span>
+                                        </div>
+                                        <div className="info-row">
+                                            <span className="info-label">Titulaire actuel:</span>
+                                            <span className="info-value">{selectedCls.teacher ? `${selectedCls.teacher.first_name} ${selectedCls.teacher.last_name}` : 'Aucun'}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        })()}
+
+                        <div className="form-actions" style={{ marginTop: '30px' }}>
+                            <button className="btn btn-secondary" onClick={() => setAssignForm({ class_id: '', teacher_id: '' })}>
+                                Annuler
+                            </button>
+                            <button className="btn btn-primary" onClick={handleAssignTeacher}>
+                                <i className="fas fa-save"></i> Attribuer le titulaire
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Section Effectifs & Statistiques */}
+            {activeTab === 'effectif' && (
+                <div className="feature-section active" id="effectif">
+                    <div className="page-header">
+                        <div className="page-title">
+                            <h3>Effectifs et statistiques</h3>
+                            <p>Visualisez les statistiques par classe et niveau</p>
+                        </div>
+                        <div className="page-actions">
+                            <button className="btn btn-primary">
+                                <i className="fas fa-download"></i> Exporter données
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="stats-container">
+                        <div className="stats-chart-container">
+                            <div className="chart-container">
+                                <div className="chart-header">
+                                    <h3>Répartition des effectifs par classe</h3>
+                                </div>
+                                <div className="chart-placeholder">
+                                    <canvas id="effectifsChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="detailed-stats">
+                            <div className="table-container">
+                                <table className="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Classe</th>
+                                            <th>Niveau</th>
+                                            <th>Effectif</th>
+                                            <th>Capacité</th>
+                                            <th>Taux remplissage</th>
+                                            <th>Titulaire</th>
+                                            <th>Moyenne classe</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {classes.map(cls => {
+                                            const fillRate = cls.capacity ? Math.round(((cls.students_count || 0) / cls.capacity) * 100) : 0;
+                                            return (
+                                                <tr key={cls.id}>
+                                                    <td>{cls.name}</td>
+                                                    <td>{cls.level || '-'}</td>
+                                                    <td>{cls.students_count || 0}</td>
+                                                    <td>{cls.capacity || '-'}</td>
+                                                    <td>
+                                                        <div className="progress-bar-bg" style={{ height: '6px', background: '#e0e0e0', borderRadius: '3px', overflow: 'hidden', display: 'inline-block', width: '60px', verticalAlign: 'middle', marginRight: '10px' }}>
+                                                            <div className="progress-bar-fill" style={{ width: `${Math.min(fillRate, 100)}%`, height: '100%', background: fillRate > 100 ? '#f44336' : 'var(--primary-color)' }}></div>
+                                                        </div>
+                                                        {fillRate}%
+                                                    </td>
+                                                    <td>{cls.teacher ? `${cls.teacher.first_name} ${cls.teacher.last_name}` : 'Aucun'}</td>
+                                                    <td>-</td>
+                                                </tr>
+                                            );
+                                        })}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div className="summary-cards">
+                            <div className="summary-card">
+                                <div className="summary-icon" style={{backgroundColor: 'rgba(123, 31, 162, 0.1)'}}>
+                                    <i className="fas fa-users"></i>
+                                </div>
+                                <div className="summary-info">
+                                    <h4>Effectif total</h4>
+                                    <h3>{totalStudents}</h3>
+                                </div>
+                            </div>
+                            <div className="summary-card">
+                                <div className="summary-icon" style={{backgroundColor: 'rgba(33, 150, 243, 0.1)'}}>
+                                    <i className="fas fa-percentage"></i>
+                                </div>
+                                <div className="summary-info">
+                                    <h4>Taux de remplissage</h4>
+                                    <h3>{totalClasses > 0 ? Math.round(classes.reduce((acc, cls) => acc + (cls.capacity ? ((cls.students_count || 0) / cls.capacity) : 0), 0) / totalClasses * 100) : 0}%</h3>
+                                </div>
+                            </div>
+                            <div className="summary-card">
+                                <div className="summary-icon" style={{backgroundColor: 'rgba(76, 175, 80, 0.1)'}}>
+                                    <i className="fas fa-chart-line"></i>
+                                </div>
+                                <div className="summary-info">
+                                    <h4>Moyenne générale</h4>
+                                    <h3>-</h3>
+                                </div>
+                            </div>
+                            <div className="summary-card">
+                                <div className="summary-icon" style={{backgroundColor: 'rgba(255, 152, 0, 0.1)'}}>
+                                    <i className="fas fa-balance-scale"></i>
+                                </div>
+                                <div className="summary-info">
+                                    <h4>Ratio filles/garçons</h4>
+                                    <h3>-</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </>
     );
 }
