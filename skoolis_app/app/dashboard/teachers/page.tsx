@@ -117,10 +117,16 @@ export default function TeachersPage() {
                 >
                     <i className="fas fa-user-plus"></i> Nouveau professeur
                 </button>
-                <button className="feature-btn">
+                <button 
+                    className={`feature-btn ${activeTab === 'affectation' ? 'active' : ''}`}
+                    onClick={() => setActiveTab('affectation')}
+                >
                     <i className="fas fa-tasks"></i> Affectations
                 </button>
-                <button className="feature-btn">
+                <button 
+                    className={`feature-btn ${activeTab === 'statistiques' ? 'active' : ''}`}
+                    onClick={() => setActiveTab('statistiques')}
+                >
                     <i className="fas fa-chart-pie"></i> Statistiques
                 </button>
             </div>
@@ -336,6 +342,161 @@ export default function TeachersPage() {
                                 </button>
                             </div>
                         </form>
+                    </div>
+                </div>
+            )}
+
+            {/* Section Affectations */}
+            {activeTab === 'affectation' && (
+                <div className="feature-section active" id="affectation">
+                    <div className="page-header">
+                        <div className="page-title">
+                            <h3>Gestion des affectations</h3>
+                            <p>Assignez des classes et matières aux professeurs</p>
+                        </div>
+                    </div>
+
+                    <div className="form-container">
+                        <div className="form-grid">
+                            <div className="form-group">
+                                <label>Sélectionner le professeur</label>
+                                <select className="form-control">
+                                    <option value="">Choisir un professeur</option>
+                                    {teachers.map(t => (
+                                        <option key={t.id} value={t.id}>{t.last_name} {t.first_name}</option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div className="teacher-info-card" style={{ display: 'none' }}>
+                            {/* To be connected later when teacher is selected */}
+                        </div>
+
+                        <div className="form-section" style={{ marginTop: '30px' }}>
+                            <h4 className="form-section-title">
+                                <i className="fas fa-tasks"></i> Affectations
+                            </h4>
+                            <div className="form-grid">
+                                <div className="form-group">
+                                    <label>Intervient en :</label>
+                                    <div className="assignments-checklist" id="assignClassesChecklist">
+                                        <div style={{padding: '10px', background: '#f5f5f5', borderRadius: '4px'}}>
+                                            Matière/Classe à configurer prochainement...
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="form-group">
+                                    <label>Enseigne :</label>
+                                    <div className="assignments-checklist" id="assignSubjectsChecklist">
+                                        <div style={{padding: '10px', background: '#f5f5f5', borderRadius: '4px'}}>
+                                            Matière à configurer prochainement...
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="form-actions">
+                            <button className="btn btn-secondary">Annuler</button>
+                            <button className="btn btn-primary">
+                                <i className="fas fa-save"></i> Enregistrer les affectations
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Section Statistiques */}
+            {activeTab === 'statistiques' && (
+                <div className="feature-section active" id="statistiques">
+                    <div className="page-header">
+                        <div className="page-title">
+                            <h3>Statistiques des professeurs</h3>
+                            <p>Visualisez les données du corps enseignant</p>
+                        </div>
+                        <div className="page-actions">
+                            <button className="btn btn-primary">
+                                <i className="fas fa-download"></i> Exporter données
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="stats-container">
+                        <div className="stats-chart-container">
+                            <div className="chart-container">
+                                <div className="chart-header">
+                                    <h3>Répartition par statut</h3>
+                                </div>
+                                <div className="chart-placeholder">
+                                    <canvas id="statusChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="detailed-stats">
+                            <div className="table-container">
+                                <table className="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Matière</th>
+                                            <th>Nombre de professeurs</th>
+                                            <th>Heures/semaine moyennes</th>
+                                            <th>Classes couvertes</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colSpan={4} style={{textAlign: 'center', padding: '20px'}}>Données statistiques indisponibles</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div className="summary-cards">
+                            <div className="summary-card">
+                                <div className="summary-icon" style={{ backgroundColor: 'rgba(123, 31, 162, 0.1)' }}>
+                                    <i className="fas fa-user-tie"></i>
+                                </div>
+                                <div className="summary-info">
+                                    <h4>Taux de titulaires</h4>
+                                    <h3>{teachers.length > 0 ? Math.round((teachers.filter(t => t.status === 'titulaire').length / teachers.length) * 100) : 0}%</h3>
+                                </div>
+                            </div>
+                            <div className="summary-card">
+                                <div className="summary-icon" style={{ backgroundColor: 'rgba(33, 150, 243, 0.1)' }}>
+                                    <i className="fas fa-chalkboard"></i>
+                                </div>
+                                <div className="summary-info">
+                                    <h4>Classes/professeur</h4>
+                                    <h3>-</h3>
+                                </div>
+                            </div>
+                            <div className="summary-card">
+                                <div className="summary-icon" style={{ backgroundColor: 'rgba(76, 175, 80, 0.1)' }}>
+                                    <i className="fas fa-clock"></i>
+                                </div>
+                                <div className="summary-info">
+                                    <h4>Heures moyennes/sem</h4>
+                                    <h3>-</h3>
+                                </div>
+                            </div>
+                            <div className="summary-card">
+                                <div className="summary-icon" style={{ backgroundColor: 'rgba(255, 152, 0, 0.1)' }}>
+                                    <i className="fas fa-balance-scale"></i>
+                                </div>
+                                <div className="summary-info">
+                                    <h4>Ratio H/F</h4>
+                                    <h3>
+                                        {teachers.length > 0 
+                                            ? `${Math.round((teachers.filter(t => t.gender === 'homme').length / teachers.length) * 100)}/${Math.round((teachers.filter(t => t.gender === 'femme').length / teachers.length) * 100)}`
+                                            : '0/0'
+                                        }
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             )}
