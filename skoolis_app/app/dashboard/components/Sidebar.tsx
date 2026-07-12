@@ -43,8 +43,8 @@ export default function Sidebar() {
                             <span>Élèves</span>
                         </Link>
                     </li>
-                    <li className={`nav-item ${isActive('/app/professeurs') ? 'active' : ''}`}>
-                        <Link href="/app/professeurs">
+                    <li className={`nav-item ${isActive('/dashboard/teachers') ? 'active' : ''}`}>
+                        <Link href="/dashboard/teachers">
                             <i className="fas fa-chalkboard-teacher"></i>
                             <span>Professeurs</span>
                         </Link>

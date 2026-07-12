@@ -11,7 +11,29 @@ class Teacher extends Model
 {
     use HasFactory, HasUuids, SoftDeletes;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'school_id',
+        'first_name',
+        'last_name',
+        'email',
+        'phone',
+        'gender',
+        'birth_date',
+        'birth_place',
+        'address',
+        'nationality',
+        'marital_status',
+        'education_level',
+        'photo',
+        'registration_number',
+        'status',
+        'hire_date',
+        'primary_subject',
+        'secondary_subject',
+        'tertiary_subject',
+        'created_by',
+        'updated_by',
+    ];
 
     protected static function newFactory()
     {
