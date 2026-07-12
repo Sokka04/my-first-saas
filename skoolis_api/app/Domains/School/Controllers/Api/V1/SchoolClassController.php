@@ -28,6 +28,7 @@ class SchoolClassController extends Controller
             'name' => 'required|string|max:255',
             'capacity' => 'nullable|integer|min:1',
             'level' => 'nullable|string|max:255',
+            'cycle' => 'nullable|string|max:255',
             'teacher_id' => 'nullable|exists:teachers,id'
         ]);
 
@@ -50,6 +51,7 @@ class SchoolClassController extends Controller
             'name' => 'required|string|max:255',
             'capacity' => 'nullable|integer|min:1',
             'level' => 'nullable|string|max:255',
+            'cycle' => 'nullable|string|max:255',
             'teacher_id' => 'nullable|exists:teachers,id'
         ]);
 
