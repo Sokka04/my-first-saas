@@ -1,0 +1,512 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skoolis - Gestion des Administrateurs</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link href="../assets/css/fonts.css" rel="stylesheet">
+    <script src="../assets/js/chart.umd.min.js" defer></script>
+    <script src="../assets/js/charts.js" defer></script>
+    <script src="../assets/js/app.js" defer></script>
+    <script src="../assets/js/utils.js" defer></script>
+    <script src="../assets/js/skoolis-core.js" defer></script>
+    <link rel="icon" type="image/x-icon" href="../assets/images/favicon.ico">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo-container">
+                <div class="logo">
+                    <div class="logo-top">
+                        <span class="logo-icon">S</span>
+                        <h1>Skoolis</h1>
+                    </div>
+                    <div class="current-schoolyear">Année Scolaire : 2023-2024</div>
+                </div>
+                <button class="toggle-sidebar" id="toggleSidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <div class="nav-section">
+                <h3 class="section-title">Principal</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="../index.html">
+                            <i class="fas fa-home"></i>
+                            <span>Tableau de bord</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="classes.html">
+                            <i class="fas fa-chalkboard"></i>
+                            <span>Classes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="élèves.html">
+                            <i class="fas fa-user-graduate"></i>
+                            <span>Élèves</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="professeurs.html">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <span>Professeurs</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="notes.html">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Notes & Moyennes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="matieres.html">
+                            <i class="fas fa-book"></i>
+                            <span>Matières</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Comptabilité</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="inscription.html">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                            <span>Frais d'inscription</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="ecolage.html">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Frais d'Ecolage</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="arriere_ecolage.html">
+                            <i class="fas fa-clock"></i>
+                            <span>Arriéré d'écolage</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="autres-frais.html">
+                            <i class="fas fa-receipt"></i>
+                            <span>Autres Frais</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bilan.html">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Bilan général</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bilan-journalier.html">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Bilan journalier / périodique</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="authentification.html">
+                            <i class="fas fa-stamp"></i>
+                            <span>Authentification de reçu</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Administration</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="configuration.html">
+                            <i class="fas fa-cog"></i>
+                            <span>Configuration</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="admin.html">
+                            <i class="fas fa-user-shield"></i>
+                            <span>Administrateur</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="users.html">
+                            <i class="fas fa-users"></i>
+                            <span>Utilisateurs</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Examens</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="resultats.html"><i class="fas fa-poll"></i>
+                            <span>Résultats</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bepc-blanc.html"><i class="fas fa-file-alt"></i>
+                            <span>BEPC Blanc</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Aide</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="aide.html">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Aide & Support</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Déconnexion</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <h4>Admin Principal</h4>
+                        <p>admin@skoolis.com</p>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <h2>Gestion des Administrateurs</h2>
+                    <p>Créez et gérez les comptes administrateurs du système</p>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="adminSearch" placeholder="Rechercher un administrateur...">
+                    </div>
+                    <div class="header-icons">
+                        <button class="icon-btn notification">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge">3</span>
+                        </button>
+                        <button class="icon-btn">
+                            <i class="fas fa-envelope"></i>
+                            <span class="badge">5</span>
+                        </button>
+                        <button class="icon-btn" id="themeToggle">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        <button class="icon-btn" id="logoutBtn2">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page Actions -->
+            <div class="page-actions">
+                <button class="btn btn-primary" id="addAdminBtn">
+                    <i class="fas fa-plus"></i>
+                    Ajouter un Profil de Connexion
+                </button>
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" id="exportBtn">
+                        <i class="fas fa-file-export"></i>
+                        Exporter
+                    </button>
+                    <button class="btn btn-secondary" id="filterBtn">
+                        <i class="fas fa-filter"></i>
+                        Filtres
+                    </button>
+                </div>
+            </div>
+
+            <!-- Admin Stats -->
+            <div class="stats-cards">
+                <div class="card">
+                    <div class="card-icon" style="background-color: #e3f2fd;">
+                        <i class="fas fa-user-shield" style="color: #1976d2;"></i>
+                    </div>
+                    <div class="card-info">
+                        <h3>8</h3>
+                        <p>Administrateurs Actifs</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon" style="background-color: #f3e5f5;">
+                        <i class="fas fa-user-clock" style="color: #7b1fa2;"></i>
+                    </div>
+                    <div class="card-info">
+                        <h3>2</h3>
+                        <p>Administrateurs Inactifs</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon" style="background-color: #e8f5e9;">
+                        <i class="fas fa-crown" style="color: #388e3c;"></i>
+                    </div>
+                    <div class="card-info">
+                        <h3>1</h3>
+                        <p>Super Administrateur</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon" style="background-color: #fff3e0;">
+                        <i class="fas fa-history" style="color: #f57c00;"></i>
+                    </div>
+                    <div class="card-info">
+                        <h3>24h</h3>
+                        <p>Dernière connexion</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Table -->
+            <div class="table-container">
+                <div class="table-header">
+                    <h3>Liste des Administrateurs</h3>
+                    <div class="table-actions">
+                        <div class="records-count">
+                            <span id="adminCount">10 administrateurs trouvés</span>
+                        </div>
+                        <select class="form-select" id="roleFilter">
+                            <option value="all">Tous les rôles</option>
+                            <option value="super">Super Admin</option>
+                            <option value="principal">Admin Principal</option>
+                            <option value="secondary">Admin Secondaire</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" id="selectAll">
+                                </th>
+                                <th>Nom Complet</th>
+                                <th>Email</th>
+                                <th>Rôle</th>
+                                <th>Téléphone</th>
+                                <th>Date de création</th>
+                                <th>Dernière connexion</th>
+                                <th>Statut</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminTableBody">
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="row-checkbox">
+                                </td>
+                                <td>
+                                    <div class="user-info">
+                                        <div>
+                                            <p class="user-name">Jean Dupont</p>
+                                            <p class="user-title">Super Admin</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>jean.dupont@skoolis.com</td>
+                                <td><span class="role-badge super-admin">Super Admin</span></td>
+                                <td>+237 6XX XX XX XX</td>
+                                <td>15/01/2023</td>
+                                <td>Il y a 2 heures</td>
+                                <td><span class="status active">Actif</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn edit-btn" title="Modifier">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="action-btn view-btn" title="Voir détails">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn delete-btn" title="Supprimer">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Les autres lignes restent similaires -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination">
+                    <button class="pagination-btn" disabled>
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="pagination-btn active">1</button>
+                    <button class="pagination-btn">2</button>
+                    <button class="pagination-btn">3</button>
+                    <button class="pagination-btn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <div class="pagination-info">
+                        <span>Page 1 sur 3</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Role Permissions -->
+            <div class="table-container">
+                <div class="section-header">
+                    <h3>Permissions par Rôle</h3>
+                    <button class="btn btn-secondary" id="editPermissionsBtn">
+                        <i class="fas fa-edit"></i>
+                        Modifier les permissions
+                    </button>
+                </div>
+
+                <div class="permissions-grid">
+                    <div class="permission-card">
+                        <div class="permission-header">
+                            <h4>Super Admin</h4>
+                            <span class="permission-count">Toutes permissions</span>
+                        </div>
+                        <ul class="permission-list">
+                            <li><i class="fas fa-check-circle"></i> Accès complet au système</li>
+                            <li><i class="fas fa-check-circle"></i> Création d'administrateurs</li>
+                            <li><i class="fas fa-check-circle"></i> Modifier toutes les configurations</li>
+                            <li><i class="fas fa-check-circle"></i> Supprimer n'importe quel compte</li>
+                        </ul>
+                    </div>
+
+                    <div class="permission-card">
+                        <div class="permission-header">
+                            <h4>Admin Principal</h4>
+                            <span class="permission-count">15 permissions</span>
+                        </div>
+                        <ul class="permission-list">
+                            <li><i class="fas fa-check-circle"></i> Gestion des élèves et professeurs</li>
+                            <li><i class="fas fa-check-circle"></i> Gestion des classes et matières</li>
+                            <li><i class="fas fa-check-circle"></i> Accès à la comptabilité</li>
+                            <li><i class="fas fa-check-circle"></i> Génération de rapports</li>
+                        </ul>
+                    </div>
+
+                    <div class="permission-card">
+                        <div class="permission-header">
+                            <h4>Admin Secondaire</h4>
+                            <span class="permission-count">8 permissions</span>
+                        </div>
+                        <ul class="permission-list">
+                            <li><i class="fas fa-check-circle"></i> Saisie des notes</li>
+                            <li><i class="fas fa-check-circle"></i> Consultation des données</li>
+                            <li><i class="fas fa-check-circle"></i> Gestion des absences</li>
+                            <li><i class="fas fa-check-circle"></i> Édition limitée</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="main-footer">
+                <p>© 2026 Skoolis - School Management System. Created by Skoolis Technologies.</p>
+                <div class="footer-links">
+                    <a href="#">Confidentialité</a>
+                    <a href="#">Conditions d'utilisation</a>
+                    <a href="aide.html">Aide</a>
+                    <a href="#">Contact</a>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Add Admin Modal -->
+    <div class="modal" id="addAdminModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Ajouter un Profil de Connexion</h3>
+                <button class="modal-close" id="closeModalBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addAdminForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="adminFirstName">Prénom *</label>
+                            <input type="text" id="adminFirstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="adminLastName">Nom *</label>
+                            <input type="text" id="adminLastName" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="adminEmail">Email *</label>
+                        <input type="email" id="adminEmail" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="adminPhone">Téléphone</label>
+                        <input type="tel" id="adminPhone">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="adminRole">Rôle *</label>
+                        <select id="adminRole" required>
+                            <option value="">Sélectionner un rôle</option>
+                            <option value="super">Super Admin</option>
+                            <option value="principal">Admin Principal</option>
+                            <option value="secondary">Admin Secondaire</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="adminPassword">Mot de passe *</label>
+                        <div class="password-input">
+                            <input type="password" id="adminPassword" required>
+                            <button type="button" class="toggle-password">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirmer le mot de passe *</label>
+                        <div class="password-input">
+                            <input type="password" id="confirmPassword" required>
+                            <button type="button" class="toggle-password">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelAddAdmin">Annuler</button>
+                <button class="btn btn-primary" id="submitAddAdmin">Ajouter</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

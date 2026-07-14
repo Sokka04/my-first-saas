@@ -42,7 +42,7 @@ const tiers = [
   {
     name: "Pro",
     blurb: "Réseaux & grands établissements",
-    price: "180 000",
+    price: "200 000",
     features: [
       "Tout le pack Plus",
       "Multi‑établissements",

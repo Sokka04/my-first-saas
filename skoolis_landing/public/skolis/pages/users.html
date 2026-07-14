@@ -1,0 +1,690 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skoolis - Gestion des Utilisateurs</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link href="../assets/css/fonts.css" rel="stylesheet">
+    <script src="../assets/js/chart.umd.min.js" defer></script>
+    <script src="../assets/js/charts.js" defer></script>
+    <script src="../assets/js/app.js" defer></script>
+    <script src="../assets/js/utils.js" defer></script>
+    <script src="../assets/js/skoolis-core.js" defer></script>
+    <link rel="icon" type="image/x-icon" href="../assets/images/favicon.ico">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo-container">
+                <div class="logo">
+                    <div class="logo-top">
+                        <span class="logo-icon">S</span>
+                        <h1>Skoolis</h1>
+                    </div>
+                    <div class="current-schoolyear">Année Scolaire : 2023-2024</div>
+                </div>
+                <button class="toggle-sidebar" id="toggleSidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <div class="nav-section">
+                <h3 class="section-title">Principal</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="../index.html">
+                            <i class="fas fa-home"></i>
+                            <span>Tableau de bord</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="classes.html">
+                            <i class="fas fa-chalkboard"></i>
+                            <span>Classes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="élèves.html">
+                            <i class="fas fa-user-graduate"></i>
+                            <span>Élèves</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="professeurs.html">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <span>Professeurs</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="notes.html">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Notes & Moyennes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="matieres.html">
+                            <i class="fas fa-book"></i>
+                            <span>Matières</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Comptabilité</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="inscription.html">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                            <span>Frais d'inscription</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="ecolage.html">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Frais d'Ecolage</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="arriere_ecolage.html">
+                            <i class="fas fa-clock"></i>
+                            <span>Arriéré d'écolage</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="autres-frais.html">
+                            <i class="fas fa-receipt"></i>
+                            <span>Autres Frais</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bilan.html">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Bilan général</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bilan-journalier.html">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Bilan journalier / périodique</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="authentification.html">
+                            <i class="fas fa-stamp"></i>
+                            <span>Authentification de reçu</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Administration</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="configuration.html">
+                            <i class="fas fa-cog"></i>
+                            <span>Configuration</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="admin.html">
+                            <i class="fas fa-user-shield"></i>
+                            <span>Administrateur</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="users.html">
+                            <i class="fas fa-users"></i>
+                            <span>Utilisateurs</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Examens</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="resultats.html"><i class="fas fa-poll"></i>
+                            <span>Résultats</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bepc-blanc.html"><i class="fas fa-file-alt"></i>
+                            <span>BEPC Blanc</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Aide</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="aide.html">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Aide & Support</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Déconnexion</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <h4>Admin Principal</h4>
+                        <p>admin@skoolis.com</p>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <h2>Gestion des Utilisateurs</h2>
+                    <p>Gérez les accès et permissions des utilisateurs du système</p>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Rechercher un utilisateur...">
+                    </div>
+                    <div class="header-icons">
+                        <button class="icon-btn notification">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge">3</span>
+                        </button>
+                        <button class="icon-btn">
+                            <i class="fas fa-envelope"></i>
+                            <span class="badge">5</span>
+                        </button>
+                        <button class="icon-btn" id="themeToggle">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        <button class="icon-btn">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page Actions -->
+            <div class="page-actions">
+                <button class="btn btn-primary" id="addUserBtn">
+                    <i class="fas fa-plus"></i>
+                    Ajouter un Utilisateur
+                </button>
+                <div class="action-buttons">
+                    <button class="btn btn-secondary">
+                        <i class="fas fa-file-export"></i>
+                        Exporter
+                    </button>
+                    <button class="btn btn-secondary">
+                        <i class="fas fa-filter"></i>
+                        Filtres
+                    </button>
+                    <button class="btn btn-secondary">
+                        <i class="fas fa-sync-alt"></i>
+                        Actualiser
+                    </button>
+                </div>
+            </div>
+
+            <!-- User Stats -->
+            <div class="stats-cards">
+                <div class="card">
+                    <div class="card-icon" style="background-color: #e3f2fd;">
+                        <i class="fas fa-users" style="color: #1976d2;"></i>
+                    </div>
+                    <div class="card-info">
+                        <h3>85</h3>
+                        <p>Utilisateurs Totaux</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon" style="background-color: #f3e5f5;">
+                        <i class="fas fa-user-check" style="color: #7b1fa2;"></i>
+                    </div>
+                    <div class="card-info">
+                        <h3>78</h3>
+                        <p>Utilisateurs Actifs</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon" style="background-color: #e8f5e9;">
+                        <i class="fas fa-user-clock" style="color: #388e3c;"></i>
+                    </div>
+                    <div class="card-info">
+                        <h3>5</h3>
+                        <p>En attente</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon" style="background-color: #fff3e0;">
+                        <i class="fas fa-user-slash" style="color: #f57c00;"></i>
+                    </div>
+                    <div class="card-info">
+                        <h3>2</h3>
+                        <p>Utilisateurs Bloqués</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Type Filters -->
+            <div class="filter-tabs">
+                <button class="filter-tab active" data-type="all">
+                    <i class="fas fa-users"></i>
+                    Tous les Utilisateurs (85)
+                </button>
+                <button class="filter-tab" data-type="professors">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    Professeurs (45)
+                </button>
+                <button class="filter-tab" data-type="secretaries">
+                    <i class="fas fa-user-tie"></i>
+                    Secrétaires (15)
+                </button>
+                <button class="filter-tab" data-type="accountants">
+                    <i class="fas fa-calculator"></i>
+                    Comptables (8)
+                </button>
+                <button class="filter-tab" data-type="parents">
+                    <i class="fas fa-user-friends"></i>
+                    Parents (17)
+                </button>
+            </div>
+
+            <!-- Users Table -->
+            <div class="table-container">
+                <div class="table-header">
+                    <h3>Liste des Utilisateurs</h3>
+                    <div class="table-actions">
+                        <div class="records-count">
+                            <span>85 utilisateurs trouvés</span>
+                        </div>
+                        <select class="form-select">
+                            <option>Trier par: Date d'ajout</option>
+                            <option>Trier par: Nom A-Z</option>
+                            <option>Trier par: Type d'utilisateur</option>
+                            <option>Trier par: Statut</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" id="selectAllUsers">
+                                </th>
+                                <th>Utilisateur</th>
+                                <th>Type</th>
+                                <th>Email</th>
+                                <th>Téléphone</th>
+                                <th>Date de création</th>
+                                <th>Dernière connexion</th>
+                                <th>Statut</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="row-checkbox">
+                                </td>
+                                <td>
+                                    <div class="user-info">
+                                        <div>
+                                            <p class="user-name">Pierre Mbappé</p>
+                                            <p class="user-title">Professeur de Maths</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="user-type professor">Professeur</span></td>
+                                <td>pierre.mbappe@skoolis.com</td>
+                                <td>+237 6XX XX XX XX</td>
+                                <td>10/01/2023</td>
+                                <td>Il y a 2 heures</td>
+                                <td><span class="status active">Actif</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn edit-btn" title="Modifier">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="action-btn view-btn" title="Voir détails">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn reset-btn" title="Réinitialiser mot de passe">
+                                            <i class="fas fa-key"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="row-checkbox">
+                                </td>
+                                <td>
+                                    <div class="user-info">
+
+                                        <div>
+                                            <p class="user-name">Sophie Nkeng</p>
+                                            <p class="user-title">Secrétaire principale</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="user-type secretary">Secrétaire</span></td>
+                                <td>sophie.nkeng@skoolis.com</td>
+                                <td>+237 6XX XX XX XX</td>
+                                <td>15/02/2023</td>
+                                <td>Il y a 1 jour</td>
+                                <td><span class="status active">Actif</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn edit-btn" title="Modifier">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="action-btn view-btn" title="Voir détails">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn reset-btn" title="Réinitialiser mot de passe">
+                                            <i class="fas fa-key"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="row-checkbox">
+                                </td>
+                                <td>
+                                    <div class="user-info">
+                                        <div>
+                                            <p class="user-name">David Fotso</p>
+                                            <p class="user-title">Comptable</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="user-type accountant">Comptable</span></td>
+                                <td>david.fotso@skoolis.com</td>
+                                <td>+237 6XX XX XX XX</td>
+                                <td>20/03/2023</td>
+                                <td>Il y a 3 jours</td>
+                                <td><span class="status active">Actif</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn edit-btn" title="Modifier">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="action-btn view-btn" title="Voir détails">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn reset-btn" title="Réinitialiser mot de passe">
+                                            <i class="fas fa-key"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="row-checkbox">
+                                </td>
+                                <td>
+                                    <div class="user-info">
+
+                                        <div>
+                                            <p class="user-name">Martine Kamga</p>
+                                            <p class="user-title">Parent d'élève</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="user-type parent">Parent</span></td>
+                                <td>martine.kamga@email.com</td>
+                                <td>+237 6XX XX XX XX</td>
+                                <td>05/04/2023</td>
+                                <td>Il y a 1 semaine</td>
+                                <td><span class="status pending">En attente</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn edit-btn" title="Modifier">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="action-btn view-btn" title="Voir détails">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn activate-btn" title="Activer le compte">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="row-checkbox">
+                                </td>
+                                <td>
+                                    <div class="user-info">
+
+                                        <div>
+                                            <p class="user-name">Jean-Paul Biya</p>
+                                            <p class="user-title">Professeur de Physique</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="user-type professor">Professeur</span></td>
+                                <td>jeanpaul.biya@skoolis.com</td>
+                                <td>+237 6XX XX XX XX</td>
+                                <td>10/05/2023</td>
+                                <td>Il y a 2 semaines</td>
+                                <td><span class="status inactive">Inactif</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn edit-btn" title="Modifier">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="action-btn view-btn" title="Voir détails">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn block-btn" title="Débloquer">
+                                            <i class="fas fa-unlock"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination">
+                    <button class="pagination-btn" disabled>
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="pagination-btn active">1</button>
+                    <button class="pagination-btn">2</button>
+                    <button class="pagination-btn">3</button>
+                    <button class="pagination-btn">4</button>
+                    <button class="pagination-btn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <div class="pagination-info">
+                        <span>Page 1 sur 8</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Activity Log -->
+            <div class="table-container">
+                <div class="section-header">
+                    <h3>Journal des activités récentes</h3>
+                    <button class="btn btn-secondary">
+                        <i class="fas fa-history"></i>
+                        Voir tout l'historique
+                    </button>
+                </div>
+
+                <div class="activity-log">
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-sign-in-alt"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p><strong>Pierre Mbappé</strong> s'est connecté au système</p>
+                            <span class="activity-time">Il y a 2 heures</span>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-key"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p><strong>Sophie Nkeng</strong> a modifié son mot de passe</p>
+                            <span class="activity-time">Il y a 1 jour</span>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p><strong>Nouvel utilisateur</strong> créé: Martine Kamga</p>
+                            <span class="activity-time">Il y a 1 semaine</span>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-ban"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p><strong>Jean-Paul Biya</strong> a été bloqué temporairement</p>
+                            <span class="activity-time">Il y a 2 semaines</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="main-footer">
+                <p>© 2026 Skoolis - School Management System. Created by Skoolis Technologies.</p>
+                <div class="footer-links">
+                    <a href="#">Confidentialité</a>
+                    <a href="#">Conditions d'utilisation</a>
+                    <a href="aide.html">Aide</a>
+                    <a href="#">Contact</a>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Add User Modal -->
+    <div class="modal" id="addUserModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Ajouter un Utilisateur</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addUserForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="userFirstName">Prénom *</label>
+                            <input type="text" id="userFirstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="userLastName">Nom *</label>
+                            <input type="text" id="userLastName" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userEmail">Email *</label>
+                        <input type="email" id="userEmail" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userPhone">Téléphone</label>
+                        <input type="tel" id="userPhone">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userType">Type d'utilisateur *</label>
+                        <select id="userType" required>
+                            <option value="">Sélectionner un type</option>
+                            <option value="professor">Professeur</option>
+                            <option value="secretary">Secrétaire</option>
+                            <option value="accountant">Comptable</option>
+                            <option value="parent">Parent</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userRole">Rôle *</label>
+                        <select id="userRole" required>
+                            <option value="">Sélectionner un rôle</option>
+                            <option value="teacher">Enseignant</option>
+                            <option value="head_teacher">Responsable de classe</option>
+                            <option value="secretary">Secrétaire</option>
+                            <option value="accountant">Comptable</option>
+                            <option value="viewer">Consultant</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Permissions</label>
+                        <div class="permissions-checkboxes">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="permissions" value="view">
+                                <span>Lecture seule</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="permissions" value="edit">
+                                <span>Édition</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="permissions" value="delete">
+                                <span>Suppression</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="permissions" value="export">
+                                <span>Export</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userNotes">Notes additionnelles</label>
+                        <textarea id="userNotes" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelAddUser">Annuler</button>
+                <button class="btn btn-primary" id="submitAddUser">Créer l'utilisateur</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/users.js"></script>
+</body>

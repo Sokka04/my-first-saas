@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Élèves - Skoolis</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link href="../assets/css/fonts.css" rel="stylesheet">
+    <script src="../assets/js/chart.umd.min.js" defer></script>
+    <script src="../assets/js/charts.js" defer></script>
+    <script src="../assets/js/app.js" defer></script>
+    <script src="../assets/js/utils.js" defer></script>
+    <script src="../assets/js/skoolis-core.js" defer></script>
+    <!-- Script d'intégration API Backend pour le CRUD élèves -->
+    <script src="../assets/js/eleves.js" defer></script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="logo-container">
+                <div class="logo">
+                    <div class="logo-top">
+                        <span class="logo-icon">S</span>
+                        <h1>Skoolis</h1>
+                    </div>
+                    <div class="current-schoolyear">Année Scolaire : 2023-2024</div>
+                </div>
+                <button class="toggle-sidebar" id="toggleSidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <div class="nav-section">
+                <h3 class="section-title">Principal</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="../index.html">
+                            <i class="fas fa-home"></i>
+                            <span>Tableau de bord</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="classes.html">
+                            <i class="fas fa-chalkboard"></i>
+                            <span>Classes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="élèves.html">
+                            <i class="fas fa-user-graduate"></i>
+                            <span>Élèves</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="professeurs.html">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <span>Professeurs</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="notes.html">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Notes & Moyennes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="matieres.html">
+                            <i class="fas fa-book"></i>
+                            <span>Matières</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Comptabilité</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="inscription.html">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                            <span>Frais d'inscription</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="ecolage.html">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Frais d'Ecolage</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="arriere_ecolage.html">
+                            <i class="fas fa-clock"></i>
+                            <span>Arriéré d'écolage</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="autres-frais.html">
+                            <i class="fas fa-receipt"></i>
+                            <span>Autres Frais</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bilan.html">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Bilan général</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bilan-journalier.html">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Bilan journalier / périodique</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="authentification.html">
+                            <i class="fas fa-stamp"></i>
+                            <span>Authentification de reçu</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Administration</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="configuration.html">
+                            <i class="fas fa-cog"></i>
+                            <span>Configuration</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="admin.html">
+                            <i class="fas fa-user-shield"></i>
+                            <span>Administrateur</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="users.html">
+                            <i class="fas fa-users"></i>
+                            <span>Utilisateurs</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Examens</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="resultats.html"><i class="fas fa-poll"></i>
+                            <span>Résultats</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bepc-blanc.html"><i class="fas fa-file-alt"></i>
+                            <span>BEPC Blanc</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Aide</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="aide.html">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Aide & Support</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" onclick="BackupManager && BackupManager.openPanel(); return false;">
+                            <i class="fas fa-floppy-disk"></i>
+                            <span>Sauvegarde</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Déconnexion</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <h4>Admin Principal</h4>
+                        <p>admin@skoolis.com</p>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <h2>Gestion des Élèves</h2>
+                    <p>Gérez les inscriptions, informations et photos des élèves</p>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Rechercher...">
+                    </div>
+                    <div class="header-icons">
+                        <button class="icon-btn notification">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge">3</span>
+                        </button>
+                        <button class="icon-btn" id="themeToggle">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        <button class="icon-btn" id="reloadPage">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Navigation des fonctionnalités -->
+            <div class="features-nav">
+                <button class="feature-btn active" data-feature="enregistrement">
+                    <i class="fas fa-user-plus"></i>
+                    Enregistrement
+                </button>
+                <button class="feature-btn" data-feature="liste">
+                    <i class="fas fa-list"></i>
+                    Liste des élèves
+                </button>
+                <button class="feature-btn" data-feature="modification">
+                    <i class="fas fa-edit"></i>
+                    Modifications
+                </button>
+                <button class="feature-btn" data-feature="recherche">
+                    <i class="fas fa-search"></i>
+                    Recherche
+                </button>
+                <button class="feature-btn" data-feature="photo">
+                    <i class="fas fa-camera"></i>
+                    Photo élève
+                </button>
+            </div>
+
+            <!-- Section Enregistrement Élève -->
+            <div class="feature-section active" id="enregistrement">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3>Enregistrement d'un nouvel élève</h3>
+                        <p>Remplissez toutes les informations requises</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-ai" id="scanIaBtn">
+                            <i class="fas fa-robot"></i>
+                            Scanner avec IA
+                        </button>
+                        <input type="file" id="scanFile" accept="image/*" hidden>
+                        <button class="btn btn-secondary" onclick="resetForm()">
+                            <i class="fas fa-times"></i>
+                            Annuler
+                        </button>
+                        <button class="btn btn-primary" onclick="saveStudent()">
+                            <i class="fas fa-save"></i>
+                            Enregistrer
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <form id="studentForm">
+                        <div class="form-section">
+                            <h4 class="form-section-title">
+                                <i class="fas fa-id-card"></i>
+                                Identité de l'élève
+                            </h4>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="matricule">Numéro Matricule</label>
+                                    <input type="text" id="matricule" placeholder="Ex: STD-2024-001">
+                                    <small class="form-help">Généré automatiquement si vide</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="nom">Nom *</label>
+                                    <input type="text" id="nom" placeholder="Entrez le nom" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="prenom">Prénom *</label>
+                                    <input type="text" id="prenom" placeholder="Entrez le prénom" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="sexe">Sexe</label>
+                                    <select id="sexe">
+                                        <option value="">Sélectionner</option>
+                                        <option value="M">Masculin (M)</option>
+                                        <option value="F">Féminin (F)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="statut">Statut</label>
+                                    <select id="statut">
+                                        <option value="">Sélectionner</option>
+                                        <option value="nouveau">Nouveau(elle)</option>
+                                        <option value="redoublant">Redoublant(e)</option>
+                                        <option value="triplant">Triplant(e)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="naissance">Né(e) le</label>
+                                    <input type="date" id="naissance">
+                                </div>
+                                <div class="form-group">
+                                    <label for="lieu_naissance">Lieu de naissance</label>
+                                    <input type="text" id="lieu_naissance" placeholder="Ville, Pays">
+                                </div>
+                                <div class="form-group">
+                                    <label for="adresse">Adresse</label>
+                                    <textarea id="adresse" rows="3" placeholder="Adresse complète"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="photo">Photo de l'élève</label>
+                                    <input type="file" id="photo" accept="image/*">
+                                    <small class="form-help">Format Image (JPG, PNG, JPEG)</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h4 class="form-section-title">
+                                <i class="fas fa-user-friends"></i>
+                                Informations du tuteur
+                            </h4>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="tuteur_nom">Nom du tuteur</label>
+                                    <input type="text" id="tuteur_nom" placeholder="Nom du tuteur">
+                                </div>
+                                <div class="form-group">
+                                    <label for="tuteur_prenoms">Prénoms du tuteur</label>
+                                    <input type="text" id="tuteur_prenoms" placeholder="Prénoms du tuteur">
+                                </div>
+                                <div class="form-group">
+                                    <label for="tuteur_contact">Téléphone</label>
+                                    <input type="text" id="tuteur_contact" placeholder="70693550">
+                                </div>
+                                <div class="form-group">
+                                    <label for="tuteur_profession">Profession</label>
+                                    <input type="text" id="tuteur_profession" placeholder="Profession du tuteur">
+                                </div>
+                                <div class="form-group">
+                                    <label for="tuteur_email">Email</label>
+                                    <input type="email" id="tuteur_email" placeholder="Email du tuteur (optionnel)">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h4 class="form-section-title">
+                                <i class="fas fa-school"></i>
+                                Inscription
+                            </h4>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="classe">Classe *</label>
+                                    <select id="classe" required>
+                                        <option value="">Sélectionner une classe</option>
+                                        <option value="6A">6ème A</option>
+                                        <option value="5B">5ème B</option>
+                                        <option value="4C">4ème C</option>
+                                        <option value="3A">3ème A</option>
+                                        <option value="TD">Terminale D</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="date_inscription">Date d'inscription</label>
+                                    <input type="date" id="date_inscription">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Section Liste des élèves -->
+            <div class="feature-section" id="liste">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3>Liste des élèves</h3>
+                        <p><span id="totalStudents">1</span> élèves inscrits - Options d'impression</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-primary" onclick="openPopup('printPopup')">
+                            <i class="fas fa-print"></i>
+                            Imprimer liste
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Popup d'impression -->
+                <div class="popup" id="printPopup">
+                    <div class="popup-content">
+                        <div class="popup-header">
+                            <h4>Options d'impression</h4>
+                            <button class="popup-close" onclick="closePopup('printPopup')">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="popup-body">
+                            <div class="form-group">
+                                <label for="print_class">Sélectionner la classe</label>
+                                <select id="print_class">
+                                    <option value="all">Toutes les classes</option>
+                                    <option value="6A">6ème A</option>
+                                    <option value="5B">5ème B</option>
+                                    <option value="4C">4ème C</option>
+                                    <option value="3A">3ème A</option>
+                                    <option value="TD">Terminale D</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Type d'impression</label>
+                                <div class="radio-group">
+                                    <label class="radio-label">
+                                        <input type="radio" name="print_type" value="simple" checked>
+                                        <span class="radio-custom"></span>
+                                        Liste simple
+                                    </label>
+                                    <label class="radio-label">
+                                        <input type="radio" name="print_type" value="notes">
+                                        <span class="radio-custom"></span>
+                                        Fiche de notes
+                                    </label>
+                                    <label class="radio-label">
+                                        <input type="radio" name="print_type" value="complete">
+                                        <span class="radio-custom"></span>
+                                        Avec toutes les identités
+                                    </label>
+                                    <label class="radio-label">
+                                        <input type="radio" name="print_type" value="personalisé">
+                                        <span class="radio-custom"></span>
+                                        Personnalisé (choix des champs)
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="popup-footer">
+                            <button class="btn btn-secondary" onclick="closePopup('printPopup')">
+                                Annuler
+                            </button>
+                            <button class="btn btn-primary">
+                                <i class="fas fa-print"></i>
+                                Imprimer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filtres et tableau -->
+                <div class="filters-container">
+                    <div class="filter-group">
+                        <label>Niveau scolaire:</label>
+                        <select class="form-select" id="filter_niveau">
+                            <option>Tous les niveaux</option>
+                            <option>Maternelle</option>
+                            <option>Primaire</option>
+                            <option>Collège</option>
+                            <option>Lycée</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Classe:</label>
+                        <select class="form-select" id="filter_classe">
+                            <option>Toutes les classes</option>
+                            <option>6ème A</option>
+                            <option>5ème B</option>
+                            <option>4ème C</option>
+                            <option>3ème A</option>
+                            <option>Terminale D</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Statut:</label>
+                        <select class="form-select" id="filter_statut">
+                            <option>Tous les statuts</option>
+                            <option>Nouveau(elle)</option>
+                            <option>Redoublant(e)</option>
+                            <option>Triplant(e)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="table-container full-width">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Nom & Prénom</th>
+                                <th>Matricule</th>
+                                <th>Classe</th>
+                                <th>Date de naissance</th>
+                                <th>Téléphone</th>
+                                <th>Moyenne Gén.</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentsTableBody">
+                            <!-- Les données seront chargées dynamiquement -->
+                        </tbody>
+                    </table>
+
+                    <div class="pagination">
+                        <button class="pagination-btn" disabled>
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="pagination-btn active">1</button>
+                        <button class="pagination-btn">2</button>
+                        <button class="pagination-btn">3</button>
+                        <span class="pagination-ellipsis">...</span>
+                        <button class="pagination-btn">10</button>
+                        <button class="pagination-btn">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Modifications -->
+            <div class="feature-section" id="modification">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3>Modifications</h3>
+                        <p>Modifier les informations, matricule ou ancienneté des élèves</p>
+                    </div>
+                </div>
+
+                <div class="modification-cards">
+                    <div class="modification-card">
+                        <div class="modification-icon">
+                            <i class="fas fa-id-badge"></i>
+                        </div>
+                        <h4>Modifier le numéro matricule</h4>
+                        <p>Changer le numéro matricule d'un élève</p>
+                        <button class="btn btn-primary" onclick="openPopup('matriculePopup')">
+                            Modifier
+                        </button>
+                    </div>
+
+                    <div class="modification-card">
+                        <div class="modification-icon">
+                            <i class="fas fa-history"></i>
+                        </div>
+                        <h4>Modifier l'ancienneté</h4>
+                        <p>Ajuster l'ancienneté ou le statut de redoublement</p>
+                        <button class="btn btn-primary" onclick="openPopup('anciennetePopup')">
+                            Modifier
+                        </button>
+                    </div>
+
+                    <div class="modification-card">
+                        <div class="modification-icon">
+                            <i class="fas fa-user-edit"></i>
+                        </div>
+                        <h4>Modifier les informations</h4>
+                        <p>Modifier les informations d'un élève déjà enregistré</p>
+                        <button class="btn btn-primary" onclick="openModifierElevePopup()">
+                            Modifier
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Popup modifier matricule -->
+                <div class="popup" id="matriculePopup">
+                    <div class="popup-content wide-popup">
+                        <div class="popup-header">
+                            <h4>Modifier le numéro matricule</h4>
+                            <button class="popup-close" onclick="closePopup('matriculePopup')">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="popup-body">
+                            <div class="form-group">
+                                <label for="modif_classe">Sélectionner la classe</label>
+                                <select id="modif_classe">
+                                    <option value="">Choisir une classe</option>
+                                    <option value="6A">6ème A</option>
+                                    <option value="5B">5ème B</option>
+                                    <option value="4C">4ème C</option>
+                                    <option value="3A">3ème A</option>
+                                    <option value="TD">Terminale D</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="modif_eleve">Sélectionner l'élève</label>
+                                <select id="modif_eleve">
+                                    <option value="">Choisir un élève</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="nouveau_matricule">Nouveau numéro matricule</label>
+                                <input type="text" id="nouveau_matricule" placeholder="Ex: STD-2024-001">
+                            </div>
+                        </div>
+                        <div class="popup-footer">
+                            <button class="btn btn-secondary" onclick="closePopup('matriculePopup')">
+                                Annuler
+                            </button>
+                            <button class="btn btn-primary" onclick="updateMatricule()">
+                                <i class="fas fa-save"></i>
+                                Enregistrer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Popup modifier ancienneté -->
+                <div class="popup" id="anciennetePopup">
+                    <div class="popup-content wide-popup">
+                        <div class="popup-header">
+                            <h4>Modifier l'ancienneté</h4>
+                            <button class="popup-close" onclick="closePopup('anciennetePopup')">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="popup-body">
+                            <div class="form-group">
+                                <label for="anciennete_eleve">Rechercher l'élève</label>
+                                <input type="text" id="anciennete_eleve" placeholder="Nom, prénom ou matricule">
+                            </div>
+                            <div class="form-group">
+                                <label for="list_eleves">Liste des élèves</label>
+                                <div id="list_eleves" class="list-container">
+                                    <!-- Liste des élèves sera affichée ici dynamiquement -->
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="modif_eleve">Sélectionner l'élève</label>
+                                <select id="modif_eleve">
+                                    <option value="">Choisir un élève</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="nouveau_statut">Nouveau statut</label>
+                                <select id="nouveau_statut">
+                                    <option value="">Sélectionner</option>
+                                    <option value="nouveau">Nouveau(elle)</option>
+                                    <option value="redoublant">Redoublant(e)</option>
+                                    <option value="triplant">Triplant(e)</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="popup-footer">
+                            <button class="btn btn-secondary" onclick="closePopup('anciennetePopup')">
+                                Annuler
+                            </button>
+                            <button class="btn btn-primary">
+                                <i class="fas fa-save"></i>
+                                Enregistrer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Popup modifier informations élève (ÉLARGI) -->
+                <div class="popup" id="modifierElevePopup">
+                    <div class="popup-content extra-wide-popup">
+                        <div class="popup-header">
+                            <h4>Modifier les informations d'un élève</h4>
+                            <button class="popup-close" onclick="closePopup('modifierElevePopup')">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="popup-body">
+                            <div class="form-group">
+                                <label for="modifier_eleve_select">Sélectionner l'élève</label>
+                                <select id="modifier_eleve_select" onchange="loadStudentData(this.value)">
+                                    <option value="">Choisir un élève</option>
+                                </select>
+                            </div>
+
+                            <div id="modifierEleveForm">
+                                <div class="form-section">
+                                    <h4 class="form-section-title">
+                                        <i class="fas fa-id-card"></i>
+                                        Identité de l'élève
+                                    </h4>
+                                    <div class="form-grid">
+                                        <div class="form-group">
+                                            <label for="modifier_matricule">Numéro Matricule</label>
+                                            <input type="text" id="modifier_matricule" placeholder="Ex: STD-2024-001">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="modifier_nom">Nom *</label>
+                                            <input type="text" id="modifier_nom" placeholder="Entrez le nom" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="modifier_prenom">Prénom *</label>
+                                            <input type="text" id="modifier_prenom" placeholder="Entrez le prénom"
+                                                required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="modifier_sexe">Sexe</label>
+                                            <select id="modifier_sexe">
+                                                <option value="">Sélectionner</option>
+                                                <option value="M">Masculin (M)</option>
+                                                <option value="F">Féminin (F)</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="modifier_statut">Statut</label>
+                                            <select id="modifier_statut">
+                                                <option value="">Sélectionner</option>
+                                                <option value="nouveau">Nouveau(elle)</option>
+                                                <option value="redoublant">Redoublant(e)</option>
+                                                <option value="triplant">Triplant(e)</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="modifier_naissance">Né(e) le</label>
+                                            <input type="date" id="modifier_naissance">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="modifier_lieu_naissance">Lieu de naissance</label>
+                                            <input type="text" id="modifier_lieu_naissance" placeholder="Ville, Pays">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="modifier_adresse">Adresse</label>
+                                            <textarea id="modifier_adresse" rows="3"
+                                                placeholder="Adresse complète"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-section">
+                                    <h4 class="form-section-title">
+                                        <i class="fas fa-user-friends"></i>
+                                        Informations du tuteur
+                                    </h4>
+                                    <div class="form-grid">
+                                        <div class="form-group">
+                                            <label for="modifier_tuteur_nom">Nom du tuteur</label>
+                                            <input type="text" id="modifier_tuteur_nom" placeholder="Nom du tuteur">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="modifier_tuteur_prenoms">Prénoms du tuteur</label>
+                                            <input type="text" id="modifier_tuteur_prenoms"
+                                                placeholder="Prénoms du tuteur">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="modifier_tuteur_contact">Contact (Téléphone/Email)</label>
+                                            <input type="text" id="modifier_tuteur_contact"
+                                                placeholder="Ex: +237 6XX XXX XXX ou email@domaine.com">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="modifier_tuteur_profession">Profession</label>
+                                            <input type="text" id="modifier_tuteur_profession"
+                                                placeholder="Profession du tuteur">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-section">
+                                    <h4 class="form-section-title">
+                                        <i class="fas fa-school"></i>
+                                        Inscription
+                                    </h4>
+                                    <div class="form-grid">
+                                        <div class="form-group">
+                                            <label for="modifier_classe">Classe *</label>
+                                            <select id="modifier_classe" required>
+                                                <option value="">Sélectionner une classe</option>
+                                                <option value="6A">6ème A</option>
+                                                <option value="5B">5ème B</option>
+                                                <option value="4C">4ème C</option>
+                                                <option value="3A">3ème A</option>
+                                                <option value="TD">Terminale D</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="modifier_date_inscription">Date d'inscription</label>
+                                            <input type="date" id="modifier_date_inscription">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="modifier_annee_scolaire">Année scolaire</label>
+                                            <select id="modifier_annee_scolaire">
+                                                <option value="2023-2024">2023-2024</option>
+                                                <option value="2024-2025">2024-2025</option>
+                                                <option value="2025-2026">2025-2026</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="popup-footer">
+                            <button class="btn btn-secondary" onclick="closePopup('modifierElevePopup')">
+                                Annuler
+                            </button>
+                            <button class="btn btn-primary" onclick="updateStudentData()">
+                                <i class="fas fa-save"></i>
+                                Enregistrer les modifications
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Recherche -->
+            <div class="feature-section" id="recherche">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3>Recherche d'élève</h3>
+                        <p>Recherchez un élève par différents critères</p>
+                    </div>
+                </div>
+
+                <div class="search-container">
+                    <div class="search-options">
+                        <div class="search-option active" data-search="nom">
+                            <i class="fas fa-user"></i>
+                            <span>Nom & Prénom</span>
+                        </div>
+                        <div class="search-option" data-search="matricule">
+                            <i class="fas fa-id-badge"></i>
+                            <span>Numéro Matricule</span>
+                        </div>
+                        <div class="search-option" data-search="tuteur">
+                            <i class="fas fa-user-friends"></i>
+                            <span>Tuteur</span>
+                        </div>
+                    </div>
+
+                    <div class="search-form">
+                        <div class="search-input-group" id="search-nom">
+                            <div class="form-group">
+                                <label for="search_nom">Nom de l'élève</label>
+                                <input type="text" id="search_nom" placeholder="Entrez le nom">
+                            </div>
+                            <div class="form-group">
+                                <label for="search_prenom">Prénom de l'élève</label>
+                                <input type="text" id="search_prenom" placeholder="Entrez le prénom">
+                            </div>
+                            <button class="btn btn-primary" onclick="searchStudents()">
+                                <i class="fas fa-search"></i>
+                                Rechercher
+                            </button>
+                        </div>
+
+                        <div class="search-input-group" id="search-matricule" style="display: none;">
+                            <div class="form-group">
+                                <label for="search_matricule">Numéro matricule</label>
+                                <input type="text" id="search_matricule" placeholder="Ex: STD-2023-045">
+                            </div>
+                            <button class="btn btn-primary" onclick="searchStudents()">
+                                <i class="fas fa-search"></i>
+                                Rechercher
+                            </button>
+                        </div>
+
+                        <div class="search-input-group" id="search-tuteur" style="display: none;">
+                            <div class="form-group">
+                                <label for="search_tuteur_nom">Nom du tuteur</label>
+                                <input type="text" id="search_tuteur_nom" placeholder="Nom du tuteur">
+                            </div>
+                            <div class="form-group">
+                                <label for="search_tuteur_contact">Contact du tuteur</label>
+                                <input type="text" id="search_tuteur_contact" placeholder="Téléphone ou email">
+                            </div>
+                            <button class="btn btn-primary" onclick="searchStudents()">
+                                <i class="fas fa-search"></i>
+                                Rechercher
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="search-results" id="searchResults">
+                        <h4>Résultats de recherche</h4>
+                        <div class="no-results">
+                            <i class="fas fa-search"></i>
+                            <p>Aucune recherche effectuée</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Photo élève -->
+            <div class="feature-section" id="photo">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3>Attacher une photo à un élève</h3>
+                        <p>Ajoutez ou modifiez la photo d'un élève</p>
+                    </div>
+
+                </div>
+
+                <div class="photo-batch-actions">
+                    <div class="photo-stats">
+                        <div class="photo-stat">
+                            <div class="number" id="studentsWithPhoto">0</div>
+                            <div class="label">Avec photo</div>
+                        </div>
+                        <div class="photo-stat">
+                            <div class="number" id="studentsWithoutPhoto">0</div>
+                            <div class="label">Sans photo</div>
+                        </div>
+                        <div class="photo-stat">
+                            <div class="number" id="totalStudents">0</div>
+                            <div class="label">Total</div>
+                        </div>
+                        <div class="photo-stat">
+                            <!--Chaque fois que l'user choisi une classe, on affiche le nom de la classe choisis-->
+                            <div class="number" id="selectedClass">Toutes </div>
+                            <div class="label">Classe choisie</div>
+                        </div>
+                    </div>
+                    <button class="btn btn-photo-auto" onclick="attachAllPhotosAutomatically()">
+                        <i class="fas fa-magic"></i>
+                        Mettre toutes les photos automatiquement
+                    </button>
+                </div>
+
+                <div class="photo-container">
+                    <div class="photo-form">
+                        <div class="form-group">
+                            <label for="photo_classe">Sélectionner la classe</label>
+                            <select id="photo_classe" onchange="loadStudentsForPhoto()">
+                                <option value="">Toutes les classes</option>
+                                <option value="6A">6ème A</option>
+                                <option value="5B">5ème B</option>
+                                <option value="4C">4ème C</option>
+                                <option value="3A">3ème A</option>
+                                <option value="TD">Terminale D</option>
+                            </select>
+                        </div>
+
+                        <div class="students-list-container">
+                            <h4>Liste des élèves</h4>
+                            <div class="students-list" id="photoStudentsList">
+                                <!-- Les élèves seront chargés ici -->
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="photo_eleve">Rechercher l'élève</label>
+                            <input type="text" id="photo_eleve" placeholder="Nom, prénom ou matricule"
+                                oninput="searchPhotoStudent()">
+                            <small>Tapez pour rechercher et sélectionner un élève</small>
+                        </div>
+
+                        <div class="selected-student">
+                            <div class="student-preview">
+                                <div class="student-avatar large">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="student-details">
+                                    <h5 id="selectedStudentName">Aucun élève sélectionné</h5>
+                                    <p id="selectedStudentInfo">Sélectionnez un élève pour attacher une photo</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="photo-upload">
+                            <div class="upload-area" id="dropArea">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <h5>Glissez-déposez la photo ici</h5>
+                                <p>ou cliquez pour parcourir</p>
+                                <input type="file" id="photoFile" accept="image/*" hidden>
+                                <button class="btn btn-secondary" type="button"
+                                    onclick="document.getElementById('photoFile').click()">
+                                    <i class="fas fa-folder-open"></i>
+                                    Choisir un fichier
+                                </button>
+                                <small>Formats acceptés: JPG, PNG, JPEG (Max 5MB)</small>
+                            </div>
+
+                            <div class="photo-preview" id="photoPreview">
+                                <p>Aucune photo sélectionnée</p>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <div class="form-actions-left">
+                                <button class="btn btn-secondary" type="button" onclick="resetPhotoForm()">
+                                    <i class="fas fa-sync-alt"></i>
+                                    Réinitialiser
+                                </button>
+                            </div>
+                            <div class="form-actions-right">
+                                <button class="btn btn-secondary" type="button" onclick="resetPhotoForm()">
+                                    <i class="fas fa-times"></i>
+                                    Annuler
+                                </button>
+                                <button class="btn btn-primary" type="button" onclick="saveStudentPhoto()">
+                                    <i class="fas fa-save"></i>
+                                    Enregistrer la photo
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="photo-instructions">
+                        <h4>Instructions</h4>
+                        <ul>
+                            <li>La photo doit être récente et nette</li>
+                            <li>Format portrait recommandé</li>
+                            <li>Fond uni de préférence</li>
+                            <li>Visage bien visible et éclairé</li>
+                            <li>Taille idéale: 300x400 pixels</li>
+                            <li>Format accepté: JPG, PNG, JPEG</li>
+                            <li>Taille maximale: 5MB</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="main-footer">
+                <p>© 2026 Skoolis - School Management System. Created by Skoolis Technologies.</p>
+                <div class="footer-links">
+                    <a href="#">Confidentialité</a>
+                    <a href="#">Conditions d'utilisation</a>
+                    <a href="../views/aide.html">Aide</a>
+                    <a href="#">Contact</a>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Popup Batch Photo -->
+    <div class="popup" id="photoBatchPopup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h4>Attachement automatique des photos</h4>
+                <button class="popup-close" onclick="closePopup('photoBatchPopup')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="popup-body">
+                <div class="ai-processing" id="batchProcessing">
+                    <div class="ai-spinner"></div>
+                    <h4>Attachement des photos en cours...</h4>
+                    <p>Veuillez patienter pendant le traitement</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="batchProgressBar" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup Scanner IA -->
+    <div class="popup" id="iaScanPopup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h4>Scanner avec IA</h4>
+                <button class="popup-close" onclick="closePopup('iaScanPopup')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="popup-body">
+                <div class="form-group">
+                    <label>Scanner une liste d'élèves</label>
+                    <p>Téléchargez une photo ou un document contenant une liste d'élèves. Notre IA détectera
+                        automatiquement les informations.</p>
+                    <div class="scan-preview" id="scanPreview">
+                        <i class="fas fa-file-upload"
+                            style="font-size: 3rem; color: var(--text-light); margin-bottom: 15px;"></i>
+                        <p>Aucun fichier sélectionné</p>
+                    </div>
+                </div>
+
+                <div class="ai-processing" id="iaProcessing">
+                    <div class="ai-spinner"></div>
+                    <h4>Analyse IA en cours...</h4>
+                    <p>Détection des informations élèves</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="iaProgressBar" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div id="iaResults" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

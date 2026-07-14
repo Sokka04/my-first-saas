@@ -1,0 +1,134 @@
+/* Variables CSS */
+& {
+    --primary-color: #7b1fa2;
+    --primary-light: #9c27b0;
+    --primary-dark: #4a0072;
+    --secondary-color: #f3e5f5;
+    --text-color: #333333;
+    --text-light: #666666;
+    --bg-color: #f5f5f5;
+    --bg-light: #fafafa;
+    --white: #ffffff;
+    --sidebar-width: 260px;
+    --sidebar-collapsed: 80px;
+    --border-radius: 8px;
+    --border-radius-sm: 4px;
+    --border-radius-lg: 12px;
+    --border-color: rgba(0, 0, 0, 0.1);
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --box-shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.15);
+    --transition: all 0.3s ease;
+
+    /* Couleurs sémantiques */
+    --success-color: #2e7d32;
+    --success-bg: #e8f5e9;
+    --danger-color: #c62828;
+    --danger-bg: #ffebee;
+    --warning-color: #ef6c00;
+    --warning-bg: #fff3e0;
+    --info-color: #0277bd;
+    --info-bg: #e1f5fe;
+}
+
+/* Dark Mode Variables */
+[data-theme="dark"] & {
+    --primary-color: #9c27b0;
+    --primary-light: #ba68c8;
+    --primary-dark: #7b1fa2;
+    --secondary-color: #4a0072;
+    --text-color: #f5f5f5;
+    --text-light: #cccccc;
+    --bg-color: #121212;
+    --bg-light: #1a1a1a;
+    --white: #1e1e1e;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    --box-shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.4);
+    --success-bg: #1b3a1e;
+    --danger-bg: #3a1010;
+    --warning-bg: #3a2800;
+    --info-bg: #0a2540;
+}
+
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+& {
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    line-height: 1.6;
+    transition: var(--transition);
+}
+
+/* ========== STYLISATION DES SCROLLBARS GÉNÉRALES ========== */
+
+/* Pour tous les éléments */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+/* Pour la barre de défilement principale (body/html) */
+html::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+html::-webkit-scrollbar-thumb {
+    background: var(--primary-light);
+    border-radius: 5px;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+}
+
+/* Pour tous les autres éléments avec défilement */
+*::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: var(--primary-light);
+    border-radius: 5px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+    background-clip: content-box;
+}
+
+/* Pour Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-light) rgba(0, 0, 0, 0.05);
+}
+
+/* Pour Internet Explorer/Edge */
+* {
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+/* Ajustements pour le mode sombre */
+[data-theme="dark"] *::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] *::-webkit-scrollbar-thumb {
+    background: var(--primary-light);
+}
+
+[data-theme="dark"] *::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+}
+
+[data-theme="dark"] * {
+    scrollbar-color: var(--primary-light) rgba(255, 255, 255, 0.05);
+}

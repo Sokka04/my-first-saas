@@ -49,14 +49,14 @@ export default function Sidebar() {
                             <span>Professeurs</span>
                         </Link>
                     </li>
-                    <li className={`nav-item ${isActive('/app/notes') ? 'active' : ''}`}>
-                        <Link href="/app/notes">
-                            <i className="fas fa-chart-line"></i>
+                    <li className={`nav-item ${isActive('/dashboard/notes') ? 'active' : ''}`}>
+                        <Link href="/dashboard/notes">
+                            <i className="fas fa-edit"></i>
                             <span>Notes & Moyennes</span>
                         </Link>
                     </li>
-                    <li className={`nav-item ${isActive('/app/matieres') ? 'active' : ''}`}>
-                        <Link href="/app/matieres">
+                    <li className={`nav-item ${isActive('/dashboard/matieres') ? 'active' : ''}`}>
+                        <Link href="/dashboard/matieres">
                             <i className="fas fa-book"></i>
                             <span>Matières</span>
                         </Link>
@@ -67,46 +67,46 @@ export default function Sidebar() {
             <div className="nav-section">
                 <h3 className="section-title">Comptabilité</h3>
                 <ul className="nav-menu">
-                    <li className="nav-item">
-                        <Link href="/app/inscription">
+                    <li className={`nav-item ${isActive('/dashboard/inscription') ? 'active' : ''}`}>
+                        <Link href="/dashboard/inscription">
                             <i className="fas fa-file-invoice-dollar"></i>
                             <span>Frais d'inscription</span>
                         </Link>
                     </li>
-                    <li className="nav-item">
-                        <Link href="/app/ecolage">
+                    <li className={`nav-item ${isActive('/dashboard/ecolage') ? 'active' : ''}`}>
+                        <Link href="/dashboard/ecolage">
                             <i className="fas fa-credit-card"></i>
                             <span>Frais d'Ecolage</span>
                         </Link>
                     </li>
-                    <li className="nav-item">
-                        <Link href="/app/arriere_ecolage">
+                    <li className={`nav-item ${isActive('/dashboard/arriere_ecolage') ? 'active' : ''}`}>
+                        <Link href="/dashboard/arriere_ecolage">
                             <i className="fas fa-clock"></i>
                             <span>Arriéré d'écolage</span>
                         </Link>
                     </li>
-                    <li className="nav-item">
-                        <Link href="/app/autres-frais">
+                    <li className={`nav-item ${isActive('/dashboard/autres-frais') ? 'active' : ''}`}>
+                        <Link href="/dashboard/autres-frais">
                             <i className="fas fa-receipt"></i>
-                            <span>Autres Frais</span>
+                            <span>Autres frais</span>
                         </Link>
                     </li>
-                    <li className="nav-item">
-                        <Link href="/app/bilan">
+                    <li className={`nav-item ${isActive('/dashboard/bilan') ? 'active' : ''}`}>
+                        <Link href="/dashboard/bilan">
                             <i className="fas fa-chart-bar"></i>
                             <span>Bilan général</span>
                         </Link>
                     </li>
-                    <li className="nav-item">
-                        <Link href="/app/bilan-journalier">
-                            <i className="fas fa-calendar-alt"></i>
-                            <span>Bilan journalier / périodique</span>
+                    <li className={`nav-item ${isActive('/dashboard/bilan-journalier') ? 'active' : ''}`}>
+                        <Link href="/dashboard/bilan-journalier">
+                            <i className="fas fa-calendar-day"></i>
+                            <span>Bilan journalier</span>
                         </Link>
                     </li>
-                    <li className="nav-item">
-                        <Link href="/app/authentification">
-                            <i className="fas fa-stamp"></i>
-                            <span>Authentification de reçu</span>
+                    <li className={`nav-item ${isActive('/dashboard/authentification') ? 'active' : ''}`}>
+                        <Link href="/dashboard/authentification">
+                            <i className="fas fa-shield-alt"></i>
+                            <span>Authentification reçu</span>
                         </Link>
                     </li>
                 </ul>
@@ -115,20 +115,20 @@ export default function Sidebar() {
             <div className="nav-section">
                 <h3 className="section-title">Administration</h3>
                 <ul className="nav-menu">
-                    <li className="nav-item">
-                        <Link href="/app/configuration">
+                    <li className={`nav-item ${isActive('/dashboard/config') ? 'active' : ''}`}>
+                        <Link href="/dashboard/config">
                             <i className="fas fa-cog"></i>
                             <span>Configuration</span>
                         </Link>
                     </li>
-                    <li className="nav-item">
-                        <Link href="/app/admin">
+                    <li className={`nav-item ${isActive('/dashboard/admin') ? 'active' : ''}`}>
+                        <Link href="/dashboard/admin">
                             <i className="fas fa-user-shield"></i>
                             <span>Administrateur</span>
                         </Link>
                     </li>
-                    <li className="nav-item">
-                        <Link href="/app/users">
+                    <li className={`nav-item ${isActive('/dashboard/users') ? 'active' : ''}`}>
+                        <Link href="/dashboard/users">
                             <i className="fas fa-users"></i>
                             <span>Utilisateurs</span>
                         </Link>
@@ -139,14 +139,14 @@ export default function Sidebar() {
             <div className="nav-section">
                 <h3 className="section-title">Examens</h3>
                 <ul className="nav-menu">
-                    <li className="nav-item">
-                        <Link href="/app/resultats">
+                    <li className={`nav-item ${pathname.includes('/dashboard/resultats') ? 'active' : ''}`}>
+                        <Link href="/dashboard/resultats">
                             <i className="fas fa-poll"></i>
                             <span>Résultats</span>
                         </Link>
                     </li>
-                    <li className="nav-item">
-                        <Link href="/app/bepc-blanc">
+                    <li className={`nav-item ${pathname.includes('/dashboard/bepc-blanc') ? 'active' : ''}`}>
+                        <Link href="/dashboard/bepc-blanc">
                             <i className="fas fa-file-alt"></i>
                             <span>BEPC Blanc</span>
                         </Link>
@@ -157,20 +157,32 @@ export default function Sidebar() {
             <div className="nav-section">
                 <h3 className="section-title">Aide</h3>
                 <ul className="nav-menu">
-                    <li className="nav-item">
-                        <Link href="/app/aide">
+                    <li className={`nav-item ${pathname.includes('/dashboard/aide') ? 'active' : ''}`}>
+                        <Link href="/dashboard/aide">
                             <i className="fas fa-question-circle"></i>
                             <span>Aide & Support</span>
                         </Link>
                     </li>
-                    <li className="nav-item">
-                        <a href="#" onClick={(e) => { e.preventDefault(); }}>
+                    <li className={`nav-item ${pathname.includes('/dashboard/sauvegarde') ? 'active' : ''}`}>
+                        <Link href="/dashboard/sauvegarde">
                             <i className="fas fa-floppy-disk"></i>
                             <span>Sauvegarde</span>
-                        </a>
+                        </Link>
+                    </li>
+                    <li className={`nav-item ${pathname.includes('/dashboard/mise-a-jour') ? 'active' : ''}`}>
+                        <Link href="/dashboard/mise-a-jour">
+                            <i className="fas fa-cloud-download-alt"></i>
+                            <span>Mise à jour (Connect)</span>
+                        </Link>
                     </li>
                     <li className="nav-item">
-                        <a href="#">
+                        <a href="#" onClick={(e) => {
+                            e.preventDefault();
+                            // Supprimer le cookie d'authentification
+                            document.cookie = 'skoolis_auth=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+                            // Rediriger vers la page de login
+                            window.location.href = '/login';
+                        }}>
                             <i className="fas fa-sign-out-alt"></i>
                             <span>Déconnexion</span>
                         </a>

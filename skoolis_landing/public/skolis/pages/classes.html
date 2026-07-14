@@ -1,0 +1,797 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classes - Skoolis</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link href="../assets/css/fonts.css" rel="stylesheet">
+    <script src="../assets/js/chart.umd.min.js" defer></script>
+    <script src="../assets/js/charts.js" defer></script>
+    <script src="../assets/js/app.js" defer></script>
+    <script src="../assets/js/utils.js" defer></script>
+    <script src="../assets/js/skoolis-core.js" defer></script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="logo-container">
+                <div class="logo">
+                    <div class="logo-top">
+                        <span class="logo-icon">S</span>
+                        <h1>Skoolis</h1>
+                    </div>
+                    <div class="current-schoolyear">Année Scolaire : 2023-2024</div>
+                </div>
+                <button class="toggle-sidebar" id="toggleSidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <div class="nav-section">
+                <h3 class="section-title">Principal</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="../index.html">
+                            <i class="fas fa-home"></i>
+                            <span>Tableau de bord</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="classes.html">
+                            <i class="fas fa-chalkboard"></i>
+                            <span>Classes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="élèves.html">
+                            <i class="fas fa-user-graduate"></i>
+                            <span>Élèves</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="professeurs.html">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <span>Professeurs</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="notes.html">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Notes & Moyennes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="matieres.html">
+                            <i class="fas fa-book"></i>
+                            <span>Matières</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Comptabilité</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="inscription.html">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                            <span>Frais d'inscription</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="ecolage.html">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Frais d'Ecolage</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="arriere_ecolage.html">
+                            <i class="fas fa-clock"></i>
+                            <span>Arriéré d'écolage</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="autres-frais.html">
+                            <i class="fas fa-receipt"></i>
+                            <span>Autres Frais</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bilan.html">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Bilan général</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bilan-journalier.html">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Bilan journalier / périodique</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="authentification.html">
+                            <i class="fas fa-stamp"></i>
+                            <span>Authentification de reçu</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Administration</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="configuration.html">
+                            <i class="fas fa-cog"></i>
+                            <span>Configuration</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="admin.html">
+                            <i class="fas fa-user-shield"></i>
+                            <span>Administrateur</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="users.html">
+                            <i class="fas fa-users"></i>
+                            <span>Utilisateurs</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Examens</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="resultats.html"><i class="fas fa-poll"></i>
+                            <span>Résultats</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bepc-blanc.html"><i class="fas fa-file-alt"></i>
+                            <span>BEPC Blanc</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Aide</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="aide.html">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Aide & Support</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" onclick="BackupManager && BackupManager.openPanel(); return false;">
+                            <i class="fas fa-floppy-disk"></i>
+                            <span>Sauvegarde</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Déconnexion</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <h4>Admin Principal</h4>
+                        <p>admin@skoolis.com</p>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <h2>Gestion des Classes</h2>
+                    <p>Créez, gérez et organisez les classes de l'établissement</p>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchClasses" placeholder="Rechercher une classe...">
+                    </div>
+                    <div class="header-icons">
+                        <button class="icon-btn notification">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge">2</span>
+                        </button>
+                        <button class="icon-btn" id="themeToggle">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        <button class="icon-btn" id="reloadPage">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Statistiques rapides -->
+            <div class="stats-cards">
+                <div class="card">
+                    <div class="card-icon"
+                        style="background-color: rgba(123, 31, 162, 0.1); color: var(--primary-color);">
+                        <i class="fas fa-chalkboard"></i>
+                    </div>
+                    <div class="card-info">
+                        <h3 id="totalClasses">12</h3>
+                        <p>Classes actives</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="background-color: rgba(33, 150, 243, 0.1); color: #2196f3;">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="card-info">
+                        <h3 id="totalStudents">420</h3>
+                        <p>Élèves total</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="background-color: rgba(76, 175, 80, 0.1); color: #4caf50;">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="card-info">
+                        <h3 id="totalTeachers">24</h3>
+                        <p>Professeurs assignés</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="background-color: rgba(255, 152, 0, 0.1); color: #ff9800;">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <div class="card-info">
+                        <h3 id="avgPerClass">31.5</h3>
+                        <p>Moyenne d'élèves/classe</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation des fonctionnalités -->
+            <div class="features-nav">
+                <button class="feature-btn" data-feature="liste">
+                    <i class="fas fa-list"></i>
+                    Liste des classes
+                </button>
+                <button class="feature-btn active" data-feature="enregistrement">
+                    <i class="fas fa-plus-circle"></i>
+                    Nouvelle classe
+                </button>
+                <button class="feature-btn" data-feature="titulaire">
+                    <i class="fas fa-user-tie"></i>
+                    Attribuer titulaire
+                </button>
+                <button class="feature-btn" data-feature="effectif">
+                    <i class="fas fa-chart-pie"></i>
+                    Effectifs & Statistiques
+                </button>
+            </div>
+
+            <!-- Section Liste des classes -->
+            <div class="feature-section" id="liste">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3>Liste des classes</h3>
+                        <p>Gérez toutes les classes de l'établissement</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-primary" onclick="openPopup('printClassesPopup')">
+                            <i class="fas fa-print"></i>
+                            Imprimer liste
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Filtres -->
+                <div class="filters-container">
+                    <div class="filter-group">
+                        <label>Cycle:</label>
+                        <select class="form-select" id="filter_cycle">
+                            <option value="">Tous les cycles</option>
+                            <option value="primaire">Primaire</option>
+                            <option value="college">Collège</option>
+                            <option value="lycee">Lycée</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Niveau:</label>
+                        <select class="form-select" id="filter_niveau">
+                            <option value="">Tous les niveaux</option>
+                            <option value="6eme">6ème</option>
+                            <option value="5eme">5ème</option>
+                            <option value="4eme">4ème</option>
+                            <option value="3eme">3ème</option>
+                            <option value="2nde">2nde</option>
+                            <option value="1ere">1ère</option>
+                            <option value="terminale">Terminale</option>
+                        </select>
+                    </div>
+                    
+                </div>
+
+                <!-- Grille des classes -->
+                <div class="classes-grid" id="classesGrid">
+                    <!-- Les cartes de classes seront chargées dynamiquement -->
+                </div>
+            </div>
+
+            <!-- Section Nouvelle classe -->
+            <div class="feature-section active" id="enregistrement">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3>Créer une nouvelle classe</h3>
+                        <p>Configurez une nouvelle classe pour l'année scolaire</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-secondary" onclick="resetClassForm()">
+                            <i class="fas fa-times"></i>
+                            Annuler
+                        </button>
+                        <button class="btn btn-primary" id="saveClassBtn">
+                            <i class="fas fa-save"></i>
+                            Enregistrer
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <form id="classForm">
+                        <div class="form-section">
+                            <h4 class="form-section-title">
+                                <i class="fas fa-info-circle"></i>
+                                Informations de base
+                            </h4>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="class_nom">Nom de la classe *</label>
+                                    <input type="text" id="class_nom" placeholder="Ex: 3ème A" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="class_niveau">Niveau *</label>
+                                    <select id="class_niveau" required>
+                                        <option value="">Sélectionner un niveau</option>
+                                        <option value="creche">Créche</option>
+                                        <option value="maternelle">Maternelle 1</option>
+                                        <option value="cp1">CP1</option>
+                                        <option value="ce1">CE1</option>
+                                        <option value="ce2">CE2</option>
+                                        <option value="cm1">CM1</option>
+                                        <option value="cm2">CM2</option>
+                                        <option value="6eme">6ème</option>
+                                        <option value="5eme">5ème</option>
+                                        <option value="4eme">4ème</option>
+                                        <option value="3eme">3ème</option>
+                                        <option value="2nde">2nde</option>
+                                        <option value="1ere">1ère</option>
+                                        <option value="terminale">Terminale</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="class_cycle">Cycle *</label>
+                                    <select id="class_cycle" required>
+                                        <option value="">Sélectionner un cycle</option>
+                                        <option value="primaire">Primaire</option>
+                                        <option value="college">Collège</option>
+                                        <option value="lycee">Lycée</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="class_capacite">Capacité maximale</label>
+                                    <input type="number" id="class_capacite" min="1" max="1000" value="45"
+                                        placeholder="45">
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-section">
+                            <h4 class="form-section-title">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                                Professeur titulaire
+                            </h4>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="class_titulaire">Titulaire de la classe</label>
+                                    <select id="class_titulaire">
+                                        <option value="">Aucun titulaire assigné</option>
+                                        <!-- Les professeurs seront chargés dynamiquement -->
+                                    </select>
+                                    <small class="form-help">Vous pourrez modifier cela plus tard</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h4 class="form-section-title">
+                                <i class="fas fa-book"></i>
+                                Matières principales
+                            </h4>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>Sélectionnez les matières principales</label>
+                                    <div class="subjects-checklist" id="subjectsChecklist">
+                                        <!-- Les matières seront chargées dynamiquement -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Section Attribuer titulaire -->
+            <div class="feature-section" id="titulaire">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3>Attribuer un titulaire à une classe</h3>
+                        <p>Assignez ou changez le professeur titulaire d'une classe</p>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="assign_class">Sélectionner la classe</label>
+                            <select id="assign_class">
+                                <option value="">Choisir une classe</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="assign_teacher">Sélectionner le titulaire</label>
+                            <select id="assign_teacher">
+                                <option value="">Choisir un professeur</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="class-info-card" id="classInfoCard" style="display: none;">
+                        <div class="class-info-header">
+                            <h4>Informations de la classe</h4>
+                        </div>
+                        <div class="class-info-body">
+                            <div class="info-row">
+                                <span class="info-label">Classe:</span>
+                                <span class="info-value" id="info_nom">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Niveau:</span>
+                                <span class="info-value" id="info_niveau">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Effectif actuel:</span>
+                                <span class="info-value" id="info_effectif">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Titulaire actuel:</span>
+                                <span class="info-value" id="info_titulaire">Aucun</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions" style="margin-top: 30px;">
+                        <button class="btn btn-secondary" id="resetTitulaireBtn">
+                            Annuler
+                        </button>
+                        <button class="btn btn-primary" id="assignTitulaireBtn">
+                            <i class="fas fa-save"></i>
+                            Attribuer le titulaire
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Effectifs & Statistiques -->
+            <div class="feature-section" id="effectif">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3>Effectifs et statistiques</h3>
+                        <p>Visualisez les statistiques par classe et niveau</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-primary" id="exportStatsBtn">
+                            <i class="fas fa-download"></i>
+                            Exporter données
+                        </button>
+                    </div>
+                </div>
+
+                <div class="stats-container">
+                    <div class="stats-chart-container">
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h3>Répartition des effectifs par classe</h3>
+                            </div>
+                            <div class="chart-placeholder">
+                                <canvas id="effectifsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="detailed-stats">
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Classe</th>
+                                        <th>Niveau</th>
+                                        <th>Effectif</th>
+                                        <th>Capacité</th>
+                                        <th>Taux remplissage</th>
+                                        <th>Titulaire</th>
+                                        <th>Moyenne classe</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="statsTableBody">
+                                    <!-- Les statistiques seront chargées dynamiquement -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="summary-cards">
+                        <div class="summary-card">
+                            <div class="summary-icon" style="background-color: rgba(123, 31, 162, 0.1);">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="summary-info">
+                                <h4>Effectif total</h4>
+                                <h3 id="totalEffectif">420</h3>
+                            </div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="summary-icon" style="background-color: rgba(33, 150, 243, 0.1);">
+                                <i class="fas fa-percentage"></i>
+                            </div>
+                            <div class="summary-info">
+                                <h4>Taux de remplissage</h4>
+                                <h3 id="tauxRemplissage">78%</h3>
+                            </div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="summary-icon" style="background-color: rgba(76, 175, 80, 0.1);">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="summary-info">
+                                <h4>Moyenne générale</h4>
+                                <h3 id="moyenneGenerale">12.4</h3>
+                            </div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="summary-icon" style="background-color: rgba(255, 152, 0, 0.1);">
+                                <i class="fas fa-balance-scale"></i>
+                            </div>
+                            <div class="summary-info">
+                                <h4>Ratio filles/garçons</h4>
+                                <h3 id="ratioGenre">48/52</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="main-footer">
+                <p>© 2026 Skoolis - School Management System. Created by Skoolis Technologies.</p>
+                <div class="footer-links">
+                    <a href="#">Confidentialité</a>
+                    <a href="#">Conditions d'utilisation</a>
+                    <a href="../views/aide.html">Aide</a>
+                    <a href="#">Contact</a>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Popup Détails de classe -->
+    <div class="popup" id="classDetailsPopup">
+        <div class="popup-content extra-wide-popup">
+            <div class="popup-header">
+                <h4 id="popupClassName">Détails de la classe</h4>
+                <button class="popup-close" id="closeDetailsPopup">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="popup-body">
+                <div class="class-details-tabs">
+                    <div class="tabs">
+                        <button class="tab-btn active" data-tab="info">Informations</button>
+                        <button class="tab-btn" data-tab="students">Élèves <span id="studentsCount">(0)</span></button>
+                        <button class="tab-btn" data-tab="teachers">Professeurs</button>
+                        <button class="tab-btn" data-tab="schedule">Emploi du temps</button>
+                    </div>
+
+                    <div class="tab-content active" id="tab-info">
+                        <div class="class-info-grid">
+                            <div class="info-section">
+                                <h5>Informations générales</h5>
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <span class="info-label">Niveau:</span>
+                                        <span class="info-value" id="detail_niveau">-</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Cycle:</span>
+                                        <span class="info-value" id="detail_cycle">-</span>
+                                    </div>
+                                    
+                                    <div class="info-item">
+                                        <span class="info-label">Salle:</span>
+                                        <span class="info-value" id="detail_salle">-</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="info-section">
+                                <h5>Effectif</h5>
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <span class="info-label">Total élèves:</span>
+                                        <span class="info-value" id="detail_effectif">-</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Filles:</span>
+                                        <span class="info-value" id="detail_filles">-</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Garçons:</span>
+                                        <span class="info-value" id="detail_garcons">-</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Capacité:</span>
+                                        <span class="info-value" id="detail_capacite">-</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="info-section">
+                                <h5>Performance</h5>
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <span class="info-label">Moyenne générale:</span>
+                                        <span class="info-value" id="detail_moyenne">-</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Meilleure moyenne:</span>
+                                        <span class="info-value" id="detail_max">-</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Plus faible moyenne:</span>
+                                        <span class="info-value" id="detail_min">-</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Taux de réussite:</span>
+                                        <span class="info-value" id="detail_reussite">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="titulaire-info">
+                            <h5>Titulaire de la classe</h5>
+                            <div class="teacher-card" id="detail_titulaire_card" style="display: none;">
+                                <div class="teacher-avatar">
+                                    <i class="fas fa-user-tie"></i>
+                                </div>
+                                <div class="teacher-info">
+                                    <h6 id="detail_titulaire_nom">-</h6>
+                                    <p id="detail_titulaire_matiere">-</p>
+                                    <p id="detail_titulaire_contact">-</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="tab-students">
+                        <div class="students-list-container">
+                            <div class="students-list-header">
+                                <h5>Liste des élèves <span id="studentsTabCount">(0)</span></h5>
+                                <button class="btn btn-small" id="addStudentBtn">
+                                    <i class="fas fa-plus"></i> Ajouter élève
+                                </button>
+                            </div>
+                            <table class="data-table compact">
+                                <thead>
+                                    <tr>
+                                        <th>Nom & Prénom</th>
+                                        <th>Matricule</th>
+                                        <th>Date naissance</th>
+                                        <th>Moyenne</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="classStudentsList">
+                                    <!-- Liste des élèves de la classe -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="popup-footer">
+                <button class="btn btn-secondary" id="closeDetailsBtn">
+                    Fermer
+                </button>
+                <button class="btn btn-primary" id="editClassBtn">
+                    <i class="fas fa-edit"></i>
+                    Modifier la classe
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup Imprimer liste des classes -->
+    <div class="popup" id="printClassesPopup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h4>Imprimer la liste des classes</h4>
+                <button class="popup-close" id="closePrintPopup">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="popup-body">
+                <div class="form-group">
+                    <label for="print_classes_cycle">Filtrer par cycle</label>
+                    <select id="print_classes_cycle">
+                        <option value="all">Tous les cycles</option>
+                        <option value="primaire">Primaire</option>
+                        <option value="college">Collège</option>
+                        <option value="lycee">Lycée</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Options d'impression</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="print_classes_type" value="simple" checked>
+                            <span class="radio-custom"></span>
+                            Liste simple
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="print_classes_type" value="with_teachers">
+                            <span class="radio-custom"></span>
+                            Avec professeurs
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="print_classes_type" value="with_students">
+                            <span class="radio-custom"></span>
+                            Avec liste d'élèves
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="popup-footer">
+                <button class="btn btn-secondary" id="cancelPrintBtn">
+                    Annuler
+                </button>
+                <button class="btn btn-primary" id="confirmPrintBtn">
+                    <i class="fas fa-print"></i>
+                    Imprimer
+                </button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

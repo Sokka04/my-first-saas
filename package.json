@@ -3,12 +3,9 @@
   "private": true,
   "description": "Scripts racine — appli Next.js dans skoolis_landing",
   "scripts": {
-    "dev": "start cmd /k npm run dev:landing & start cmd /k npm run dev:app",
+    "dev": "cd skoolis_landing && npm run dev",
     "dev:landing": "cd skoolis_landing && npm run dev",
-    "dev:app": "cd skoolis_app && npm run dev",
-    "build:landing": "cd skoolis_landing && npm run build",
-    "build:app": "cd skoolis_app && npm run build",
-    "start:landing": "cd skoolis_landing && npm run start",
-    "start:app": "cd skoolis_app && npm run start"
+    "build": "cd skoolis_landing && npm run build",
+    "start": "cd skoolis_landing && npm run start"
   }
 }

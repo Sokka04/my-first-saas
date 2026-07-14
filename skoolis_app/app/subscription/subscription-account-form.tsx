@@ -195,7 +195,7 @@ export function SubscriptionAccountForm() {
 
         if (!cancelled) {
           setNotice("Email verifie. Redirection vers Profile MySkoolis...");
-          router.push("/profile-myskoolis");
+          router.push("/register-app");
         }
       } catch {
         if (!cancelled) {
@@ -428,7 +428,7 @@ export function SubscriptionAccountForm() {
         setDebugVerificationLink("");
       }
       if (!data.requiresEmailVerification) {
-        router.push("/profile-myskoolis");
+        router.push("/register-app");
       }
     } catch {
       setError("Erreur reseau pendant l'inscription. Réessaie.");

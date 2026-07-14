@@ -1,0 +1,952 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professeurs - Skoolis</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link href="../assets/css/fonts.css" rel="stylesheet">
+    <script src="../assets/js/chart.umd.min.js" defer></script>
+    <script src="../assets/js/charts.js" defer></script>
+    <script src="../assets/js/app.js" defer></script>
+    <script src="../assets/js/utils.js" defer></script>
+    <script src="../assets/js/skoolis-core.js" defer></script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="logo-container">
+                <div class="logo">
+                    <div class="logo-top">
+                        <span class="logo-icon">S</span>
+                        <h1>Skoolis</h1>
+                    </div>
+                    <div class="current-schoolyear">Année Scolaire : 2023-2024</div>
+                </div>
+                <button class="toggle-sidebar" id="toggleSidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Principal</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="../index.html">
+                            <i class="fas fa-home"></i>
+                            <span>Tableau de bord</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="classes.html">
+                            <i class="fas fa-chalkboard"></i>
+                            <span>Classes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="élèves.html">
+                            <i class="fas fa-user-graduate"></i>
+                            <span>Élèves</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="professeurs.html">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <span>Professeurs</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="notes.html">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Notes & Moyennes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="matieres.html">
+                            <i class="fas fa-book"></i>
+                            <span>Matières</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Comptabilité</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="inscription.html">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                            <span>Frais d'inscription</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="ecolage.html">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Frais d'Ecolage</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="arriere_ecolage.html">
+                            <i class="fas fa-clock"></i>
+                            <span>Arriéré d'écolage</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="autres-frais.html">
+                            <i class="fas fa-receipt"></i>
+                            <span>Autres Frais</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bilan.html">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Bilan général</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bilan-journalier.html">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Bilan journalier / périodique</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="authentification.html">
+                            <i class="fas fa-stamp"></i>
+                            <span>Authentification de reçu</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Administration</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="configuration.html">
+                            <i class="fas fa-cog"></i>
+                            <span>Configuration</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="admin.html">
+                            <i class="fas fa-user-shield"></i>
+                            <span>Administrateur</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="users.html">
+                            <i class="fas fa-users"></i>
+                            <span>Utilisateurs</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Examens</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="resultats.html"><i class="fas fa-poll"></i>
+                            <span>Résultats</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bepc-blanc.html"><i class="fas fa-file-alt"></i>
+                            <span>BEPC Blanc</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Aide</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="aide.html">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Aide & Support</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Déconnexion</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <h4>Admin Principal</h4>
+                        <p>admin@skoolis.com</p>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <h2>Gestion des Professeurs</h2>
+                    <p>Gérez le corps enseignant de l'établissement</p>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchTeachers" placeholder="Rechercher un professeur...">
+                    </div>
+                    <div class="header-icons">
+                        <button class="icon-btn notification" id="notificationBell">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge">1</span>
+                        </button>
+                        <button class="icon-btn" id="themeToggle">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        <button class="icon-btn" id="reloadPage">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Navigation des fonctionnalités -->
+            <div class="features-nav">
+                <button class="feature-btn" data-feature="liste">
+                    <i class="fas fa-list"></i>
+                    Liste des professeurs
+                </button>
+                <button class="feature-btn active" data-feature="enregistrement">
+                    <i class="fas fa-user-plus"></i>
+                    Nouveau professeur
+                </button>
+                <button class="feature-btn" data-feature="affectation">
+                    <i class="fas fa-tasks"></i>
+                    Affectations
+                </button>
+                <button class="feature-btn" data-feature="statistiques">
+                    <i class="fas fa-chart-pie"></i>
+                    Statistiques
+                </button>
+            </div>
+
+            <!-- Section Liste des professeurs -->
+            <div class="feature-section" id="liste">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3>Liste des professeurs</h3>
+                        <p>Tous les enseignants de l'établissement</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-primary" onclick="openPopup('printTeachersPopup')">
+                            <i class="fas fa-print"></i>
+                            Imprimer liste
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Filtres -->
+                <div class="filters-container">
+                    <div class="filter-group">
+                        <label>Statut:</label>
+                        <select class="form-select" id="filter_status">
+                            <option value="">Tous les statuts</option>
+                            <option value="titulaire">Titulaire</option>
+                            <option value="vacataire">Vacataire</option>
+                            <option value="contractuel">Contractuel</option>
+                            <option value="ancien">Ancien(ne)</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Matière:</label>
+                        <select class="form-select" id="filter_matiere">
+                            <option value="">Toutes les matières</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Cycle:</label>
+                        <select class="form-select" id="filter_cycle">
+                            <option value="">Tous les cycles</option>
+                            <option value="primaire">Primaire</option>
+                            <option value="college">Collège</option>
+                            <option value="lycee">Lycée</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Tableau des professeurs -->
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Photo</th>
+                                <th>Nom & Prénoms</th>
+                                <th>Matière principale</th>
+                                <th>Statut</th>
+                                <th>Classes assignées</th>
+                                <th>Contact</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="teachersTableBody">
+                            <!-- Les professeurs seront chargés dynamiquement -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Section Nouveau professeur -->
+            <div class="feature-section active" id="enregistrement">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3>Ajouter un nouveau professeur</h3>
+                        <p>Enregistrez un nouvel enseignant dans le système</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-secondary" onclick="resetTeacherForm()">
+                            <i class="fas fa-times"></i>
+                            Annuler
+                        </button>
+                        <button class="btn btn-primary" id="saveTeacherBtn">
+                            <i class="fas fa-save"></i>
+                            Enregistrer
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <form id="teacherForm">
+                        <div class="form-section">
+                            <h4 class="form-section-title">
+                                <i class="fas fa-user-tie"></i>
+                                Informations personnelles
+                            </h4>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="teacher_nom">Nom *</label>
+                                    <input type="text" id="teacher_nom" placeholder="JOHNSON" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="teacher_prenom">Prénoms *</label>
+                                    <input type="text" id="teacher_prenom" placeholder="Yohann Mikael" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="teacher_genre">Genre</label>
+                                    <select id="teacher_genre">
+                                        <option value="homme">Homme</option>
+                                        <option value="femme">Femme</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="teacher_date_naissance">Date de naissance</label>
+                                    <input type="date" id="teacher_date_naissance">
+                                </div>
+                                <div class="form-group">
+                                    <label for="teacher_lieu_naissance">Lieu de naissance</label>
+                                    <input type="text" id="teacher_lieu_naissance" placeholder="Ville, Pays">
+                                </div>
+                                <div class="form-group">
+                                    <label for="teacher_adresse">Adresse</label>
+                                    <textarea id="teacher_adresse" rows="2"
+                                        placeholder="Boulevard, Quartier"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="teacher_nationalite">Nationalité</label>
+                                    <input type="text" id="teacher_nationalite" placeholder="Togolaise">
+                                </div>
+                                <div class="form-group">
+                                    <label for="situation_matrimoniale">Situation matrimoniale</label>
+                                    <select id="situation_matrimoniale">
+                                        <option value="celibataire">Célibataire</option>
+                                        <option value="marie">Marié(e)</option>
+                                        <option value="divorce">Divorcé(e)</option>
+                                        <option value="veuf">Veuf(ve)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="teacher_email">Email *</label>
+                                    <input type="email" id="teacher_email" placeholder="exemple@skoolis.com" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="teacher_telephone">Téléphone</label>
+                                    <input type="tel" id="teacher_telephone" placeholder="70693550">
+                                </div>
+                                <div class="form-group">
+                                    <label for="niveau_etudes">Niveau d'études</label>
+                                    <input type="text" id="niveau_etudes" placeholder="Licence en Mathématiques">
+                                </div>
+                                <div class="form-group">
+                                    <label for="teacher_photo">Photo</label>
+                                    <input type="file" id="teacher_photo" accept="image/*"
+                                        onchange="previewImage(event)">
+                                    <div class="image-preview" id="imagePreview">
+                                        <img id="previewImage" src="#" alt="Aperçu de l'image" style="display: none;">
+                                        <span>Aucune image sélectionnée</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h4 class="form-section-title">
+                                <i class="fas fa-id-card"></i>
+                                Informations professionnelles
+                            </h4>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="teacher_matricule">Matricule *</label>
+                                    <input type="text" id="teacher_matricule" placeholder="Généré automatiquement"
+                                        readonly required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="teacher_statut">Statut *</label>
+                                    <select id="teacher_statut" required>
+                                        <option value="">Sélectionner un statut</option>
+                                        <option value="titulaire">Titulaire</option>
+                                        <option value="vacataire">Vacataire</option>
+                                        <option value="contractuel">Contractuel</option>
+                                        <option value="ancien">Ancien(ne)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="teacher_date_embauche">Date d'embauche</label>
+                                    <input type="date" id="teacher_date_embauche">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h4 class="form-section-title">
+                                <i class="fas fa-book"></i>
+                                Matières enseignées
+                            </h4>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="teacher_matiere_principale">Matière principale *</label>
+                                    <select id="teacher_matiere_principale" required>
+                                        <option value="">Sélectionner une matière</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="teacher_matiere_secondaire">Matière secondaire</label>
+                                    <select id="teacher_matiere_secondaire">
+                                        <option value="">Sélectionner une matière</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="teacher_matiere_tertiaire">Matière tertiaire</label>
+                                    <select id="teacher_matiere_tertiaire">
+                                        <option value="">Sélectionner une matière</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h4 class="form-section-title">
+                                <i class="fas fa-chalkboard"></i>
+                                Classes assignées (optionnel)
+                            </h4>
+                            <div class="form-grid">
+                                <div class="form-group full-width">
+                                    <label>Classes à enseigner</label>
+                                    <div class="classes-checklist" id="teacherClassesChecklist">
+                                        <!-- Les classes seront chargées dynamiquement -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h4 class="form-section-title">
+                                <i class="fas fa-key"></i>
+                                Identifiants de connexion (pour saisie des notes)
+                            </h4>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="teacher_username">Nom d'utilisateur *</label>
+                                    <div class="input-with-button">
+                                        <input type="text" id="teacher_username" placeholder="Ex: johanson" required>
+                                        <button type="button" class="btn btn-small" onclick="generateUsername()">
+                                            <i class="fas fa-sync-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="teacher_password">Mot de passe *</label>
+                                    <div class="input-with-button">
+                                        <input type="text" id="teacher_password" placeholder="Générer automatiquement"
+                                            required readonly>
+                                        <button type="button" class="btn btn-small" onclick="generatePassword()">
+                                            <i class="fas fa-sync-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="teacher_confirmation">Confirmation</label>
+                                    <div class="credentials-display">
+                                        <div class="credential-item">
+                                            <span class="credential-label">Lien de connexion:</span>
+                                            <span class="credential-value" id="loginLink">notes.skoolis.com</span>
+                                            <button type="button" class="btn-icon" onclick="copyLoginLink()">
+                                                <i class="fas fa-copy"></i>
+                                            </button>
+                                        </div>
+                                        <div class="credential-item">
+                                            <span class="credential-label">Identifiant:</span>
+                                            <span class="credential-value" id="displayUsername"></span>
+                                            <button type="button" class="btn-icon" onclick="copyUsername()">
+                                                <i class="fas fa-copy"></i>
+                                            </button>
+                                        </div>
+                                        <div class="credential-item">
+                                            <span class="credential-label">Mot de passe:</span>
+                                            <span class="credential-value" id="displayPassword"></span>
+                                            <button type="button" class="btn-icon" onclick="copyPassword()">
+                                                <i class="fas fa-copy"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Section Affectations -->
+            <div class="feature-section" id="affectation">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3>Gestion des affectations</h3>
+                        <p>Assignez des classes et matières aux professeurs</p>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="assign_teacher_select">Sélectionner le professeur</label>
+                            <select id="assign_teacher_select">
+                                <option value="">Choisir un professeur</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="teacher-info-card" id="teacherInfoCard" style="display: none;">
+                        <div class="teacher-info-header">
+                            <h4>Informations du professeur</h4>
+                        </div>
+                        <div class="teacher-info-body">
+                            <div class="info-row">
+                                <span class="info-label">Nom complet:</span>
+                                <span class="info-value" id="info_nom_complet">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Matière principale:</span>
+                                <span class="info-value" id="info_matiere">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Classes actuelles:</span>
+                                <span class="info-value" id="info_classes">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section" style="margin-top: 30px;">
+                        <h4 class="form-section-title">
+                            <i class="fas fa-tasks"></i>
+                            Affectations
+                        </h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Intervient en :</label>
+                                <div class="assignments-checklist" id="assignClassesChecklist">
+                                    <!-- Les classes seront chargées dynamiquement -->
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Enseigne :</label>
+                                <div class="assignments-checklist" id="assignSubjectsChecklist">
+                                    <!-- Les matières seront chargées dynamiquement -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="btn btn-secondary" id="resetAssignmentBtn">
+                            Annuler
+                        </button>
+                        <button class="btn btn-primary" id="saveAssignmentBtn">
+                            <i class="fas fa-save"></i>
+                            Enregistrer les affectations
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Statistiques -->
+            <div class="feature-section" id="statistiques">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3>Statistiques des professeurs</h3>
+                        <p>Visualisez les données du corps enseignant</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-primary" id="exportTeacherStatsBtn">
+                            <i class="fas fa-download"></i>
+                            Exporter données
+                        </button>
+                    </div>
+                </div>
+
+                <div class="stats-container">
+                    <div class="stats-chart-container">
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h3>Répartition par statut</h3>
+                            </div>
+                            <div class="chart-placeholder">
+                                <canvas id="statusChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="detailed-stats">
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Matière</th>
+                                        <th>Nombre de professeurs</th>
+                                        <th>Heures/semaine moyennes</th>
+                                        <th>Classes couvertes</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="statsTableBody">
+                                    <!-- Les statistiques seront chargées dynamiquement -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="summary-cards">
+                        <div class="summary-card">
+                            <div class="summary-icon" style="background-color: rgba(123, 31, 162, 0.1);">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <div class="summary-info">
+                                <h4>Taux de titulaires</h4>
+                                <h3 id="titulairesRate">47%</h3>
+                            </div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="summary-icon" style="background-color: rgba(33, 150, 243, 0.1);">
+                                <i class="fas fa-chalkboard"></i>
+                            </div>
+                            <div class="summary-info">
+                                <h4>Classes/professeur</h4>
+                                <h3 id="classesPerTeacher">4.3</h3>
+                            </div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="summary-icon" style="background-color: rgba(76, 175, 80, 0.1);">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="summary-info">
+                                <h4>Heures moyennes/sem</h4>
+                                <h3 id="avgHours">18.5</h3>
+                            </div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="summary-icon" style="background-color: rgba(255, 152, 0, 0.1);">
+                                <i class="fas fa-balance-scale"></i>
+                            </div>
+                            <div class="summary-info">
+                                <h4>Ratio H/F</h4>
+                                <h3 id="genderRatio">55/45</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="main-footer">
+                <p>© 2026 Skoolis - School Management System. Created by Skoolis Technologies.</p>
+                <div class="footer-links">
+                    <a href="#">Confidentialité</a>
+                    <a href="#">Conditions d'utilisation</a>
+                    <a href="aide.html">Aide</a>
+                    <a href="#">Contact</a>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Popup Détails du professeur -->
+    <div class="popup" id="teacherDetailsPopup">
+        <div class="popup-content extra-wide-popup">
+            <div class="popup-header">
+                <h4 id="popupTeacherName">Détails du professeur</h4>
+                <button class="popup-close" id="closeTeacherDetailsPopup">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="popup-body">
+                <div class="teacher-details-tabs">
+                    <div class="tabs">
+                        <button class="tab-btn active" data-tab="info">Informations</button>
+                        <button class="tab-btn" data-tab="classes">Classes enseignées</button>
+                        <button class="tab-btn" data-tab="matieres">Matières</button>
+                        <button class="tab-btn" data-tab="horaire">Horaire</button>
+                        <button class="tab-btn" data-tab="identifiants">Identifiants</button>
+                    </div>
+
+                    <div class="tab-content active" id="tab-info">
+                        <div class="teacher-details-header">
+                            <div class="teacher-avatar-large" id="detail_avatar">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <div class="teacher-main-info">
+                                <h3 id="detail_nom_complet_full">-</h3>
+                                <p id="detail_matricule_full">-</p>
+                                <span class="status-badge" id="detail_statut_full">-</span>
+                            </div>
+                        </div>
+
+                        <div class="teacher-info-grid">
+                            <div class="info-section">
+                                <h5>Informations personnelles</h5>
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <span class="info-label">Date de naissance:</span>
+                                        <span class="info-value" id="detail_date_naissance">-</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Genre:</span>
+                                        <span class="info-value" id="detail_genre">-</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Nationalité:</span>
+                                        <span class="info-value" id="detail_nationalite">-</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Situation matrimoniale:</span>
+                                        <span class="info-value" id="detail_situation_matrimoniale">-</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="info-section">
+                                <h5>Informations professionnelles</h5>
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <span class="info-label">Statut:</span>
+                                        <span class="info-value" id="detail_statut">-</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Date d'embauche:</span>
+                                        <span class="info-value" id="detail_date_embauche">-</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Matière principale:</span>
+                                        <span class="info-value" id="detail_matiere_principale">-</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Expérience:</span>
+                                        <span class="info-value" id="detail_experience">-</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="info-section">
+                                <h5>Contact</h5>
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <span class="info-label">Email:</span>
+                                        <span class="info-value" id="detail_email">-</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Téléphone:</span>
+                                        <span class="info-value" id="detail_telephone">-</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Adresse:</span>
+                                        <span class="info-value" id="detail_adresse">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="tab-classes">
+                        <div class="classes-list-container">
+                            <div class="classes-list-header">
+                                <h5>Classes enseignées <span id="classesCount">(0)</span></h5>
+                            </div>
+                            <table class="data-table compact">
+                                <thead>
+                                    <tr>
+                                        <th>Classe</th>
+                                        <th>Niveau</th>
+                                        <th>Cycle</th>
+                                        <th>Heures/semaine</th>
+                                        <th>Année scolaire</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="teacherClassesList">
+                                    <!-- Liste des classes du professeur -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="tab-matieres">
+                        <div class="subjects-list-container">
+                            <div class="subjects-list-header">
+                                <h5>Matières enseignées</h5>
+                            </div>
+                            <table class="data-table compact">
+                                <thead>
+                                    <tr>
+                                        <th>Matière</th>
+                                        <th>Type</th>
+                                        <th>Classes concernées</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="teacherSubjectsList">
+                                    <!-- Liste des matières du professeur -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="tab-identifiants">
+                        <div class="credentials-container">
+                            <div class="credentials-header">
+                                <h5>Identifiants pour la saisie des notes</h5>
+                                <button class="btn btn-small" onclick="resetTeacherPassword(currentTeacherId)">
+                                    <i class="fas fa-key"></i>
+                                    Réinitialiser le mot de passe
+                                </button>
+                            </div>
+                            <div class="credentials-info">
+                                <div class="credential-display">
+                                    <div class="credential-item">
+                                        <span class="credential-label">Lien de connexion:</span>
+                                        <span class="credential-value" id="detail_loginLink">notes.skoolis.com</span>
+                                        <button type="button" class="btn-icon" onclick="copyDetailLoginLink()">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                    </div>
+                                    <div class="credential-item">
+                                        <span class="credential-label">Nom d'utilisateur:</span>
+                                        <span class="credential-value" id="detail_username">-</span>
+                                        <button type="button" class="btn-icon" onclick="copyDetailUsername()">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                    </div>
+                                    <div class="credential-item">
+                                        <span class="credential-label">Mot de passe:</span>
+                                        <span class="credential-value" id="detail_password">••••••••</span>
+                                        <button type="button" class="btn-icon" onclick="showDetailPassword()">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="credentials-note">
+                                    <i class="fas fa-info-circle"></i>
+                                    <p>Ces identifiants permettent uniquement d'accéder au module de saisie des notes,
+                                        pas au système Skoolis complet.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="popup-footer">
+                <button class="btn btn-secondary" id="closeTeacherDetailsBtn">
+                    Fermer
+                </button>
+                <button class="btn btn-primary" id="editTeacherBtn">
+                    <i class="fas fa-edit"></i>
+                    Modifier le professeur
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup Imprimer liste des professeurs -->
+    <div class="popup" id="printTeachersPopup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h4>Imprimer la liste des professeurs</h4>
+                <button class="popup-close" id="closePrintPopup">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="popup-body">
+                <div class="form-group">
+                    <label for="print_teachers_statut">Filtrer par statut</label>
+                    <select id="print_teachers_statut">
+                        <option value="all">Tous les statuts</option>
+                        <option value="titulaire">Titulaire</option>
+                        <option value="vacataire">Vacataire</option>
+                        <option value="contractuel">Contractuel</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="print_teachers_matiere">Filtrer par matière</label>
+                    <select id="print_teachers_matiere">
+                        <option value="all">Toutes les matières</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Options d'impression</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="print_teachers_type" value="simple" checked>
+                            <span class="radio-custom"></span>
+                            Liste simple
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="print_teachers_type" value="with_classes">
+                            <span class="radio-custom"></span>
+                            Avec classes
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="print_teachers_type" value="complete">
+                            <span class="radio-custom"></span>
+                            Fiche complète
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="popup-footer">
+                <button class="btn btn-secondary" id="cancelPrintBtn">
+                    Annuler
+                </button>
+                <button class="btn btn-primary" id="confirmPrintBtn">
+                    <i class="fas fa-print"></i>
+                    Imprimer
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,465 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bilan Journalier/Périodique - Skoolis</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link href="../assets/css/fonts.css" rel="stylesheet">
+    <script src="../assets/js/chart.umd.min.js" defer></script>
+    <script src="../assets/js/charts.js" defer></script>
+    <script src="../assets/js/app.js" defer></script>
+    <script src="../assets/js/utils.js" defer></script>
+    <script src="../assets/js/skoolis-core.js" defer></script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Sidebar (identique aux autres pages) -->
+        <nav class="sidebar">
+            <div class="logo-container">
+                <div class="logo">
+                    <div class="logo-top">
+                        <span class="logo-icon">S</span>
+                        <h1>Skoolis</h1>
+                    </div>
+                    <div class="current-schoolyear">Année Scolaire : 2023-2024</div>
+                </div>
+                <button class="toggle-sidebar" id="toggleSidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <div class="nav-section">
+                <h3 class="section-title">Principal</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="../index.html">
+                            <i class="fas fa-home"></i>
+                            <span>Tableau de bord</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="classes.html">
+                            <i class="fas fa-chalkboard"></i>
+                            <span>Classes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="élèves.html">
+                            <i class="fas fa-user-graduate"></i>
+                            <span>Élèves</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="professeurs.html">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <span>Professeurs</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="notes.html">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Notes & Moyennes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="matieres.html">
+                            <i class="fas fa-book"></i>
+                            <span>Matières</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Comptabilité</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="inscription.html">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                            <span>Frais d'inscription</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="ecolage.html">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Frais d'Ecolage</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="arriere_ecolage.html">
+                            <i class="fas fa-clock"></i>
+                            <span>Arriéré d'écolage</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="autres-frais.html">
+                            <i class="fas fa-receipt"></i>
+                            <span>Autres Frais</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bilan.html">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Bilan général</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="bilan-journalier.html">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Bilan journalier / périodique</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="authentification.html">
+                            <i class="fas fa-stamp"></i>
+                            <span>Authentification de reçu</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Sections Administration, Examens, Aide restent identiques -->
+            <div class="nav-section">
+                <h3 class="section-title">Administration</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="configuration.html">
+                            <i class="fas fa-cog"></i>
+                            <span>Configuration</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="admin.html">
+                            <i class="fas fa-user-shield"></i>
+                            <span>Administrateur</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="users.html">
+                            <i class="fas fa-users"></i>
+                            <span>Utilisateurs</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Examens</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="resultats.html"><i class="fas fa-poll"></i>
+                            <span>Résultats</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bepc-blanc.html"><i class="fas fa-file-alt"></i>
+                            <span>BEPC Blanc</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Aide</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="aide.html">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Aide & Support</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Déconnexion</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <h4>Admin Principal</h4>
+                        <p>admin@skoolis.com</p>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <h2>Bilan Journalier / Périodique</h2>
+                    <p>Consultation des états financiers par date ou période</p>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Rechercher...">
+                    </div>
+                    <div class="header-icons">
+                        <button class="icon-btn notification">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge">2</span>
+                        </button>
+                        <button class="icon-btn" id="themeToggle">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        <button class="icon-btn" id="reloadPage">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Section Filtres et Résumé -->
+            <div class="bilan-container">
+                <!-- Bloc Filtres -->
+                <div class="filtres-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-filter"></i>
+                        Filtres de recherche
+                    </h3>
+                    <div class="filtres-grid">
+                        <div class="filtre-option">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="filtre_date" onchange="toggleFiltreDate()">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-label">DATE</span>
+                            </label>
+                            <div class="filtre-input">
+                                <input type="date" id="filtre_date_unique" disabled>
+                            </div>
+                        </div>
+                        <div class="filtre-option">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="filtre_periode" onchange="toggleFiltrePeriode()">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-label">PÉRIODE</span>
+                            </label>
+                            <div class="filtre-input periode-inputs">
+                                <div class="periode-group">
+                                    <label for="filtre_date_debut">DU</label>
+                                    <input type="date" id="filtre_date_debut" disabled>
+                                </div>
+                                <div class="periode-group">
+                                    <label for="filtre_date_fin">AU</label>
+                                    <input type="date" id="filtre_date_fin" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filtres-actions">
+                        <button class="btn btn-primary" onclick="validerFiltres()">
+                            <i class="fas fa-check"></i>
+                            VALIDER
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Bloc Résumé -->
+                <div class="resume-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-chart-bar"></i>
+                        Résumé du bilan
+                    </h3>
+                    <div class="resume-stats">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h5>TOTAL</h5>
+                                <div class="stat-value" id="total-entrees">0 FCFA</div>
+                                <p>Entrées d'argent</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-money-bill"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h5>DÉPENSE</h5>
+                                <div class="stat-value" id="total-dépenses">0 FCFA</div>
+                                <p>Sorties d'argent</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h5>RÉSULTAT</h5>
+                                <div class="stat-value" id="resultat">0 FCFA</div>
+                                <p>Total - Dépenses</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="resume-actions">
+                        <button class="btn btn-primary" onclick="imprimerBilan()">
+                            <i class="fas fa-print"></i>
+                            IMPRIMER
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Ecolage -->
+            <div class="section-financiere">
+                <div class="section-header">
+                    <h3>
+                        <i class="fas fa-credit-card"></i>
+                        ECOLAGE : <span id="total-ecolage">0 FCFA</span>
+                    </h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="bilan-table">
+                        <thead>
+                            <tr>
+                                <th>Nom & Prénom(s)</th>
+                                <th>Somme</th>
+                                <th>Date</th>
+                                <th>N° du reçu</th>
+                                <th>Classe</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableau-ecolage">
+                            <!-- Données chargées dynamiquement -->
+                            <tr class="empty-row">
+                                <td colspan="5" class="text-center">
+                                    <div class="empty-state">
+                                        <i class="fas fa-credit-card"></i>
+                                        <p>Aucun paiement d'écolage trouvé</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Section Arriéré d'écolage -->
+            <div class="section-financiere">
+                <div class="section-header">
+                    <h3>
+                        <i class="fas fa-clock"></i>
+                        ARRIÉRÉ D'ECOLAGE : <span id="total-arriere">0 FCFA</span>
+                    </h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="bilan-table">
+                        <thead>
+                            <tr>
+                                <th>Élève</th>
+                                <th>Somme payée</th>
+                                <th>Date</th>
+                                <th>N° du reçu</th>
+                                <th>Classe</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableau-arriere">
+                            <!-- Données chargées dynamiquement -->
+                            <tr class="empty-row">
+                                <td colspan="5" class="text-center">
+                                    <div class="empty-state">
+                                        <i class="fas fa-clock"></i>
+                                        <p>Aucun paiement d'arriéré trouvé</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Section Inscription -->
+            <div class="section-financiere">
+                <div class="section-header">
+                    <h3>
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        INSCRIPTION : <span id="total-inscription">0 FCFA</span>
+                    </h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="bilan-table">
+                        <thead>
+                            <tr>
+                                <th>Nom & Prénom(s)</th>
+                                <th>Somme payée</th>
+                                <th>Date</th>
+                                <th>N° du reçu</th>
+                                <th>Classe</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableau-inscription">
+                            <!-- Données chargées dynamiquement -->
+                            <tr class="empty-row">
+                                <td colspan="5" class="text-center">
+                                    <div class="empty-state">
+                                        <i class="fas fa-file-invoice-dollar"></i>
+                                        <p>Aucun paiement d'inscription trouvé</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Section Autres Frais -->
+            <div class="section-financiere">
+                <div class="section-header">
+                    <h3>
+                        <i class="fas fa-receipt"></i>
+                        AUTRES FRAIS : <span id="total-autres">0 FCFA</span>
+                    </h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="bilan-table">
+                        <thead>
+                            <tr>
+                                <th>Nom & Prénom(s)</th>
+                                <th>Somme payée</th>
+                                <th>Date du paiement</th>
+                                <th>Type de frais</th>
+                                <th>Classe</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableau-autres">
+                            <!-- Données chargées dynamiquement -->
+                            <tr class="empty-row">
+                                <td colspan="5" class="text-center">
+                                    <div class="empty-state">
+                                        <i class="fas fa-receipt"></i>
+                                        <p>Aucun autre frais trouvé</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="main-footer">
+                <p>© 2026 Skoolis - School Management System. Created by Skoolis Technologies.</p>
+                <div class="footer-links">
+                    <a href="#">Confidentialité</a>
+                    <a href="#">Conditions d'utilisation</a>
+                    <a href="../views/aide.html">Aide</a>
+                    <a href="#">Contact</a>
+                </div>
+            </footer>
+        </main>
+    </div>
+</body>
+
+</html>

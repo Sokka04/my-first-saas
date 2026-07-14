@@ -75,34 +75,18 @@ export function LoginSwitchForm() {
     const password = String(formData.get("motDePasse") ?? "").trim();
 
     try {
-      // Demander le cookie CSRF à Sanctum
-      await fetch("http://localhost:8000/sanctum/csrf-cookie", {
-        method: "GET",
-        headers: { Accept: "application/json" },
-      });
-
-      // Appel de login
-      const res = await fetch("http://localhost:8000/api/v1/login", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-        credentials: "include",
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.message || "Identifiants incorrects");
+      // Simulation visuelle d'un login SaaS (le backend n'existe pas encore)
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      if (!email && !formData.get("numéro")) {
+        throw new Error("Veuillez remplir les identifiants.");
       }
 
       setMyskoolisSession({
-        identifier: email,
+        identifier: mode === "email" ? email : String(formData.get("numéro") || ""),
         mode,
         loggedInAt: new Date().toISOString(),
-        user: data.user,
+        user: { name: "Fondateur Skoolis", role: "admin" },
       });
 
       window.location.href = redirectTarget;
