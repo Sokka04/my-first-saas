@@ -21,10 +21,17 @@ export async function apiClient(endpoint: string, options: FetchOptions = {}) {
         headers.set('Content-Type', 'application/json');
     }
 
+    // Injection du token d'authentification Bearer
+    if (typeof window !== 'undefined') {
+        const token = localStorage.getItem('skoolis_token');
+        if (token) {
+            headers.set('Authorization', `Bearer ${token}`);
+        }
+    }
+
     const config: RequestInit = {
         ...options,
         headers,
-        credentials: options.credentials || 'include', // Important pour Sanctum (cookies session)
     };
 
     try {
