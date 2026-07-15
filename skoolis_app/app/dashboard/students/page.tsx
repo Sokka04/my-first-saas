@@ -257,7 +257,7 @@ export default function StudentsPage() {
         setModPhotoFile(null);
         setModPhotoPreview(student.photo_path ? `${process.env.NEXT_PUBLIC_API_URL?.replace('/api/v1', '') || 'http://127.0.0.1:8000'}/storage/${student.photo_path}` : null);
         setActiveTab("modification");
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo(0, 0);
     };
 
     const filteredStudents = students.filter(s => {
