@@ -401,7 +401,7 @@ export default function LoginPage() {
                         <div className="form-group">
                             <label className="form-label" htmlFor="password">Mot de passe</label>
                             <div className="input-group">
-                                <i class="fas fa-lock"></i>
+                                <i className="fas fa-lock"></i>
                                 <input 
                                     className="form-input" 
                                     type="password" 
