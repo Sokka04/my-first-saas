@@ -480,7 +480,7 @@ export default function StudentsPage() {
                                             </td>
                                         </tr>
                                     )}
-                                    {students.filter(s => selectedClass ? s.enrollments?.[0]?.school_class_id === parseInt(selectedClass) : true).map(s => {
+                                    {students.filter(s => selectedClass ? String(s.enrollments?.[0]?.school_class_id) === String(selectedClass) : true).map(s => {
                                         const currentEnrollment = s.enrollments?.[0];
                                         const className = currentEnrollment?.school_class?.name || '-';
                                         return (
