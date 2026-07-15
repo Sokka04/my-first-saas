@@ -1,0 +1,39 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('transactions', function (Blueprint $table) {
+            $table->uuid('id')->primary(); // UUID for security and external reference
+            $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
+            $table->foreignUuid('school_id')->constrained()->onDelete('cascade');
+            
+            $table->string('license_type'); // e.g., P4R5YO (PRO), B4SY1C (BASIC)
+            $table->enum('gateway', ['stripe', 'mobile_money'])->default('stripe');
+            
+            $table->decimal('amount', 10, 2);
+            $table->string('currency', 3)->default('XOF');
+            
+            $table->enum('status', ['pending', 'success', 'failed'])->default('pending');
+            $table->string('gateway_reference')->nullable(); // ID returned by Stripe or aggregator
+            
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('transactions');
+    }
+};
