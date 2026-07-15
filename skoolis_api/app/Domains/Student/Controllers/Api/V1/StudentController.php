@@ -16,7 +16,7 @@ class StudentController extends Controller
     public function index(): JsonResponse
     {
         $schoolId = auth()->user()->school_id;
-        $students = Student::with(['enrollments.schoolClass'])->where('school_id', $schoolId)->get();
+        $students = Student::with(['enrollments.schoolClass', 'guardians'])->where('school_id', $schoolId)->get();
 
         return response()->json([
             'data' => $students

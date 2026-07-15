@@ -763,9 +763,34 @@ export default function StudentsPage() {
                                                     <td><strong>{s.last_name} {s.first_name}</strong></td>
                                                     <td>{s.registration_number || <span className="text-muted" style={{fontSize: '0.8em', fontStyle: 'italic'}}>Géré automatiquement</span>}</td>
                                                     <td>
-                                                        <button className="btn btn-secondary btn-small" onClick={() => editStudent(s)}>
-                                                            <i className="fas fa-edit"></i> Modifier
-                                                        </button>
+                                                        <div className="action-buttons" style={{display: 'flex', gap: '8px', alignItems: 'center'}}>
+                                                            <button className="btn btn-secondary btn-small" onClick={() => editStudent(s)} title="Modifier">
+                                                                <i className="fas fa-edit"></i>
+                                                            </button>
+                                                            <div className="dropdown" style={{position: 'relative', display: 'inline-block'}}>
+                                                                <button className="btn btn-primary btn-small" title="Imprimer" onClick={(e) => {
+                                                                    const dropdown = e.currentTarget.nextElementSibling as HTMLElement;
+                                                                    if (dropdown) {
+                                                                        const isVisible = dropdown.style.display === 'block';
+                                                                        document.querySelectorAll('.print-dropdown').forEach(d => (d as HTMLElement).style.display = 'none');
+                                                                        dropdown.style.display = isVisible ? 'none' : 'block';
+                                                                    }
+                                                                }}>
+                                                                    <i className="fas fa-print"></i>
+                                                                </button>
+                                                                <div className="print-dropdown dropdown-menu" style={{display: 'none', position: 'absolute', right: 0, zIndex: 100, minWidth: '180px', background: 'var(--card-bg)', border: '1px solid var(--border-color)', borderRadius: '4px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)'}}>
+                                                                    <a href="#" onClick={(e) => { e.preventDefault(); alert(`Impression Fiche Identité pour ${s.last_name}`); }} style={{display: 'block', padding: '8px 12px', textDecoration: 'none', color: 'var(--text-color)', borderBottom: '1px solid var(--border-color)'}}>
+                                                                        <i className="fas fa-id-card" style={{marginRight: '8px', color: 'var(--primary-color)'}}></i> Fiche identité
+                                                                    </a>
+                                                                    <a href="#" onClick={(e) => { e.preventDefault(); alert(`Impression Fiche de Notes pour ${s.last_name}`); }} style={{display: 'block', padding: '8px 12px', textDecoration: 'none', color: 'var(--text-color)'}}>
+                                                                        <i className="fas fa-file-alt" style={{marginRight: '8px', color: 'var(--primary-color)'}}></i> Fiche de notes
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <button className="btn btn-danger btn-small" onClick={() => handleDelete(s.id)} title="Supprimer" style={{backgroundColor: 'var(--danger-color)', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '4px', cursor: 'pointer'}}>
+                                                                <i className="fas fa-trash"></i>
+                                                            </button>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                             ))}
