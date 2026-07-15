@@ -310,6 +310,41 @@
     padding: 10px 14px;
     font-size: 0.85rem;
     margin-bottom: 18px;
+    border-left: 3px solid var(--danger-color);
+    animation: errorShake 0.4s ease;
+}
+
+/* Variante serveur indisponible */
+.login-root .form-error-banner--server {
+    --danger-color: #e65100;
+    --danger-bg: #fff3e0;
+}
+[data-theme="dark"] .login-root .form-error-banner--server {
+    --danger-bg: #3a2000;
+}
+
+/* Variante réseau */
+.login-root .form-error-banner--network {
+    --danger-color: #1565c0;
+    --danger-bg: #e3f2fd;
+}
+[data-theme="dark"] .login-root .form-error-banner--network {
+    --danger-bg: #0a1929;
+}
+
+/* Animation de secousse à l'apparition */
+@keyframes errorShake {
+    0%, 100% { transform: translateX(0); }
+    20%       { transform: translateX(-6px); }
+    40%       { transform: translateX(6px); }
+    60%       { transform: translateX(-4px); }
+    80%       { transform: translateX(4px); }
+}
+
+/* Champ en erreur */
+.login-root .form-input.input-error {
+    border-color: var(--danger-color) !important;
+    box-shadow: 0 0 0 3px rgba(198, 40, 40, 0.1);
 }
 
 .login-root .login-footer {

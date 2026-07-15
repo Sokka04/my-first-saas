@@ -4,46 +4,119 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import "./login.css";
 
+// Types d'erreurs possibles
+type ErrorType = "credentials" | "server" | "network" | "unknown" | null;
+
+interface ErrorState {
+    type: ErrorType;
+    message: string;
+    icon: string;
+}
+
+const ERROR_MAP: Record<NonNullable<ErrorType>, { icon: string; default: string }> = {
+    credentials: {
+        icon: "fas fa-user-slash",
+        default: "Identifiants incorrects. Vérifiez votre e-mail et mot de passe.",
+    },
+    server: {
+        icon: "fas fa-server",
+        default: "Le serveur est momentanément indisponible. Réessayez dans quelques instants.",
+    },
+    network: {
+        icon: "fas fa-wifi",
+        default: "Impossible de joindre le serveur. Vérifiez votre connexion internet.",
+    },
+    unknown: {
+        icon: "fas fa-circle-exclamation",
+        default: "Une erreur inattendue s'est produite. Veuillez réessayer.",
+    },
+};
+
 export default function LoginPage() {
     const router = useRouter();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-    const [errorMsg, setErrorMsg] = useState("");
+    const [error, setError] = useState<ErrorState | null>(null);
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
-        setErrorMsg("");
+        setError(null);
 
         try {
-            await fetch(`${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`, {
-                method: "GET",
-                headers: { Accept: "application/json" },
-                credentials: "include",
-            });
-
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/login`, {
-                method: "POST",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ email, password }),
-                credentials: "include",
-            });
-
-            const data = await res.json();
-
-            if (!res.ok) {
-                throw new Error(data.message || "Identifiants incorrects. Veuillez réessayer.");
+            // 1. Récupération du cookie CSRF
+            try {
+                await fetch(`${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`, {
+                    method: "GET",
+                    headers: { Accept: "application/json" },
+                    credentials: "include",
+                });
+            } catch {
+                // Si le CSRF échoue → serveur injoignable
+                setError({
+                    type: "network",
+                    message: ERROR_MAP.network.default,
+                    icon: ERROR_MAP.network.icon,
+                });
+                return;
             }
 
+            // 2. Tentative de connexion
+            let res: Response;
+            try {
+                res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/login`, {
+                    method: "POST",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ email, password }),
+                    credentials: "include",
+                });
+            } catch {
+                setError({
+                    type: "network",
+                    message: ERROR_MAP.network.default,
+                    icon: ERROR_MAP.network.icon,
+                });
+                return;
+            }
+
+            // 3. Analyse de la réponse
+            if (res.status === 401 || res.status === 422) {
+                const data = await res.json().catch(() => ({}));
+                setError({
+                    type: "credentials",
+                    message: data.message || ERROR_MAP.credentials.default,
+                    icon: ERROR_MAP.credentials.icon,
+                });
+                return;
+            }
+
+            if (res.status >= 500) {
+                setError({
+                    type: "server",
+                    message: ERROR_MAP.server.default,
+                    icon: ERROR_MAP.server.icon,
+                });
+                return;
+            }
+
+            if (!res.ok) {
+                const data = await res.json().catch(() => ({}));
+                setError({
+                    type: "unknown",
+                    message: data.message || ERROR_MAP.unknown.default,
+                    icon: ERROR_MAP.unknown.icon,
+                });
+                return;
+            }
+
+            // 4. Succès → cookie + redirection
             document.cookie = `skoolis_auth=true; path=/; max-age=86400`;
             router.push("/dashboard");
-        } catch (err: unknown) {
-            const message = err instanceof Error ? err.message : "Erreur de connexion.";
-            setErrorMsg(message);
+
         } finally {
             setIsLoading(false);
         }
@@ -76,10 +149,11 @@ export default function LoginPage() {
                     <h2>Connexion</h2>
                     <p>Entrez vos identifiants pour accéder à votre tableau de bord.</p>
 
-                    {errorMsg && (
-                        <div className="form-error-banner">
-                            <i className="fas fa-circle-exclamation"></i>
-                            <span>{errorMsg}</span>
+                    {/* Bannière d'erreur contextuelle */}
+                    {error && (
+                        <div className={`form-error-banner form-error-banner--${error.type}`}>
+                            <i className={error.icon}></i>
+                            <span>{error.message}</span>
                         </div>
                     )}
 
@@ -91,13 +165,14 @@ export default function LoginPage() {
                             <div className="input-group">
                                 <i className="fas fa-envelope"></i>
                                 <input
-                                    className="form-input"
+                                    className={`form-input${error?.type === "credentials" ? " input-error" : ""}`}
                                     type="email"
                                     id="email"
                                     name="email"
                                     placeholder="vous@etablissement.com"
                                     value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
+                                    onChange={(e) => { setEmail(e.target.value); setError(null); }}
+                                    disabled={isLoading}
                                     required
                                 />
                             </div>
@@ -110,13 +185,14 @@ export default function LoginPage() {
                             <div className="input-group">
                                 <i className="fas fa-lock"></i>
                                 <input
-                                    className="form-input"
+                                    className={`form-input${error?.type === "credentials" ? " input-error" : ""}`}
                                     type="password"
                                     id="password"
                                     name="password"
                                     placeholder="••••••••"
                                     value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    onChange={(e) => { setPassword(e.target.value); setError(null); }}
+                                    disabled={isLoading}
                                     required
                                 />
                             </div>
@@ -135,7 +211,9 @@ export default function LoginPage() {
                             className={`btn btn-primary btn-block${isLoading ? " loading" : ""}`}
                             disabled={isLoading}
                         >
-                            <span className="btn-label">Se connecter</span>
+                            <span className="btn-label">
+                                {isLoading ? "Connexion en cours…" : "Se connecter"}
+                            </span>
                             <span className="btn-spinner"></span>
                         </button>
                     </form>
