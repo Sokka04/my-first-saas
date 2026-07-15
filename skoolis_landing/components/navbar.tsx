@@ -131,6 +131,21 @@ export function Navbar() {
                   <span className="absolute right-4 top-1/2 -translate-y-1/2 h-2.5 w-2.5 rounded-full bg-emerald-500" />
                 )}
               </Link>
+              {isConnected && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileOpen(false);
+                    window.location.href = "/connexion";
+                  }}
+                  className={cn(
+                    buttonVariants({ variant: "ghost", size: "lg" }),
+                    "h-12 min-h-12 w-full justify-center text-base font-medium text-destructive hover:text-destructive"
+                  )}
+                >
+                  Se déconnecter
+                </button>
+              )}
             </nav>
           </SheetContent>
         </Sheet>

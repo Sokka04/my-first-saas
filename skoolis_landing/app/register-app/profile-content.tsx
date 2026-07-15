@@ -344,6 +344,18 @@ export function ProfileContent() {
           Aucun appareil n'est connecte a votre compte.
         </p>
       </section>
+
+      <div className="flex justify-end mt-8">
+        <Button 
+          variant="destructive" 
+          onClick={() => {
+            // TODO: Call actual logout endpoint
+            window.location.href = "/connexion";
+          }}
+        >
+          Se déconnecter
+        </Button>
+      </div>
     </div>
   );
 }
