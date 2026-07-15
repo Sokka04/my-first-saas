@@ -38,9 +38,9 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-slate-50 dark:bg-slate-950 text-foreground">
+        <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden home-surface text-foreground">
             {/* Arrière-plan animé vibrant (Glassmorphism) */}
-            <div className="absolute inset-0 z-0 overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/20 via-background to-background">
+            <div className="absolute inset-0 z-0 overflow-hidden">
                 <motion.div 
                     animate={{ 
                         scale: [1, 1.2, 1],
@@ -65,7 +65,7 @@ export default function LoginPage() {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
-                    className="backdrop-blur-xl bg-background/40 dark:bg-card/40 border border-white/20 dark:border-white/10 shadow-[0_8px_30px_rgb(0,0,0,0.12)] rounded-3xl p-8 sm:p-10"
+                    className="backdrop-blur-2xl bg-card/40 dark:bg-card/40 border border-primary/10 shadow-[0_8px_30px_color-mix(in_oklch,var(--primary)_15%,transparent)] rounded-3xl p-8 sm:p-10"
                 >
                     <div className="text-center mb-8">
                         <motion.div 
