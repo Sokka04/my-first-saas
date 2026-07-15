@@ -37,8 +37,7 @@ export default function ClassesPage() {
         try {
             setLoading(true);
             const res = await fetch(`${API_BASE_URL}/school-classes`, {
-                headers: getAuthHeaders({ 'Accept': 'application/json' }),
-                /* credentials removed */
+                headers: getAuthHeaders({ 'Accept': 'application/json' })
             });
 
             if (!res.ok) throw new Error("Erreur lors de la récupération des classes");
@@ -55,8 +54,7 @@ export default function ClassesPage() {
     const fetchTeachers = async () => {
         try {
             const res = await fetch(`${API_BASE_URL}/teachers`, {
-                headers: getAuthHeaders({ 'Accept': 'application/json' }),
-                /* credentials removed */
+                headers: getAuthHeaders({ 'Accept': 'application/json' })
             });
             if (res.ok) {
                 const json = await res.json();
@@ -87,7 +85,7 @@ export default function ClassesPage() {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 }),
-                /* credentials removed */,
+                
                 body: JSON.stringify(dataToSubmit)
             });
 
@@ -118,7 +116,7 @@ export default function ClassesPage() {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 }),
-                /* credentials removed */,
+                
                 body: JSON.stringify({ teacher_id: assignForm.teacher_id })
             });
             if (res.ok) {

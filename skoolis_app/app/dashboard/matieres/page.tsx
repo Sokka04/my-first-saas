@@ -89,7 +89,7 @@ export default function MatieresPage() {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 }),
-                /* credentials removed */,
+                
                 body: JSON.stringify({
                     name,
                     code,
@@ -129,7 +129,7 @@ export default function MatieresPage() {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 }),
-                /* credentials removed */,
+                
                 body: JSON.stringify({
                     school_class_id: assignClassId,
                     subject_id: assignSubjectId,

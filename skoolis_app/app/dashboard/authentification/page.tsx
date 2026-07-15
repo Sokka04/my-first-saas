@@ -26,7 +26,7 @@ export default function AuthentificationPage() {
         
         try {
             const res = await fetch(`${API_BASE_URL}/finance/accounting/receipts/${receiptNumber}`, {
-                /* credentials removed */,
+                
                 headers: getAuthHeaders({ 'Accept': 'application/json' })
             });
             

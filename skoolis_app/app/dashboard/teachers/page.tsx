@@ -39,8 +39,7 @@ export default function TeachersPage() {
     const fetchTeachers = async () => {
         try {
             const res = await fetch(`${API_BASE_URL}/teachers`, {
-                headers: getAuthHeaders({ 'Accept': 'application/json' }),
-                /* credentials removed */
+                headers: getAuthHeaders({ 'Accept': 'application/json' })
             });
             if (res.ok) {
                 const data = await res.json();
@@ -83,7 +82,7 @@ export default function TeachersPage() {
             const res = await fetch(`${API_BASE_URL}/teachers`, {
                 method: 'POST',
                 headers: getAuthHeaders({ 'Accept': 'application/json' }),
-                /* credentials removed */,
+                
                 body: data
             });
 

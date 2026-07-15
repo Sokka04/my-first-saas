@@ -92,7 +92,7 @@ export default function AutresFraisPage() {
             const res = await fetch(`${API_BASE_URL}/finance/other-fees`, {
                 method: 'POST',
                 headers: getAuthHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json' }),
-                /* credentials removed */,
+                
                 body: JSON.stringify({
                     name: feeName,
                     type: feeType,
@@ -120,8 +120,7 @@ export default function AutresFraisPage() {
         if (!confirm('Voulez-vous supprimer ce frais ?')) return;
         try {
             const res = await fetch(`${API_BASE_URL}/finance/other-fees/${id}`, {
-                method: 'DELETE',
-                /* credentials removed */
+                method: 'DELETE'
             });
             if (res.ok) {
                 alert('Supprimé !');
@@ -136,7 +135,7 @@ export default function AutresFraisPage() {
             const res = await fetch(`${API_BASE_URL}/finance/other-fees/assign-student`, {
                 method: 'POST',
                 headers: getAuthHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json' }),
-                /* credentials removed */,
+                
                 body: JSON.stringify({
                     student_id: assignStudentId,
                     other_fee_id: assignFeeId,
@@ -163,7 +162,7 @@ export default function AutresFraisPage() {
             const res = await fetch(`${API_BASE_URL}/finance/other-fees/assign-class`, {
                 method: 'POST',
                 headers: getAuthHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json' }),
-                /* credentials removed */,
+                
                 body: JSON.stringify({
                     school_class_id: assignClassClassId,
                     other_fee_id: assignClassFeeId,
@@ -198,7 +197,7 @@ export default function AutresFraisPage() {
             const res = await fetch(`${API_BASE_URL}/finance/other-fees/payments`, {
                 method: 'POST',
                 headers: getAuthHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json' }),
-                /* credentials removed */,
+                
                 body: JSON.stringify({
                     student_other_fee_id: selectedDueId,
                     paid_amount: parseFloat(payAmount),

@@ -99,7 +99,7 @@ export default function ArriereEcolagePage() {
             const res = await fetch(`${API_BASE_URL}/finance/arrears/init`, {
                 method: 'POST',
                 headers: getAuthHeaders({ 'Accept': 'application/json', 'Content-Type': 'application/json' }),
-                /* credentials removed */,
+                
                 body: JSON.stringify({
                     student_id: initStudentId,
                     original_amount: parseFloat(initAmount),
@@ -164,7 +164,7 @@ export default function ArriereEcolagePage() {
             const res = await fetch(`${API_BASE_URL}/finance/arrears/payments`, {
                 method: 'POST',
                 headers: getAuthHeaders({ 'Accept': 'application/json', 'Content-Type': 'application/json' }),
-                /* credentials removed */,
+                
                 body: JSON.stringify({
                     arrear_id: currentArrear.id,
                     paid_amount: parseFloat(payAmount),
@@ -196,7 +196,7 @@ export default function ArriereEcolagePage() {
             const res = await fetch(`${API_BASE_URL}/finance/arrears/discount`, {
                 method: 'POST',
                 headers: getAuthHeaders({ 'Accept': 'application/json', 'Content-Type': 'application/json' }),
-                /* credentials removed */,
+                
                 body: JSON.stringify({
                     arrear_id: currentArrear.id,
                     discount_amount: parseFloat(discountAmount) || 0
@@ -218,7 +218,7 @@ export default function ArriereEcolagePage() {
             const res = await fetch(`${API_BASE_URL}/finance/arrears/forgive`, {
                 method: 'POST',
                 headers: getAuthHeaders({ 'Accept': 'application/json', 'Content-Type': 'application/json' }),
-                /* credentials removed */,
+                
                 body: JSON.stringify({ arrear_id: currentArrear.id })
             });
             if (res.ok) {

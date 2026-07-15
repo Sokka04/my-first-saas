@@ -124,7 +124,7 @@ export default function EcolagePage() {
             const res1 = await fetch(`${API_BASE_URL}/finance/tuition-configs`, {
                 method: 'POST',
                 headers: getAuthHeaders({ 'Accept': 'application/json', 'Content-Type': 'application/json' }),
-                /* credentials removed */,
+                
                 body: JSON.stringify({
                     school_class_id: tarifClassId,
                     amount_boy: parseFloat(tarifBoy) || 0,
@@ -136,7 +136,7 @@ export default function EcolagePage() {
             const res2 = await fetch(`${API_BASE_URL}/finance/tuition-class-installments`, {
                 method: 'POST',
                 headers: getAuthHeaders({ 'Accept': 'application/json', 'Content-Type': 'application/json' }),
-                /* credentials removed */,
+                
                 body: JSON.stringify({
                     school_class_id: tarifClassId,
                     installments: tranchesInputs.map(t => ({
@@ -213,7 +213,7 @@ export default function EcolagePage() {
             const res = await fetch(`${API_BASE_URL}/finance/tuition-student-installments`, {
                 method: 'POST',
                 headers: getAuthHeaders({ 'Accept': 'application/json', 'Content-Type': 'application/json' }),
-                /* credentials removed */,
+                
                 body: JSON.stringify({
                     student_id: modStudentId,
                     installments: modTranchesInputs.map(t => ({
@@ -276,7 +276,7 @@ export default function EcolagePage() {
             const res = await fetch(`${API_BASE_URL}/finance/tuition-payments`, {
                 method: 'POST',
                 headers: getAuthHeaders({ 'Accept': 'application/json', 'Content-Type': 'application/json' }),
-                /* credentials removed */,
+                
                 body: JSON.stringify({
                     student_id: payStudentId,
                     school_class_id: payClassId,

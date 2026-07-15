@@ -104,7 +104,7 @@ export default function InscriptionPage() {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 }),
-                /* credentials removed */,
+                
                 body: JSON.stringify({
                     school_class_id: tarifClassId,
                     amount_boy: parseFloat(tarifBoy),
@@ -167,7 +167,7 @@ export default function InscriptionPage() {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 }),
-                /* credentials removed */,
+                
                 body: JSON.stringify({
                     student_id: payStudentId,
                     school_class_id: payClassId,

@@ -31,8 +31,7 @@ export default function DashboardPage() {
                 const res = await fetch(`${API_BASE_URL}/dashboard/stats`, {
                     headers: getAuthHeaders({
                         'Accept': 'application/json',
-                    }),
-                    /* credentials removed */
+                    })
                 });
 
                 if (res.status === 401 || res.status === 419) {

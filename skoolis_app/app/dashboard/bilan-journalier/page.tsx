@@ -22,7 +22,7 @@ export default function BilanJournalierPage() {
         setErrorMsg('');
         try {
             const res = await fetch(`${API_BASE_URL}/finance/accounting/bilan-journalier?start_date=${startDate}&end_date=${endDate}`, {
-                /* credentials removed */,
+                
                 headers: getAuthHeaders({ 'Accept': 'application/json' })
             });
             if (res.ok) {

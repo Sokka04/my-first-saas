@@ -20,7 +20,7 @@ export default function BilanGeneralPage() {
         setErrorMsg('');
         try {
             const res = await fetch(`${API_BASE_URL}/finance/accounting/bilan-general`, { 
-                /* credentials removed */,
+                
                 headers: getAuthHeaders({ 'Accept': 'application/json' })
             });
             if (res.ok) {
