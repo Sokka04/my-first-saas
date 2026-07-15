@@ -38,16 +38,16 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-background text-foreground">
-            {/* Arrière-plan animé abstrait (Glassmorphism) */}
-            <div className="absolute inset-0 z-0 overflow-hidden">
+        <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-slate-50 dark:bg-slate-950 text-foreground">
+            {/* Arrière-plan animé vibrant (Glassmorphism) */}
+            <div className="absolute inset-0 z-0 overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/20 via-background to-background">
                 <motion.div 
                     animate={{ 
                         scale: [1, 1.2, 1],
                         rotate: [0, 90, 0],
                     }}
                     transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                    className="absolute -top-[20%] -left-[10%] w-[50vw] h-[50vw] rounded-full bg-primary/20 blur-[120px] opacity-70"
+                    className="absolute -top-[10%] -left-[5%] w-[40vw] h-[40vw] rounded-full bg-primary/40 blur-[100px] opacity-80"
                 />
                 <motion.div 
                     animate={{ 
@@ -55,7 +55,7 @@ export default function LoginPage() {
                         rotate: [0, -90, 0],
                     }}
                     transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                    className="absolute -bottom-[20%] -right-[10%] w-[60vw] h-[60vw] rounded-full bg-secondary/20 blur-[150px] opacity-70"
+                    className="absolute -bottom-[10%] -right-[5%] w-[50vw] h-[50vw] rounded-full bg-secondary/40 blur-[120px] opacity-80"
                 />
             </div>
 
@@ -65,7 +65,7 @@ export default function LoginPage() {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
-                    className="backdrop-blur-xl bg-card/60 border border-border/40 shadow-2xl rounded-3xl p-8 sm:p-10"
+                    className="backdrop-blur-xl bg-background/40 dark:bg-card/40 border border-white/20 dark:border-white/10 shadow-[0_8px_30px_rgb(0,0,0,0.12)] rounded-3xl p-8 sm:p-10"
                 >
                     <div className="text-center mb-8">
                         <motion.div 
