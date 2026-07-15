@@ -114,6 +114,7 @@
     background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
     opacity: 0;
     transition: var(--transition);
+    pointer-events: none;
 }
 
 .card:hover::before {
@@ -133,6 +134,7 @@
     transform: rotate(30deg);
     transition: var(--transition);
     opacity: 0;
+    pointer-events: none;
 }
 
 .card:hover::after {
