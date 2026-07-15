@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
+import { User, Lock, Database, Loader2, AlertCircle } from "lucide-react";
 
 export default function LoginPage() {
     const router = useRouter();
@@ -11,228 +13,177 @@ export default function LoginPage() {
     const [isLoading, setIsLoading] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
 
-    const handleLogin = async (e: React.FormEvent) => {
+    const handleLogin = (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
         setErrorMsg("");
 
-        try {
-            // Demander le cookie CSRF à Sanctum
-            await fetch("http://localhost:8000/sanctum/csrf-cookie", {
-                method: "GET",
-                headers: { Accept: "application/json" },
-            });
-
-            // Appel de login
-            const res = await fetch("http://localhost:8000/api/v1/login", {
-                method: "POST",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ email: identifier, password }),
-                credentials: "include",
-            });
-
-            const data = await res.json();
-
-            if (!res.ok) {
-                throw new Error(data.message || "Identifiants incorrects");
+        // Simulation d'une vérification de connexion
+        setTimeout(() => {
+            if (!identifier || !password) {
+                setErrorMsg("Veuillez remplir tous les champs.");
+                setIsLoading(false);
+                return;
             }
 
-            console.log("Connexion Sanctum réussie :", { identifier, schoolYear });
+            // Ici, vous ferez votre vérification réelle avec l'API.
+            console.log("Connexion avec :", { identifier, password, schoolYear });
             
-            // Définir le cookie local pour le middleware (fallback) ou laisser le middleware vérifier XSRF-TOKEN
+            // Définir un cookie pour indiquer que l'utilisateur est connecté (valable 1 jour)
             document.cookie = `skoolis_auth=true; path=/; max-age=86400`;
             
             // Redirection vers le dashboard
             router.push("/dashboard");
-        } catch (err: any) {
-            setErrorMsg(err.message || "Erreur de connexion");
-        } finally {
-            setIsLoading(false);
-        }
+        }, 1200);
     };
 
     return (
-        <>
-            <style jsx>{`
-                @keyframes slide-in-top {
-                    0% { transform: translateY(-30px); opacity: 0; }
-                    100% { transform: translateY(0); opacity: 1; }
-                }
-                .login-card-container {
-                    animation: slide-in-top 0.5s ease-out forwards;
-                    width: 100%;
-                    max-width: 420px;
-                }
-                .input-with-icon {
-                    position: relative;
-                }
-                .input-with-icon i {
-                    position: absolute;
-                    left: 14px;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    color: var(--text-muted);
-                }
-                .input-with-icon input, .input-with-icon select {
-                    padding-left: 40px !important;
-                    width: 100%;
-                }
-                .input-with-icon input:focus + i, .input-with-icon select:focus + i {
-                    color: var(--primary-color);
-                }
-            `}</style>
+        <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden home-surface text-foreground">
+            {/* Arrière-plan animé vibrant (Glassmorphism) */}
+            <div className="absolute inset-0 z-0 overflow-hidden">
+                <motion.div 
+                    animate={{ 
+                        scale: [1, 1.2, 1],
+                        rotate: [0, 90, 0],
+                    }}
+                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                    className="absolute -top-[10%] -left-[5%] w-[40vw] h-[40vw] rounded-full bg-primary/40 blur-[100px] opacity-80"
+                />
+                <motion.div 
+                    animate={{ 
+                        scale: [1, 1.3, 1],
+                        rotate: [0, -90, 0],
+                    }}
+                    transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+                    className="absolute -bottom-[10%] -right-[5%] w-[50vw] h-[50vw] rounded-full bg-secondary/40 blur-[120px] opacity-80"
+                />
+            </div>
 
-            <div className="login-card-container">
-                <div style={{ textAlign: 'center', marginBottom: '24px' }}>
-                    <div style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        width: '60px',
-                        height: '60px',
-                        background: 'linear-gradient(135deg, var(--primary-color), #9c27b0)',
-                        borderRadius: '12px',
-                        color: 'white',
-                        fontSize: '28px',
-                        marginBottom: '16px',
-                        boxShadow: '0 8px 16px rgba(123, 31, 162, 0.2)'
-                    }}>
-                        <i className="fas fa-graduation-cap"></i>
+            {/* Conteneur Principal */}
+            <div className="relative z-10 w-full max-w-md px-6">
+                <motion.div 
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
+                    className="backdrop-blur-2xl bg-card/40 dark:bg-card/40 border border-primary/10 shadow-[0_8px_30px_color-mix(in_oklch,var(--primary)_15%,transparent)] rounded-3xl p-8 sm:p-10"
+                >
+                    <div className="text-center mb-8">
+                        <motion.div 
+                            initial={{ scale: 0.8, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            transition={{ delay: 0.2, duration: 0.5 }}
+                            className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 text-primary mb-4 ring-1 ring-primary/20 shadow-inner"
+                        >
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-8 h-8">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l9-5-9-5-9 5 9 5z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                            </svg>
+                        </motion.div>
+                        <h1 className="text-2xl font-bold tracking-tight text-foreground">Connexion</h1>
+                        <p className="text-sm text-muted-foreground mt-2">Accédez à votre espace d'administration</p>
                     </div>
-                    <h2 style={{ color: 'var(--text-color)', margin: '0 0 8px', fontSize: '24px' }}>Espace Logiciel</h2>
-                    <p style={{ color: 'var(--text-muted)', margin: 0, fontSize: '14px' }}>Connectez-vous pour accéder à votre établissement</p>
-                </div>
 
-                <div className="card" style={{ padding: '32px' }}>
-                    {errorMsg && (
-                        <div style={{
-                            background: 'rgba(244, 67, 54, 0.1)',
-                            color: '#f44336',
-                            padding: '12px',
-                            borderRadius: '8px',
-                            marginBottom: '20px',
-                            fontSize: '14px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '8px'
-                        }}>
-                            <i className="fas fa-exclamation-circle"></i>
-                            {errorMsg}
-                        </div>
-                    )}
+                    <AnimatePresence>
+                        {errorMsg && (
+                            <motion.div 
+                                initial={{ opacity: 0, height: 0, y: -10 }}
+                                animate={{ opacity: 1, height: "auto", y: 0 }}
+                                exit={{ opacity: 0, height: 0, y: -10 }}
+                                className="mb-6 overflow-hidden"
+                            >
+                                <div className="flex items-center gap-3 p-4 text-sm text-destructive-foreground bg-destructive/10 border border-destructive/20 rounded-xl">
+                                    <AlertCircle className="w-5 h-5 shrink-0 text-destructive" />
+                                    <p className="text-destructive font-medium">{errorMsg}</p>
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
 
-                    <form onSubmit={handleLogin}>
-                        {/* Identifiant */}
-                        <div className="form-group" style={{ marginBottom: '20px' }}>
-                            <label style={{ display: 'block', marginBottom: '8px', fontWeight: 500, color: 'var(--text-color)' }}>
-                                Email métier
-                            </label>
-                            <div className="input-with-icon">
+                    <form onSubmit={handleLogin} className="space-y-5">
+                        <div className="space-y-1.5">
+                            <label htmlFor="identifier" className="text-sm font-medium text-foreground ml-1">Identifiant</label>
+                            <motion.div whileFocus="focused" initial="idle" className="relative group">
+                                <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground transition-colors group-focus-within:text-primary" />
                                 <input 
-                                    type="email" 
-                                    placeholder="ex: admin@school.com" 
+                                    type="text" 
+                                    id="identifier" 
+                                    placeholder="admin@skoolis.com" 
                                     value={identifier}
                                     onChange={(e) => setIdentifier(e.target.value)}
-                                    style={{
-                                        width: '100%',
-                                        padding: '12px',
-                                        border: '1px solid var(--border-color)',
-                                        borderRadius: '8px',
-                                        fontSize: '14px',
-                                        outline: 'none',
-                                        transition: 'border-color 0.3s'
-                                    }}
-                                    onFocus={(e) => e.target.style.borderColor = 'var(--primary-color)'}
-                                    onBlur={(e) => e.target.style.borderColor = 'var(--border-color)'}
+                                    className="w-full pl-11 pr-4 py-3 bg-background/50 border border-input rounded-xl text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-300"
                                 />
-                                <i className="fas fa-envelope"></i>
-                            </div>
+                            </motion.div>
                         </div>
 
-                        {/* Mot de passe */}
-                        <div className="form-group" style={{ marginBottom: '20px' }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                                <label style={{ fontWeight: 500, color: 'var(--text-color)' }}>
-                                    Mot de passe
-                                </label>
+                        <div className="space-y-1.5">
+                            <div className="flex items-center justify-between ml-1">
+                                <label htmlFor="password" className="text-sm font-medium text-foreground">Mot de passe</label>
+                                <a href="#" className="text-xs font-medium text-primary hover:text-primary/80 transition-colors">Oublié ?</a>
                             </div>
-                            <div className="input-with-icon">
+                            <motion.div whileFocus="focused" initial="idle" className="relative group">
+                                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground transition-colors group-focus-within:text-primary" />
                                 <input 
                                     type="password" 
-                                    placeholder="Votre mot de passe" 
+                                    id="password" 
+                                    placeholder="••••••••" 
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    style={{
-                                        width: '100%',
-                                        padding: '12px',
-                                        border: '1px solid var(--border-color)',
-                                        borderRadius: '8px',
-                                        fontSize: '14px',
-                                        outline: 'none',
-                                        transition: 'border-color 0.3s'
-                                    }}
-                                    onFocus={(e) => e.target.style.borderColor = 'var(--primary-color)'}
-                                    onBlur={(e) => e.target.style.borderColor = 'var(--border-color)'}
+                                    className="w-full pl-11 pr-4 py-3 bg-background/50 border border-input rounded-xl text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-300"
                                 />
-                                <i className="fas fa-lock"></i>
-                            </div>
+                            </motion.div>
                         </div>
 
-                        {/* Choix de l'année */}
-                        <div className="form-group" style={{ marginBottom: '32px' }}>
-                            <label style={{ display: 'block', marginBottom: '8px', fontWeight: 500, color: 'var(--text-color)' }}>
-                                Année académique
-                            </label>
-                            <div className="input-with-icon">
+                        <div className="space-y-1.5">
+                            <label htmlFor="schoolYear" className="text-sm font-medium text-foreground ml-1">Année Académique</label>
+                            <div className="relative group">
+                                <Database className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground transition-colors group-focus-within:text-primary" />
                                 <select 
+                                    id="schoolYear" 
                                     value={schoolYear}
                                     onChange={(e) => setSchoolYear(e.target.value)}
-                                    style={{
-                                        width: '100%',
-                                        padding: '12px',
-                                        border: '1px solid var(--border-color)',
-                                        borderRadius: '8px',
-                                        fontSize: '14px',
-                                        outline: 'none',
-                                        backgroundColor: 'var(--white)',
-                                        transition: 'border-color 0.3s',
-                                        cursor: 'pointer'
-                                    }}
-                                    onFocus={(e) => e.target.style.borderColor = 'var(--primary-color)'}
-                                    onBlur={(e) => e.target.style.borderColor = 'var(--border-color)'}
+                                    className="w-full pl-11 pr-10 py-3 bg-background/50 border border-input rounded-xl text-sm appearance-none focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-300"
                                 >
                                     <option value="2024-2025">Année 2024 - 2025</option>
                                     <option value="2023-2024">Année 2023 - 2024 (Archives)</option>
+                                    <option value="2022-2023">Année 2022 - 2023 (Archives)</option>
                                 </select>
-                                <i className="fas fa-calendar-alt"></i>
+                                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                                    <svg className="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                                </div>
                             </div>
                         </div>
 
-                        {/* Bouton de connexion */}
-                        <button 
+                        <motion.button 
+                            whileHover={{ scale: 1.01 }}
+                            whileTap={{ scale: 0.98 }}
                             type="submit" 
-                            className="btn btn-primary" 
                             disabled={isLoading}
-                            style={{ width: '100%', padding: '14px', fontSize: '15px', display: 'flex', justifyContent: 'center', gap: '8px' }}
+                            className="w-full relative flex items-center justify-center gap-2 py-3.5 mt-2 bg-primary text-primary-foreground font-medium rounded-xl shadow-[0_8px_20px_color-mix(in_oklch,var(--primary)_30%,transparent)] hover:shadow-[0_8px_25px_color-mix(in_oklch,var(--primary)_40%,transparent)] transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
                         >
                             {isLoading ? (
-                                <><i className="fas fa-spinner fa-spin"></i> Connexion...</>
+                                <>
+                                    <Loader2 className="w-5 h-5 animate-spin" />
+                                    <span>Connexion en cours...</span>
+                                </>
                             ) : (
-                                <><i className="fas fa-sign-in-alt"></i> Se connecter</>
+                                <span>Se connecter</span>
                             )}
-                        </button>
+                        </motion.button>
                     </form>
-                </div>
-                
-                <div style={{ textAlign: 'center', marginTop: '20px' }}>
-                    <p style={{ color: 'var(--text-muted)', fontSize: '13px' }}>
-                        Propulsé par <strong>Skoolis</strong>
+                </motion.div>
+
+                {/* Signature Skoolis */}
+                <motion.div 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.8, duration: 0.6 }}
+                    className="mt-8 text-center"
+                >
+                    <p className="text-xs text-muted-foreground/60 tracking-wider font-medium uppercase">
+                        Propulsé par <span className="text-muted-foreground/80 font-bold">Skoolis</span>
                     </p>
-                </div>
+                </motion.div>
             </div>
-        </>
+        </div>
     );
 }
