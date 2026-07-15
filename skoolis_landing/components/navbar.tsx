@@ -18,6 +18,7 @@ import { cn } from "@/lib/utils";
 
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const isConnected = true; // TODO: Replace with real auth logic
 
   return (
     <header className="border-border/80 bg-background/90 supports-backdrop-filter:bg-background/80 sticky top-0 z-50 w-full border-b backdrop-blur-md">
@@ -58,14 +59,17 @@ export function Navbar() {
             Demander une demo
           </Link>
           <Link
-            href={siteConfig.links.app}
+            href={isConnected ? "/register-app" : "/connexion"}
             aria-label="Profile"
             className={cn(
               buttonVariants({ variant: "outline", size: "icon-lg" }),
-              "min-h-11 min-w-11"
+              "relative min-h-11 min-w-11"
             )}
           >
             <UserRound className="size-5" />
+            {isConnected && (
+              <span className="absolute bottom-2 right-2 h-2.5 w-2.5 rounded-full border-2 border-background bg-emerald-500" />
+            )}
           </Link>
         </div>
 
@@ -114,15 +118,18 @@ export function Navbar() {
                 Demander une demo
               </Link>
               <Link
-                href={siteConfig.links.connexion}
+                href={isConnected ? "/register-app" : siteConfig.links.connexion}
                 onClick={() => setMobileOpen(false)}
                 className={cn(
                   buttonVariants({ variant: "outline", size: "lg" }),
-                  "mt-2 h-12 min-h-12 w-full justify-center gap-2 text-base font-semibold"
+                  "relative mt-2 h-12 min-h-12 w-full justify-center gap-2 text-base font-semibold"
                 )}
               >
                 <UserRound className="size-5" aria-hidden />
-                Connexion
+                {isConnected ? "Mon Profil" : "Connexion"}
+                {isConnected && (
+                  <span className="absolute right-4 top-1/2 -translate-y-1/2 h-2.5 w-2.5 rounded-full bg-emerald-500" />
+                )}
               </Link>
             </nav>
           </SheetContent>
