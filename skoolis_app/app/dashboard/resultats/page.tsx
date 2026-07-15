@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { api } from "@/lib/apiClient";
 
 export default function ResultatsPage() {
     const [activeTab, setActiveTab] = useState("resultats-classe");
@@ -9,12 +10,77 @@ export default function ResultatsPage() {
     const [currentSortMode, setCurrentSortMode] = useState("merite");
     const [modeUnEleve, setModeUnEleve] = useState(false);
 
-    const validerEleve = (e: any) => {
-        const btn = e.target;
-        btn.textContent = '✓ Validé';
-        btn.disabled = true;
-        btn.style.background = '#2e7d32';
-        alert("Décision validée pour l'élève"); // Basic mock
+    const [classes, setClasses] = useState<any[]>([]);
+    const [years, setYears] = useState<any[]>([]);
+    const [selectedClass, setSelectedClass] = useState("");
+    const [selectedYear, setSelectedYear] = useState("");
+    const [decisions, setDecisions] = useState<any[]>([]);
+
+    useEffect(() => {
+        fetchClassesAndYears();
+    }, []);
+
+    const fetchClassesAndYears = async () => {
+        try {
+            const [classesRes, yearsRes] = await Promise.all([
+                api.get(`/school-classes`),
+                api.get(`/school-years`)
+            ]);
+            if (classesRes.ok) setClasses((await classesRes.json()).data || []);
+            if (yearsRes.ok) setYears((await yearsRes.json()).data || []);
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
+    const fetchDecisions = async () => {
+        if (!selectedClass || !selectedYear) return;
+        try {
+            const res = await api.get(`/decisions?school_class_id=${selectedClass}&school_year_id=${selectedYear}`);
+            if (res.ok) setDecisions((await res.json()).data || []);
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
+    useEffect(() => {
+        if (activeTab === 'deliberation' && selectedClass && selectedYear) {
+            fetchDecisions();
+        }
+    }, [activeTab, selectedClass, selectedYear]);
+
+    const generateDecisions = async () => {
+        if (!selectedClass || !selectedYear) {
+            alert("Veuillez sélectionner une classe et une année scolaire.");
+            return;
+        }
+        try {
+            const res = await api.post(`/decisions/generate`, {
+                school_class_id: selectedClass,
+                school_year_id: selectedYear
+            });
+            if (res.ok) {
+                const data = await res.json();
+                setDecisions(data.data || []);
+                alert(`Décisions générées ! Seuil appliqué : ${data.threshold_used}/20`);
+            }
+        } catch (e) {
+            console.error(e);
+            alert("Erreur lors de la génération.");
+        }
+    };
+
+    const overrideDecision = async (id: string, decisionValue: string) => {
+        try {
+            const res = await api.put(`/decisions/${id}/override`, { decision: decisionValue });
+            if (res.ok) {
+                const data = await res.json();
+                setDecisions(decisions.map(d => d.id === id ? data.data : d));
+                alert("Décision modifiée manuellement.");
+            }
+        } catch (e) {
+            console.error(e);
+        }
     };
 
     return (
@@ -308,20 +374,22 @@ export default function ResultatsPage() {
                     <div className="filters-container">
                         <div className="filter-group">
                             <label>Classe :</label>
-                            <select className="form-select" id="delib_classe">
-                                <option value="3A">3ème A</option>
-                                <option value="3B">3ème B</option>
-                                <option value="4A">4ème A</option>
-                                <option value="5A">5ème A</option>
-                                <option value="6A">6ème A</option>
+                            <select className="form-select" value={selectedClass} onChange={e => setSelectedClass(e.target.value)}>
+                                <option value="">Sélectionner une classe</option>
+                                {classes.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
                             </select>
                         </div>
                         <div className="filter-group">
                             <label>Année scolaire :</label>
-                            <select className="form-select">
-                                <option>2023-2024</option>
-                                <option>2024-2025</option>
+                            <select className="form-select" value={selectedYear} onChange={e => setSelectedYear(e.target.value)}>
+                                <option value="">Sélectionner une année</option>
+                                {years.map(y => <option key={y.id} value={y.id}>{y.label}</option>)}
                             </select>
+                        </div>
+                        <div className="filter-group">
+                            <button className="btn btn-primary" onClick={generateDecisions} style={{marginTop: '25px'}}>
+                                <i className="fas fa-sync"></i> Calculer les décisions
+                            </button>
                         </div>
                     </div>
 
@@ -332,57 +400,44 @@ export default function ResultatsPage() {
                                     <tr>
                                         <th>Élève</th>
                                         <th>Matricule</th>
-                                        <th>Moy. T1</th>
-                                        <th>Moy. T2</th>
-                                        <th>Moy. T3</th>
                                         <th>Moy. Annuelle</th>
-                                        <th>Décision</th>
-                                        <th>Actions</th>
+                                        <th>Décision Automatique</th>
+                                        <th>Saisie Admin</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>ABALO Kossi</td><td>EL-2024-001</td>
-                                        <td>16.5</td><td>17.4</td><td>18.2</td>
-                                        <td><strong>17.4</strong></td>
-                                        <td>
-                                            <select className="form-select" style={{minWidth: '130px'}} defaultValue="Admis(e)">
-                                                <option>Admis(e)</option>
-                                                <option>Passage en classe sup.</option>
-                                                <option>Redoublement</option>
-                                                <option>Exclusion</option>
-                                            </select>
-                                        </td>
-                                        <td><button className="btn btn-small btn-success" onClick={validerEleve}>Valider</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>AKAKPO Ama</td><td>EL-2024-002</td>
-                                        <td>15.0</td><td>16.8</td><td>17.5</td>
-                                        <td><strong>16.4</strong></td>
-                                        <td>
-                                            <select className="form-select" style={{minWidth: '130px'}} defaultValue="Admis(e)">
-                                                <option>Admis(e)</option>
-                                                <option>Passage en classe sup.</option>
-                                                <option>Redoublement</option>
-                                                <option>Exclusion</option>
-                                            </select>
-                                        </td>
-                                        <td><button className="btn btn-small btn-success" onClick={validerEleve}>Valider</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>KPOGO Séna</td><td>EL-2024-010</td>
-                                        <td>8.2</td><td>7.5</td><td>8.8</td>
-                                        <td><strong style={{color: '#f44336'}}>8.2</strong></td>
-                                        <td>
-                                            <select className="form-select" style={{minWidth: '130px'}} defaultValue="Redoublement">
-                                                <option>Admis(e)</option>
-                                                <option>Passage en classe sup.</option>
-                                                <option>Redoublement</option>
-                                                <option>Exclusion</option>
-                                            </select>
-                                        </td>
-                                        <td><button className="btn btn-small btn-success" onClick={validerEleve}>Valider</button></td>
-                                    </tr>
+                                    {decisions.map(d => (
+                                        <tr key={d.id} style={{background: d.is_manual_override ? 'rgba(255,152,0,0.05)' : ''}}>
+                                            <td>{d.student?.last_name} {d.student?.first_name}</td>
+                                            <td>{d.student?.registration_number}</td>
+                                            <td><strong style={{color: d.annual_average >= 10 ? '#4caf50' : '#f44336'}}>{d.annual_average}</strong></td>
+                                            <td>
+                                                <span className={`badge ${d.decision === 'admis' ? 'badge-success' : 'badge-danger'}`}>
+                                                    {d.decision.toUpperCase()}
+                                                </span>
+                                                {d.is_manual_override && <span style={{marginLeft: '10px', fontSize: '11px', color: '#ff9800'}}><i className="fas fa-user-edit"></i> Modifié</span>}
+                                            </td>
+                                            <td>
+                                                <select 
+                                                    className="form-select" 
+                                                    style={{minWidth: '130px', display: 'inline-block', width: 'auto'}} 
+                                                    value={d.decision}
+                                                    onChange={e => overrideDecision(d.id, e.target.value)}
+                                                >
+                                                    <option value="admis">Admis</option>
+                                                    <option value="redouble">Redouble</option>
+                                                    <option value="exclu">Exclu</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                    {decisions.length === 0 && (
+                                        <tr>
+                                            <td colSpan={5} style={{textAlign: 'center', padding: '30px'}}>
+                                                Sélectionnez une classe et une année, puis cliquez sur "Calculer les décisions".
+                                            </td>
+                                        </tr>
+                                    )}
                                 </tbody>
                             </table>
                         </div>

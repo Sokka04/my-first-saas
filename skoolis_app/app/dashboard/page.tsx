@@ -16,7 +16,7 @@ export default function DashboardPage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
-    const API_BASE_URL = 'http://127.0.0.1:8000/api/v1';
+    const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api/v1';
 
     useEffect(() => {
         const fetchDashboardData = async () => {
@@ -205,7 +205,7 @@ export default function DashboardPage() {
                                         <div className="student-info">
                                             <div className="avatar" style={{width: '36px', height: '36px', borderRadius: '50%', backgroundColor: 'var(--bg-color)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginRight: '10px', overflow: 'hidden'}}>
                                                 {student.photo_path ? (
-                                                    <img src={`http://localhost:8000/storage/${student.photo_path}`} alt="Photo" style={{width: '100%', height: '100%', objectFit: 'cover'}} />
+                                                    <img src={`${process.env.NEXT_PUBLIC_API_URL?.replace('/api/v1', '') || 'http://127.0.0.1:8000'}/storage/${student.photo_path}`} alt="Photo" style={{width: '100%', height: '100%', objectFit: 'cover'}} />
                                                 ) : (
                                                     <i className="fas fa-user text-muted"></i>
                                                 )}

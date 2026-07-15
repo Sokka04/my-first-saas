@@ -33,6 +33,12 @@ Route::prefix('v1')->group(function (): void {
         Route::delete('{id}', [\App\Domains\Grade\Controllers\Api\V1\GradeController::class, 'destroy']);
     });
     
+    Route::prefix('decisions')->group(function () {
+        Route::get('', [\App\Domains\Grade\Controllers\Api\V1\StudentDecisionController::class, 'index']);
+        Route::post('generate', [\App\Domains\Grade\Controllers\Api\V1\StudentDecisionController::class, 'generate']);
+        Route::put('{id}/override', [\App\Domains\Grade\Controllers\Api\V1\StudentDecisionController::class, 'override']);
+    });
+    
     Route::prefix('students')->group(function () {
         Route::get('{id}/period-average', [\App\Domains\Grade\Controllers\Api\V1\GradeController::class, 'studentPeriodAverage']);
     });

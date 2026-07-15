@@ -27,7 +27,7 @@ export default function TeachersPage() {
     const [photo, setPhoto] = useState<File | null>(null);
     const [photoPreview, setPhotoPreview] = useState<string | null>(null);
 
-    const API_BASE_URL = 'http://127.0.0.1:8000/api/v1';
+    const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api/v1';
 
     const fetchTeachers = async () => {
         try {
@@ -183,7 +183,7 @@ export default function TeachersPage() {
                                         <td>
                                             <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#eee', overflow: 'hidden' }}>
                                                 {teacher.photo ? (
-                                                    <img src={`http://127.0.0.1:8000/storage/${teacher.photo}`} alt="photo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                                    <img src={`${process.env.NEXT_PUBLIC_API_URL?.replace('/api/v1', '') || 'http://127.0.0.1:8000'}/storage/${teacher.photo}`} alt="photo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                                 ) : (
                                                     <i className="fas fa-user" style={{ padding: '12px', color: '#999' }}></i>
                                                 )}

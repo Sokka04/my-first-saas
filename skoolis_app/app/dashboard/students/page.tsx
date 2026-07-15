@@ -255,7 +255,7 @@ export default function StudentsPage() {
             annee_scolaire: currentEnrollment.school_year_id || ''
         });
         setModPhotoFile(null);
-        setModPhotoPreview(student.photo_path ? `http://localhost:8000/storage/${student.photo_path}` : null);
+        setModPhotoPreview(student.photo_path ? `${process.env.NEXT_PUBLIC_API_URL?.replace('/api/v1', '') || 'http://127.0.0.1:8000'}/storage/${student.photo_path}` : null);
         setActiveTab("modification");
     };
 
@@ -488,7 +488,7 @@ export default function StudentsPage() {
                                             <td>
                                                 <div className="avatar" style={{width: '40px', height: '40px'}}>
                                                     {s.photo_path ? (
-                                                        <img src={`http://localhost:8000/storage/${s.photo_path}`} alt="Photo" style={{width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover'}} />
+                                                        <img src={`${process.env.NEXT_PUBLIC_API_URL?.replace('/api/v1', '') || 'http://127.0.0.1:8000'}/storage/${s.photo_path}`} alt="Photo" style={{width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover'}} />
                                                     ) : (
                                                         <i className="fas fa-user" style={{lineHeight: '40px'}}></i>
                                                     )}
@@ -621,7 +621,7 @@ export default function StudentsPage() {
                                                         }
                                                     } else {
                                                         setModPhotoFile(null);
-                                                        setModPhotoPreview(selectedStudent?.photo_path ? `http://localhost:8000/storage/${selectedStudent.photo_path}` : null);
+                                                        setModPhotoPreview(selectedStudent?.photo_path ? `${process.env.NEXT_PUBLIC_API_URL?.replace('/api/v1', '') || 'http://127.0.0.1:8000'}/storage/${selectedStudent.photo_path}` : null);
                                                     }
                                                 }} className="form-control" style={{flex: 1}} />
                                             </div>
@@ -754,7 +754,7 @@ export default function StudentsPage() {
                                                     <td>
                                                         <div className="avatar" style={{width: '35px', height: '35px'}}>
                                                             {s.photo_path ? (
-                                                                <img src={`http://localhost:8000/storage/${s.photo_path}`} alt="Photo" style={{width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover'}} />
+                                                                <img src={`${process.env.NEXT_PUBLIC_API_URL?.replace('/api/v1', '') || 'http://127.0.0.1:8000'}/storage/${s.photo_path}`} alt="Photo" style={{width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover'}} />
                                                             ) : (
                                                                 <i className="fas fa-user" style={{lineHeight: '35px'}}></i>
                                                             )}
