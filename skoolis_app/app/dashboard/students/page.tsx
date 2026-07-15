@@ -230,34 +230,40 @@ export default function StudentsPage() {
     };
 
     const editStudent = (student: any) => {
-        setSelectedStudent(student);
-        
-        const primaryGuardian = student.guardians?.find((g: any) => g.pivot.is_primary) || {};
-        const currentEnrollment = student.enrollments?.[0] || {}; // Simplification: we take the first/latest enrollment
+        try {
+            console.log("editStudent called for:", student);
+            setSelectedStudent(student);
+            
+            const primaryGuardian = student.guardians?.find((g: any) => g.pivot?.is_primary) || {};
+            const currentEnrollment = student.enrollments?.[0] || {}; // Simplification: we take the first/latest enrollment
 
-        setModFormData({
-            nom: student.last_name || '',
-            prenom: student.first_name || '',
-            sexe: student.gender || '',
-            naissance: student.birth_date || '',
-            matricule: student.registration_number || '',
-            nationalite: student.nationality || '',
-            statut: student.status || '',
-            lieu_naissance: student.birth_place || '',
-            adresse: student.address || '',
-            date_inscription: student.enrollment_date || '',
-            tuteur_nom: primaryGuardian.last_name || '',
-            tuteur_prenoms: primaryGuardian.first_name || '',
-            tuteur_contact: primaryGuardian.phone || '',
-            tuteur_profession: primaryGuardian.profession || '',
-            tuteur_email: primaryGuardian.email || '',
-            classe: currentEnrollment.school_class_id || '',
-            annee_scolaire: currentEnrollment.school_year_id || ''
-        });
-        setModPhotoFile(null);
-        setModPhotoPreview(student.photo_path ? `${process.env.NEXT_PUBLIC_API_URL?.replace('/api/v1', '') || 'http://127.0.0.1:8000'}/storage/${student.photo_path}` : null);
-        setActiveTab("modification");
-        window.scrollTo(0, 0);
+            setModFormData({
+                nom: student.last_name || '',
+                prenom: student.first_name || '',
+                sexe: student.gender || '',
+                naissance: student.birth_date || '',
+                matricule: student.registration_number || '',
+                nationalite: student.nationality || '',
+                statut: student.status || '',
+                lieu_naissance: student.birth_place || '',
+                adresse: student.address || '',
+                date_inscription: student.enrollment_date || '',
+                tuteur_nom: primaryGuardian.last_name || '',
+                tuteur_prenoms: primaryGuardian.first_name || '',
+                tuteur_contact: primaryGuardian.phone || '',
+                tuteur_profession: primaryGuardian.profession || '',
+                tuteur_email: primaryGuardian.email || '',
+                classe: currentEnrollment.school_class_id || '',
+                annee_scolaire: currentEnrollment.school_year_id || ''
+            });
+            setModPhotoFile(null);
+            setModPhotoPreview(student.photo_path ? `${process.env.NEXT_PUBLIC_API_URL?.replace('/api/v1', '') || 'http://127.0.0.1:8000'}/storage/${student.photo_path}` : null);
+            setActiveTab("modification");
+            window.scrollTo(0, 0);
+        } catch (error: any) {
+            console.error("Error in editStudent:", error);
+            alert("Erreur lors de l'ouverture de la modification: " + error.message);
+        }
     };
 
     const filteredStudents = students.filter(s => {
