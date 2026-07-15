@@ -51,10 +51,17 @@ export default function LoginPage() {
         setIsLoading(true);
         setError(null);
 
+        // Ex: NEXT_PUBLIC_API_URL = "http://127.0.0.1:8000/api/v1"
+        // On remonte à la racine pour le CSRF, et on garde le chemin complet pour le login
+        const apiBase = process.env.NEXT_PUBLIC_API_URL ?? "http://127.0.0.1:8000/api/v1";
+        const serverRoot = apiBase.replace(/\/api\/v\d+\/?$/, ""); // "http://127.0.0.1:8000"
+        const loginUrl  = `${apiBase}/login`;                       // "http://127.0.0.1:8000/api/v1/login"
+        const csrfUrl   = `${serverRoot}/sanctum/csrf-cookie`;     // "http://127.0.0.1:8000/sanctum/csrf-cookie"
+
         try {
             // 1. Récupération du cookie CSRF
             try {
-                await fetch(`${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`, {
+                await fetch(csrfUrl, {
                     method: "GET",
                     headers: { Accept: "application/json" },
                     credentials: "include",
@@ -72,7 +79,7 @@ export default function LoginPage() {
             // 2. Tentative de connexion
             let res: Response;
             try {
-                res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/login`, {
+                res = await fetch(loginUrl, {
                     method: "POST",
                     headers: {
                         Accept: "application/json",
