@@ -50,7 +50,7 @@ export function LoginSwitchForm() {
   const redirectTarget = useMemo(() => {
     const redirect = searchParams.get("redirect");
     if (redirect?.startsWith("/")) return redirect;
-    return siteConfig.links.app;
+    return "/register-app";
   }, [searchParams]);
 
   useEffect(() => {
