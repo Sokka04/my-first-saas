@@ -52,34 +52,47 @@ export default function LoginPage() {
         setError(null);
 
         // Ex: NEXT_PUBLIC_API_URL = "http://127.0.0.1:8000/api/v1"
-        // On remonte à la racine pour le CSRF, et on garde le chemin complet pour le login
-        const apiBase = process.env.NEXT_PUBLIC_API_URL ?? "http://127.0.0.1:8000/api/v1";
-        const serverRoot = apiBase.replace(/\/api\/v\d+\/?$/, ""); // "http://127.0.0.1:8000"
-        const loginUrl  = `${apiBase}/login`;                       // "http://127.0.0.1:8000/api/v1/login"
-        const csrfUrl   = `${serverRoot}/sanctum/csrf-cookie`;     // "http://127.0.0.1:8000/sanctum/csrf-cookie"
+        const apiBase    = process.env.NEXT_PUBLIC_API_URL ?? "http://127.0.0.1:8000/api/v1";
+        const serverRoot = apiBase.replace(/\/api\/v\d+\/?$/, "");
+        const loginUrl   = `${apiBase}/login`;
+        const csrfUrl    = `${serverRoot}/sanctum/csrf-cookie`;
+
+        // Helper : fetch avec timeout 10s
+        const fetchWithTimeout = async (url: string, options: RequestInit) => {
+            const controller = new AbortController();
+            const timer = setTimeout(() => controller.abort(), 10_000);
+            try {
+                const res = await fetch(url, { ...options, signal: controller.signal });
+                return res;
+            } finally {
+                clearTimeout(timer);
+            }
+        };
 
         try {
-            // 1. Récupération du cookie CSRF
+            // 1. Cookie CSRF
             try {
-                await fetch(csrfUrl, {
+                await fetchWithTimeout(csrfUrl, {
                     method: "GET",
                     headers: { Accept: "application/json" },
                     credentials: "include",
                 });
-            } catch {
-                // Si le CSRF échoue → serveur injoignable
+            } catch (err: unknown) {
+                const isTimeout = err instanceof DOMException && err.name === "AbortError";
                 setError({
                     type: "network",
-                    message: ERROR_MAP.network.default,
+                    message: isTimeout
+                        ? "Le serveur met trop de temps à répondre. Vérifiez que l'API est bien démarrée."
+                        : ERROR_MAP.network.default,
                     icon: ERROR_MAP.network.icon,
                 });
                 return;
             }
 
-            // 2. Tentative de connexion
+            // 2. Login
             let res: Response;
             try {
-                res = await fetch(loginUrl, {
+                res = await fetchWithTimeout(loginUrl, {
                     method: "POST",
                     headers: {
                         Accept: "application/json",
@@ -88,11 +101,14 @@ export default function LoginPage() {
                     body: JSON.stringify({ email, password }),
                     credentials: "include",
                 });
-            } catch {
+            } catch (err: unknown) {
+                const isTimeout = err instanceof DOMException && err.name === "AbortError";
                 setError({
-                    type: "network",
-                    message: ERROR_MAP.network.default,
-                    icon: ERROR_MAP.network.icon,
+                    type: isTimeout ? "server" : "network",
+                    message: isTimeout
+                        ? "La connexion a expiré. Le serveur ne répond pas."
+                        : ERROR_MAP.network.default,
+                    icon: isTimeout ? ERROR_MAP.server.icon : ERROR_MAP.network.icon,
                 });
                 return;
             }
@@ -109,25 +125,17 @@ export default function LoginPage() {
             }
 
             if (res.status >= 500) {
-                setError({
-                    type: "server",
-                    message: ERROR_MAP.server.default,
-                    icon: ERROR_MAP.server.icon,
-                });
+                setError({ type: "server", message: ERROR_MAP.server.default, icon: ERROR_MAP.server.icon });
                 return;
             }
 
             if (!res.ok) {
                 const data = await res.json().catch(() => ({}));
-                setError({
-                    type: "unknown",
-                    message: data.message || ERROR_MAP.unknown.default,
-                    icon: ERROR_MAP.unknown.icon,
-                });
+                setError({ type: "unknown", message: data.message || ERROR_MAP.unknown.default, icon: ERROR_MAP.unknown.icon });
                 return;
             }
 
-            // 4. Succès → cookie + redirection
+            // 4. Succès
             document.cookie = `skoolis_auth=true; path=/; max-age=86400`;
             router.push("/dashboard");
 
@@ -135,6 +143,7 @@ export default function LoginPage() {
             setIsLoading(false);
         }
     };
+
 
     return (
         <div className="login-root">
