@@ -279,13 +279,13 @@ export default function StudentsPage() {
         if (!dateString) return '';
         try {
             const date = new Date(dateString);
-            if (isNaN(date.getTime())) return dateString;
+            if (isNaN(date.getTime())) return <span style={{fontFamily: "'Poppins', sans-serif"}}>{dateString}</span>;
             const day = date.getDate().toString().padStart(2, '0');
             const month = (date.getMonth() + 1).toString().padStart(2, '0');
             const year = date.getFullYear();
-            return `${day}/${month}/${year}`;
+            return <span style={{fontFamily: "'Poppins', sans-serif"}}>{`${day}/${month}/${year}`}</span>;
         } catch (e) {
-            return dateString;
+            return <span style={{fontFamily: "'Poppins', sans-serif"}}>{dateString}</span>;
         }
     };
 
