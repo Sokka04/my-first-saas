@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { api } from "@/lib/apiClient";
 
 const processImage = (file: File): Promise<File> => {
     return new Promise((resolve, reject) => {
@@ -74,20 +75,12 @@ export default function StudentsPage() {
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedClass, setSelectedClass] = useState('');
 
-    const API_BASE_URL = 'http://127.0.0.1:8000/api/v1';
+
 
     const fetchStudents = async () => {
         try {
             setLoading(true);
-            const res = await fetch(`${API_BASE_URL}/students`, {
-                headers: { 'Accept': 'application/json' },
-                credentials: 'include'
-            });
-            if (res.status === 401 || res.status === 419) {
-                console.warn("Utilisateur non authentifié (401).");
-                // window.location.href = '/connexion';
-                return;
-            }
+            const res = await api.get(`/students`);
             if (!res.ok) throw new Error("Erreur de chargement des élèves");
             const data = await res.json();
             setStudents(data.data || []);
@@ -101,8 +94,8 @@ export default function StudentsPage() {
     const fetchClassesAndYears = async () => {
         try {
             const [classesRes, yearsRes] = await Promise.all([
-                fetch(`${API_BASE_URL}/school-classes`, { headers: { 'Accept': 'application/json' }, credentials: 'include' }),
-                fetch(`${API_BASE_URL}/school-years`, { headers: { 'Accept': 'application/json' }, credentials: 'include' })
+                api.get(`/school-classes`),
+                api.get(`/school-years`)
             ]);
             
             if (classesRes.ok) {
@@ -152,14 +145,7 @@ export default function StudentsPage() {
             if (formData.tuteur_email) data.append('tuteur_email', formData.tuteur_email);
             if (formData.classe) data.append('school_class_id', formData.classe);
 
-            const res = await fetch(`${API_BASE_URL}/students`, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json'
-                },
-                credentials: 'include',
-                body: data
-            });
+            const res = await api.post(`/students`, data);
 
             if (res.ok) {
                 alert("Élève enregistré avec succès !");
@@ -210,14 +196,7 @@ export default function StudentsPage() {
             if (modFormData.classe) data.append('school_class_id', modFormData.classe);
             if (modFormData.annee_scolaire) data.append('school_year_id', modFormData.annee_scolaire);
 
-            const res = await fetch(`${API_BASE_URL}/students/${selectedStudent.id}`, {
-                method: 'POST', // Use POST with _method=PUT
-                headers: {
-                    'Accept': 'application/json'
-                },
-                credentials: 'include',
-                body: data
-            });
+            const res = await api.post(`/students/${selectedStudent.id}`, data);
 
             if (res.ok) {
                 alert("Élève mis à jour avec succès !");
@@ -239,10 +218,7 @@ export default function StudentsPage() {
     const handleDelete = async (id: number | string) => {
         if (!confirm("Voulez-vous supprimer cet élève ?")) return;
         try {
-            const res = await fetch(`${API_BASE_URL}/students/${id}`, {
-                method: 'DELETE',
-                credentials: 'include'
-            });
+            const res = await api.delete(`/students/${id}`);
             if (res.ok) {
                 fetchStudents();
             } else {
