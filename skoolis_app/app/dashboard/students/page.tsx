@@ -713,7 +713,7 @@ export default function StudentsPage() {
                     </div>
                 </div>
                 
-                <div className="card" style={{ marginBottom: '20px' }}>
+                <div className="card" style={{ marginBottom: '20px', display: 'block', width: '100%' }}>
                     <div className="card-body">
                         <div className="search-bar-container" style={{ display: 'flex', gap: '15px', marginBottom: searchQuery ? '20px' : '0' }}>
                             <div className="search-input-wrapper" style={{ flex: 1, position: 'relative' }}>
