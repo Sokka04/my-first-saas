@@ -2,7 +2,10 @@ import type { NextConfig } from "next";
 
 const isDev = process.env.NODE_ENV !== "production";
 
+// En dev, les assets _next/static sont servis directement depuis le port 3001
+// pour éviter les conflits quand skoolis_landing proxifie les pages sur le port 3000.
 const nextConfig: NextConfig = {
+  assetPrefix: isDev ? "http://localhost:3001" : undefined,
   async headers() {
     const appSecurityHeaders = [
       { key: "X-Frame-Options", value: "DENY" },
@@ -18,6 +21,13 @@ const nextConfig: NextConfig = {
     ];
 
     return [
+      // CORS sur _next/static pour que le proxy skoolis_landing puisse charger les assets
+      {
+        source: "/_next/:path*",
+        headers: [
+          { key: "Access-Control-Allow-Origin", value: "http://localhost:3000" },
+        ],
+      },
       {
         source: "/app",
         headers: appSecurityHeaders,
