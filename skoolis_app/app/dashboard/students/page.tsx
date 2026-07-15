@@ -257,6 +257,7 @@ export default function StudentsPage() {
         setModPhotoFile(null);
         setModPhotoPreview(student.photo_path ? `${process.env.NEXT_PUBLIC_API_URL?.replace('/api/v1', '') || 'http://127.0.0.1:8000'}/storage/${student.photo_path}` : null);
         setActiveTab("modification");
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     const filteredStudents = students.filter(s => {
@@ -787,9 +788,6 @@ export default function StudentsPage() {
                                                                     </a>
                                                                 </div>
                                                             </div>
-                                                            <button className="btn btn-danger btn-small" onClick={() => handleDelete(s.id)} title="Supprimer" style={{backgroundColor: 'var(--danger-color)', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '4px', cursor: 'pointer'}}>
-                                                                <i className="fas fa-trash"></i>
-                                                            </button>
                                                         </div>
                                                     </td>
                                                 </tr>
