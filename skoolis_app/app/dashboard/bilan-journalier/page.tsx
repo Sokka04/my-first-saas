@@ -1,6 +1,13 @@
 'use client';
 import { useState } from 'react';
 
+// Ajout auto : helper d'entête d'authentification Bearer
+const getAuthHeaders = (existingHeaders = {}) => {
+    if (typeof window === 'undefined') return existingHeaders;
+    const token = localStorage.getItem('skoolis_token');
+    return token ? { ...existingHeaders, 'Authorization': `Bearer ${token}` } : existingHeaders;
+};
+
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api/v1';
 
 export default function BilanJournalierPage() {
@@ -15,8 +22,8 @@ export default function BilanJournalierPage() {
         setErrorMsg('');
         try {
             const res = await fetch(`${API_BASE_URL}/finance/accounting/bilan-journalier?start_date=${startDate}&end_date=${endDate}`, {
-                credentials: 'include',
-                headers: { 'Accept': 'application/json' }
+                /* credentials removed */,
+                headers: getAuthHeaders({ 'Accept': 'application/json' })
             });
             if (res.ok) {
                 setData(await res.json());

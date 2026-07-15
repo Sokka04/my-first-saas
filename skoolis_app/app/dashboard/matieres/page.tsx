@@ -4,6 +4,13 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 // import './matieres.css'; // Optional: Use existing globals.css or components
 
+// Ajout auto : helper d'entête d'authentification Bearer
+const getAuthHeaders = (existingHeaders = {}) => {
+    if (typeof window === 'undefined') return existingHeaders;
+    const token = localStorage.getItem('skoolis_token');
+    return token ? { ...existingHeaders, 'Authorization': `Bearer ${token}` } : existingHeaders;
+};
+
 export default function MatieresPage() {
     const [activeTab, setActiveTab] = useState('enregistrement');
     
@@ -39,7 +46,7 @@ export default function MatieresPage() {
 
     const fetchSubjects = async () => {
         try {
-            const res = await fetch(`${API_BASE_URL}/subjects`, { headers: { 'Accept': 'application/json' }, credentials: 'include' });
+            const res = await fetch(`${API_BASE_URL}/subjects`, { headers: getAuthHeaders({ 'Accept': 'application/json' }) });
             if (res.ok) {
                 const data = await res.json();
                 setSubjects(data.data || []);
@@ -51,7 +58,7 @@ export default function MatieresPage() {
 
     const fetchClasses = async () => {
         try {
-            const res = await fetch(`${API_BASE_URL}/school-classes`, { headers: { 'Accept': 'application/json' }, credentials: 'include' });
+            const res = await fetch(`${API_BASE_URL}/school-classes`, { headers: getAuthHeaders({ 'Accept': 'application/json' }) });
             if (res.ok) {
                 const data = await res.json();
                 setClasses(data.data || []);
@@ -63,7 +70,7 @@ export default function MatieresPage() {
 
     const fetchTeachers = async () => {
         try {
-            const res = await fetch(`${API_BASE_URL}/teachers`, { headers: { 'Accept': 'application/json' }, credentials: 'include' });
+            const res = await fetch(`${API_BASE_URL}/teachers`, { headers: getAuthHeaders({ 'Accept': 'application/json' }) });
             if (res.ok) {
                 const data = await res.json();
                 setTeachers(data.data || []);
@@ -78,11 +85,11 @@ export default function MatieresPage() {
         try {
             const res = await fetch(`${API_BASE_URL}/subjects`, {
                 method: 'POST',
-                headers: {
+                headers: getAuthHeaders({
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
-                },
-                credentials: 'include',
+                }),
+                /* credentials removed */,
                 body: JSON.stringify({
                     name,
                     code,
@@ -118,11 +125,11 @@ export default function MatieresPage() {
         try {
             const res = await fetch(`${API_BASE_URL}/classes/${assignClassId}/subjects`, {
                 method: 'POST',
-                headers: {
+                headers: getAuthHeaders({
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
-                },
-                credentials: 'include',
+                }),
+                /* credentials removed */,
                 body: JSON.stringify({
                     school_class_id: assignClassId,
                     subject_id: assignSubjectId,
@@ -151,7 +158,7 @@ export default function MatieresPage() {
             return;
         }
         try {
-            const res = await fetch(`${API_BASE_URL}/classes/${classId}/subjects`, { headers: { 'Accept': 'application/json' }, credentials: 'include' });
+            const res = await fetch(`${API_BASE_URL}/classes/${classId}/subjects`, { headers: getAuthHeaders({ 'Accept': 'application/json' }) });
             if (res.ok) {
                 const data = await res.json();
                 setClassSubjects(data.data || []);

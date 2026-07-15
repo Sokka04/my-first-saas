@@ -3,6 +3,13 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
+// Ajout auto : helper d'entête d'authentification Bearer
+const getAuthHeaders = (existingHeaders = {}) => {
+    if (typeof window === 'undefined') return existingHeaders;
+    const token = localStorage.getItem('skoolis_token');
+    return token ? { ...existingHeaders, 'Authorization': `Bearer ${token}` } : existingHeaders;
+};
+
 export default function EcolagePage() {
     const [activeTab, setActiveTab] = useState('tarifs-ecolage');
     const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api/v1';
@@ -53,7 +60,7 @@ export default function EcolagePage() {
 
     const fetchClasses = async () => {
         try {
-            const res = await fetch(`${API_BASE_URL}/school-classes`, { headers: { 'Accept': 'application/json' }, credentials: 'include' });
+            const res = await fetch(`${API_BASE_URL}/school-classes`, { headers: getAuthHeaders({ 'Accept': 'application/json' }) });
             if (res.ok) {
                 const data = await res.json();
                 setClasses(data.data || []);
@@ -63,7 +70,7 @@ export default function EcolagePage() {
 
     const fetchConfigs = async () => {
         try {
-            const res = await fetch(`${API_BASE_URL}/finance/tuition-configs`, { headers: { 'Accept': 'application/json' }, credentials: 'include' });
+            const res = await fetch(`${API_BASE_URL}/finance/tuition-configs`, { headers: getAuthHeaders({ 'Accept': 'application/json' }) });
             if (res.ok) {
                 const data = await res.json();
                 setTuitionConfigs(data.data.configs || []);
@@ -74,7 +81,7 @@ export default function EcolagePage() {
 
     const fetchPayments = async () => {
         try {
-            const res = await fetch(`${API_BASE_URL}/finance/tuition-payments`, { headers: { 'Accept': 'application/json' }, credentials: 'include' });
+            const res = await fetch(`${API_BASE_URL}/finance/tuition-payments`, { headers: getAuthHeaders({ 'Accept': 'application/json' }) });
             if (res.ok) {
                 const data = await res.json();
                 setAllPayments(data.data || []);
@@ -86,7 +93,7 @@ export default function EcolagePage() {
         setStudents([]);
         if (!classId) return;
         try {
-            const res = await fetch(`${API_BASE_URL}/students`, { headers: { 'Accept': 'application/json' }, credentials: 'include' });
+            const res = await fetch(`${API_BASE_URL}/students`, { headers: getAuthHeaders({ 'Accept': 'application/json' }) });
             if (res.ok) {
                 const data = await res.json();
                 const classStudents = data.data.filter((s: any) => s.current_enrollment?.school_class_id === classId);
@@ -116,8 +123,8 @@ export default function EcolagePage() {
             // 1. Sauvegarder les totaux (fee-configs)
             const res1 = await fetch(`${API_BASE_URL}/finance/tuition-configs`, {
                 method: 'POST',
-                headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-                credentials: 'include',
+                headers: getAuthHeaders({ 'Accept': 'application/json', 'Content-Type': 'application/json' }),
+                /* credentials removed */,
                 body: JSON.stringify({
                     school_class_id: tarifClassId,
                     amount_boy: parseFloat(tarifBoy) || 0,
@@ -128,8 +135,8 @@ export default function EcolagePage() {
             // 2. Sauvegarder les tranches
             const res2 = await fetch(`${API_BASE_URL}/finance/tuition-class-installments`, {
                 method: 'POST',
-                headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-                credentials: 'include',
+                headers: getAuthHeaders({ 'Accept': 'application/json', 'Content-Type': 'application/json' }),
+                /* credentials removed */,
                 body: JSON.stringify({
                     school_class_id: tarifClassId,
                     installments: tranchesInputs.map(t => ({
@@ -164,7 +171,7 @@ export default function EcolagePage() {
         if (e.target.value) {
             // Fetch student tuition details to pre-fill
             try {
-                const res = await fetch(`${API_BASE_URL}/finance/tuition-student/${e.target.value}`, { headers: { 'Accept': 'application/json' }, credentials: 'include' });
+                const res = await fetch(`${API_BASE_URL}/finance/tuition-student/${e.target.value}`, { headers: getAuthHeaders({ 'Accept': 'application/json' }) });
                 if (res.ok) {
                     const data = await res.json();
                     const installments = data.data.installments;
@@ -205,8 +212,8 @@ export default function EcolagePage() {
         try {
             const res = await fetch(`${API_BASE_URL}/finance/tuition-student-installments`, {
                 method: 'POST',
-                headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-                credentials: 'include',
+                headers: getAuthHeaders({ 'Accept': 'application/json', 'Content-Type': 'application/json' }),
+                /* credentials removed */,
                 body: JSON.stringify({
                     student_id: modStudentId,
                     installments: modTranchesInputs.map(t => ({
@@ -248,7 +255,7 @@ export default function EcolagePage() {
         }
 
         try {
-            const res = await fetch(`${API_BASE_URL}/finance/tuition-student/${val}`, { headers: { 'Accept': 'application/json' }, credentials: 'include' });
+            const res = await fetch(`${API_BASE_URL}/finance/tuition-student/${val}`, { headers: getAuthHeaders({ 'Accept': 'application/json' }) });
             if (res.ok) {
                 const data = await res.json();
                 setStudentInstallments(data.data.installments);
@@ -268,8 +275,8 @@ export default function EcolagePage() {
         try {
             const res = await fetch(`${API_BASE_URL}/finance/tuition-payments`, {
                 method: 'POST',
-                headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-                credentials: 'include',
+                headers: getAuthHeaders({ 'Accept': 'application/json', 'Content-Type': 'application/json' }),
+                /* credentials removed */,
                 body: JSON.stringify({
                     student_id: payStudentId,
                     school_class_id: payClassId,

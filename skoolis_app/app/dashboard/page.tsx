@@ -4,6 +4,13 @@ import { useEffect, useState } from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import Link from "next/link";
 
+// Ajout auto : helper d'entête d'authentification Bearer
+const getAuthHeaders = (existingHeaders = {}) => {
+    if (typeof window === 'undefined') return existingHeaders;
+    const token = localStorage.getItem('skoolis_token');
+    return token ? { ...existingHeaders, 'Authorization': `Bearer ${token}` } : existingHeaders;
+};
+
 export default function DashboardPage() {
     const [stats, setStats] = useState({
         students: 0,
@@ -22,10 +29,10 @@ export default function DashboardPage() {
         const fetchDashboardData = async () => {
             try {
                 const res = await fetch(`${API_BASE_URL}/dashboard/stats`, {
-                    headers: {
+                    headers: getAuthHeaders({
                         'Accept': 'application/json',
-                    },
-                    credentials: 'include'
+                    }),
+                    /* credentials removed */
                 });
 
                 if (res.status === 401 || res.status === 419) {

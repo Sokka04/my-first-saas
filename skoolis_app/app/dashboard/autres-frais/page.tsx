@@ -2,6 +2,13 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
+// Ajout auto : helper d'entête d'authentification Bearer
+const getAuthHeaders = (existingHeaders = {}) => {
+    if (typeof window === 'undefined') return existingHeaders;
+    const token = localStorage.getItem('skoolis_token');
+    return token ? { ...existingHeaders, 'Authorization': `Bearer ${token}` } : existingHeaders;
+};
+
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api/v1';
 
 export default function AutresFraisPage() {
@@ -56,14 +63,14 @@ export default function AutresFraisPage() {
 
     const fetchClasses = async () => {
         try {
-            const res = await fetch(`${API_BASE_URL}/school-classes`, { credentials: 'include' });
+            const res = await fetch(`${API_BASE_URL}/school-classes`, { headers: getAuthHeaders() });
             if (res.ok) setClasses(await res.json());
         } catch (err) { console.error(err); }
     };
 
     const fetchFees = async () => {
         try {
-            const res = await fetch(`${API_BASE_URL}/finance/other-fees`, { credentials: 'include' });
+            const res = await fetch(`${API_BASE_URL}/finance/other-fees`, { headers: getAuthHeaders() });
             if (res.ok) setFees(await res.json());
         } catch (err) { console.error(err); }
     };
@@ -71,7 +78,7 @@ export default function AutresFraisPage() {
     const fetchStudentsForClass = async (classId: string) => {
         if (!classId) { setStudents([]); return; }
         try {
-            const res = await fetch(`${API_BASE_URL}/students?school_class_id=${classId}`, { credentials: 'include' });
+            const res = await fetch(`${API_BASE_URL}/students?school_class_id=${classId}`, { headers: getAuthHeaders() });
             if (res.ok) {
                 const data = await res.json();
                 setStudents(data.data || data);
@@ -84,8 +91,8 @@ export default function AutresFraisPage() {
         try {
             const res = await fetch(`${API_BASE_URL}/finance/other-fees`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                credentials: 'include',
+                headers: getAuthHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json' }),
+                /* credentials removed */,
                 body: JSON.stringify({
                     name: feeName,
                     type: feeType,
@@ -114,7 +121,7 @@ export default function AutresFraisPage() {
         try {
             const res = await fetch(`${API_BASE_URL}/finance/other-fees/${id}`, {
                 method: 'DELETE',
-                credentials: 'include'
+                /* credentials removed */
             });
             if (res.ok) {
                 alert('Supprimé !');
@@ -128,8 +135,8 @@ export default function AutresFraisPage() {
         try {
             const res = await fetch(`${API_BASE_URL}/finance/other-fees/assign-student`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                credentials: 'include',
+                headers: getAuthHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json' }),
+                /* credentials removed */,
                 body: JSON.stringify({
                     student_id: assignStudentId,
                     other_fee_id: assignFeeId,
@@ -155,8 +162,8 @@ export default function AutresFraisPage() {
         try {
             const res = await fetch(`${API_BASE_URL}/finance/other-fees/assign-class`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                credentials: 'include',
+                headers: getAuthHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json' }),
+                /* credentials removed */,
                 body: JSON.stringify({
                     school_class_id: assignClassClassId,
                     other_fee_id: assignClassFeeId,
@@ -181,7 +188,7 @@ export default function AutresFraisPage() {
         setPayStudentId(sid);
         if (!sid) { setStudentDues([]); return; }
         try {
-            const res = await fetch(`${API_BASE_URL}/finance/other-fees/student/${sid}/dues`, { credentials: 'include' });
+            const res = await fetch(`${API_BASE_URL}/finance/other-fees/student/${sid}/dues`, { headers: getAuthHeaders() });
             if (res.ok) setStudentDues(await res.json());
         } catch (err) { console.error(err); }
     };
@@ -190,8 +197,8 @@ export default function AutresFraisPage() {
         try {
             const res = await fetch(`${API_BASE_URL}/finance/other-fees/payments`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                credentials: 'include',
+                headers: getAuthHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json' }),
+                /* credentials removed */,
                 body: JSON.stringify({
                     student_other_fee_id: selectedDueId,
                     paid_amount: parseFloat(payAmount),
@@ -217,7 +224,7 @@ export default function AutresFraisPage() {
     // --- TAB 5: STATS ---
     const loadStats = async () => {
         try {
-            const res = await fetch(`${API_BASE_URL}/finance/other-fees/stats`, { credentials: 'include' });
+            const res = await fetch(`${API_BASE_URL}/finance/other-fees/stats`, { headers: getAuthHeaders() });
             if (res.ok) setStats(await res.json());
         } catch (err) { console.error(err); }
     };

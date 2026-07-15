@@ -3,6 +3,13 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
+// Ajout auto : helper d'entête d'authentification Bearer
+const getAuthHeaders = (existingHeaders = {}) => {
+    if (typeof window === 'undefined') return existingHeaders;
+    const token = localStorage.getItem('skoolis_token');
+    return token ? { ...existingHeaders, 'Authorization': `Bearer ${token}` } : existingHeaders;
+};
+
 export default function TeachersPage() {
     const [activeTab, setActiveTab] = useState("liste");
     const [teachers, setTeachers] = useState<any[]>([]);
@@ -32,8 +39,8 @@ export default function TeachersPage() {
     const fetchTeachers = async () => {
         try {
             const res = await fetch(`${API_BASE_URL}/teachers`, {
-                headers: { 'Accept': 'application/json' },
-                credentials: 'include'
+                headers: getAuthHeaders({ 'Accept': 'application/json' }),
+                /* credentials removed */
             });
             if (res.ok) {
                 const data = await res.json();
@@ -75,10 +82,8 @@ export default function TeachersPage() {
 
             const res = await fetch(`${API_BASE_URL}/teachers`, {
                 method: 'POST',
-                headers: {
-                    'Accept': 'application/json'
-                },
-                credentials: 'include',
+                headers: getAuthHeaders({ 'Accept': 'application/json' }),
+                /* credentials removed */,
                 body: data
             });
 

@@ -3,6 +3,13 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
+// Ajout auto : helper d'entête d'authentification Bearer
+const getAuthHeaders = (existingHeaders = {}) => {
+    if (typeof window === 'undefined') return existingHeaders;
+    const token = localStorage.getItem('skoolis_token');
+    return token ? { ...existingHeaders, 'Authorization': `Bearer ${token}` } : existingHeaders;
+};
+
 export default function InscriptionPage() {
     const [activeTab, setActiveTab] = useState('tarifs');
     const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api/v1';
@@ -36,7 +43,7 @@ export default function InscriptionPage() {
 
     const fetchClasses = async () => {
         try {
-            const res = await fetch(`${API_BASE_URL}/school-classes`, { headers: { 'Accept': 'application/json' }, credentials: 'include' });
+            const res = await fetch(`${API_BASE_URL}/school-classes`, { headers: getAuthHeaders({ 'Accept': 'application/json' }) });
             if (res.ok) {
                 const data = await res.json();
                 setClasses(data.data || []);
@@ -48,7 +55,7 @@ export default function InscriptionPage() {
 
     const fetchFeeConfigs = async () => {
         try {
-            const res = await fetch(`${API_BASE_URL}/finance/fee-configs`, { headers: { 'Accept': 'application/json' }, credentials: 'include' });
+            const res = await fetch(`${API_BASE_URL}/finance/fee-configs`, { headers: getAuthHeaders({ 'Accept': 'application/json' }) });
             if (res.ok) {
                 const data = await res.json();
                 setFeeConfigs(data.data || []);
@@ -60,7 +67,7 @@ export default function InscriptionPage() {
 
     const fetchPayments = async () => {
         try {
-            const res = await fetch(`${API_BASE_URL}/finance/payments`, { headers: { 'Accept': 'application/json' }, credentials: 'include' });
+            const res = await fetch(`${API_BASE_URL}/finance/payments`, { headers: getAuthHeaders({ 'Accept': 'application/json' }) });
             if (res.ok) {
                 const data = await res.json();
                 setPayments(data.data || []);
@@ -76,7 +83,7 @@ export default function InscriptionPage() {
         try {
             // Dans une vraie app, on aurait un point d'API students?class_id=X
             // Ici, on récupère tous les élèves et on filtre (ou si l'API le permet)
-            const res = await fetch(`${API_BASE_URL}/students`, { headers: { 'Accept': 'application/json' }, credentials: 'include' });
+            const res = await fetch(`${API_BASE_URL}/students`, { headers: getAuthHeaders({ 'Accept': 'application/json' }) });
             if (res.ok) {
                 const data = await res.json();
                 // Assumons que le backend renvoie current_enrollment ou qu'on filtre manuellement
@@ -93,11 +100,11 @@ export default function InscriptionPage() {
         try {
             const res = await fetch(`${API_BASE_URL}/finance/fee-configs`, {
                 method: 'POST',
-                headers: {
+                headers: getAuthHeaders({
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
-                },
-                credentials: 'include',
+                }),
+                /* credentials removed */,
                 body: JSON.stringify({
                     school_class_id: tarifClassId,
                     amount_boy: parseFloat(tarifBoy),
@@ -156,11 +163,11 @@ export default function InscriptionPage() {
         try {
             const res = await fetch(`${API_BASE_URL}/finance/payments`, {
                 method: 'POST',
-                headers: {
+                headers: getAuthHeaders({
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
-                },
-                credentials: 'include',
+                }),
+                /* credentials removed */,
                 body: JSON.stringify({
                     student_id: payStudentId,
                     school_class_id: payClassId,

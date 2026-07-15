@@ -3,6 +3,13 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
+// Ajout auto : helper d'entête d'authentification Bearer
+const getAuthHeaders = (existingHeaders = {}) => {
+    if (typeof window === 'undefined') return existingHeaders;
+    const token = localStorage.getItem('skoolis_token');
+    return token ? { ...existingHeaders, 'Authorization': `Bearer ${token}` } : existingHeaders;
+};
+
 export default function ArriereEcolagePage() {
     const [activeTab, setActiveTab] = useState('payer-arriere');
     const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api/v1';
@@ -38,7 +45,7 @@ export default function ArriereEcolagePage() {
 
     const fetchClasses = async () => {
         try {
-            const res = await fetch(`${API_BASE_URL}/school-classes`, { headers: { 'Accept': 'application/json' }, credentials: 'include' });
+            const res = await fetch(`${API_BASE_URL}/school-classes`, { headers: getAuthHeaders({ 'Accept': 'application/json' }) });
             if (res.ok) {
                 const data = await res.json();
                 setClasses(data.data || []);
@@ -48,7 +55,7 @@ export default function ArriereEcolagePage() {
 
     const fetchArrears = async () => {
         try {
-            const res = await fetch(`${API_BASE_URL}/finance/arrears`, { headers: { 'Accept': 'application/json' }, credentials: 'include' });
+            const res = await fetch(`${API_BASE_URL}/finance/arrears`, { headers: getAuthHeaders({ 'Accept': 'application/json' }) });
             if (res.ok) {
                 const data = await res.json();
                 setArrears(data.data || []);
@@ -60,7 +67,7 @@ export default function ArriereEcolagePage() {
         setStudents([]);
         if (!classId) return;
         try {
-            const res = await fetch(`${API_BASE_URL}/students`, { headers: { 'Accept': 'application/json' }, credentials: 'include' });
+            const res = await fetch(`${API_BASE_URL}/students`, { headers: getAuthHeaders({ 'Accept': 'application/json' }) });
             if (res.ok) {
                 const data = await res.json();
                 const classStudents = data.data.filter((s: any) => s.current_enrollment?.school_class_id === classId);
@@ -91,8 +98,8 @@ export default function ArriereEcolagePage() {
         try {
             const res = await fetch(`${API_BASE_URL}/finance/arrears/init`, {
                 method: 'POST',
-                headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-                credentials: 'include',
+                headers: getAuthHeaders({ 'Accept': 'application/json', 'Content-Type': 'application/json' }),
+                /* credentials removed */,
                 body: JSON.stringify({
                     student_id: initStudentId,
                     original_amount: parseFloat(initAmount),
@@ -124,7 +131,7 @@ export default function ArriereEcolagePage() {
         if (!val) return;
 
         try {
-            const res = await fetch(`${API_BASE_URL}/finance/arrears/student/${val}`, { headers: { 'Accept': 'application/json' }, credentials: 'include' });
+            const res = await fetch(`${API_BASE_URL}/finance/arrears/student/${val}`, { headers: getAuthHeaders({ 'Accept': 'application/json' }) });
             if (res.ok) {
                 const data = await res.json();
                 setCurrentArrear(data.data);
@@ -139,7 +146,7 @@ export default function ArriereEcolagePage() {
     const reloadCurrentArrear = async () => {
         if (!payStudentId) return;
         try {
-            const res = await fetch(`${API_BASE_URL}/finance/arrears/student/${payStudentId}`, { headers: { 'Accept': 'application/json' }, credentials: 'include' });
+            const res = await fetch(`${API_BASE_URL}/finance/arrears/student/${payStudentId}`, { headers: getAuthHeaders({ 'Accept': 'application/json' }) });
             if (res.ok) {
                 const data = await res.json();
                 setCurrentArrear(data.data);
@@ -156,8 +163,8 @@ export default function ArriereEcolagePage() {
         try {
             const res = await fetch(`${API_BASE_URL}/finance/arrears/payments`, {
                 method: 'POST',
-                headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-                credentials: 'include',
+                headers: getAuthHeaders({ 'Accept': 'application/json', 'Content-Type': 'application/json' }),
+                /* credentials removed */,
                 body: JSON.stringify({
                     arrear_id: currentArrear.id,
                     paid_amount: parseFloat(payAmount),
@@ -188,8 +195,8 @@ export default function ArriereEcolagePage() {
         try {
             const res = await fetch(`${API_BASE_URL}/finance/arrears/discount`, {
                 method: 'POST',
-                headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-                credentials: 'include',
+                headers: getAuthHeaders({ 'Accept': 'application/json', 'Content-Type': 'application/json' }),
+                /* credentials removed */,
                 body: JSON.stringify({
                     arrear_id: currentArrear.id,
                     discount_amount: parseFloat(discountAmount) || 0
@@ -210,8 +217,8 @@ export default function ArriereEcolagePage() {
         try {
             const res = await fetch(`${API_BASE_URL}/finance/arrears/forgive`, {
                 method: 'POST',
-                headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-                credentials: 'include',
+                headers: getAuthHeaders({ 'Accept': 'application/json', 'Content-Type': 'application/json' }),
+                /* credentials removed */,
                 body: JSON.stringify({ arrear_id: currentArrear.id })
             });
             if (res.ok) {

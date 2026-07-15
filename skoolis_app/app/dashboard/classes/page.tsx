@@ -3,6 +3,13 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
+// Ajout auto : helper d'entête d'authentification Bearer
+const getAuthHeaders = (existingHeaders = {}) => {
+    if (typeof window === 'undefined') return existingHeaders;
+    const token = localStorage.getItem('skoolis_token');
+    return token ? { ...existingHeaders, 'Authorization': `Bearer ${token}` } : existingHeaders;
+};
+
 export default function ClassesPage() {
     const [activeTab, setActiveTab] = useState("liste");
     const [classes, setClasses] = useState<any[]>([]);
@@ -30,8 +37,8 @@ export default function ClassesPage() {
         try {
             setLoading(true);
             const res = await fetch(`${API_BASE_URL}/school-classes`, {
-                headers: { 'Accept': 'application/json' },
-                credentials: 'include'
+                headers: getAuthHeaders({ 'Accept': 'application/json' }),
+                /* credentials removed */
             });
 
             if (!res.ok) throw new Error("Erreur lors de la récupération des classes");
@@ -48,8 +55,8 @@ export default function ClassesPage() {
     const fetchTeachers = async () => {
         try {
             const res = await fetch(`${API_BASE_URL}/teachers`, {
-                headers: { 'Accept': 'application/json' },
-                credentials: 'include'
+                headers: getAuthHeaders({ 'Accept': 'application/json' }),
+                /* credentials removed */
             });
             if (res.ok) {
                 const json = await res.json();
@@ -76,11 +83,11 @@ export default function ClassesPage() {
 
             const res = await fetch(`${API_BASE_URL}/school-classes`, {
                 method: 'POST',
-                headers: {
+                headers: getAuthHeaders({
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
-                },
-                credentials: 'include',
+                }),
+                /* credentials removed */,
                 body: JSON.stringify(dataToSubmit)
             });
 
@@ -107,11 +114,11 @@ export default function ClassesPage() {
         try {
             const res = await fetch(`${API_BASE_URL}/school-classes/${assignForm.class_id}`, {
                 method: 'PUT',
-                headers: {
+                headers: getAuthHeaders({
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
-                },
-                credentials: 'include',
+                }),
+                /* credentials removed */,
                 body: JSON.stringify({ teacher_id: assignForm.teacher_id })
             });
             if (res.ok) {
