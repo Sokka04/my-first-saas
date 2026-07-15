@@ -12,30 +12,35 @@ class AuthController extends Controller
     public function login(Request $request): JsonResponse
     {
         $credentials = $request->validate([
-            'email' => ['required', 'email'],
+            'email'    => ['required', 'email'],
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            
-            $user = Auth::user();
+        if (! Auth::attempt($credentials)) {
             return response()->json([
-                'user' => $user,
-            ]);
+                'message' => 'Les identifiants fournis ne correspondent pas à nos enregistrements.',
+            ], 401);
         }
 
+        /** @var \App\Domains\Auth\Models\User $user */
+        $user  = Auth::user();
+
+        // Révoquer les anciens tokens de cette session pour éviter l'accumulation
+        $user->tokens()->where('name', 'skoolis-app-session')->delete();
+
+        // Créer un token Bearer — pas de CSRF requis, fonctionne cross-port
+        $token = $user->createToken('skoolis-app-session')->plainTextToken;
+
         return response()->json([
-            'message' => 'Les identifiants fournis ne correspondent pas à nos enregistrements.',
-        ], 401);
+            'token' => $token,
+            'user'  => $user,
+        ]);
     }
 
     public function logout(Request $request): JsonResponse
     {
-        Auth::guard('web')->logout();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+        // Révoquer uniquement le token courant
+        $request->user()?->currentAccessToken()?->delete();
 
         return response()->json(['message' => 'Déconnecté avec succès.']);
     }

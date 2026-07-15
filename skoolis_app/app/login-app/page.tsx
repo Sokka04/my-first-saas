@@ -51,45 +51,21 @@ export default function LoginPage() {
         setIsLoading(true);
         setError(null);
 
-        // Ex: NEXT_PUBLIC_API_URL = "http://127.0.0.1:8000/api/v1"
-        const apiBase    = process.env.NEXT_PUBLIC_API_URL ?? "http://127.0.0.1:8000/api/v1";
-        const serverRoot = apiBase.replace(/\/api\/v\d+\/?$/, "");
-        const loginUrl   = `${apiBase}/login`;
-        const csrfUrl    = `${serverRoot}/sanctum/csrf-cookie`;
+        const apiBase  = process.env.NEXT_PUBLIC_API_URL ?? "http://127.0.0.1:8000/api/v1";
+        const loginUrl = `${apiBase}/login`;
 
         // Helper : fetch avec timeout 10s
         const fetchWithTimeout = async (url: string, options: RequestInit) => {
             const controller = new AbortController();
             const timer = setTimeout(() => controller.abort(), 10_000);
             try {
-                const res = await fetch(url, { ...options, signal: controller.signal });
-                return res;
+                return await fetch(url, { ...options, signal: controller.signal });
             } finally {
                 clearTimeout(timer);
             }
         };
 
         try {
-            // 1. Cookie CSRF
-            try {
-                await fetchWithTimeout(csrfUrl, {
-                    method: "GET",
-                    headers: { Accept: "application/json" },
-                    credentials: "include",
-                });
-            } catch (err: unknown) {
-                const isTimeout = err instanceof DOMException && err.name === "AbortError";
-                setError({
-                    type: "network",
-                    message: isTimeout
-                        ? "Le serveur met trop de temps à répondre. Vérifiez que l'API est bien démarrée."
-                        : ERROR_MAP.network.default,
-                    icon: ERROR_MAP.network.icon,
-                });
-                return;
-            }
-
-            // 2. Login
             let res: Response;
             try {
                 res = await fetchWithTimeout(loginUrl, {
@@ -99,7 +75,6 @@ export default function LoginPage() {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({ email, password }),
-                    credentials: "include",
                 });
             } catch (err: unknown) {
                 const isTimeout = err instanceof DOMException && err.name === "AbortError";
@@ -113,7 +88,6 @@ export default function LoginPage() {
                 return;
             }
 
-            // 3. Analyse de la réponse
             if (res.status === 401 || res.status === 422) {
                 const data = await res.json().catch(() => ({}));
                 setError({
@@ -135,7 +109,9 @@ export default function LoginPage() {
                 return;
             }
 
-            // 4. Succès
+            // Succès — stocker le token Bearer
+            const data = await res.json();
+            localStorage.setItem("skoolis_token", data.token);
             document.cookie = `skoolis_auth=true; path=/; max-age=86400`;
             router.push("/dashboard");
 
