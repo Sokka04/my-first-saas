@@ -56,14 +56,14 @@ export default function LoginPage() {
                 {/* Marque */}
                 <div className="login-brand">
                     <picture>
-                        {/* Mode sombre */}
+                        {/* Fond sombre → logo clair */}
                         <source
-                            srcSet="http://localhost:3001/skoolis_logo_sombre.png"
+                            srcSet="http://localhost:3001/skoolis_logo_clair.png"
                             media="(prefers-color-scheme: dark)"
                         />
-                        {/* Mode clair (défaut) */}
+                        {/* Fond clair → logo sombre (défaut) */}
                         <img
-                            src="http://localhost:3001/skoolis_logo_clair.png"
+                            src="http://localhost:3001/skoolis_logo_sombre.png"
                             alt="Skoolis"
                             style={{ width: '120px', height: 'auto', marginBottom: '4px' }}
                         />
