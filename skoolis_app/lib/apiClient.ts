@@ -48,6 +48,17 @@ export async function apiClient(endpoint: string, options: FetchOptions = {}) {
             throw new Error('Unauthorized');
         }
 
+        // Interception globale des erreurs 402 (Licence expirée ou manquante)
+        if (response.status === 402) {
+            console.warn("API Client: 402 Payment Required (License Expired) détecté. Redirection vers la Landing (portail d'achat).");
+            if (typeof window !== 'undefined') {
+                // Redirection vers le portail d'achat sur la landing (port 3000)
+                // L'URL exacte dépendra de la structure de skoolis_landing
+                window.location.href = 'http://localhost:3000/portal/subscription';
+            }
+            throw new Error('License Expired');
+        }
+
         return response;
     } catch (error) {
         // Log global des erreurs réseau
