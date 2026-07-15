@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import "./login.css";
 
@@ -38,6 +38,13 @@ export default function LoginPage() {
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<ErrorState | null>(null);
+
+    // Nettoie immédiatement tout paramètre sensible qui aurait atterri dans l'URL
+    useEffect(() => {
+        if (typeof window !== "undefined" && window.location.search) {
+            window.history.replaceState({}, "", "/login-app");
+        }
+    }, []);
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -157,7 +164,7 @@ export default function LoginPage() {
                         </div>
                     )}
 
-                    <form onSubmit={handleLogin}>
+                    <form onSubmit={handleLogin} method="post" autoComplete="on">
                         <div className="form-group">
                             <label className="form-label" htmlFor="email">
                                 Adresse e-mail
@@ -169,6 +176,7 @@ export default function LoginPage() {
                                     type="email"
                                     id="email"
                                     name="email"
+                                    autoComplete="email"
                                     placeholder="vous@etablissement.com"
                                     value={email}
                                     onChange={(e) => { setEmail(e.target.value); setError(null); }}
@@ -189,6 +197,7 @@ export default function LoginPage() {
                                     type="password"
                                     id="password"
                                     name="password"
+                                    autoComplete="current-password"
                                     placeholder="••••••••"
                                     value={password}
                                     onChange={(e) => { setPassword(e.target.value); setError(null); }}
