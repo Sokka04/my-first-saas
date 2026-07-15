@@ -751,11 +751,17 @@ export default function StudentsPage() {
                                                     <th>Photo</th>
                                                     <th>Nom & Prénom</th>
                                                     <th>Matricule</th>
+                                                    <th>Sexe</th>
+                                                    <th>Date de naissance</th>
+                                                    <th>Classe</th>
                                                     <th>Actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {filteredStudents.map(s => (
+                                                {filteredStudents.map(s => {
+                                                    const currentEnrollment = s.enrollments?.[0];
+                                                    const className = currentEnrollment?.school_class?.name || <span className="text-muted">-</span>;
+                                                    return (
                                                     <tr key={s.id}>
                                                         <td>
                                                             <div className="avatar" style={{width: '35px', height: '35px'}}>
@@ -768,6 +774,9 @@ export default function StudentsPage() {
                                                         </td>
                                                         <td><strong>{s.last_name} {s.first_name}</strong></td>
                                                         <td>{s.registration_number || <span className="text-muted" style={{fontSize: '0.8em', fontStyle: 'italic'}}>Géré automatiquement</span>}</td>
+                                                        <td>{s.gender === 'F' ? 'Féminin' : s.gender === 'M' ? 'Masculin' : '-'}</td>
+                                                        <td>{s.birth_date || <span className="text-muted">-</span>}</td>
+                                                        <td>{className}</td>
                                                         <td>
                                                             <div className="action-buttons" style={{display: 'flex', gap: '8px', alignItems: 'center'}}>
                                                                 <button type="button" className="btn btn-secondary btn-small" onClick={(e) => { e.preventDefault(); e.stopPropagation(); editStudent(s); }} title="Modifier">
@@ -779,7 +788,7 @@ export default function StudentsPage() {
                                                             </div>
                                                         </td>
                                                     </tr>
-                                                ))}
+                                                )})}
                                             </tbody>
                                         </table>
                                     </div>
