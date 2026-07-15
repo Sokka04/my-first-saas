@@ -715,7 +715,7 @@ export default function StudentsPage() {
                 
                 <div className="card" style={{ marginBottom: '20px' }}>
                     <div className="card-body">
-                        <div className="search-bar-container" style={{ display: 'flex', gap: '15px' }}>
+                        <div className="search-bar-container" style={{ display: 'flex', gap: '15px', marginBottom: searchQuery ? '20px' : '0' }}>
                             <div className="search-input-wrapper" style={{ flex: 1, position: 'relative' }}>
                                 <i className="fas fa-search" style={{ position: 'absolute', left: '15px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-light)' }}></i>
                                 <input 
@@ -731,80 +731,63 @@ export default function StudentsPage() {
                                 <i className="fas fa-sync"></i>
                             </button>
                         </div>
+
+                        {searchQuery && (
+                            <div className="search-results-container">
+                                <h4 style={{ marginBottom: '15px', paddingTop: '15px', borderTop: '1px solid var(--border-color)' }}>
+                                    Résultats ({filteredStudents.length})
+                                </h4>
+                                
+                                {filteredStudents.length === 0 ? (
+                                    <div style={{textAlign: 'center', padding: '30px', color: 'var(--text-light)'}}>
+                                        <i className="fas fa-search-minus" style={{fontSize: '2rem', marginBottom: '10px', opacity: 0.5}}></i>
+                                        <p>Aucun élève ne correspond à "{searchQuery}"</p>
+                                    </div>
+                                ) : (
+                                    <div className="table-container full-width">
+                                        <table className="data-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Photo</th>
+                                                    <th>Nom & Prénom</th>
+                                                    <th>Matricule</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {filteredStudents.map(s => (
+                                                    <tr key={s.id}>
+                                                        <td>
+                                                            <div className="avatar" style={{width: '35px', height: '35px'}}>
+                                                                {s.photo_path ? (
+                                                                    <img src={`${process.env.NEXT_PUBLIC_API_URL?.replace('/api/v1', '') || 'http://127.0.0.1:8000'}/storage/${s.photo_path}`} alt="Photo" style={{width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover'}} />
+                                                                ) : (
+                                                                    <i className="fas fa-user" style={{lineHeight: '35px'}}></i>
+                                                                )}
+                                                            </div>
+                                                        </td>
+                                                        <td><strong>{s.last_name} {s.first_name}</strong></td>
+                                                        <td>{s.registration_number || <span className="text-muted" style={{fontSize: '0.8em', fontStyle: 'italic'}}>Géré automatiquement</span>}</td>
+                                                        <td>
+                                                            <div className="action-buttons" style={{display: 'flex', gap: '8px', alignItems: 'center'}}>
+                                                                <button type="button" className="btn btn-secondary btn-small" onClick={(e) => { e.preventDefault(); e.stopPropagation(); editStudent(s); }} title="Modifier">
+                                                                    <i className="fas fa-edit"></i> Modifier
+                                                                </button>
+                                                                <button type="button" className="btn btn-primary btn-small" onClick={(e) => { e.preventDefault(); e.stopPropagation(); alert(`Impression pour ${s.last_name}`); }} title="Imprimer">
+                                                                    <i className="fas fa-print"></i> Imprimer
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                )}
+                            </div>
+                        )}
                     </div>
                 </div>
-
-                {searchQuery && (
-                    <div className="card">
-                        <div className="card-body">
-                            <h4 style={{ marginBottom: '15px' }}>Résultats ({filteredStudents.length})</h4>
-                            
-                            {filteredStudents.length === 0 ? (
-                                <div style={{textAlign: 'center', padding: '30px', color: 'var(--text-light)'}}>
-                                    <i className="fas fa-search-minus" style={{fontSize: '2rem', marginBottom: '10px', opacity: 0.5}}></i>
-                                    <p>Aucun élève ne correspond à "{searchQuery}"</p>
-                                </div>
-                            ) : (
-                                <div className="table-container full-width">
-                                    <table className="data-table">
-                                        <thead>
-                                            <tr>
-                                                <th>Photo</th>
-                                                <th>Nom & Prénom</th>
-                                                <th>Matricule</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {filteredStudents.map(s => (
-                                                <tr key={s.id}>
-                                                    <td>
-                                                        <div className="avatar" style={{width: '35px', height: '35px'}}>
-                                                            {s.photo_path ? (
-                                                                <img src={`${process.env.NEXT_PUBLIC_API_URL?.replace('/api/v1', '') || 'http://127.0.0.1:8000'}/storage/${s.photo_path}`} alt="Photo" style={{width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover'}} />
-                                                            ) : (
-                                                                <i className="fas fa-user" style={{lineHeight: '35px'}}></i>
-                                                            )}
-                                                        </div>
-                                                    </td>
-                                                    <td><strong>{s.last_name} {s.first_name}</strong></td>
-                                                    <td>{s.registration_number || <span className="text-muted" style={{fontSize: '0.8em', fontStyle: 'italic'}}>Géré automatiquement</span>}</td>
-                                                    <td>
-                                                        <div className="action-buttons" style={{display: 'flex', gap: '8px', alignItems: 'center'}}>
-                                                            <button className="btn btn-secondary btn-small" onClick={() => editStudent(s)} title="Modifier">
-                                                                <i className="fas fa-edit"></i>
-                                                            </button>
-                                                            <div className="dropdown" style={{position: 'relative', display: 'inline-block'}}>
-                                                                <button className="btn btn-primary btn-small" title="Imprimer" onClick={(e) => {
-                                                                    const dropdown = e.currentTarget.nextElementSibling as HTMLElement;
-                                                                    if (dropdown) {
-                                                                        const isVisible = dropdown.style.display === 'block';
-                                                                        document.querySelectorAll('.print-dropdown').forEach(d => (d as HTMLElement).style.display = 'none');
-                                                                        dropdown.style.display = isVisible ? 'none' : 'block';
-                                                                    }
-                                                                }}>
-                                                                    <i className="fas fa-print"></i>
-                                                                </button>
-                                                                <div className="print-dropdown dropdown-menu" style={{display: 'none', position: 'absolute', right: 0, zIndex: 100, minWidth: '180px', background: 'var(--card-bg)', border: '1px solid var(--border-color)', borderRadius: '4px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)'}}>
-                                                                    <a href="#" onClick={(e) => { e.preventDefault(); alert(`Impression Fiche Identité pour ${s.last_name}`); }} style={{display: 'block', padding: '8px 12px', textDecoration: 'none', color: 'var(--text-color)', borderBottom: '1px solid var(--border-color)'}}>
-                                                                        <i className="fas fa-id-card" style={{marginRight: '8px', color: 'var(--primary-color)'}}></i> Fiche identité
-                                                                    </a>
-                                                                    <a href="#" onClick={(e) => { e.preventDefault(); alert(`Impression Fiche de Notes pour ${s.last_name}`); }} style={{display: 'block', padding: '8px 12px', textDecoration: 'none', color: 'var(--text-color)'}}>
-                                                                        <i className="fas fa-file-alt" style={{marginRight: '8px', color: 'var(--primary-color)'}}></i> Fiche de notes
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                )}
             </div>
         </>
     );
