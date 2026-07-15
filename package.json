@@ -4,11 +4,11 @@
   "description": "Scripts racine — démarre skoolis_landing (3000) + skoolis_app (3001)",
   "scripts": {
     "dev": "concurrently --kill-others-on-fail --names \"landing,app\" --prefix-colors \"cyan,magenta\" \"npm run dev:landing\" \"npm run dev:app\"",
-    "dev:landing": "cd skoolis_landing && npm run dev",
-    "dev:app": "node -e \"setTimeout(() => require('child_process').spawn('npm', ['run', 'dev'], { cwd: 'skoolis_app', stdio: 'inherit', shell: true }), 2000)\"",
-    "build": "cd skoolis_landing && npm run build",
-    "build:app": "cd skoolis_app && npm run build",
-    "start": "concurrently --kill-others-on-fail --names \"landing,app\" --prefix-colors \"cyan,magenta\" \"cd skoolis_landing && npm run start\" \"cd skoolis_app && npm run start\""
+    "dev:landing": "npm run dev --prefix skoolis_landing",
+    "dev:app": "npm run dev --prefix skoolis_app",
+    "build": "npm run build --prefix skoolis_landing",
+    "build:app": "npm run build --prefix skoolis_app",
+    "start": "concurrently --names \"landing,app\" --prefix-colors \"cyan,magenta\" \"npm run start --prefix skoolis_landing\" \"npm run start --prefix skoolis_app\""
   },
   "devDependencies": {
     "concurrently": "^9.0.0"

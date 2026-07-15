@@ -55,8 +55,19 @@ export default function LoginPage() {
 
                 {/* Marque */}
                 <div className="login-brand">
-                    <div className="logo-icon">S</div>
-                    <h1>Skoolis</h1>
+                    <picture>
+                        {/* Mode sombre */}
+                        <source
+                            srcSet="http://localhost:3001/skoolis_logo_sombre.png"
+                            media="(prefers-color-scheme: dark)"
+                        />
+                        {/* Mode clair (défaut) */}
+                        <img
+                            src="http://localhost:3001/skoolis_logo_clair.png"
+                            alt="Skoolis"
+                            style={{ width: '120px', height: 'auto', marginBottom: '4px' }}
+                        />
+                    </picture>
                     <p>Espace d'administration scolaire</p>
                 </div>
 
