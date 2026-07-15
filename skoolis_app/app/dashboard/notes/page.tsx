@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { api } from "@/lib/apiClient";
 import Image from "next/image";
 
 export default function NotesPage() {
@@ -26,7 +27,7 @@ export default function NotesPage() {
     const [gradeInput, setGradeInput] = useState<Record<string, any>>({});
     const [evalType, setEvalType] = useState('composition'); // ou examen_pratique
 
-    const API_BASE_URL = 'http://127.0.0.1:8000/api/v1';
+
 
     useEffect(() => {
         fetchClasses();
@@ -39,10 +40,7 @@ export default function NotesPage() {
 
     const fetchClasses = async () => {
         try {
-            const res = await fetch(`${API_BASE_URL}/classes`, {
-                headers: { 'Accept': 'application/json' },
-                credentials: 'include'
-            });
+            const res = await api.get(`/school-classes`);
             if (res.ok) {
                 const data = await res.json();
                 setClasses(data.data || []);
@@ -54,10 +52,7 @@ export default function NotesPage() {
 
     const fetchStudentsForClass = async (classId: string) => {
         try {
-            const res = await fetch(`${API_BASE_URL}/students?class_id=${classId}`, {
-                headers: { 'Accept': 'application/json' },
-                credentials: 'include'
-            });
+            const res = await api.get(`/students?class_id=${classId}`);
             if (res.ok) {
                 const data = await res.json();
                 setStudents(data.data || []);
@@ -124,19 +119,11 @@ export default function NotesPage() {
         });
 
         try {
-            const res = await fetch(`${API_BASE_URL}/grades/bulk`, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                credentials: 'include',
-                body: JSON.stringify({
-                    school_class_id: selectedClass,
-                    subject_id: selectedSubject,
-                    period: selectedPeriod,
-                    grades: gradesArray
-                })
+            const res = await api.post(`/grades/bulk`, {
+                school_class_id: selectedClass,
+                subject_id: selectedSubject,
+                period: selectedPeriod,
+                grades: gradesArray
             });
 
             if (res.ok) {
@@ -152,15 +139,12 @@ export default function NotesPage() {
 
     const fetchGrades = async () => {
         try {
-            let url = `${API_BASE_URL}/grades?`;
+            let url = `/grades?`;
             if (selectedClass) url += `class_id=${selectedClass}&`;
             if (selectedPeriod) url += `period=${selectedPeriod}&`;
             if (selectedSubject) url += `subject_id=${selectedSubject}&`;
 
-            const res = await fetch(url, {
-                headers: { 'Accept': 'application/json' },
-                credentials: 'include'
-            });
+            const res = await api.get(url);
             if (res.ok) {
                 const data = await res.json();
                 setGrades(data.data || []);
@@ -173,16 +157,16 @@ export default function NotesPage() {
     const fetchStudentGrades = async () => {
         if (!selectedStudent) return;
         try {
-            let url = `${API_BASE_URL}/grades?student_id=${selectedStudent}`;
+            let url = `/grades?student_id=${selectedStudent}`;
             if (selectedPeriod) url += `&period=${selectedPeriod}`;
-            const res = await fetch(url, { headers: { 'Accept': 'application/json' }, credentials: 'include' });
+            const res = await api.get(url);
             if (res.ok) {
                 const data = await res.json();
                 setStudentGrades(data.data || []);
             }
 
             if (selectedPeriod) {
-                const resAvg = await fetch(`${API_BASE_URL}/students/${selectedStudent}/period-average?period=${selectedPeriod}`, { headers: { 'Accept': 'application/json' }, credentials: 'include' });
+                const resAvg = await api.get(`/students/${selectedStudent}/period-average?period=${selectedPeriod}`);
                 if (resAvg.ok) {
                     const avgData = await resAvg.json();
                     setStudentPeriodAverage(avgData.moyenne_generale);
@@ -198,7 +182,7 @@ export default function NotesPage() {
     const fetchClassPeriodAverages = async () => {
         if (!selectedClass || !selectedPeriod) return;
         try {
-            const res = await fetch(`${API_BASE_URL}/classes/${selectedClass}/period-averages?period=${selectedPeriod}`, { headers: { 'Accept': 'application/json' }, credentials: 'include' });
+            const res = await api.get(`/classes/${selectedClass}/period-averages?period=${selectedPeriod}`);
             if (res.ok) {
                 const data = await res.json();
                 setClassPeriodAverages(data.data || []);
@@ -211,7 +195,7 @@ export default function NotesPage() {
     const fetchClassAnnualAverages = async () => {
         if (!selectedClass) return;
         try {
-            const res = await fetch(`${API_BASE_URL}/classes/${selectedClass}/annual-averages`, { headers: { 'Accept': 'application/json' }, credentials: 'include' });
+            const res = await api.get(`/classes/${selectedClass}/annual-averages`);
             if (res.ok) {
                 const data = await res.json();
                 setClassAnnualAverages(data.data || []);
