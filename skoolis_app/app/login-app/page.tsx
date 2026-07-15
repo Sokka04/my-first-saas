@@ -2,187 +2,435 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
-import { User, Lock, Database, Loader2, AlertCircle } from "lucide-react";
 
 export default function LoginPage() {
     const router = useRouter();
-    const [identifier, setIdentifier] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [schoolYear, setSchoolYear] = useState("2024-2025");
     const [isLoading, setIsLoading] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
 
-    const handleLogin = (e: React.FormEvent) => {
+    const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
         setErrorMsg("");
 
-        // Simulation d'une vérification de connexion
-        setTimeout(() => {
-            if (!identifier || !password) {
-                setErrorMsg("Veuillez remplir tous les champs.");
-                setIsLoading(false);
-                return;
+        try {
+            // Demander le cookie CSRF à Sanctum
+            await fetch("http://localhost:8000/sanctum/csrf-cookie", {
+                method: "GET",
+                headers: { Accept: "application/json" },
+            });
+
+            // Appel de login
+            const res = await fetch("http://localhost:8000/api/v1/login", {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email, password }),
+                credentials: "include",
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw new Error(data.message || "Identifiants incorrects");
             }
 
-            // Ici, vous ferez votre vérification réelle avec l'API.
-            console.log("Connexion avec :", { identifier, password, schoolYear });
-            
-            // Définir un cookie pour indiquer que l'utilisateur est connecté (valable 1 jour)
+            // Définir le cookie local pour le middleware proxy
             document.cookie = `skoolis_auth=true; path=/; max-age=86400`;
             
             // Redirection vers le dashboard
             router.push("/dashboard");
-        }, 1200);
+        } catch (err: any) {
+            setErrorMsg(err.message || "Erreur de connexion");
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
-        <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden home-surface text-foreground">
-            {/* Arrière-plan animé vibrant (Glassmorphism) */}
-            <div className="absolute inset-0 z-0 overflow-hidden">
-                <motion.div 
-                    animate={{ 
-                        scale: [1, 1.2, 1],
-                        rotate: [0, 90, 0],
-                    }}
-                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                    className="absolute -top-[10%] -left-[5%] w-[40vw] h-[40vw] rounded-full bg-primary/40 blur-[100px] opacity-80"
-                />
-                <motion.div 
-                    animate={{ 
-                        scale: [1, 1.3, 1],
-                        rotate: [0, -90, 0],
-                    }}
-                    transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                    className="absolute -bottom-[10%] -right-[5%] w-[50vw] h-[50vw] rounded-full bg-secondary/40 blur-[120px] opacity-80"
-                />
-            </div>
+        <div className="login-wrapper">
+            <style dangerouslySetInnerHTML={{ __html: `
+                .login-wrapper {
+                    --primary-color: #7b1fa2;
+                    --primary-light: #9c27b0;
+                    --primary-dark: #4a0072;
+                    --secondary-color: #f3e5f5;
+                    --text-color: #333333;
+                    --text-light: #666666;
+                    --bg-color: #f5f5f5;
+                    --bg-light: #fafafa;
+                    --white: #ffffff;
+                    --border-radius: 8px;
+                    --border-radius-lg: 12px;
+                    --border-color: rgba(0, 0, 0, 0.1);
+                    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+                    --box-shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.15);
+                    --transition: all 0.3s ease;
+                    --danger-color: #c62828;
+                    --danger-bg: #ffebee;
 
-            {/* Conteneur Principal */}
-            <div className="relative z-10 w-full max-w-md px-6">
-                <motion.div 
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
-                    className="backdrop-blur-2xl bg-card/40 dark:bg-card/40 border border-primary/10 shadow-[0_8px_30px_color-mix(in_oklch,var(--primary)_15%,transparent)] rounded-3xl p-8 sm:p-10"
-                >
-                    <div className="text-center mb-8">
-                        <motion.div 
-                            initial={{ scale: 0.8, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            transition={{ delay: 0.2, duration: 0.5 }}
-                            className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 text-primary mb-4 ring-1 ring-primary/20 shadow-inner"
-                        >
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-8 h-8">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l9-5-9-5-9 5 9 5z" />
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-                            </svg>
-                        </motion.div>
-                        <h1 className="text-2xl font-bold tracking-tight text-foreground">Connexion</h1>
-                        <p className="text-sm text-muted-foreground mt-2">Accédez à votre espace d'administration</p>
-                    </div>
+                    font-family: 'Poppins', sans-serif;
+                    color: var(--text-color);
+                    line-height: 1.6;
+                    min-height: 100vh;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 20px;
+                    background:
+                        radial-gradient(circle at 15% 20%, rgba(123, 31, 162, 0.10), transparent 45%),
+                        radial-gradient(circle at 85% 80%, rgba(156, 39, 176, 0.10), transparent 45%),
+                        var(--bg-color);
+                }
 
-                    <AnimatePresence>
-                        {errorMsg && (
-                            <motion.div 
-                                initial={{ opacity: 0, height: 0, y: -10 }}
-                                animate={{ opacity: 1, height: "auto", y: 0 }}
-                                exit={{ opacity: 0, height: 0, y: -10 }}
-                                className="mb-6 overflow-hidden"
-                            >
-                                <div className="flex items-center gap-3 p-4 text-sm text-destructive-foreground bg-destructive/10 border border-destructive/20 rounded-xl">
-                                    <AlertCircle className="w-5 h-5 shrink-0 text-destructive" />
-                                    <p className="text-destructive font-medium">{errorMsg}</p>
-                                </div>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
+                :global(.dark) .login-wrapper {
+                    --primary-color: #9c27b0;
+                    --primary-light: #ba68c8;
+                    --primary-dark: #7b1fa2;
+                    --secondary-color: #4a0072;
+                    --text-color: #f5f5f5;
+                    --text-light: #cccccc;
+                    --bg-color: #121212;
+                    --bg-light: #1a1a1a;
+                    --white: #1e1e1e;
+                    --border-color: rgba(255, 255, 255, 0.1);
+                    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+                    --box-shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.4);
+                    --danger-bg: #3a1010;
+                }
 
-                    <form onSubmit={handleLogin} className="space-y-5">
-                        <div className="space-y-1.5">
-                            <label htmlFor="identifier" className="text-sm font-medium text-foreground ml-1">Identifiant</label>
-                            <motion.div whileFocus="focused" initial="idle" className="relative group">
-                                <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground transition-colors group-focus-within:text-primary" />
+                .login-wrapper * {
+                    box-sizing: border-box;
+                }
+
+                .login-wrapper .btn {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 8px;
+                    padding: 10px 20px;
+                    font-size: 0.95rem;
+                    font-weight: 500;
+                    border-radius: var(--border-radius);
+                    border: none;
+                    cursor: pointer;
+                    transition: var(--transition);
+                    text-decoration: none;
+                    white-space: nowrap;
+                }
+
+                .login-wrapper .btn:disabled {
+                    opacity: 0.5;
+                    cursor: not-allowed;
+                }
+
+                .login-wrapper .btn-primary {
+                    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+                    color: white;
+                }
+
+                .login-wrapper .btn-primary:hover:not(:disabled) {
+                    background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+                    box-shadow: 0 4px 12px rgba(123, 31, 162, 0.3);
+                    transform: translateY(-2px);
+                }
+
+                .login-wrapper .btn-block {
+                    width: 100%;
+                    display: flex;
+                }
+
+                .login-wrapper .form-group {
+                    margin-bottom: 20px;
+                }
+
+                .login-wrapper .form-label {
+                    display: block;
+                    margin-bottom: 8px;
+                    font-weight: 500;
+                    color: var(--text-color);
+                    font-size: 0.95rem;
+                }
+
+                .login-wrapper .form-input {
+                    width: 100%;
+                    padding: 12px 15px;
+                    border: 1px solid var(--border-color);
+                    border-radius: var(--border-radius);
+                    background-color: var(--white);
+                    color: var(--text-color);
+                    font-size: 0.95rem;
+                    transition: var(--transition);
+                    font-family: 'Poppins', sans-serif;
+                }
+
+                .login-wrapper .form-input:focus {
+                    outline: none;
+                    border-color: var(--primary-color);
+                    box-shadow: 0 0 0 3px rgba(123, 31, 162, 0.1);
+                }
+
+                .login-wrapper .input-group {
+                    position: relative;
+                    transition: transform 0.2s ease;
+                }
+
+                .login-wrapper .input-group:focus-within {
+                    transform: translateY(-1px);
+                }
+
+                .login-wrapper .input-group i {
+                    position: absolute;
+                    left: 15px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    color: var(--text-light);
+                    transition: color 0.2s ease;
+                }
+
+                .login-wrapper .input-group:focus-within i {
+                    color: var(--primary-color);
+                }
+
+                .login-wrapper .input-group .form-input {
+                    padding-left: 45px;
+                }
+
+                .login-wrapper .checkbox-label {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    cursor: pointer;
+                    font-size: 0.85rem;
+                    color: var(--text-color);
+                }
+
+                .login-wrapper .checkbox-label input[type="checkbox"] {
+                    width: 16px;
+                    height: 16px;
+                    accent-color: var(--primary-color);
+                }
+
+                .login-wrapper .login-page-inner {
+                    width: 100%;
+                    max-width: 400px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 22px;
+                    opacity: 0;
+                    transform: translateY(16px);
+                    animation: loginEnter 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                }
+
+                @keyframes loginEnter {
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+
+                .login-wrapper .login-brand {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 10px;
+                    text-align: center;
+                }
+
+                .login-wrapper .logo-icon {
+                    width: 56px;
+                    height: 56px;
+                    border-radius: 50%;
+                    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+                    color: white;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 1.9rem;
+                    font-weight: 700;
+                    box-shadow: 0 8px 20px rgba(123, 31, 162, 0.3);
+                }
+
+                .login-wrapper .login-brand h1 {
+                    font-size: 1.6rem;
+                    color: var(--primary-color);
+                    font-weight: 700;
+                    margin: 0;
+                }
+
+                .login-wrapper .login-brand p {
+                    color: var(--text-light);
+                    font-size: 0.9rem;
+                    margin: 0;
+                }
+
+                .login-wrapper .login-card {
+                    width: 100%;
+                    background-color: var(--white);
+                    border-radius: var(--border-radius-lg);
+                    box-shadow: var(--box-shadow-lg);
+                    padding: 36px 32px;
+                    border: 1px solid var(--border-color);
+                }
+
+                .login-wrapper .login-card h2 {
+                    font-size: 1.15rem;
+                    font-weight: 600;
+                    margin: 0 0 6px 0;
+                    color: var(--text-color);
+                }
+
+                .login-wrapper .login-card > p {
+                    color: var(--text-light);
+                    font-size: 0.88rem;
+                    margin: 0 0 24px 0;
+                }
+
+                .login-wrapper .form-options {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin-bottom: 24px;
+                    font-size: 0.85rem;
+                }
+
+                .login-wrapper .form-options a {
+                    color: var(--primary-color);
+                    text-decoration: none;
+                    font-weight: 500;
+                }
+
+                .login-wrapper .form-options a:hover {
+                    text-decoration: underline;
+                }
+
+                .login-wrapper .btn-primary.btn-block {
+                    position: relative;
+                    height: 46px;
+                }
+
+                .login-wrapper .btn-spinner {
+                    width: 18px;
+                    height: 18px;
+                    border: 2.5px solid rgba(255, 255, 255, 0.4);
+                    border-top-color: white;
+                    border-radius: 50%;
+                    display: none;
+                    animation: loginSpin 0.7s linear infinite;
+                }
+
+                @keyframes loginSpin {
+                    to { transform: rotate(360deg); }
+                }
+
+                .login-wrapper .btn-primary.loading .btn-label {
+                    opacity: 0;
+                }
+
+                .login-wrapper .btn-primary.loading .btn-spinner {
+                    display: block;
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    margin-left: -9px;
+                    margin-top: -9px;
+                }
+
+                .login-wrapper .form-error-banner {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    background: var(--danger-bg);
+                    color: var(--danger-color);
+                    border-radius: var(--border-radius);
+                    padding: 10px 14px;
+                    font-size: 0.85rem;
+                    margin-bottom: 18px;
+                }
+
+                .login-wrapper .login-footer {
+                    text-align: center;
+                    font-size: 0.78rem;
+                    color: var(--text-light);
+                    opacity: 0.75;
+                    margin: 0;
+                }
+            ` }} />
+
+            <div className="login-page-inner">
+                <div className="login-brand">
+                    <div className="logo-icon">S</div>
+                    <h1>Skoolis</h1>
+                    <p>Espace d'administration scolaire</p>
+                </div>
+
+                <div className="login-card">
+                    <h2>Connexion</h2>
+                    <p>Entrez vos identifiants pour accéder à votre tableau de bord.</p>
+
+                    {errorMsg && (
+                        <div className="form-error-banner">
+                            <i className="fas fa-circle-exclamation"></i>
+                            <span>{errorMsg}</span>
+                        </div>
+                    )}
+
+                    <form onSubmit={handleLogin}>
+                        <div className="form-group">
+                            <label className="form-label" htmlFor="email">Adresse e-mail</label>
+                            <div className="input-group">
+                                <i className="fas fa-envelope"></i>
                                 <input 
-                                    type="text" 
-                                    id="identifier" 
-                                    placeholder="admin@skoolis.com" 
-                                    value={identifier}
-                                    onChange={(e) => setIdentifier(e.target.value)}
-                                    className="w-full pl-11 pr-4 py-3 bg-background/50 border border-input rounded-xl text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-300"
+                                    className="form-input" 
+                                    type="email" 
+                                    id="email" 
+                                    name="email" 
+                                    placeholder="vous@etablissement.com" 
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required 
                                 />
-                            </motion.div>
+                            </div>
                         </div>
 
-                        <div className="space-y-1.5">
-                            <div className="flex items-center justify-between ml-1">
-                                <label htmlFor="password" className="text-sm font-medium text-foreground">Mot de passe</label>
-                                <a href="#" className="text-xs font-medium text-primary hover:text-primary/80 transition-colors">Oublié ?</a>
-                            </div>
-                            <motion.div whileFocus="focused" initial="idle" className="relative group">
-                                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground transition-colors group-focus-within:text-primary" />
+                        <div className="form-group">
+                            <label className="form-label" htmlFor="password">Mot de passe</label>
+                            <div className="input-group">
+                                <i class="fas fa-lock"></i>
                                 <input 
+                                    className="form-input" 
                                     type="password" 
                                     id="password" 
+                                    name="password" 
                                     placeholder="••••••••" 
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    className="w-full pl-11 pr-4 py-3 bg-background/50 border border-input rounded-xl text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-300"
+                                    required 
                                 />
-                            </motion.div>
-                        </div>
-
-                        <div className="space-y-1.5">
-                            <label htmlFor="schoolYear" className="text-sm font-medium text-foreground ml-1">Année Académique</label>
-                            <div className="relative group">
-                                <Database className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground transition-colors group-focus-within:text-primary" />
-                                <select 
-                                    id="schoolYear" 
-                                    value={schoolYear}
-                                    onChange={(e) => setSchoolYear(e.target.value)}
-                                    className="w-full pl-11 pr-10 py-3 bg-background/50 border border-input rounded-xl text-sm appearance-none focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-300"
-                                >
-                                    <option value="2024-2025">Année 2024 - 2025</option>
-                                    <option value="2023-2024">Année 2023 - 2024 (Archives)</option>
-                                    <option value="2022-2023">Année 2022 - 2023 (Archives)</option>
-                                </select>
-                                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
-                                    <svg className="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
-                                </div>
                             </div>
                         </div>
 
-                        <motion.button 
-                            whileHover={{ scale: 1.01 }}
-                            whileTap={{ scale: 0.98 }}
-                            type="submit" 
-                            disabled={isLoading}
-                            className="w-full relative flex items-center justify-center gap-2 py-3.5 mt-2 bg-primary text-primary-foreground font-medium rounded-xl shadow-[0_8px_20px_color-mix(in_oklch,var(--primary)_30%,transparent)] hover:shadow-[0_8px_25px_color-mix(in_oklch,var(--primary)_40%,transparent)] transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
-                        >
-                            {isLoading ? (
-                                <>
-                                    <Loader2 className="w-5 h-5 animate-spin" />
-                                    <span>Connexion en cours...</span>
-                                </>
-                            ) : (
-                                <span>Se connecter</span>
-                            )}
-                        </motion.button>
-                    </form>
-                </motion.div>
+                        <div className="form-options">
+                            <label className="checkbox-label">
+                                <input type="checkbox" name="remember" />
+                                Se souvenir de moi
+                            </label>
+                            <a href="#">Mot de passe oublié ?</a>
+                        </div>
 
-                {/* Signature Skoolis */}
-                <motion.div 
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.8, duration: 0.6 }}
-                    className="mt-8 text-center"
-                >
-                    <p className="text-xs text-muted-foreground/60 tracking-wider font-medium uppercase">
-                        Propulsé par <span className="text-muted-foreground/80 font-bold">Skoolis</span>
-                    </p>
-                </motion.div>
+                        <button type="submit" className={`btn btn-primary btn-block ${isLoading ? 'loading' : ''}`} disabled={isLoading}>
+                            <span className="btn-label">Se connecter</span>
+                            <span className="btn-spinner"></span>
+                        </button>
+                    </form>
+                </div>
+
+                <p className="login-footer">Propulsé par Skoolis</p>
             </div>
         </div>
     );
