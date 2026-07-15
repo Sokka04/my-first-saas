@@ -275,6 +275,16 @@ export default function StudentsPage() {
         );
     });
 
+    const formatDate = (dateString: string) => {
+        if (!dateString) return '';
+        try {
+            const date = new Date(dateString);
+            return new Intl.DateTimeFormat('fr-FR').format(date);
+        } catch (e) {
+            return dateString;
+        }
+    };
+
     return (
         <>
             <div className="features-nav">
@@ -505,7 +515,7 @@ export default function StudentsPage() {
                                             <td><strong>{s.last_name}</strong></td>
                                             <td>{s.first_name}</td>
                                             <td>{s.gender === 'F' ? 'Féminin' : s.gender === 'M' ? 'Masculin' : '-'}</td>
-                                            <td>{s.birth_date || <span className="text-muted">-</span>}</td>
+                                            <td>{s.birth_date ? formatDate(s.birth_date) : <span className="text-muted">-</span>}</td>
                                             <td>{className}</td>
                                             <td>
                                                 <div className="action-buttons" style={{display: 'flex', gap: '8px', alignItems: 'center'}}>
@@ -775,7 +785,7 @@ export default function StudentsPage() {
                                                         <td><strong>{s.last_name} {s.first_name}</strong></td>
                                                         <td>{s.registration_number || <span className="text-muted" style={{fontSize: '0.8em', fontStyle: 'italic'}}>Géré automatiquement</span>}</td>
                                                         <td>{s.gender === 'F' ? 'Féminin' : s.gender === 'M' ? 'Masculin' : '-'}</td>
-                                                        <td>{s.birth_date || <span className="text-muted">-</span>}</td>
+                                                        <td>{s.birth_date ? formatDate(s.birth_date) : <span className="text-muted">-</span>}</td>
                                                         <td>{className}</td>
                                                         <td>
                                                             <div className="action-buttons" style={{display: 'flex', gap: '8px', alignItems: 'center'}}>
