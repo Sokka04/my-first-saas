@@ -244,44 +244,51 @@ export default function ClassesPage() {
                                 <option value="3eme">3ème</option>
                             </select>
                         </div>
-                    </div>
-
-                    <div className="classes-grid">
-                        {loading && <p>Chargement des classes...</p>}
-                        {!loading && classes.length === 0 && <p>Aucune classe enregistrée.</p>}
+                          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                        {loading && <p className="col-span-full text-muted-foreground text-center py-8">Chargement des classes...</p>}
+                        {!loading && classes.length === 0 && <p className="col-span-full text-muted-foreground text-center py-8">Aucune classe enregistrée.</p>}
                         {classes.map(cls => (
-                            <div key={cls.id} className="card class-card">
-                                <div className="card-header">
+                            <div key={cls.id} className="bg-card border-border rounded-2xl border p-6 shadow-sm transition-all hover:shadow-md hover:-translate-y-1 flex flex-col gap-5">
+                                <div className="flex justify-between items-start">
                                     <div>
-                                        <h4>{cls.name}</h4>
-                                        <span className="badge badge-info">{cls.cycle || 'Non défini'} • {cls.level || '-'}</span>
+                                        <h4 className="text-foreground text-xl font-bold mb-1">{cls.name}</h4>
+                                        <div className="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-semibold inline-block">
+                                            {cls.cycle || 'Non défini'} • {cls.level || '-'}
+                                        </div>
                                     </div>
-                                    <div className="card-icon" style={{backgroundColor: 'rgba(33, 150, 243, 0.1)', color: '#2196f3'}}>
-                                        <i className="fas fa-users"></i>
+                                    <div className="bg-primary/10 text-primary flex h-12 w-12 items-center justify-center rounded-xl shadow-sm">
+                                        <i className="fas fa-users text-xl"></i>
                                     </div>
                                 </div>
-                                <div className="card-body">
-                                    <p className="teacher-info">
+                                
+                                <div className="text-muted-foreground flex items-center gap-3 text-sm font-medium">
+                                    <div className="bg-secondary text-secondary-foreground flex h-8 w-8 items-center justify-center rounded-full">
                                         <i className="fas fa-user-tie"></i>
-                                        {cls.teacher ? `${cls.teacher.first_name} ${cls.teacher.last_name}` : 'Aucun titulaire'}
-                                    </p>
+                                    </div>
+                                    {cls.teacher ? `${cls.teacher.first_name} ${cls.teacher.last_name}` : 'Aucun titulaire assigné'}
                                 </div>
-                                <div className="capacity-bar-container" style={{ background: '#f5f5f5', borderRadius: '8px', padding: '10px', marginBottom: '15px' }}>
-                                    <div className="capacity-labels" style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px', marginBottom: '5px' }}>
-                                        <span>Effectif: <strong>{cls.students_count || 0}</strong></span>
-                                        <span className="text-muted">Capacité: {cls.capacity || '-'}</span>
+                                
+                                <div className="bg-secondary/50 rounded-xl p-4">
+                                    <div className="flex justify-between text-sm mb-3">
+                                        <span className="text-foreground font-semibold">Effectif: {cls.students_count || 0}</span>
+                                        <span className="text-muted-foreground">Capacité: {cls.capacity || '-'}</span>
                                     </div>
                                     {cls.capacity && (
-                                        <div className="progress-bar-bg" style={{ height: '6px', background: '#e0e0e0', borderRadius: '3px', overflow: 'hidden' }}>
-                                            <div className="progress-bar-fill" style={{ width: `${Math.min(((cls.students_count || 0) / cls.capacity) * 100, 100)}%`, height: '100%', background: ((cls.students_count || 0) > cls.capacity) ? '#f44336' : 'var(--primary-color)' }}></div>
+                                        <div className="bg-background/80 border-border h-2.5 w-full rounded-full border overflow-hidden">
+                                            <div 
+                                                className="h-full rounded-full transition-all duration-500 ease-in-out" 
+                                                style={{ 
+                                                    width: `${Math.min(((cls.students_count || 0) / cls.capacity) * 100, 100)}%`, 
+                                                    backgroundColor: ((cls.students_count || 0) > cls.capacity) ? 'var(--destructive)' : 'var(--primary)' 
+                                                }}
+                                            />
                                         </div>
                                     )}
                                 </div>
-                                <div className="card-actions">
-                                    <button className="btn btn-secondary w-100">
-                                        <i className="fas fa-eye"></i> Détails
-                                    </button>
-                                </div>
+                                
+                                <button className="bg-secondary text-secondary-foreground hover:bg-secondary/80 mt-auto w-full rounded-xl py-3 text-sm font-semibold transition-colors">
+                                    <i className="fas fa-eye mr-2"></i> Voir les détails
+                                </button>
                             </div>
                         ))}
                     </div>
