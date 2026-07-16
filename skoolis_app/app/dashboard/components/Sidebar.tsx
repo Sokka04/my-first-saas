@@ -188,6 +188,7 @@ export default function Sidebar() {
                         </a>
                     </li>
                 </ul>
+                </ul>
             </div>
 
             <div className="sidebar-footer">
@@ -196,11 +197,26 @@ export default function Sidebar() {
                         <i className="fas fa-user"></i>
                     </div>
                     <div className="user-details">
-                        <h4>Admin Principal</h4>
-                        <p>admin@skoolis.com</p>
+                        <h4 id="sidebar-user-name">Admin Principal</h4>
+                        <p id="sidebar-user-email">admin@skoolis.com</p>
                     </div>
                 </div>
             </div>
+            {/* Script auto-exécutable pour injecter les vraies infos du localStorage s'il y en a */}
+            <script
+                dangerouslySetInnerHTML={{
+                    __html: `
+                        try {
+                            const userStr = localStorage.getItem('skoolis_user');
+                            if (userStr) {
+                                const user = JSON.parse(userStr);
+                                if (user.name) document.getElementById('sidebar-user-name').innerText = user.name;
+                                if (user.email) document.getElementById('sidebar-user-email').innerText = user.email;
+                            }
+                        } catch (e) {}
+                    `,
+                }}
+            />
         </nav>
     );
 }
