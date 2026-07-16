@@ -250,45 +250,47 @@ export default function ClassesPage() {
                         {loading && <p className="col-span-full text-muted-foreground text-center py-8">Chargement des classes...</p>}
                         {!loading && classes.length === 0 && <p className="col-span-full text-muted-foreground text-center py-8">Aucune classe enregistrée.</p>}
                         {classes.map(cls => (
-                            <div key={cls.id} className="bg-card border-border rounded-2xl border p-6 shadow-sm transition-all hover:shadow-md hover:-translate-y-1 flex flex-col gap-5">
-                                <div className="flex justify-between items-start">
-                                    <div>
-                                        <h4 className="text-foreground text-xl font-bold mb-1">{cls.name}</h4>
-                                        <div className="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-semibold inline-block">
+                            <div key={cls.id} className="bg-card border-border rounded-2xl border p-5 sm:p-6 shadow-sm transition-all hover:shadow-md hover:-translate-y-1 flex flex-col gap-4">
+                                <div className="flex justify-between items-start gap-2">
+                                    <div className="overflow-hidden">
+                                        <h4 className="text-foreground text-lg sm:text-xl font-bold mb-1 truncate" title={cls.name}>{cls.name}</h4>
+                                        <div className="bg-primary/10 text-primary px-2.5 py-1 rounded-full text-[11px] sm:text-xs font-semibold inline-block truncate max-w-full">
                                             {cls.cycle || 'Non défini'} • {cls.level || '-'}
                                         </div>
                                     </div>
-                                    <div className="bg-primary/10 text-primary flex h-12 w-12 items-center justify-center rounded-xl shadow-sm">
-                                        <i className="fas fa-users text-xl"></i>
+                                    <div className="bg-primary/10 text-primary flex h-10 w-10 shrink-0 items-center justify-center rounded-xl shadow-sm">
+                                        <i className="fas fa-users text-lg"></i>
                                     </div>
                                 </div>
                                 
-                                <div className="text-muted-foreground flex items-center gap-3 text-sm font-medium">
-                                    <div className="bg-secondary text-secondary-foreground flex h-8 w-8 items-center justify-center rounded-full">
-                                        <i className="fas fa-user-tie"></i>
+                                <div className="text-muted-foreground flex items-center gap-2.5 text-xs sm:text-sm font-medium">
+                                    <div className="bg-secondary text-secondary-foreground flex h-7 w-7 shrink-0 items-center justify-center rounded-full">
+                                        <i className="fas fa-user-tie text-[10px] sm:text-xs"></i>
                                     </div>
-                                    {cls.teacher ? `${cls.teacher.first_name} ${cls.teacher.last_name}` : 'Aucun titulaire assigné'}
+                                    <span className="truncate" title={cls.teacher ? `${cls.teacher.first_name} ${cls.teacher.last_name}` : 'Aucun titulaire assigné'}>
+                                        {cls.teacher ? `${cls.teacher.first_name} ${cls.teacher.last_name}` : 'Aucun titulaire assigné'}
+                                    </span>
                                 </div>
                                 
-                                <div className="bg-secondary/50 rounded-xl p-4">
-                                    <div className="flex justify-between text-sm mb-3">
+                                <div className="bg-secondary/50 rounded-xl p-3 sm:p-4">
+                                    <div className="flex justify-between text-xs sm:text-sm mb-2.5">
                                         <span className="text-foreground font-semibold">Effectif: {cls.students_count || 0}</span>
                                         <span className="text-muted-foreground">Capacité: {cls.capacity || '-'}</span>
                                     </div>
                                     {cls.capacity && (
-                                        <div className="bg-background/80 border-border h-2.5 w-full rounded-full border overflow-hidden">
+                                        <div className="bg-background/80 border-border h-2 w-full rounded-full border overflow-hidden">
                                             <div 
                                                 className="h-full rounded-full transition-all duration-500 ease-in-out" 
                                                 style={{ 
                                                     width: `${Math.min(((cls.students_count || 0) / cls.capacity) * 100, 100)}%`, 
                                                     backgroundColor: ((cls.students_count || 0) > cls.capacity) ? 'var(--destructive)' : 'var(--primary)' 
                                                 }}
-                                            />
+                                            ></div>
                                         </div>
                                     )}
                                 </div>
                                 
-                                <button className="bg-secondary text-secondary-foreground hover:bg-secondary/80 mt-auto w-full rounded-xl py-3 text-sm font-semibold transition-colors">
+                                <button className="bg-secondary text-secondary-foreground hover:bg-secondary/80 mt-auto w-full rounded-xl py-2.5 text-xs sm:text-sm font-semibold transition-colors">
                                     <i className="fas fa-eye mr-2"></i> Voir les détails
                                 </button>
                             </div>
