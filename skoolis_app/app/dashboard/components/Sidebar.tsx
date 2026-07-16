@@ -188,7 +188,6 @@ export default function Sidebar() {
                         </a>
                     </li>
                 </ul>
-                </ul>
             </div>
 
             <div className="sidebar-footer">
