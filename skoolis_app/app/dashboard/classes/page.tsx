@@ -250,38 +250,40 @@ export default function ClassesPage() {
                         {loading && <p className="col-span-full text-muted-foreground text-center py-8">Chargement des classes...</p>}
                         {!loading && classes.length === 0 && <p className="col-span-full text-muted-foreground text-center py-8">Aucune classe enregistrée.</p>}
                         {classes.map(cls => (
-                            <div key={cls.id} className="bg-card border-border rounded-2xl border p-5 sm:p-6 shadow-sm transition-all hover:shadow-md hover:-translate-y-1 flex flex-col gap-4">
-                                <div className="flex justify-between items-start gap-2">
-                                    <div className="overflow-hidden">
-                                        <h4 className="text-foreground text-lg sm:text-xl font-bold mb-1 truncate" title={cls.name}>{cls.name}</h4>
-                                        <div className="bg-primary/10 text-primary px-2.5 py-1 rounded-full text-[11px] sm:text-xs font-semibold inline-block truncate max-w-full">
+                            <div key={cls.id} className="bg-card border-border border shadow-sm transition-all" style={{ padding: '24px', borderRadius: '16px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
+                                    <div style={{ overflow: 'hidden' }}>
+                                        <h4 className="text-foreground font-bold truncate" style={{ fontSize: '18px', marginBottom: '4px', margin: 0 }} title={cls.name}>{cls.name}</h4>
+                                        <div className="bg-primary/10 text-primary font-semibold truncate" style={{ padding: '4px 10px', borderRadius: '20px', fontSize: '12px', display: 'inline-block', maxWidth: '100%', marginTop: '4px' }}>
                                             {cls.cycle || 'Non défini'} • {cls.level || '-'}
                                         </div>
                                     </div>
-                                    <div className="bg-primary/10 text-primary flex h-10 w-10 shrink-0 items-center justify-center rounded-xl shadow-sm">
-                                        <i className="fas fa-users text-lg"></i>
+                                    <div className="bg-primary/10 text-primary shadow-sm" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '40px', height: '40px', borderRadius: '12px', flexShrink: 0 }}>
+                                        <i className="fas fa-users" style={{ fontSize: '18px' }}></i>
                                     </div>
                                 </div>
                                 
-                                <div className="text-muted-foreground flex items-center gap-2.5 text-xs sm:text-sm font-medium">
-                                    <div className="bg-secondary text-secondary-foreground flex h-7 w-7 shrink-0 items-center justify-center rounded-full">
-                                        <i className="fas fa-user-tie text-[10px] sm:text-xs"></i>
+                                <div className="text-muted-foreground font-medium" style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', marginTop: '4px' }}>
+                                    <div className="bg-secondary text-secondary-foreground" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '28px', height: '28px', borderRadius: '50%', flexShrink: 0 }}>
+                                        <i className="fas fa-user-tie" style={{ fontSize: '12px' }}></i>
                                     </div>
                                     <span className="truncate" title={cls.teacher ? `${cls.teacher.first_name} ${cls.teacher.last_name}` : 'Aucun titulaire assigné'}>
                                         {cls.teacher ? `${cls.teacher.first_name} ${cls.teacher.last_name}` : 'Aucun titulaire assigné'}
                                     </span>
                                 </div>
                                 
-                                <div className="bg-secondary/50 rounded-xl p-3 sm:p-4">
-                                    <div className="flex justify-between text-xs sm:text-sm mb-2.5">
+                                <div className="bg-secondary/50" style={{ padding: '16px', borderRadius: '12px', marginTop: 'auto' }}>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', marginBottom: '8px' }}>
                                         <span className="text-foreground font-semibold">Effectif: {cls.students_count || 0}</span>
                                         <span className="text-muted-foreground">Capacité: {cls.capacity || '-'}</span>
                                     </div>
                                     {cls.capacity && (
-                                        <div className="bg-background/80 border-border h-2 w-full rounded-full border overflow-hidden">
+                                        <div className="bg-background/80 border-border border" style={{ height: '8px', width: '100%', borderRadius: '999px', overflow: 'hidden' }}>
                                             <div 
-                                                className="h-full rounded-full transition-all duration-500 ease-in-out" 
                                                 style={{ 
+                                                    height: '100%',
+                                                    borderRadius: '999px',
+                                                    transition: 'all 0.5s ease',
                                                     width: `${Math.min(((cls.students_count || 0) / cls.capacity) * 100, 100)}%`, 
                                                     backgroundColor: ((cls.students_count || 0) > cls.capacity) ? 'var(--destructive)' : 'var(--primary)' 
                                                 }}
@@ -290,8 +292,8 @@ export default function ClassesPage() {
                                     )}
                                 </div>
                                 
-                                <button className="bg-secondary text-secondary-foreground hover:bg-secondary/80 mt-auto w-full rounded-xl py-2.5 text-xs sm:text-sm font-semibold transition-colors">
-                                    <i className="fas fa-eye mr-2"></i> Voir les détails
+                                <button className="bg-secondary text-secondary-foreground transition-colors" style={{ width: '100%', padding: '10px', borderRadius: '12px', fontSize: '14px', fontWeight: '600', border: 'none', cursor: 'pointer', marginTop: '8px' }}>
+                                    <i className="fas fa-eye" style={{ marginRight: '8px' }}></i> Voir les détails
                                 </button>
                             </div>
                         ))}
