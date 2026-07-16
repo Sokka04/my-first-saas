@@ -244,7 +244,9 @@ export default function ClassesPage() {
                                 <option value="3eme">3ème</option>
                             </select>
                         </div>
-                          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                         {loading && <p className="col-span-full text-muted-foreground text-center py-8">Chargement des classes...</p>}
                         {!loading && classes.length === 0 && <p className="col-span-full text-muted-foreground text-center py-8">Aucune classe enregistrée.</p>}
                         {classes.map(cls => (
