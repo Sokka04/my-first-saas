@@ -163,11 +163,11 @@ export default function DashboardPage() {
                             <i className="fas fa-edit"></i>
                             <span>Saisir des notes</span>
                         </a>
-                        <a href="/app/classes" className="action-btn">
+                        <a href="/dashboard/classes" className="action-btn">
                             <i className="fas fa-layer-group"></i>
                             <span>Créer une classe</span>
                         </a>
-                        <a href="/app/ecolage" className="action-btn">
+                        <a href="/dashboard/ecolage" className="action-btn">
                             <i className="fas fa-money-check"></i>
                             <span>Paiements d'Ecolage</span>
                         </a>
@@ -175,11 +175,11 @@ export default function DashboardPage() {
                             <i className="fas fa-file-export"></i>
                             <span>Exporter résultats</span>
                         </a>
-                        <a href="/app/professeurs" className="action-btn">
+                        <a href="/dashboard/teachers" className="action-btn">
                             <i className="fas fa-user-tie"></i>
                             <span>Ajouter professeur</span>
                         </a>
-                        <a href="/app/aide" className="action-btn">
+                        <a href="/dashboard/aide" className="action-btn">
                             <i className="fas fa-question-circle"></i>
                             <span>Support & Aide</span>
                         </a>
@@ -274,7 +274,7 @@ export default function DashboardPage() {
                 <div className="footer-links">
                     <a href="#">Confidentialité</a>
                     <a href="#">Conditions d'utilisation</a>
-                    <a href="/app/aide">Aide</a>
+                    <a href="/dashboard/aide">Aide</a>
                     <a href="#">Contact</a>
                 </div>
             </footer>
