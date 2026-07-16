@@ -174,3 +174,25 @@
     display: none;
   }
 }
+
+/* Masquer la barre de défilement (scrollbar) sur toute l'application */
+@layer base {
+  body {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  
+  body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+
+  /* Si certains conteneurs ont leur propre scrollbar, on les masque aussi */
+  * {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  *::-webkit-scrollbar {
+    display: none;
+  }
+}
