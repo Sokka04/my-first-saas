@@ -291,9 +291,8 @@ export default function ClassesPage() {
                                         </div>
                                     )}
                                 </div>
-                                
-                                {/* Overlay au survol */}
-                                <div className="absolute inset-0 bg-background/95 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '24px' }}>
+                                   {/* Overlay au survol */}
+                                <div className="absolute inset-0 bg-background/95 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 pointer-events-none group-hover:pointer-events-auto" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '24px' }}>
                                     <div className="bg-primary/10 text-primary mb-3" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '48px', height: '48px', borderRadius: '50%' }}>
                                         <i className="fas fa-eye" style={{ fontSize: '20px' }}></i>
                                     </div>
@@ -302,10 +301,10 @@ export default function ClassesPage() {
                                         {cls.students_count || 0} élèves inscrits
                                     </p>
                                     <div style={{ display: 'flex', gap: '10px', width: '100%' }}>
-                                        <button className="bg-primary text-primary-foreground transition-opacity hover:opacity-90" style={{ flex: 1, padding: '10px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '13px', fontWeight: '600' }}>
+                                        <button onClick={(e) => { e.preventDefault(); alert("Interface de gestion de classe en cours de construction"); }} className="bg-primary text-primary-foreground transition-opacity hover:opacity-90" style={{ flex: 1, padding: '10px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '13px', fontWeight: '600' }}>
                                             <i className="fas fa-edit" style={{ marginRight: '6px' }}></i> Gérer
                                         </button>
-                                        <button className="bg-secondary text-secondary-foreground transition-opacity hover:opacity-90" style={{ flex: 1, padding: '10px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '13px', fontWeight: '600' }}>
+                                        <button onClick={(e) => { e.preventDefault(); alert("Statistiques de la classe en cours de construction"); }} className="bg-secondary text-secondary-foreground transition-opacity hover:opacity-90" style={{ flex: 1, padding: '10px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '13px', fontWeight: '600' }}>
                                             <i className="fas fa-chart-pie" style={{ marginRight: '6px' }}></i> Stats
                                         </button>
                                     </div>
