@@ -596,42 +596,47 @@ export default function ClassesPage() {
                 <div 
                     className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm transition-all"
                     onClick={() => setSelectedClassAction(null)}
-                    style={{ zIndex: 1000 }}
+                    style={{ zIndex: 1000, padding: '20px' }}
                 >
                     <div 
-                        className="bg-card text-card-foreground border-border w-full max-w-md rounded-2xl border p-6 shadow-xl"
+                        className="bg-card text-card-foreground border-border w-full max-w-md rounded-2xl border shadow-xl"
+                        style={{ padding: '32px', display: 'flex', flexDirection: 'column' }}
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <div className="flex items-center justify-between mb-4">
-                            <h3 className="text-xl font-bold">
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+                            <h3 className="text-foreground" style={{ fontSize: '20px', fontWeight: 'bold', margin: 0 }}>
                                 {selectedClassAction.action === 'manage' ? 'Gérer la classe' : 'Statistiques'}
                             </h3>
                             <button 
                                 onClick={() => setSelectedClassAction(null)}
-                                className="text-muted-foreground hover:bg-secondary flex h-8 w-8 items-center justify-center rounded-full transition-colors cursor-pointer border-none"
+                                className="text-muted-foreground hover:bg-secondary transition-colors"
+                                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', borderRadius: '50%', border: 'none', cursor: 'pointer', background: 'transparent' }}
                             >
-                                <i className="fas fa-times"></i>
+                                <i className="fas fa-times" style={{ fontSize: '18px' }}></i>
                             </button>
                         </div>
                         
-                        <div className="bg-primary/10 text-primary mb-6 inline-flex rounded-full px-3 py-1 text-sm font-semibold">
-                            {selectedClassAction.name}
+                        <div style={{ marginBottom: '24px' }}>
+                            <span className="bg-primary/10 text-primary" style={{ display: 'inline-flex', borderRadius: '999px', padding: '6px 16px', fontSize: '14px', fontWeight: '600' }}>
+                                {selectedClassAction.name}
+                            </span>
                         </div>
 
-                        <div className="text-muted-foreground mb-8 text-center py-6">
-                            <div className="mb-4 flex justify-center">
-                                <div className="bg-secondary text-secondary-foreground flex h-16 w-16 items-center justify-center rounded-full text-2xl shadow-sm">
+                        <div className="text-muted-foreground" style={{ textAlign: 'center', padding: '24px 0', marginBottom: '32px' }}>
+                            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
+                                <div className="bg-secondary text-secondary-foreground shadow-sm" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '72px', height: '72px', borderRadius: '50%', fontSize: '28px' }}>
                                     <i className={selectedClassAction.action === 'manage' ? "fas fa-tools" : "fas fa-chart-pie"}></i>
                                 </div>
                             </div>
-                            <p>
+                            <p style={{ fontSize: '15px', lineHeight: '1.5', margin: 0 }}>
                                 L'interface {selectedClassAction.action === 'manage' ? 'de gestion' : 'des statistiques'} pour cette classe sera bientôt disponible.
                             </p>
                         </div>
 
                         <button 
                             onClick={() => setSelectedClassAction(null)}
-                            className="bg-primary text-primary-foreground hover:bg-primary/90 w-full rounded-xl py-3 font-semibold transition-colors cursor-pointer border-none"
+                            className="bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+                            style={{ width: '100%', padding: '14px', borderRadius: '12px', border: 'none', cursor: 'pointer', fontSize: '15px', fontWeight: 'bold' }}
                         >
                             Fermer
                         </button>
