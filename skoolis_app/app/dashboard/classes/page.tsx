@@ -250,7 +250,7 @@ export default function ClassesPage() {
                         {loading && <p className="col-span-full text-muted-foreground text-center py-8">Chargement des classes...</p>}
                         {!loading && classes.length === 0 && <p className="col-span-full text-muted-foreground text-center py-8">Aucune classe enregistrée.</p>}
                         {classes.map(cls => (
-                            <div key={cls.id} className="bg-card border-border border shadow-sm transition-all" style={{ padding: '24px', borderRadius: '16px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                            <div key={cls.id} className="bg-card border-border border shadow-sm transition-all group relative" style={{ padding: '24px', borderRadius: '16px', display: 'flex', flexDirection: 'column', gap: '16px', overflow: 'hidden' }}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
                                     <div style={{ overflow: 'hidden' }}>
                                         <h4 className="text-foreground font-bold truncate" style={{ fontSize: '18px', marginBottom: '4px', margin: 0 }} title={cls.name}>{cls.name}</h4>
@@ -292,9 +292,24 @@ export default function ClassesPage() {
                                     )}
                                 </div>
                                 
-                                <a href={`/dashboard/classes/${cls.id}`} className="bg-secondary text-secondary-foreground transition-colors" style={{ display: 'block', textAlign: 'center', width: '100%', padding: '10px', borderRadius: '12px', fontSize: '14px', fontWeight: '600', textDecoration: 'none', marginTop: '8px' }}>
-                                    <i className="fas fa-eye" style={{ marginRight: '8px' }}></i> Voir les détails
-                                </a>
+                                {/* Overlay au survol */}
+                                <div className="absolute inset-0 bg-background/95 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '24px' }}>
+                                    <div className="bg-primary/10 text-primary mb-3" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '48px', height: '48px', borderRadius: '50%' }}>
+                                        <i className="fas fa-eye" style={{ fontSize: '20px' }}></i>
+                                    </div>
+                                    <h4 className="text-foreground font-bold" style={{ fontSize: '18px', marginBottom: '4px', textAlign: 'center' }}>{cls.name}</h4>
+                                    <p className="text-muted-foreground" style={{ fontSize: '13px', marginBottom: '20px', textAlign: 'center' }}>
+                                        {cls.students_count || 0} élèves inscrits
+                                    </p>
+                                    <div style={{ display: 'flex', gap: '10px', width: '100%' }}>
+                                        <button className="bg-primary text-primary-foreground transition-opacity hover:opacity-90" style={{ flex: 1, padding: '10px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '13px', fontWeight: '600' }}>
+                                            <i className="fas fa-edit" style={{ marginRight: '6px' }}></i> Gérer
+                                        </button>
+                                        <button className="bg-secondary text-secondary-foreground transition-opacity hover:opacity-90" style={{ flex: 1, padding: '10px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '13px', fontWeight: '600' }}>
+                                            <i className="fas fa-chart-pie" style={{ marginRight: '6px' }}></i> Stats
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         ))}
                     </div>
