@@ -292,9 +292,9 @@ export default function ClassesPage() {
                                     )}
                                 </div>
                                 
-                                <button className="bg-secondary text-secondary-foreground transition-colors" style={{ width: '100%', padding: '10px', borderRadius: '12px', fontSize: '14px', fontWeight: '600', border: 'none', cursor: 'pointer', marginTop: '8px' }}>
+                                <a href={`/dashboard/classes/${cls.id}`} className="bg-secondary text-secondary-foreground transition-colors" style={{ display: 'block', textAlign: 'center', width: '100%', padding: '10px', borderRadius: '12px', fontSize: '14px', fontWeight: '600', textDecoration: 'none', marginTop: '8px' }}>
                                     <i className="fas fa-eye" style={{ marginRight: '8px' }}></i> Voir les détails
-                                </button>
+                                </a>
                             </div>
                         ))}
                     </div>
