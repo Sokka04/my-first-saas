@@ -31,8 +31,8 @@ export default function DashboardLayout({
         </div>
 
         {/* Core Scripts needed by legacy pages if they are accessed inside or outside */}
-        <Script src="/skolis/assets/js/chart.umd.min.js" strategy="beforeInteractive" />
-        <Script src="/skolis/assets/js/utils.js" strategy="beforeInteractive" />
+        <Script src="/skolis/assets/js/chart.umd.min.js" strategy="afterInteractive" />
+        <Script src="/skolis/assets/js/utils.js" strategy="afterInteractive" />
     </div>
   );
 }
