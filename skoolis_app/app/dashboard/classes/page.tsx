@@ -16,6 +16,7 @@ export default function ClassesPage() {
     const [teachers, setTeachers] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [selectedClassAction, setSelectedClassAction] = useState<{ id: string, name: string, action: 'manage' | 'stats' } | null>(null);
 
     // Form states
     const [formData, setFormData] = useState({
@@ -301,10 +302,10 @@ export default function ClassesPage() {
                                         {cls.students_count || 0} élèves inscrits
                                     </p>
                                     <div style={{ display: 'flex', gap: '10px', width: '100%' }}>
-                                        <button onClick={(e) => { e.preventDefault(); alert("Interface de gestion de classe en cours de construction"); }} className="bg-primary text-primary-foreground transition-opacity hover:opacity-90" style={{ flex: 1, padding: '10px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '13px', fontWeight: '600' }}>
+                                        <button onClick={(e) => { e.preventDefault(); setSelectedClassAction({ id: cls.id, name: cls.name, action: 'manage' }); }} className="bg-primary text-primary-foreground transition-opacity hover:opacity-90" style={{ flex: 1, padding: '10px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '13px', fontWeight: '600' }}>
                                             <i className="fas fa-edit" style={{ marginRight: '6px' }}></i> Gérer
                                         </button>
-                                        <button onClick={(e) => { e.preventDefault(); alert("Statistiques de la classe en cours de construction"); }} className="bg-secondary text-secondary-foreground transition-opacity hover:opacity-90" style={{ flex: 1, padding: '10px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '13px', fontWeight: '600' }}>
+                                        <button onClick={(e) => { e.preventDefault(); setSelectedClassAction({ id: cls.id, name: cls.name, action: 'stats' }); }} className="bg-secondary text-secondary-foreground transition-opacity hover:opacity-90" style={{ flex: 1, padding: '10px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '13px', fontWeight: '600' }}>
                                             <i className="fas fa-chart-pie" style={{ marginRight: '6px' }}></i> Stats
                                         </button>
                                     </div>
@@ -586,6 +587,54 @@ export default function ClassesPage() {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Modales pour les actions rapides de classe */}
+            {selectedClassAction && (
+                <div 
+                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm transition-all"
+                    onClick={() => setSelectedClassAction(null)}
+                    style={{ zIndex: 1000 }}
+                >
+                    <div 
+                        className="bg-card text-card-foreground border-border w-full max-w-md rounded-2xl border p-6 shadow-xl"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <div className="flex items-center justify-between mb-4">
+                            <h3 className="text-xl font-bold">
+                                {selectedClassAction.action === 'manage' ? 'Gérer la classe' : 'Statistiques'}
+                            </h3>
+                            <button 
+                                onClick={() => setSelectedClassAction(null)}
+                                className="text-muted-foreground hover:bg-secondary flex h-8 w-8 items-center justify-center rounded-full transition-colors cursor-pointer border-none"
+                            >
+                                <i className="fas fa-times"></i>
+                            </button>
+                        </div>
+                        
+                        <div className="bg-primary/10 text-primary mb-6 inline-flex rounded-full px-3 py-1 text-sm font-semibold">
+                            {selectedClassAction.name}
+                        </div>
+
+                        <div className="text-muted-foreground mb-8 text-center py-6">
+                            <div className="mb-4 flex justify-center">
+                                <div className="bg-secondary text-secondary-foreground flex h-16 w-16 items-center justify-center rounded-full text-2xl shadow-sm">
+                                    <i className={selectedClassAction.action === 'manage' ? "fas fa-tools" : "fas fa-chart-pie"}></i>
+                                </div>
+                            </div>
+                            <p>
+                                L'interface {selectedClassAction.action === 'manage' ? 'de gestion' : 'des statistiques'} pour cette classe sera bientôt disponible.
+                            </p>
+                        </div>
+
+                        <button 
+                            onClick={() => setSelectedClassAction(null)}
+                            className="bg-primary text-primary-foreground hover:bg-primary/90 w-full rounded-xl py-3 font-semibold transition-colors cursor-pointer border-none"
+                        >
+                            Fermer
+                        </button>
                     </div>
                 </div>
             )}
