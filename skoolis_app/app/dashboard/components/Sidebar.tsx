@@ -189,10 +189,13 @@ export default function Sidebar() {
                     <li className="nav-item">
                         <a href="#" onClick={(e) => {
                             e.preventDefault();
-                            // Supprimer le cookie d'authentification
+                            // Clear cookies
                             document.cookie = 'skoolis_auth=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
-                            // Rediriger vers la page de login
-                            window.location.href = '/login';
+                            // Clear localStorage
+                            localStorage.removeItem('skoolis_token');
+                            localStorage.removeItem('skoolis_user');
+                            // Redirect to correct login page
+                            window.location.href = '/login-app';
                         }}>
                             <i className="fas fa-sign-out-alt"></i>
                             <span>Déconnexion</span>
