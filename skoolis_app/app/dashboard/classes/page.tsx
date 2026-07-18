@@ -554,7 +554,6 @@ export default function ClassesPage() {
                                     <h3 className="text-sm font-black m-0 text-black uppercase text-center">République Togolaise</h3>
                                     <p className="text-xs text-black m-0 text-center italic">Travail - Liberté - Patrie</p>
                                     <div className="w-16 h-[1px] bg-black my-2"></div>
-                                    <p className="text-xs text-black m-0 text-center">Ministère des Enseignements Primaire,<br/>Secondaire et Technique</p>
                                 </div>
                             </div>
 
