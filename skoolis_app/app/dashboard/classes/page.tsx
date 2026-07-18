@@ -182,14 +182,20 @@ export default function ClassesPage() {
     };
 
     const getCycleColors = (c?: string) => {
-        if (!c) return { bg: 'bg-gray-100', text: 'text-gray-600' };
+        if (!c) return { badgeBg: 'bg-gray-100', badgeText: 'text-gray-600', cardBg: 'bg-card', cardBorder: 'border-border' };
         const lower = c.toLowerCase();
-        if (lower.includes('creche') || lower.includes('crèche')) return { bg: 'bg-pink-100', text: 'text-pink-600' };
-        if (lower.includes('maternelle')) return { bg: 'bg-amber-100', text: 'text-amber-600' };
-        if (lower.includes('primary') || lower.includes('primaire')) return { bg: 'bg-blue-100', text: 'text-blue-600' };
-        if (lower.includes('middle') || lower.includes('college') || lower.includes('collège')) return { bg: 'bg-emerald-100', text: 'text-emerald-600' };
-        if (lower.includes('high') || lower.includes('lycee') || lower.includes('lycée')) return { bg: 'bg-purple-100', text: 'text-purple-600' };
-        return { bg: 'bg-primary/10', text: 'text-primary' };
+        if (lower.includes('creche') || lower.includes('crèche')) 
+            return { badgeBg: 'bg-pink-100', badgeText: 'text-pink-600', cardBg: 'bg-pink-50/50', cardBorder: 'border-pink-100' };
+        if (lower.includes('maternelle')) 
+            return { badgeBg: 'bg-amber-100', badgeText: 'text-amber-600', cardBg: 'bg-amber-50/50', cardBorder: 'border-amber-100' };
+        if (lower.includes('primary') || lower.includes('primaire')) 
+            return { badgeBg: 'bg-blue-100', badgeText: 'text-blue-600', cardBg: 'bg-blue-50/50', cardBorder: 'border-blue-100' };
+        if (lower.includes('middle') || lower.includes('college') || lower.includes('collège')) 
+            return { badgeBg: 'bg-emerald-100', badgeText: 'text-emerald-600', cardBg: 'bg-emerald-50/50', cardBorder: 'border-emerald-100' };
+        if (lower.includes('high') || lower.includes('lycee') || lower.includes('lycée')) 
+            return { badgeBg: 'bg-purple-100', badgeText: 'text-purple-600', cardBg: 'bg-purple-50/50', cardBorder: 'border-purple-100' };
+        
+        return { badgeBg: 'bg-primary/10', badgeText: 'text-primary', cardBg: 'bg-card', cardBorder: 'border-border' };
     };
 
     const filteredClasses = classes.filter(cls => {
@@ -341,29 +347,33 @@ export default function ClassesPage() {
                         {filteredClasses.map(cls => {
                             const cycleColors = getCycleColors(cls.level);
                             return (
-                            <div key={cls.id} className="bg-card border-border border shadow-sm transition-all group relative hover:-translate-y-1 hover:shadow-md" style={{ padding: '24px', borderRadius: '16px', display: 'flex', flexDirection: 'column', gap: '16px', overflow: 'hidden' }}>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
-                                    <div style={{ overflow: 'hidden' }}>
-                                        <h4 className="text-foreground font-bold truncate" style={{ fontSize: '18px', marginBottom: '4px', margin: 0 }} title={cls.name}>{cls.name}</h4>
-                                        <div className={`${cycleColors.bg} ${cycleColors.text} font-semibold truncate`} style={{ padding: '4px 10px', borderRadius: '20px', fontSize: '12px', display: 'inline-block', maxWidth: '100%', marginTop: '4px' }}>
-                                            {translateCycle(cls.level)} • {cls.cycle || '-'}
+                            <div key={cls.id} className={`${cycleColors.cardBg} ${cycleColors.cardBorder} border shadow-sm transition-all group relative hover:-translate-y-1 hover:shadow-md`} style={{ borderRadius: '16px', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+                                {/* Section supérieure : Informations */}
+                                <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', flexGrow: 1 }}>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
+                                        <div style={{ overflow: 'hidden' }}>
+                                            <h4 className="text-foreground font-bold truncate" style={{ fontSize: '18px', marginBottom: '4px', margin: 0 }} title={cls.name}>{cls.name}</h4>
+                                            <div className={`${cycleColors.badgeBg} ${cycleColors.badgeText} font-semibold truncate`} style={{ padding: '4px 10px', borderRadius: '20px', fontSize: '12px', display: 'inline-block', maxWidth: '100%', marginTop: '4px' }}>
+                                                {translateCycle(cls.level)} • {cls.cycle || '-'}
+                                            </div>
+                                        </div>
+                                        <div className={`${cycleColors.badgeBg} ${cycleColors.badgeText} shadow-sm`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '40px', height: '40px', borderRadius: '12px', flexShrink: 0 }}>
+                                            <i className="fas fa-users" style={{ fontSize: '18px' }}></i>
                                         </div>
                                     </div>
-                                    <div className={`${cycleColors.bg} ${cycleColors.text} shadow-sm`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '40px', height: '40px', borderRadius: '12px', flexShrink: 0 }}>
-                                        <i className="fas fa-users" style={{ fontSize: '18px' }}></i>
+                                    
+                                    <div className="text-muted-foreground font-medium" style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', marginTop: 'auto' }}>
+                                        <div className="bg-background/80 text-secondary-foreground shadow-sm" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '28px', height: '28px', borderRadius: '50%', flexShrink: 0 }}>
+                                            <i className="fas fa-user-tie" style={{ fontSize: '12px' }}></i>
+                                        </div>
+                                        <span className="truncate" title={cls.teacher ? `${cls.teacher.first_name} ${cls.teacher.last_name}` : 'Aucun titulaire assigné'}>
+                                            {cls.teacher ? `${cls.teacher.first_name} ${cls.teacher.last_name}` : 'Aucun titulaire assigné'}
+                                        </span>
                                     </div>
                                 </div>
                                 
-                                <div className="text-muted-foreground font-medium" style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', marginTop: '4px' }}>
-                                    <div className="bg-secondary text-secondary-foreground" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '28px', height: '28px', borderRadius: '50%', flexShrink: 0 }}>
-                                        <i className="fas fa-user-tie" style={{ fontSize: '12px' }}></i>
-                                    </div>
-                                    <span className="truncate" title={cls.teacher ? `${cls.teacher.first_name} ${cls.teacher.last_name}` : 'Aucun titulaire assigné'}>
-                                        {cls.teacher ? `${cls.teacher.first_name} ${cls.teacher.last_name}` : 'Aucun titulaire assigné'}
-                                    </span>
-                                </div>
-                                
-                                <div className="bg-secondary/50" style={{ padding: '16px', borderRadius: '12px', marginTop: 'auto' }}>
+                                {/* Section inférieure : Effectifs */}
+                                <div className="bg-background" style={{ padding: '16px 24px', borderTop: '1px solid var(--border)' }}>
                                     <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', marginBottom: '8px' }}>
                                         <span className="text-foreground font-semibold">Effectif: {cls.students_count || 0}</span>
                                         <span className="text-muted-foreground">Capacité: {cls.capacity || '-'}</span>
