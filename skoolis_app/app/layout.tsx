@@ -94,34 +94,27 @@ export default async function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full`}
     >
       <head>
+        <style dangerouslySetInnerHTML={{ __html: `body { opacity: 0; } body.theme-ready { opacity: 1; transition: opacity 0.15s ease; }` }} />
         <script
           id="theme-bootstrap"
           dangerouslySetInnerHTML={{
             __html: `(() => {
   try {
-    const key = "skoolis-theme";
-    const savedThemeRaw = window.localStorage.getItem(key);
-    let savedTheme = null;
-    if (savedThemeRaw) {
-      try {
-        savedTheme = JSON.parse(savedThemeRaw);
-      } catch {
-        savedTheme = savedThemeRaw;
-      }
-    }
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const theme = savedTheme || (prefersDark ? "dark" : "light");
+    var key = "skoolis-theme";
+    var raw = localStorage.getItem(key);
+    var theme = "light";
+    if (raw === "dark") theme = "dark";
+    else if (raw) { try { var p = JSON.parse(raw); if (p === "dark") theme = "dark"; } catch(e) {} }
     if (theme === "dark") {
       document.documentElement.setAttribute("data-theme", "dark");
     } else {
       document.documentElement.removeAttribute("data-theme");
     }
-    const cookieMatch = document.cookie.match(/(?:^|;\\s*)skoolis-theme=([^;]*)/);
-    const currentCookie = cookieMatch ? decodeURIComponent(cookieMatch[1]) : null;
-    if (currentCookie !== theme) {
-      document.cookie = "skoolis-theme=" + theme + "; path=/; max-age=31536000; SameSite=Lax";
-    }
-  } catch {}
+    var cm = document.cookie.match(/(?:^|;\\s*)skoolis-theme=([^;]*)/);
+    var cc = cm ? decodeURIComponent(cm[1]) : null;
+    if (cc !== theme) document.cookie = "skoolis-theme=" + theme + "; path=/; max-age=31536000; SameSite=Lax";
+  } catch(e) {}
+  document.body ? document.body.classList.add("theme-ready") : document.addEventListener("DOMContentLoaded", function() { document.body.classList.add("theme-ready"); });
 })();`
           }}
         />
