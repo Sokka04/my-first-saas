@@ -213,13 +213,13 @@ export default function ClassesPage() {
             {/* Section Liste des classes */}
             {activeTab === 'liste' && (
                 <div className="feature-section active" id="liste">
-                    <div className="page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-                        <div className="page-title" style={{ margin: 0 }}>
-                            <h3 style={{ margin: 0, fontSize: '24px', fontWeight: 600 }}>Liste des classes</h3>
-                            <p style={{ margin: '4px 0 0 0', opacity: 0.7, fontSize: '14px' }}>Gérez toutes les classes de l'établissement</p>
+                    <div className="page-header">
+                        <div className="page-title">
+                            <h3 style={{ margin: 0, marginBottom: '4px' }}>Liste des classes</h3>
+                            <p style={{ margin: 0 }}>Gérez toutes les classes de l'établissement</p>
                         </div>
                         <div className="page-actions">
-                            <button className="btn btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 20px', borderRadius: '8px', border: 'none', cursor: 'pointer', background: 'var(--primary-color)', color: '#fff' }}>
+                            <button className="btn btn-primary">
                                 <i className="fas fa-print"></i> Imprimer liste
                             </button>
                         </div>
