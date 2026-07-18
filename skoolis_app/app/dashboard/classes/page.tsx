@@ -433,7 +433,7 @@ export default function ClassesPage() {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 print:hidden">
                         {loading && <p className="col-span-full text-muted-foreground text-center py-8">Chargement des classes...</p>}
                         {!loading && filteredClasses.length === 0 && <p className="col-span-full text-muted-foreground text-center py-8">Aucune classe trouvée.</p>}
                         {filteredClasses.map(cls => {
@@ -504,6 +504,56 @@ export default function ClassesPage() {
                                 </div>
                             </div>
                         )})}
+                    </div>
+
+                    {/* Vue dédiée pour l'impression (Tableau et En-tête/Pied) */}
+                    <div className="hidden print:block">
+                        {/* En-tête d'impression */}
+                        <div className="mb-8 border-b-2 border-black pb-4 flex justify-between items-center">
+                            <div className="flex items-center gap-4">
+                                <img src="/skoolis_logo_sombre.png" alt="Logo" className="h-16 object-contain" />
+                                <div>
+                                    <h2 className="text-2xl font-bold m-0 text-black">Complexe Scolaire Skoolis</h2>
+                                    <p className="text-gray-600 m-0">BP 12345 Lomé, Togo</p>
+                                    <p className="text-gray-600 m-0">Tél : +228 90 00 00 00 | Email : contact@skoolis.edu</p>
+                                </div>
+                            </div>
+                            <div className="text-right">
+                                <h1 className="text-3xl font-bold uppercase tracking-wider text-black m-0">Liste des classes</h1>
+                                <p className="text-gray-600 m-0">Année scolaire 2026-2027</p>
+                                <p className="text-sm font-medium mt-2 text-black">Imprimé le {new Date().toLocaleDateString('fr-FR')}</p>
+                            </div>
+                        </div>
+
+                        {/* Tableau d'impression */}
+                        <table className="w-full text-left border-collapse" style={{ border: '1px solid black' }}>
+                            <thead>
+                                <tr className="bg-gray-100">
+                                    <th className="border border-black p-3 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Nom de la classe</th>
+                                    <th className="border border-black p-3 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Cycle</th>
+                                    <th className="border border-black p-3 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Niveau</th>
+                                    <th className="border border-black p-3 font-bold text-black text-center" style={{ backgroundColor: '#f3f4f6' }}>Effectif</th>
+                                    <th className="border border-black p-3 font-bold text-black text-center" style={{ backgroundColor: '#f3f4f6' }}>Capacité</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {filteredClasses.map((cls, idx) => (
+                                    <tr key={cls.id} className={idx % 2 === 0 ? "bg-white" : "bg-gray-50"}>
+                                        <td className="border border-black p-3 text-black font-semibold">{cls.name}</td>
+                                        <td className="border border-black p-3 text-black">{cls.cycle || '-'}</td>
+                                        <td className="border border-black p-3 text-black">{translateCycle(cls.level)}</td>
+                                        <td className="border border-black p-3 text-center text-black">{cls.students_count || 0}</td>
+                                        <td className="border border-black p-3 text-center text-black">{cls.capacity}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+
+                        {/* Pied de page d'impression */}
+                        <div className="mt-12 pt-6 border-t border-gray-300 flex flex-col items-center justify-center">
+                            <p className="text-gray-500 mb-2 text-sm italic">Généré par</p>
+                            <img src="/skoolis_logo_sombre.png" alt="Skoolis Logo" className="h-8 object-contain opacity-80" />
+                        </div>
                     </div>
                 </div>
             )}
