@@ -748,19 +748,19 @@ export default function ClassesPage() {
 
                     <div className="stats-container" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                         {classes.length > 0 && (
-                            <div className="chart-container" style={{ background: 'var(--card-bg)', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', padding: '24px' }}>
+                            <div className="chart-container" style={{ background: 'var(--color-card)', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', padding: '24px' }}>
                                 <div className="chart-header" style={{ marginBottom: '20px' }}>
-                                    <h3>Répartition des effectifs par classe</h3>
+                                    <h3 style={{ color: 'var(--color-foreground)' }}>Répartition des effectifs par classe</h3>
                                 </div>
                                 <div style={{ width: '100%', height: '300px' }}>
                                     <ResponsiveContainer width="100%" height="100%">
                                         <BarChart data={classes} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                                            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border-color)" />
-                                            <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: 'var(--text-muted)' }} />
-                                            <YAxis allowDecimals={false} axisLine={false} tickLine={false} tick={{ fill: 'var(--text-muted)' }} />
+                                            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--color-border)" />
+                                            <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: 'var(--color-muted-foreground)' }} />
+                                            <YAxis allowDecimals={false} axisLine={false} tickLine={false} tick={{ fill: 'var(--color-muted-foreground)' }} />
                                             <Tooltip 
-                                                cursor={{ fill: 'var(--hover-bg)' }}
-                                                contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', background: 'var(--card-bg)', color: 'var(--text-color)' }}
+                                                cursor={{ fill: 'var(--color-accent)' }}
+                                                contentStyle={{ borderRadius: '8px', border: '1px solid var(--color-border)', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', background: 'var(--color-card)', color: 'var(--color-foreground)' }}
                                                 formatter={(value) => [`${value} élèves`, 'Effectif']}
                                             />
                                             <Bar dataKey="students_count" radius={[4, 4, 0, 0]} maxBarSize={60}>
