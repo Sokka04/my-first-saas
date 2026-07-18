@@ -79,6 +79,8 @@ export default function ClassesPage() {
         try {
             const dataToSubmit = {
                 ...formData,
+                level: formData.cycle, // Backend 'level' stores the UI 'cycle' (e.g. Primary)
+                cycle: formData.level, // Backend 'cycle' stores the UI 'level' (e.g. 6eme)
                 capacity: formData.capacity ? parseInt(formData.capacity) : null,
                 teacher_id: formData.teacher_id || null
             };
@@ -159,19 +161,20 @@ export default function ClassesPage() {
         let matchLevel = true;
         
         if (filterCycle) {
-            const rawCycle = (cls.cycle || '').toLowerCase();
+            // Frontend Cycle corresponds to Backend 'level'
+            const rawCycle = (cls.level || '').toLowerCase();
             const filter = filterCycle.toLowerCase();
             if (filter === 'primaire' && !(rawCycle.includes('primaire') || rawCycle.includes('primary'))) matchCycle = false;
             else if (filter === 'college' && !(rawCycle.includes('college') || rawCycle.includes('collège') || rawCycle.includes('middle'))) matchCycle = false;
             else if (filter === 'lycee' && !(rawCycle.includes('lycee') || rawCycle.includes('lycée') || rawCycle.includes('high'))) matchCycle = false;
             else if (filter === 'maternelle' && !rawCycle.includes('maternelle')) matchCycle = false;
             else if (filter === 'creche' && !(rawCycle.includes('creche') || rawCycle.includes('crèche'))) matchCycle = false;
-            // Si le filtre ne correspond à aucun de ces mots-clés, on filtre de manière classique
             else if (!rawCycle.includes(filter)) matchCycle = false;
         }
 
         if (filterLevel) {
-            const rawLevel = (cls.level || '').toLowerCase().replace('è', 'e').replace('é', 'e').trim();
+            // Frontend Niveau corresponds to Backend 'cycle'
+            const rawLevel = (cls.cycle || '').toLowerCase().replace('è', 'e').replace('é', 'e').trim();
             const filter = filterLevel.toLowerCase().replace('è', 'e').replace('é', 'e').trim();
             if (!rawLevel.includes(filter)) matchLevel = false;
         }
@@ -307,7 +310,7 @@ export default function ClassesPage() {
                                     <div style={{ overflow: 'hidden' }}>
                                         <h4 className="text-foreground font-bold truncate" style={{ fontSize: '18px', marginBottom: '4px', margin: 0 }} title={cls.name}>{cls.name}</h4>
                                         <div className="bg-primary/10 text-primary font-semibold truncate" style={{ padding: '4px 10px', borderRadius: '20px', fontSize: '12px', display: 'inline-block', maxWidth: '100%', marginTop: '4px' }}>
-                                            {translateCycle(cls.cycle)} • {cls.level || '-'}
+                                            {translateCycle(cls.level)} • {cls.cycle || '-'}
                                         </div>
                                     </div>
                                     <div className="bg-primary/10 text-primary shadow-sm" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '40px', height: '40px', borderRadius: '12px', flexShrink: 0 }}>
@@ -591,7 +594,7 @@ export default function ClassesPage() {
                                         return (
                                             <tr key={cls.id}>
                                                 <td>{cls.name}</td>
-                                                <td>{cls.level || '-'}</td>
+                                                <td>{cls.cycle || '-'}</td>
                                                 <td>{cls.students_count || 0}</td>
                                                 <td>{cls.capacity || '-'}</td>
                                                 <td>
