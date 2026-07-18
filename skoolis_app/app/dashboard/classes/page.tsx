@@ -538,7 +538,7 @@ export default function ClassesPage() {
                                 </div>
 
                                 {/* Section 2 : Informations et Titre du document */}
-                                <div className="flex flex-col mt-16 mb-10">
+                                <div className="flex flex-col mt-24 mb-6">
                                     {/* Ligne 1 : Année et Classe */}
                                     <div className="flex justify-between items-center mb-6">
                                         <p className="text-black font-bold m-0 text-sm">Année scolaire 2026-2027</p>
@@ -547,9 +547,9 @@ export default function ClassesPage() {
                                         </p>
                                     </div>
                                     
-                                    {/* Ligne 2 : Titre principal au centre */}
-                                    <div className="flex justify-center w-full">
-                                        <h1 className="text-xl font-black uppercase tracking-widest text-black m-0 text-center">
+                                    {/* Ligne 2 : Titre principal au centre, souligné */}
+                                    <div className="flex justify-center w-full mb-2">
+                                        <h1 className="text-xl font-black uppercase tracking-widest text-black m-0 text-center underline underline-offset-4 decoration-2">
                                             {printType === 'classes_list' && 'Liste globale des classes'}
                                             {printType === 'students_list' && "Fiche d'identité des élèves"}
                                             {printType === 'grades' && 'Fiche de notation trimestrielle'}
