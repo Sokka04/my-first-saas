@@ -524,11 +524,6 @@ export default function ClassesPage() {
                             {/* En-tête d'impression */}
                             <div className="mb-6 flex justify-between items-start border-b-2 border-black pb-4">
                                 <div className="flex flex-col items-center justify-center w-1/4">
-                                    <div className="border border-dashed border-gray-400 p-2 text-center mb-2" style={{ width: '80px', minHeight: '80px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                        <p className="text-[8px] text-gray-500 m-0 leading-tight">
-                                            [Logo]
-                                        </p>
-                                    </div>
                                     <h2 className="text-sm font-black m-0 text-black uppercase text-center">Complexe Scolaire Skoolis</h2>
                                     <p className="text-xs text-black m-0 text-center">BP 12345 Lomé, Togo</p>
                                     <p className="text-xs text-black m-0 text-center">Tél: +228 90 00 00 00</p>
