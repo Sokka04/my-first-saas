@@ -21,8 +21,8 @@ export default function ClassesPage() {
     const [selectedClassAction, setSelectedClassAction] = useState<{id: string, name: string, level: string | null, action: 'manage' | 'stats'} | null>(null);
     const [classeClickCount, setClasseClickCount] = useState(0);
     const [showCycleToast, setShowCycleToast] = useState(false);
-    const [shakeClasseField, setShakeClasseField] = useState(false);
-    const [showClasseValidationToast, setShowClasseValidationToast] = useState(false);
+    const [shakeField, setShakeField] = useState<string | null>(null);
+    const [validationToastMsg, setValidationToastMsg] = useState<string | null>(null);
 
     // Form states
     const [formData, setFormData] = useState({
@@ -83,12 +83,26 @@ export default function ClassesPage() {
     const handleSave = async (e: any) => {
         e.preventDefault();
 
-        // Custom validation: Class is required
+        // Custom validation: handle multiple scenarios
+        if (!formData.name) {
+            setShakeField('name');
+            setValidationToastMsg("Veuillez entrer le nom de la classe.");
+            setTimeout(() => setShakeField(null), 500);
+            setTimeout(() => setValidationToastMsg(null), 4000);
+            return;
+        }
+        if (!formData.cycle) {
+            setShakeField('cycle');
+            setValidationToastMsg("Veuillez sélectionner le cycle.");
+            setTimeout(() => setShakeField(null), 500);
+            setTimeout(() => setValidationToastMsg(null), 4000);
+            return;
+        }
         if (!formData.level) {
-            setShakeClasseField(true);
-            setShowClasseValidationToast(true);
-            setTimeout(() => setShakeClasseField(false), 500);
-            setTimeout(() => setShowClasseValidationToast(false), 4000);
+            setShakeField('level');
+            setValidationToastMsg("Veuillez sélectionner la classe avant d'enregistrer.");
+            setTimeout(() => setShakeField(null), 500);
+            setTimeout(() => setValidationToastMsg(null), 4000);
             return;
         }
 
@@ -449,17 +463,21 @@ export default function ClassesPage() {
                                     <i className="fas fa-info-circle"></i> Informations de base
                                 </h4>
                                 <div className="form-grid">
-                                    <div className="form-group">
-                                        <label>Nom de la classe <span className="required">*</span></label>
-                                        <input type="text" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} required className="form-control" placeholder="Ex: 3ème A" />
+                                    <div className={`form-group ${shakeField === 'name' ? 'shake-animation' : ''}`}>
+                                        <label style={shakeField === 'name' ? { color: 'var(--destructive)', fontWeight: 'bold' } : {}}>Nom de la classe <span className="required">*</span></label>
+                                        <input type="text" value={formData.name} onChange={e => {
+                                            setFormData({...formData, name: e.target.value});
+                                            if (shakeField === 'name') { setShakeField(null); setValidationToastMsg(null); }
+                                        }} className="form-control" style={shakeField === 'name' ? { borderColor: 'var(--destructive)', outlineColor: 'var(--destructive)', boxShadow: '0 0 0 2px var(--destructive)' } : {}} placeholder="Ex: 3ème A" />
                                     </div>
-                                    <div className="form-group">
-                                        <label>Cycle <span className="required">*</span></label>
+                                    <div className={`form-group ${shakeField === 'cycle' ? 'shake-animation' : ''}`}>
+                                        <label style={shakeField === 'cycle' ? { color: 'var(--destructive)', fontWeight: 'bold' } : {}}>Cycle <span className="required">*</span></label>
                                         <select id="form-cycle-select" value={formData.cycle} onChange={e => {
                                             // Reset level when cycle changes
                                             setFormData({...formData, cycle: e.target.value, level: ''});
                                             setClasseClickCount(0); // reset tracker when user fixes the issue
-                                        }} required className="form-control">
+                                            if (shakeField === 'cycle') { setShakeField(null); setValidationToastMsg(null); }
+                                        }} className="form-control" style={shakeField === 'cycle' ? { borderColor: 'var(--destructive)', outlineColor: 'var(--destructive)', boxShadow: '0 0 0 2px var(--destructive)' } : {}}>
                                             <option value="">Sélectionner un cycle</option>
                                             <option value="Crèche">Crèche</option>
                                             <option value="Maternelle">Maternelle</option>
@@ -468,7 +486,7 @@ export default function ClassesPage() {
                                             <option value="High School">Lycée</option>
                                         </select>
                                     </div>
-                                    <div className={`form-group ${shakeClasseField ? 'shake-animation' : ''}`} onClick={() => {
+                                    <div className={`form-group ${shakeField === 'level' ? 'shake-animation' : ''}`} onClick={() => {
                                         if (!formData.cycle) {
                                             const next = classeClickCount + 1;
                                             setClasseClickCount(next);
@@ -514,13 +532,12 @@ export default function ClassesPage() {
                                             }
                                         }
                                     }}>
-                                        <label className={shakeClasseField ? 'text-destructive font-bold transition-colors' : ''}>Classe <span className="required">*</span></label>
+                                        <label style={shakeField === 'level' ? { color: 'var(--destructive)', fontWeight: 'bold' } : {}}>Classe <span className="required">*</span></label>
                                         <div style={!formData.cycle ? { pointerEvents: 'none', cursor: 'not-allowed' } : {}}>
                                             <select id="form-level-select" value={formData.level} onChange={e => {
                                                 setFormData({...formData, level: e.target.value});
-                                                setShakeClasseField(false);
-                                                setShowClasseValidationToast(false);
-                                            }} className={`form-control ${shakeClasseField ? 'border-destructive ring-destructive' : ''}`} disabled={!formData.cycle} style={!formData.cycle ? { pointerEvents: 'none' } : {}}>
+                                                if (shakeField === 'level') { setShakeField(null); setValidationToastMsg(null); }
+                                            }} className="form-control" disabled={!formData.cycle} style={!formData.cycle ? { pointerEvents: 'none' } : (shakeField === 'level' ? { borderColor: 'var(--destructive)', outlineColor: 'var(--destructive)', boxShadow: '0 0 0 2px var(--destructive)' } : {})}>
                                                 <option value="">Sélectionner une classe</option>
                                             {levelOptionsForCycle(formData.cycle).map(opt => (
                                                 <option key={opt.v} value={opt.v}>{opt.l}</option>
@@ -845,16 +862,16 @@ export default function ClassesPage() {
             <div 
                 className="fixed bottom-4 right-4 z-[99999] transition-all duration-300 ease-in-out"
                 style={{ 
-                    opacity: showClasseValidationToast ? 1 : 0, 
-                    transform: showClasseValidationToast ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.95)',
-                    pointerEvents: showClasseValidationToast ? 'auto' : 'none'
+                    opacity: validationToastMsg ? 1 : 0, 
+                    transform: validationToastMsg ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.95)',
+                    pointerEvents: validationToastMsg ? 'auto' : 'none'
                 }}
             >
                 <div className="bg-destructive text-destructive-foreground shadow-lg rounded-lg p-4 flex items-center gap-3">
                     <i className="fas fa-exclamation-triangle text-xl"></i>
                     <div>
                         <h4 className="font-bold text-sm">Erreur de validation</h4>
-                        <p className="text-sm opacity-90">Veuillez sélectionner la classe avant d'enregistrer.</p>
+                        <p className="text-sm opacity-90">{validationToastMsg}</p>
                     </div>
                 </div>
             </div>
