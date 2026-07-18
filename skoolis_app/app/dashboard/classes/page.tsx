@@ -675,10 +675,8 @@ export default function ClassesPage() {
 
                         {/* Pied de page global (Fixé en bas de la feuille) */}
                         <div className="fixed bottom-0 left-0 right-0 w-full pt-2 border-t border-black flex justify-between items-center text-xs text-gray-500 bg-white px-8" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
-                            <p className="m-0 font-medium w-1/3 text-left">Propulsé par Skoolis</p>
-                            <div className="w-1/3 flex justify-center">
-                                <img src="/skoolis_logo_sombre.png" alt="Skoolis" className="h-6 object-contain opacity-50 grayscale" />
-                            </div>
+                            <div className="w-1/3"></div>
+                            <p className="m-0 font-bold text-[11px] uppercase tracking-wider text-black w-1/3 text-center">Propulsé par Skoolis</p>
                             <p className="m-0 font-medium w-1/3 text-right">Imprimé le {new Date().toLocaleDateString('fr-FR')} à {new Date().toLocaleTimeString('fr-FR', {hour: '2-digit', minute:'2-digit'})}</p>
                         </div>
                     </div>
