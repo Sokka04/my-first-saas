@@ -119,7 +119,7 @@ export default async function RootLayout({
           }}
         />
       </head>
-      <body className="bg-background text-foreground flex min-h-full flex-col">
+      <body suppressHydrationWarning className="bg-background text-foreground flex min-h-full flex-col">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
