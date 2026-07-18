@@ -507,7 +507,8 @@ export default function ClassesPage() {
                     </div>
 
                     {/* Vue dédiée pour l'impression (Tableau et En-tête/Pied) */}
-                    <div className="hidden print:block" style={{ fontFamily: "'Inter', 'Roboto', sans-serif" }}>
+                    {/* Vue dédiée pour l'impression (Tableau et En-tête/Pied) */}
+                    <div className="hidden print:block" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
                         {printType === 'students_list' && (
                             <style type="text/css" media="print">
                                 {`@page { size: landscape; margin: 10mm; }`}
@@ -519,249 +520,150 @@ export default function ClassesPage() {
                             </style>
                         )}
 
-                        {printType === 'students_list' ? (
-                            // FICHE D'IDENTITÉ DE L'ÉLÈVE (Rendered per student)
-                            [1, 2].map((num) => (
-                                <div key={num} style={{ pageBreakAfter: 'always', paddingBottom: '40px' }} className="flex flex-col h-full w-full">
-                                    {/* Bloc 1 : En-tête Administratif & Photo */}
-                                    <div className="flex justify-between items-start mb-6 border-b-2 border-black pb-4">
-                                        <div className="w-48">
-                                            <div className="border border-dashed border-gray-400 p-2 text-center" style={{ width: '100%', minHeight: '64px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                                <p className="text-[10px] text-gray-500 m-0 leading-tight">
-                                                    [Logo de l'établissement non configuré - Veuillez l'ajouter dans les paramètres Skoolis avant l'impression]
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div className="text-center flex-1 px-4">
-                                            <h1 className="text-2xl font-black uppercase tracking-wider text-black m-0" style={{ fontFamily: "'Montserrat', sans-serif" }}>Fiche d'identité de l'élève</h1>
-                                            <p className="text-lg font-bold text-gray-800 m-0 mt-1">Année scolaire 2026-2027</p>
-                                        </div>
-                                        <div className="w-32 h-40 border-2 border-black flex items-center justify-center bg-gray-50">
-                                            <p className="text-sm text-gray-400 m-0 text-center px-2">Photo d'identité</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="grid grid-cols-2 gap-8">
-                                        {/* Colonne Gauche */}
-                                        <div className="flex flex-col gap-6">
-                                            {/* Bloc 2 : Informations Scolaires */}
-                                            <div>
-                                                <h2 className="text-lg font-bold border-b border-gray-300 mb-3 pb-1" style={{ fontFamily: "'Montserrat', sans-serif" }}>Informations Scolaires</h2>
-                                                <div className="grid grid-cols-2 gap-y-3">
-                                                    <div>
-                                                        <p className="text-xs text-gray-500 m-0">Matricule</p>
-                                                        <p className="text-base font-black text-black m-0">MAT-{202600 + num}</p>
-                                                    </div>
-                                                    <div>
-                                                        <p className="text-xs text-gray-500 m-0">Classe actuelle</p>
-                                                        <p className="text-base font-bold text-black m-0">{classes.find(c => c.id === printTarget)?.name || 'Classe non spécifiée'}</p>
-                                                    </div>
-                                                    <div className="col-span-2">
-                                                        <p className="text-xs text-gray-500 m-0">Statut</p>
-                                                        <p className="text-base font-bold text-black m-0">Nouvel élève • Interne</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            {/* Bloc 3 : État Civil */}
-                                            <div>
-                                                <h2 className="text-lg font-bold border-b border-gray-300 mb-3 pb-1" style={{ fontFamily: "'Montserrat', sans-serif" }}>État Civil</h2>
-                                                <div className="grid grid-cols-2 gap-y-3">
-                                                    <div className="col-span-2">
-                                                        <p className="text-xs text-gray-500 m-0">Nom</p>
-                                                        <p className="text-base font-bold text-black m-0 uppercase">Élève Exemple</p>
-                                                    </div>
-                                                    <div className="col-span-2">
-                                                        <p className="text-xs text-gray-500 m-0">Prénom(s)</p>
-                                                        <p className="text-base font-bold text-black m-0">Prénom {num}</p>
-                                                    </div>
-                                                    <div>
-                                                        <p className="text-xs text-gray-500 m-0">Sexe</p>
-                                                        <p className="text-base font-bold text-black m-0">{num % 2 === 0 ? 'Féminin' : 'Masculin'}</p>
-                                                    </div>
-                                                    <div>
-                                                        <p className="text-xs text-gray-500 m-0">Date de naissance</p>
-                                                        <p className="text-base font-bold text-black m-0">12/05/201{num%10}</p>
-                                                    </div>
-                                                    <div className="col-span-2">
-                                                        <p className="text-xs text-gray-500 m-0">Lieu de naissance</p>
-                                                        <p className="text-base font-bold text-black m-0">Lomé</p>
-                                                    </div>
-                                                    <div className="col-span-2">
-                                                        <p className="text-xs text-gray-500 m-0">Nationalité</p>
-                                                        <p className="text-base font-bold text-black m-0">Togolaise</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        {/* Colonne Droite */}
-                                        <div className="flex flex-col gap-6">
-                                            {/* Bloc 4 : Coordonnées & Contacts d'Urgence */}
-                                            <div>
-                                                <h2 className="text-lg font-bold border-b border-gray-300 mb-3 pb-1" style={{ fontFamily: "'Montserrat', sans-serif" }}>Contacts & Urgence</h2>
-                                                <div className="flex flex-col gap-3">
-                                                    <div>
-                                                        <p className="text-xs text-gray-500 m-0">Nom & Prénom du Père / Tuteur</p>
-                                                        <p className="text-base font-bold text-black m-0">Père Exemple {num}</p>
-                                                        <p className="text-sm text-gray-700 m-0">Tél : +228 90 00 00 0{num} • Profession : Cadre</p>
-                                                    </div>
-                                                    <div>
-                                                        <p className="text-xs text-gray-500 m-0">Nom & Prénom de la Mère / Tutrice</p>
-                                                        <p className="text-base font-bold text-black m-0">Mère Exemple {num}</p>
-                                                        <p className="text-sm text-gray-700 m-0">Tél : +228 91 00 00 0{num} • Profession : Commerçante</p>
-                                                    </div>
-                                                    <div>
-                                                        <p className="text-xs text-gray-500 m-0">Adresse de résidence</p>
-                                                        <p className="text-base font-bold text-black m-0">Quartier Agoè, Lomé</p>
-                                                    </div>
-                                                    <div className="mt-2 p-3 bg-gray-100 border-l-4 border-black">
-                                                        <p className="text-xs text-gray-600 m-0 uppercase font-bold mb-1">Contact d'urgence principal</p>
-                                                        <p className="text-lg font-black text-black m-0">+228 90 00 00 0{num}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            {/* Bloc 5 : Informations Médicales */}
-                                            <div>
-                                                <h2 className="text-lg font-bold border-b border-gray-300 mb-3 pb-1" style={{ fontFamily: "'Montserrat', sans-serif" }}>Informations Médicales</h2>
-                                                <div className="grid grid-cols-2 gap-y-3">
-                                                    <div>
-                                                        <p className="text-xs text-gray-500 m-0">Groupe Sanguin</p>
-                                                        <p className="text-base font-bold text-black m-0">{num % 2 === 0 ? 'O+' : 'A+'}</p>
-                                                    </div>
-                                                    <div className="col-span-2">
-                                                        <p className="text-xs text-gray-500 m-0">Allergies / Contre-indications</p>
-                                                        <p className="text-base font-bold text-black m-0">Néant</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))
-                        ) : (
-                            // AUTRES LISTES (Présence, Notes, Liste globale)
-                            <div className="flex flex-col h-full w-full mb-16">
-                                {/* En-tête d'impression */}
-                                <div className="mb-6 flex justify-between items-start border-b-2 border-black pb-4">
-                                    <div className="flex items-start gap-4">
-                                        <div className="border border-dashed border-gray-400 p-2 text-center" style={{ width: '120px', minHeight: '50px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                            <p className="text-[10px] text-gray-500 m-0 leading-tight">
-                                                [Logo de l'établissement non configuré - Veuillez l'ajouter dans les paramètres Skoolis avant l'impression]
-                                            </p>
-                                        </div>
-                                        <div>
-                                            <h2 className="text-xl font-black m-0 text-black uppercase tracking-wider" style={{ fontFamily: "'Montserrat', sans-serif" }}>Nom de l'établissement</h2>
-                                            {printType === 'grades' && (
-                                                <>
-                                                    <p className="text-sm font-bold text-gray-800 m-0 mt-1">Matière : ..............................................</p>
-                                                    <p className="text-sm font-bold text-gray-800 m-0">Enseignant : ..........................................</p>
-                                                </>
-                                            )}
-                                        </div>
-                                    </div>
-                                    <div className="text-right">
-                                        <h1 className="text-2xl font-black uppercase tracking-wider text-black m-0" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-                                            {printType === 'classes_list' && 'Liste globale des classes'}
-                                            {printType === 'grades' && 'Fiche de notation trimestrielle'}
-                                            {printType === 'attendance' && 'Fiche de suivi des présences'}
-                                        </h1>
-                                        <p className="text-gray-800 font-bold m-0 mt-1">Année scolaire 2026-2027</p>
-                                        <p className="text-black font-bold m-0 mt-1 text-lg">
-                                            {printTarget === 'all' ? 'Toutes les classes' : `Classe : ${classes.find(c => c.id === printTarget)?.name || ''}`}
+                        <div className="flex flex-col h-full w-full mb-16">
+                            {/* En-tête d'impression */}
+                            <div className="mb-6 flex justify-between items-start border-b-2 border-black pb-4">
+                                <div className="flex items-start gap-4">
+                                    <div className="border border-dashed border-gray-400 p-2 text-center" style={{ width: '120px', minHeight: '50px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                        <p className="text-[10px] text-gray-500 m-0 leading-tight">
+                                            [Logo de l'établissement non configuré - Veuillez l'ajouter dans les paramètres Skoolis avant l'impression]
                                         </p>
-                                        {printType === 'attendance' && (
-                                            <p className="text-gray-800 font-bold m-0 mt-1">Période : ..............................................</p>
-                                        )}
                                     </div>
-                                </div>
-
-                                {/* Tableau d'impression dynamique */}
-                                <table className="w-full text-left border-collapse" style={{ border: '1px solid black', fontSize: '13px' }}>
-                                    <thead>
-                                        {printType === 'classes_list' && (
-                                            <tr className="bg-gray-100">
-                                                <th className="border border-black p-2 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Nom de la classe</th>
-                                                <th className="border border-black p-2 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Cycle</th>
-                                                <th className="border border-black p-2 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Niveau</th>
-                                                <th className="border border-black p-2 font-bold text-black text-center" style={{ backgroundColor: '#f3f4f6' }}>Effectif</th>
-                                                <th className="border border-black p-2 font-bold text-black text-center" style={{ backgroundColor: '#f3f4f6' }}>Capacité</th>
-                                            </tr>
-                                        )}
+                                    <div>
+                                        <h2 className="text-xl font-black m-0 text-black uppercase tracking-wider" style={{ fontFamily: "'Times New Roman', Times, serif" }}>Nom de l'établissement</h2>
                                         {printType === 'grades' && (
                                             <>
-                                                <tr className="bg-gray-100">
-                                                    <th rowSpan={2} className="border border-black p-2 font-bold text-black w-10 text-center" style={{ backgroundColor: '#f3f4f6' }}>N°</th>
-                                                    <th rowSpan={2} className="border border-black p-2 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Nom & Prénoms</th>
-                                                    <th colSpan={2} className="border border-black p-2 font-bold text-black text-center" style={{ backgroundColor: '#f3f4f6' }}>Interrogations</th>
-                                                    <th colSpan={2} className="border border-black p-2 font-bold text-black text-center" style={{ backgroundColor: '#f3f4f6' }}>Devoirs</th>
-                                                    <th rowSpan={2} className="border border-black p-2 font-bold text-black text-center w-24" style={{ backgroundColor: '#f3f4f6' }}>Composition</th>
-                                                    <th rowSpan={2} className="border border-black p-2 font-bold text-black text-center w-40" style={{ backgroundColor: '#f3f4f6' }}>Moyenne / Observations</th>
-                                                </tr>
-                                                <tr className="bg-gray-50">
-                                                    <th className="border border-black p-2 font-bold text-black text-center text-xs" style={{ backgroundColor: '#f9fafb' }}>Interro 1</th>
-                                                    <th className="border border-black p-2 font-bold text-black text-center text-xs" style={{ backgroundColor: '#f9fafb' }}>Interro 2</th>
-                                                    <th className="border border-black p-2 font-bold text-black text-center text-xs" style={{ backgroundColor: '#f9fafb' }}>Devoir 1</th>
-                                                    <th className="border border-black p-2 font-bold text-black text-center text-xs" style={{ backgroundColor: '#f9fafb' }}>Devoir 2</th>
-                                                </tr>
+                                                <p className="text-sm font-bold text-gray-800 m-0 mt-1">Matière : ..............................................</p>
+                                                <p className="text-sm font-bold text-gray-800 m-0">Enseignant : ..........................................</p>
                                             </>
                                         )}
-                                        {printType === 'attendance' && (
-                                            <tr className="bg-gray-100">
-                                                <th className="border border-black p-2 font-bold text-black w-10 text-center" style={{ backgroundColor: '#f3f4f6' }}>N°</th>
-                                                <th className="border border-black p-2 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Nom & Prénoms</th>
-                                                {Array.from({length: 25}).map((_, i) => (
-                                                    <th key={i} className="border border-black p-1 font-bold text-black text-center w-6" style={{ backgroundColor: '#f3f4f6' }}></th>
-                                                ))}
-                                            </tr>
-                                        )}
-                                    </thead>
-                                    <tbody>
-                                        {printType === 'classes_list' ? (
-                                            filteredClasses.map((cls, idx) => (
-                                                <tr key={cls.id} className={idx % 2 === 0 ? "bg-white" : "bg-gray-50"}>
-                                                    <td className="border border-black p-2 text-black font-semibold">{cls.name}</td>
-                                                    <td className="border border-black p-2 text-black">{cls.cycle || '-'}</td>
-                                                    <td className="border border-black p-2 text-black">{translateCycle(cls.level)}</td>
-                                                    <td className="border border-black p-2 text-center text-black">{cls.students_count || 0}</td>
-                                                    <td className="border border-black p-2 text-center text-black">{cls.capacity}</td>
-                                                </tr>
-                                            ))
-                                        ) : (
-                                            [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map((num, idx) => (
-                                                <tr key={num} className={idx % 2 === 0 ? "bg-white" : "bg-gray-50"}>
-                                                    {printType === 'grades' && (
-                                                        <>
-                                                            <td className="border border-black p-2 text-center text-black font-medium">{num}</td>
-                                                            <td className="border border-black p-2 text-black font-bold uppercase">Élève Exemple {num}</td>
-                                                            <td className="border border-black p-3" style={{ height: '35px' }}></td>
-                                                            <td className="border border-black p-3" style={{ height: '35px' }}></td>
-                                                            <td className="border border-black p-3" style={{ height: '35px' }}></td>
-                                                            <td className="border border-black p-3" style={{ height: '35px' }}></td>
-                                                            <td className="border border-black p-3" style={{ height: '35px' }}></td>
-                                                            <td className="border border-black p-3" style={{ height: '35px' }}></td>
-                                                        </>
-                                                    )}
-                                                    {printType === 'attendance' && (
-                                                        <>
-                                                            <td className="border border-black p-2 text-center text-black font-medium">{num}</td>
-                                                            <td className="border border-black p-2 text-black font-bold uppercase">Élève Exemple {num}</td>
-                                                            {Array.from({length: 25}).map((_, i) => (
-                                                                <td key={i} className="border border-black p-1 bg-white" style={{ height: '30px', backgroundImage: 'radial-gradient(#e5e7eb 1px, transparent 1px)', backgroundSize: '4px 4px' }}></td>
-                                                            ))}
-                                                        </>
-                                                    )}
-                                                </tr>
-                                            ))
-                                        )}
-                                    </tbody>
-                                </table>
+                                    </div>
+                                </div>
+                                <div className="text-right">
+                                    <h1 className="text-2xl font-black uppercase tracking-wider text-black m-0" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
+                                        {printType === 'classes_list' && 'Liste globale des classes'}
+                                        {printType === 'students_list' && "Fiche d'identité des élèves"}
+                                        {printType === 'grades' && 'Fiche de notation trimestrielle'}
+                                        {printType === 'attendance' && 'Fiche de suivi des présences'}
+                                    </h1>
+                                    <p className="text-gray-800 font-bold m-0 mt-1">Année scolaire 2026-2027</p>
+                                    <p className="text-black font-bold m-0 mt-1 text-lg">
+                                        {printTarget === 'all' ? 'Toutes les classes' : `Classe : ${classes.find(c => c.id === printTarget)?.name || ''}`}
+                                    </p>
+                                    {printType === 'attendance' && (
+                                        <p className="text-gray-800 font-bold m-0 mt-1">Période : ..............................................</p>
+                                    )}
+                                </div>
                             </div>
-                        )}
+
+                            {/* Tableau d'impression dynamique */}
+                            <table className="w-full text-left border-collapse" style={{ border: '1px solid black', fontSize: '13px' }}>
+                                <thead>
+                                    {printType === 'classes_list' && (
+                                        <tr className="bg-gray-100">
+                                            <th className="border border-black p-2 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Nom de la classe</th>
+                                            <th className="border border-black p-2 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Cycle</th>
+                                            <th className="border border-black p-2 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Niveau</th>
+                                            <th className="border border-black p-2 font-bold text-black text-center" style={{ backgroundColor: '#f3f4f6' }}>Effectif</th>
+                                            <th className="border border-black p-2 font-bold text-black text-center" style={{ backgroundColor: '#f3f4f6' }}>Capacité</th>
+                                        </tr>
+                                    )}
+                                    {printType === 'students_list' && (
+                                        <tr className="bg-gray-100">
+                                            <th className="border border-black p-2 font-bold text-black text-center w-10" style={{ backgroundColor: '#f3f4f6' }}>N°</th>
+                                            <th className="border border-black p-2 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Matricule</th>
+                                            <th className="border border-black p-2 pl-4 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Nom & Prénom(s)</th>
+                                            <th className="border border-black p-2 font-bold text-black text-center" style={{ backgroundColor: '#f3f4f6' }}>Sexe</th>
+                                            <th className="border border-black p-2 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Date de naissance</th>
+                                            <th className="border border-black p-2 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Lieu de naissance</th>
+                                            <th className="border border-black p-2 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Nationalité</th>
+                                            <th className="border border-black p-2 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Contact Parent</th>
+                                        </tr>
+                                    )}
+                                    {printType === 'grades' && (
+                                        <>
+                                            <tr className="bg-gray-100">
+                                                <th rowSpan={2} className="border border-black p-2 font-bold text-black w-10 text-center" style={{ backgroundColor: '#f3f4f6' }}>N°</th>
+                                                <th rowSpan={2} className="border border-black p-2 pl-4 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Nom & Prénoms</th>
+                                                <th colSpan={2} className="border border-black p-2 font-bold text-black text-center" style={{ backgroundColor: '#f3f4f6' }}>Interrogations</th>
+                                                <th colSpan={2} className="border border-black p-2 font-bold text-black text-center" style={{ backgroundColor: '#f3f4f6' }}>Devoirs</th>
+                                                <th rowSpan={2} className="border border-black p-2 font-bold text-black text-center w-24" style={{ backgroundColor: '#f3f4f6' }}>Composition</th>
+                                                <th rowSpan={2} className="border border-black p-2 font-bold text-black text-center w-40" style={{ backgroundColor: '#f3f4f6' }}>Moyenne / Observations</th>
+                                            </tr>
+                                            <tr className="bg-gray-50">
+                                                <th className="border border-black p-2 font-bold text-black text-center text-xs" style={{ backgroundColor: '#f9fafb' }}>Interro 1</th>
+                                                <th className="border border-black p-2 font-bold text-black text-center text-xs" style={{ backgroundColor: '#f9fafb' }}>Interro 2</th>
+                                                <th className="border border-black p-2 font-bold text-black text-center text-xs" style={{ backgroundColor: '#f9fafb' }}>Devoir 1</th>
+                                                <th className="border border-black p-2 font-bold text-black text-center text-xs" style={{ backgroundColor: '#f9fafb' }}>Devoir 2</th>
+                                            </tr>
+                                        </>
+                                    )}
+                                    {printType === 'attendance' && (
+                                        <tr className="bg-gray-100">
+                                            <th className="border border-black p-2 font-bold text-black w-10 text-center" style={{ backgroundColor: '#f3f4f6' }}>N°</th>
+                                            <th className="border border-black p-2 pl-4 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Nom & Prénoms</th>
+                                            {Array.from({length: 25}).map((_, i) => (
+                                                <th key={i} className="border border-black p-1 font-bold text-black text-center w-6" style={{ backgroundColor: '#f3f4f6' }}></th>
+                                            ))}
+                                        </tr>
+                                    )}
+                                </thead>
+                                <tbody>
+                                    {printType === 'classes_list' ? (
+                                        filteredClasses.map((cls, idx) => (
+                                            <tr key={cls.id} className={idx % 2 === 0 ? "bg-white" : "bg-gray-50"}>
+                                                <td className="border border-black p-2 text-black font-semibold">{cls.name}</td>
+                                                <td className="border border-black p-2 text-black">{cls.cycle || '-'}</td>
+                                                <td className="border border-black p-2 text-black">{translateCycle(cls.level)}</td>
+                                                <td className="border border-black p-2 text-center text-black">{cls.students_count || 0}</td>
+                                                <td className="border border-black p-2 text-center text-black">{cls.capacity}</td>
+                                            </tr>
+                                        ))
+                                    ) : (
+                                        [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map((num, idx) => (
+                                            <tr key={num} className={idx % 2 === 0 ? "bg-white" : "bg-gray-50"}>
+                                                {printType === 'students_list' && (
+                                                    <>
+                                                        <td className="border border-black p-2 text-center text-black font-medium">{num}</td>
+                                                        <td className="border border-black p-2 text-black font-mono">MAT-{202600 + num}</td>
+                                                        <td className="border border-black p-2 pl-4 text-black font-bold uppercase">Élève Exemple {num}</td>
+                                                        <td className="border border-black p-2 text-center text-black">{num % 2 === 0 ? 'F' : 'M'}</td>
+                                                        <td className="border border-black p-2 text-black">12/05/201{num%10}</td>
+                                                        <td className="border border-black p-2 text-black">Lomé</td>
+                                                        <td className="border border-black p-2 text-black">Togolaise</td>
+                                                        <td className="border border-black p-2 text-black">+228 90 00 00 0{num}</td>
+                                                    </>
+                                                )}
+                                                {printType === 'grades' && (
+                                                    <>
+                                                        <td className="border border-black p-2 text-center text-black font-medium">{num}</td>
+                                                        <td className="border border-black p-2 pl-4 text-black font-bold uppercase">Élève Exemple {num}</td>
+                                                        <td className="border border-black p-3" style={{ height: '35px' }}></td>
+                                                        <td className="border border-black p-3" style={{ height: '35px' }}></td>
+                                                        <td className="border border-black p-3" style={{ height: '35px' }}></td>
+                                                        <td className="border border-black p-3" style={{ height: '35px' }}></td>
+                                                        <td className="border border-black p-3" style={{ height: '35px' }}></td>
+                                                        <td className="border border-black p-3" style={{ height: '35px' }}></td>
+                                                    </>
+                                                )}
+                                                {printType === 'attendance' && (
+                                                    <>
+                                                        <td className="border border-black p-2 text-center text-black font-medium">{num}</td>
+                                                        <td className="border border-black p-2 pl-4 text-black font-bold uppercase">Élève Exemple {num}</td>
+                                                        {Array.from({length: 25}).map((_, i) => (
+                                                            <td key={i} className="border border-black p-1 bg-white" style={{ height: '30px', backgroundImage: 'radial-gradient(#e5e7eb 1px, transparent 1px)', backgroundSize: '4px 4px' }}></td>
+                                                        ))}
+                                                    </>
+                                                )}
+                                            </tr>
+                                        ))
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
 
                         {/* Pied de page global (Fixé en bas de la feuille) */}
-                        <div className="fixed bottom-0 left-0 right-0 w-full pt-2 border-t border-black flex justify-between items-center text-xs text-gray-500 bg-white" style={{ fontFamily: "'Inter', sans-serif" }}>
+                        <div className="fixed bottom-0 left-0 right-0 w-full pt-2 border-t border-black flex justify-between items-center text-xs text-gray-500 bg-white" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
                             <p className="m-0 font-medium">Propulsé par Skoolis</p>
                             <p className="m-0 font-medium">Imprimé le {new Date().toLocaleDateString('fr-FR')} à {new Date().toLocaleTimeString('fr-FR', {hour: '2-digit', minute:'2-digit'})}</p>
                         </div>
