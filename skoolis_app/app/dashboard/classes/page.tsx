@@ -538,12 +538,12 @@ export default function ClassesPage() {
                                 </div>
 
                                 {/* Espace physique garanti */}
-                                <div style={{ height: '20px' }}></div>
+                                <div style={{ height: '10px' }}></div>
 
                                 {/* Section 2 : Informations et Titre du document */}
                                 <div className="flex flex-col">
                                     {/* Ligne 1 : Année et Classe */}
-                                    <div className="flex justify-between items-center mb-6">
+                                    <div className="flex justify-between items-center mb-3">
                                         <p className="text-black font-bold m-0 text-sm">Année scolaire 2026-2027</p>
                                         <p className="text-black font-bold m-0 text-sm">
                                             {printTarget === 'all' ? 'Toutes les classes' : `Classe : ${classes.find(c => c.id === printTarget)?.name || ''}`}
