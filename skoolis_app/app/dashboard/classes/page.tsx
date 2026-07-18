@@ -156,6 +156,31 @@ export default function ClassesPage() {
         return c;
     };
 
+    const levelOptionsForCycle = (selectedCycle: string) => {
+        const cycle = selectedCycle.toLowerCase();
+        if (cycle === 'creche' || cycle === 'crèche') return [{v: 'creche', l: 'Crèche'}];
+        if (cycle === 'maternelle') return [{v: 'je1', l: 'JE1'}, {v: 'je2', l: 'JE2'}];
+        if (cycle === 'primaire' || cycle === 'primary') return [
+            {v: 'cp1', l: 'CP1'}, {v: 'cp2', l: 'CP2'}, 
+            {v: 'ce1', l: 'CE1'}, {v: 'ce2', l: 'CE2'}, 
+            {v: 'cm1', l: 'CM1'}, {v: 'cm2', l: 'CM2'}
+        ];
+        if (cycle === 'college' || cycle === 'middle school') return [
+            {v: '6eme', l: '6ème'}, {v: '5eme', l: '5ème'}, 
+            {v: '4eme', l: '4ème'}, {v: '3eme', l: '3ème'}
+        ];
+        if (cycle === 'lycee' || cycle === 'high school') return [
+            {v: '2nde', l: '2nde'}, {v: '1ere', l: '1ère'}, {v: 'terminale', l: 'Terminale'}
+        ];
+        
+        return [
+            {v: 'creche', l: 'Crèche'}, {v: 'je1', l: 'JE1'}, {v: 'je2', l: 'JE2'},
+            {v: 'cp1', l: 'CP1'}, {v: 'cp2', l: 'CP2'}, {v: 'ce1', l: 'CE1'}, {v: 'ce2', l: 'CE2'}, {v: 'cm1', l: 'CM1'}, {v: 'cm2', l: 'CM2'},
+            {v: '6eme', l: '6ème'}, {v: '5eme', l: '5ème'}, {v: '4eme', l: '4ème'}, {v: '3eme', l: '3ème'},
+            {v: '2nde', l: '2nde'}, {v: '1ere', l: '1ère'}, {v: 'terminale', l: 'Terminale'}
+        ];
+    };
+
     const filteredClasses = classes.filter(cls => {
         let matchCycle = true;
         let matchLevel = true;
@@ -292,22 +317,9 @@ export default function ClassesPage() {
                             <label>Classe:</label>
                             <select className="form-select" value={filterLevel} onChange={(e) => setFilterLevel(e.target.value)}>
                                 <option value="">Toutes les classes</option>
-                                <option value="creche">Crèche</option>
-                                <option value="je1">JE1</option>
-                                <option value="je2">JE2</option>
-                                <option value="cp1">CP1</option>
-                                <option value="cp2">CP2</option>
-                                <option value="ce1">CE1</option>
-                                <option value="ce2">CE2</option>
-                                <option value="cm1">CM1</option>
-                                <option value="cm2">CM2</option>
-                                <option value="6eme">6ème</option>
-                                <option value="5eme">5ème</option>
-                                <option value="4eme">4ème</option>
-                                <option value="3eme">3ème</option>
-                                <option value="2nde">2nde</option>
-                                <option value="1ere">1ère</option>
-                                <option value="terminale">Terminale</option>
+                                {levelOptionsForCycle(filterCycle).map(opt => (
+                                    <option key={opt.v} value={opt.v}>{opt.l}</option>
+                                ))}
                             </select>
                         </div>
                     </div>
@@ -403,36 +415,26 @@ export default function ClassesPage() {
                                         <input type="text" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} required className="form-control" placeholder="Ex: 3ème A" />
                                     </div>
                                     <div className="form-group">
-                                        <label>Niveau <span className="required">*</span></label>
-                                        <select value={formData.level} onChange={e => setFormData({...formData, level: e.target.value})} required className="form-control">
-                                            <option value="">Sélectionner un niveau</option>
-                                            <option value="Creche">Crèche</option>
-                                            <option value="JE1">JE1</option>
-                                            <option value="JE2">JE2</option>
-                                            <option value="CP1">CP1</option>
-                                            <option value="CP2">CP2</option>
-                                            <option value="CE1">CE1</option>
-                                            <option value="CE2">CE2</option>
-                                            <option value="CM1">CM1</option>
-                                            <option value="CM2">CM2</option>
-                                            <option value="6eme">6ème</option>
-                                            <option value="5eme">5ème</option>
-                                            <option value="4eme">4ème</option>
-                                            <option value="3eme">3ème</option>
-                                            <option value="2nde">2nde</option>
-                                            <option value="1ere">1ère</option>
-                                            <option value="terminale">Terminale</option>
-                                        </select>
-                                    </div>
-                                    <div className="form-group">
                                         <label>Cycle <span className="required">*</span></label>
-                                        <select value={formData.cycle} onChange={e => setFormData({...formData, cycle: e.target.value})} required className="form-control">
+                                        <select value={formData.cycle} onChange={e => {
+                                            // Reset level when cycle changes
+                                            setFormData({...formData, cycle: e.target.value, level: ''});
+                                        }} required className="form-control">
                                             <option value="">Sélectionner un cycle</option>
                                             <option value="Crèche">Crèche</option>
                                             <option value="Maternelle">Maternelle</option>
                                             <option value="Primary">Primaire</option>
                                             <option value="Middle School">Collège</option>
                                             <option value="High School">Lycée</option>
+                                        </select>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Niveau <span className="required">*</span></label>
+                                        <select value={formData.level} onChange={e => setFormData({...formData, level: e.target.value})} required className="form-control" disabled={!formData.cycle}>
+                                            <option value="">Sélectionner un niveau</option>
+                                            {levelOptionsForCycle(formData.cycle).map(opt => (
+                                                <option key={opt.v} value={opt.v}>{opt.l}</option>
+                                            ))}
                                         </select>
                                     </div>
                                     <div className="form-group">
