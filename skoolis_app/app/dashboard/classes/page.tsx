@@ -32,6 +32,9 @@ export default function ClassesPage() {
         teacher_id: ''
     });
 
+    const [filterCycle, setFilterCycle] = useState("");
+    const [filterLevel, setFilterLevel] = useState("");
+
     const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api/v1';
 
     const fetchClasses = async () => {
@@ -149,6 +152,24 @@ export default function ClassesPage() {
         return c;
     };
 
+    const filteredClasses = classes.filter(cls => {
+        let matchCycle = true;
+        let matchLevel = true;
+        
+        if (filterCycle) {
+            const translated = translateCycle(cls.cycle).toLowerCase();
+            const normalizedTranslated = translated.replace('è', 'e').replace('é', 'e');
+            if (normalizedTranslated !== filterCycle) matchCycle = false;
+        }
+
+        if (filterLevel) {
+            const normalizedLevel = (cls.level || '').toLowerCase().replace('è', 'e');
+            if (normalizedLevel !== filterLevel) matchLevel = false;
+        }
+
+        return matchCycle && matchLevel;
+    });
+
     return (
         <>
             {/* Statistiques rapides */}
@@ -235,7 +256,7 @@ export default function ClassesPage() {
                     <div className="filters-container">
                         <div className="filter-group">
                             <label>Cycle:</label>
-                            <select className="form-select">
+                            <select className="form-select" value={filterCycle} onChange={(e) => setFilterCycle(e.target.value)}>
                                 <option value="">Tous les cycles</option>
                                 <option value="primaire">Primaire</option>
                                 <option value="college">Collège</option>
@@ -244,20 +265,23 @@ export default function ClassesPage() {
                         </div>
                         <div className="filter-group">
                             <label>Niveau:</label>
-                            <select className="form-select">
+                            <select className="form-select" value={filterLevel} onChange={(e) => setFilterLevel(e.target.value)}>
                                 <option value="">Tous les niveaux</option>
                                 <option value="6eme">6ème</option>
                                 <option value="5eme">5ème</option>
                                 <option value="4eme">4ème</option>
                                 <option value="3eme">3ème</option>
+                                <option value="2nde">2nde</option>
+                                <option value="1ere">1ère</option>
+                                <option value="terminale">Terminale</option>
                             </select>
                         </div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                         {loading && <p className="col-span-full text-muted-foreground text-center py-8">Chargement des classes...</p>}
-                        {!loading && classes.length === 0 && <p className="col-span-full text-muted-foreground text-center py-8">Aucune classe enregistrée.</p>}
-                        {classes.map(cls => (
+                        {!loading && filteredClasses.length === 0 && <p className="col-span-full text-muted-foreground text-center py-8">Aucune classe trouvée.</p>}
+                        {filteredClasses.map(cls => (
                             <div key={cls.id} className="bg-card border-border border shadow-sm transition-all group relative" style={{ padding: '24px', borderRadius: '16px', display: 'flex', flexDirection: 'column', gap: '16px', overflow: 'hidden' }}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
                                     <div style={{ overflow: 'hidden' }}>
