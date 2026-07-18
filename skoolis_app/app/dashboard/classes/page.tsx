@@ -576,7 +576,7 @@ export default function ClassesPage() {
                             </div>
 
                             {/* Tableau d'impression dynamique */}
-                            <table className="w-full text-left border-collapse" style={{ border: '1px solid black', fontSize: '13px' }}>
+                            <table className="w-full text-left border-collapse" style={{ border: '1px solid black', fontSize: '11px' }}>
                                 <thead>
                                     {printType === 'classes_list' && (
                                         <tr className="bg-gray-100">
@@ -631,11 +631,11 @@ export default function ClassesPage() {
                                     {printType === 'classes_list' ? (
                                         filteredClasses.map((cls, idx) => (
                                             <tr key={cls.id} className={idx % 2 === 0 ? "bg-white" : "bg-gray-50"}>
-                                                <td className="border border-black p-2 text-black font-semibold">{cls.name}</td>
-                                                <td className="border border-black p-2 text-black">{cls.cycle || '-'}</td>
-                                                <td className="border border-black p-2 text-black">{translateCycle(cls.level)}</td>
-                                                <td className="border border-black p-2 text-center text-black">{cls.students_count || 0}</td>
-                                                <td className="border border-black p-2 text-center text-black">{cls.capacity}</td>
+                                                <td className="border border-black p-1 px-2 text-black font-semibold">{cls.name}</td>
+                                                <td className="border border-black p-1 px-2 text-black">{cls.cycle || '-'}</td>
+                                                <td className="border border-black p-1 px-2 text-black">{translateCycle(cls.level)}</td>
+                                                <td className="border border-black p-1 px-2 text-center text-black">{cls.students_count || 0}</td>
+                                                <td className="border border-black p-1 px-2 text-center text-black">{cls.capacity}</td>
                                             </tr>
                                         ))
                                     ) : (
@@ -643,34 +643,34 @@ export default function ClassesPage() {
                                             <tr key={num} className={idx % 2 === 0 ? "bg-white" : "bg-gray-50"}>
                                                 {printType === 'students_list' && (
                                                     <>
-                                                        <td className="border border-black p-2 text-center text-black font-medium">{num}</td>
-                                                        <td className="border border-black p-2 text-black font-mono">MAT-{202600 + num}</td>
-                                                        <td className="border border-black p-2 px-4 text-black font-bold uppercase">Élève Exemple {num}</td>
-                                                        <td className="border border-black p-2 text-center text-black">{num % 2 === 0 ? 'F' : 'M'}</td>
-                                                        <td className="border border-black p-2 text-black">12/05/201{num%10}</td>
-                                                        <td className="border border-black p-2 text-black">Lomé</td>
-                                                        <td className="border border-black p-2 text-black">Togolaise</td>
-                                                        <td className="border border-black p-2 text-black">+228 90 00 00 0{num}</td>
+                                                        <td className="border border-black p-1 px-2 text-center text-black font-medium">{num}</td>
+                                                        <td className="border border-black p-1 px-2 text-black font-mono">MAT-{202600 + num}</td>
+                                                        <td className="border border-black p-1 px-4 text-black font-bold uppercase">Élève Exemple {num}</td>
+                                                        <td className="border border-black p-1 px-2 text-center text-black">{num % 2 === 0 ? 'F' : 'M'}</td>
+                                                        <td className="border border-black p-1 px-2 text-black">12/05/201{num%10}</td>
+                                                        <td className="border border-black p-1 px-2 text-black">Lomé</td>
+                                                        <td className="border border-black p-1 px-2 text-black">Togolaise</td>
+                                                        <td className="border border-black p-1 px-2 text-black">+228 90 00 00 0{num}</td>
                                                     </>
                                                 )}
                                                 {printType === 'grades' && (
                                                     <>
-                                                        <td className="border border-black p-2 text-center text-black font-medium">{num}</td>
-                                                        <td className="border border-black p-2 px-4 text-black font-bold uppercase">Élève Exemple {num}</td>
-                                                        <td className="border border-black p-3" style={{ height: '35px' }}></td>
-                                                        <td className="border border-black p-3" style={{ height: '35px' }}></td>
-                                                        <td className="border border-black p-3" style={{ height: '35px' }}></td>
-                                                        <td className="border border-black p-3" style={{ height: '35px' }}></td>
-                                                        <td className="border border-black p-3" style={{ height: '35px' }}></td>
-                                                        <td className="border border-black p-3" style={{ height: '35px' }}></td>
+                                                        <td className="border border-black p-1 px-2 text-center text-black font-medium">{num}</td>
+                                                        <td className="border border-black p-1 px-4 text-black font-bold uppercase">Élève Exemple {num}</td>
+                                                        <td className="border border-black p-1" style={{ height: '22px' }}></td>
+                                                        <td className="border border-black p-1" style={{ height: '22px' }}></td>
+                                                        <td className="border border-black p-1" style={{ height: '22px' }}></td>
+                                                        <td className="border border-black p-1" style={{ height: '22px' }}></td>
+                                                        <td className="border border-black p-1" style={{ height: '22px' }}></td>
+                                                        <td className="border border-black p-1" style={{ height: '22px' }}></td>
                                                     </>
                                                 )}
                                                 {printType === 'attendance' && (
                                                     <>
-                                                        <td className="border border-black p-2 text-center text-black font-medium">{num}</td>
-                                                        <td className="border border-black p-2 px-4 text-black font-bold uppercase">Élève Exemple {num}</td>
+                                                        <td className="border border-black p-1 px-2 text-center text-black font-medium">{num}</td>
+                                                        <td className="border border-black p-1 px-4 text-black font-bold uppercase">Élève Exemple {num}</td>
                                                         {Array.from({length: 25}).map((_, i) => (
-                                                            <td key={i} className="border border-black p-1 bg-white" style={{ height: '30px', backgroundImage: 'radial-gradient(#e5e7eb 1px, transparent 1px)', backgroundSize: '4px 4px' }}></td>
+                                                            <td key={i} className="border border-black p-1 bg-white" style={{ height: '22px', backgroundImage: 'radial-gradient(#e5e7eb 1px, transparent 1px)', backgroundSize: '4px 4px' }}></td>
                                                         ))}
                                                     </>
                                                 )}
