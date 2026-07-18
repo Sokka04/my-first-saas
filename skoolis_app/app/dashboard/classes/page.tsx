@@ -546,40 +546,40 @@ export default function ClassesPage() {
                         </div>
 
                         <div className="summary-cards">
-                            <div className="summary-card">
-                                <div className="summary-icon" style={{backgroundColor: 'rgba(123, 31, 162, 0.1)'}}>
+                            <div className="summary-card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '12px' }}>
+                                <div className="summary-icon" style={{backgroundColor: 'rgba(123, 31, 162, 0.1)', marginBottom: '4px'}}>
                                     <i className="fas fa-users"></i>
                                 </div>
                                 <div className="summary-info">
-                                    <h4>Effectif total</h4>
-                                    <h3>{totalStudents}</h3>
+                                    <h4 style={{ margin: 0, marginBottom: '8px' }}>Effectif total</h4>
+                                    <h3 style={{ margin: 0 }}>{totalStudents}</h3>
                                 </div>
                             </div>
-                            <div className="summary-card">
-                                <div className="summary-icon" style={{backgroundColor: 'rgba(33, 150, 243, 0.1)'}}>
+                            <div className="summary-card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '12px' }}>
+                                <div className="summary-icon" style={{backgroundColor: 'rgba(33, 150, 243, 0.1)', marginBottom: '4px'}}>
                                     <i className="fas fa-percentage"></i>
                                 </div>
                                 <div className="summary-info">
-                                    <h4>Taux de remplissage</h4>
-                                    <h3>{totalClasses > 0 ? Math.round(classes.reduce((acc, cls) => acc + (cls.capacity ? ((cls.students_count || 0) / cls.capacity) : 0), 0) / totalClasses * 100) : 0}%</h3>
+                                    <h4 style={{ margin: 0, marginBottom: '8px' }}>Taux de remplissage</h4>
+                                    <h3 style={{ margin: 0 }}>{totalClasses > 0 ? Math.round(classes.reduce((acc, cls) => acc + (cls.capacity ? ((cls.students_count || 0) / cls.capacity) : 0), 0) / totalClasses * 100) : 0}%</h3>
                                 </div>
                             </div>
-                            <div className="summary-card">
-                                <div className="summary-icon" style={{backgroundColor: 'rgba(76, 175, 80, 0.1)'}}>
+                            <div className="summary-card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '12px' }}>
+                                <div className="summary-icon" style={{backgroundColor: 'rgba(76, 175, 80, 0.1)', marginBottom: '4px'}}>
                                     <i className="fas fa-chart-line"></i>
                                 </div>
                                 <div className="summary-info">
-                                    <h4>Moyenne générale</h4>
-                                    <h3>-</h3>
+                                    <h4 style={{ margin: 0, marginBottom: '8px' }}>Moyenne générale</h4>
+                                    <h3 style={{ margin: 0 }}>-</h3>
                                 </div>
                             </div>
-                            <div className="summary-card">
-                                <div className="summary-icon" style={{backgroundColor: 'rgba(255, 152, 0, 0.1)'}}>
+                            <div className="summary-card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '12px' }}>
+                                <div className="summary-icon" style={{backgroundColor: 'rgba(255, 152, 0, 0.1)', marginBottom: '4px'}}>
                                     <i className="fas fa-balance-scale"></i>
                                 </div>
                                 <div className="summary-info">
-                                    <h4>Ratio filles/garçons</h4>
-                                    <h3>-</h3>
+                                    <h4 style={{ margin: 0, marginBottom: '8px' }}>Ratio filles/garçons</h4>
+                                    <h3 style={{ margin: 0 }}>-</h3>
                                 </div>
                             </div>
                         </div>
