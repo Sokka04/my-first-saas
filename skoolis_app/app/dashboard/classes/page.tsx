@@ -16,7 +16,7 @@ export default function ClassesPage() {
     const [teachers, setTeachers] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [selectedClassAction, setSelectedClassAction] = useState<{ id: string, name: string, action: 'manage' | 'stats' } | null>(null);
+    const [selectedClassAction, setSelectedClassAction] = useState<{id: string, name: string, level: string | null, action: 'manage' | 'stats'} | null>(null);
 
     // Form states
     const [formData, setFormData] = useState({
@@ -182,20 +182,20 @@ export default function ClassesPage() {
     };
 
     const getCycleColors = (c?: string) => {
-        if (!c) return { badgeBg: 'bg-gray-100', badgeText: 'text-gray-600', cardBg: 'bg-card', cardBorder: 'border-border', barBg: 'bg-gray-400', buttonBg: 'bg-gray-600', buttonText: 'text-white' };
+        if (!c) return { badgeBg: 'bg-gray-100 dark:bg-gray-800', badgeText: 'text-gray-600 dark:text-gray-300', cardBg: 'bg-card', cardBorder: 'border-border', barBg: 'bg-gray-400 dark:bg-gray-600', buttonBg: 'bg-gray-600 dark:bg-gray-700', buttonText: 'text-white' };
         const lower = c.toLowerCase();
         if (lower.includes('creche') || lower.includes('crèche')) 
-            return { badgeBg: 'bg-pink-100', badgeText: 'text-pink-600', cardBg: 'bg-pink-50/50', cardBorder: 'border-pink-100', barBg: 'bg-pink-500', buttonBg: 'bg-pink-600', buttonText: 'text-white' };
+            return { badgeBg: 'bg-pink-100 dark:bg-pink-500/20', badgeText: 'text-pink-600 dark:text-pink-400', cardBg: 'bg-pink-50/50 dark:bg-pink-500/5', cardBorder: 'border-pink-100 dark:border-pink-500/20', barBg: 'bg-pink-500 dark:bg-pink-600', buttonBg: 'bg-pink-600 dark:bg-pink-700', buttonText: 'text-white' };
         if (lower.includes('maternelle')) 
-            return { badgeBg: 'bg-amber-100', badgeText: 'text-amber-600', cardBg: 'bg-amber-50/50', cardBorder: 'border-amber-100', barBg: 'bg-amber-500', buttonBg: 'bg-amber-600', buttonText: 'text-white' };
+            return { badgeBg: 'bg-amber-100 dark:bg-amber-500/20', badgeText: 'text-amber-600 dark:text-amber-400', cardBg: 'bg-amber-50/50 dark:bg-amber-500/5', cardBorder: 'border-amber-100 dark:border-amber-500/20', barBg: 'bg-amber-500 dark:bg-amber-600', buttonBg: 'bg-amber-600 dark:bg-amber-700', buttonText: 'text-white' };
         if (lower.includes('primary') || lower.includes('primaire')) 
-            return { badgeBg: 'bg-blue-100', badgeText: 'text-blue-600', cardBg: 'bg-blue-50/50', cardBorder: 'border-blue-100', barBg: 'bg-blue-500', buttonBg: 'bg-blue-600', buttonText: 'text-white' };
+            return { badgeBg: 'bg-blue-100 dark:bg-blue-500/20', badgeText: 'text-blue-600 dark:text-blue-400', cardBg: 'bg-blue-50/50 dark:bg-blue-500/5', cardBorder: 'border-blue-100 dark:border-blue-500/20', barBg: 'bg-blue-500 dark:bg-blue-600', buttonBg: 'bg-blue-600 dark:bg-blue-700', buttonText: 'text-white' };
         if (lower.includes('middle') || lower.includes('college') || lower.includes('collège')) 
-            return { badgeBg: 'bg-emerald-100', badgeText: 'text-emerald-600', cardBg: 'bg-emerald-50/50', cardBorder: 'border-emerald-100', barBg: 'bg-emerald-500', buttonBg: 'bg-emerald-600', buttonText: 'text-white' };
+            return { badgeBg: 'bg-emerald-100 dark:bg-emerald-500/20', badgeText: 'text-emerald-600 dark:text-emerald-400', cardBg: 'bg-emerald-50/50 dark:bg-emerald-500/5', cardBorder: 'border-emerald-100 dark:border-emerald-500/20', barBg: 'bg-emerald-500 dark:bg-emerald-600', buttonBg: 'bg-emerald-600 dark:bg-emerald-700', buttonText: 'text-white' };
         if (lower.includes('high') || lower.includes('lycee') || lower.includes('lycée')) 
-            return { badgeBg: 'bg-purple-100', badgeText: 'text-purple-600', cardBg: 'bg-purple-50/50', cardBorder: 'border-purple-100', barBg: 'bg-purple-500', buttonBg: 'bg-purple-600', buttonText: 'text-white' };
+            return { badgeBg: 'bg-purple-100 dark:bg-purple-500/20', badgeText: 'text-purple-600 dark:text-purple-400', cardBg: 'bg-purple-50/50 dark:bg-purple-500/5', cardBorder: 'border-purple-100 dark:border-purple-500/20', barBg: 'bg-purple-500 dark:bg-purple-600', buttonBg: 'bg-purple-600 dark:bg-purple-700', buttonText: 'text-white' };
         
-        return { badgeBg: 'bg-primary/10', badgeText: 'text-primary', cardBg: 'bg-card', cardBorder: 'border-border', barBg: 'bg-primary', buttonBg: 'bg-primary', buttonText: 'text-primary-foreground' };
+        return { badgeBg: 'bg-primary/10 dark:bg-primary/20', badgeText: 'text-primary dark:text-primary', cardBg: 'bg-card', cardBorder: 'border-border', barBg: 'bg-primary', buttonBg: 'bg-primary', buttonText: 'text-primary-foreground' };
     };
 
     const filteredClasses = classes.filter(cls => {
@@ -402,10 +402,10 @@ export default function ClassesPage() {
                                         {cls.students_count || 0} élèves inscrits
                                     </p>
                                     <div style={{ display: 'flex', gap: '10px', width: '100%' }}>
-                                        <button onClick={(e) => { e.preventDefault(); setSelectedClassAction({ id: cls.id, name: cls.name, action: 'manage' }); }} className={`${cycleColors.buttonBg} ${cycleColors.buttonText} transition-opacity hover:opacity-90`} style={{ flex: 1, padding: '10px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '13px', fontWeight: '600' }}>
+                                        <button onClick={(e) => { e.preventDefault(); setSelectedClassAction({ id: cls.id, name: cls.name, level: cls.level, action: 'manage' }); }} className={`${cycleColors.buttonBg} ${cycleColors.buttonText} transition-opacity hover:opacity-90`} style={{ flex: 1, padding: '10px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '13px', fontWeight: '600' }}>
                                             <i className="fas fa-edit" style={{ marginRight: '6px' }}></i> Gérer
                                         </button>
-                                        <button onClick={(e) => { e.preventDefault(); setSelectedClassAction({ id: cls.id, name: cls.name, action: 'stats' }); }} className="bg-secondary text-secondary-foreground transition-opacity hover:opacity-90" style={{ flex: 1, padding: '10px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '13px', fontWeight: '600' }}>
+                                        <button onClick={(e) => { e.preventDefault(); setSelectedClassAction({ id: cls.id, name: cls.name, level: cls.level, action: 'stats' }); }} className="bg-secondary text-secondary-foreground transition-opacity hover:opacity-90" style={{ flex: 1, padding: '10px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '13px', fontWeight: '600' }}>
                                             <i className="fas fa-chart-pie" style={{ marginRight: '6px' }}></i> Stats
                                         </button>
                                     </div>
@@ -690,55 +690,67 @@ export default function ClassesPage() {
                 </div>
             )}
 
-            {/* Modales pour les actions rapides de classe */}
+            {/* Modals for actions */}
             {selectedClassAction && (
                 <div 
-                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm transition-all"
+                    className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm" 
+                    style={{ display: 'flex', alignItems: 'center', justifyItems: 'center', justifyContent: 'center' }}
                     onClick={() => setSelectedClassAction(null)}
-                    style={{ zIndex: 1000, padding: '20px' }}
                 >
                     <div 
-                        className="bg-card text-card-foreground border-border w-full max-w-md rounded-2xl border shadow-xl"
-                        style={{ padding: '32px', display: 'flex', flexDirection: 'column' }}
+                        className="bg-card text-card-foreground border-border w-full max-w-md rounded-2xl border shadow-xl relative overflow-hidden"
+                        style={{ display: 'flex', flexDirection: 'column' }}
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
-                            <h3 className="text-foreground" style={{ fontSize: '20px', fontWeight: 'bold', margin: 0 }}>
-                                {selectedClassAction.action === 'manage' ? 'Gérer la classe' : 'Statistiques'}
-                            </h3>
-                            <button 
-                                onClick={() => setSelectedClassAction(null)}
-                                className="text-muted-foreground hover:bg-secondary transition-colors"
-                                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', borderRadius: '50%', border: 'none', cursor: 'pointer', background: 'transparent' }}
-                            >
-                                <i className="fas fa-times" style={{ fontSize: '18px' }}></i>
-                            </button>
-                        </div>
-                        
-                        <div style={{ marginBottom: '24px' }}>
-                            <span className="bg-primary/10 text-primary" style={{ display: 'inline-flex', borderRadius: '999px', padding: '6px 16px', fontSize: '14px', fontWeight: '600' }}>
-                                {selectedClassAction.name}
-                            </span>
-                        </div>
+                        {(() => {
+                            const modalColors = getCycleColors(selectedClassAction.level || '');
+                            return (
+                                <>
+                                    {/* Color accent line at top */}
+                                    <div className={`${modalColors.barBg}`} style={{ height: '4px', width: '100%' }}></div>
+                                    
+                                    <div style={{ padding: '32px' }}>
+                                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+                                            <h3 className="text-foreground" style={{ fontSize: '20px', fontWeight: 'bold', margin: 0 }}>
+                                                {selectedClassAction.action === 'manage' ? 'Gérer la classe' : 'Statistiques'}
+                                            </h3>
+                                            <button 
+                                                onClick={() => setSelectedClassAction(null)}
+                                                className="text-muted-foreground hover:bg-secondary transition-colors"
+                                                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', borderRadius: '50%', border: 'none', cursor: 'pointer', background: 'transparent' }}
+                                            >
+                                                <i className="fas fa-times" style={{ fontSize: '18px' }}></i>
+                                            </button>
+                                        </div>
+                                        
+                                        <div style={{ marginBottom: '24px' }}>
+                                            <span className={`${modalColors.badgeBg} ${modalColors.badgeText}`} style={{ display: 'inline-flex', borderRadius: '999px', padding: '6px 16px', fontSize: '14px', fontWeight: '600' }}>
+                                                {selectedClassAction.name}
+                                            </span>
+                                        </div>
 
-                        <div className="text-muted-foreground" style={{ textAlign: 'center', padding: '24px 0', marginBottom: '32px' }}>
-                            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
-                                <div className="bg-secondary text-secondary-foreground shadow-sm" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '72px', height: '72px', borderRadius: '50%', fontSize: '28px' }}>
-                                    <i className={selectedClassAction.action === 'manage' ? "fas fa-tools" : "fas fa-chart-pie"}></i>
-                                </div>
-                            </div>
-                            <p style={{ fontSize: '15px', lineHeight: '1.5', margin: 0 }}>
-                                L'interface {selectedClassAction.action === 'manage' ? 'de gestion' : 'des statistiques'} pour cette classe sera bientôt disponible.
-                            </p>
-                        </div>
+                                        <div className="text-muted-foreground" style={{ textAlign: 'center', padding: '24px 0', marginBottom: '32px' }}>
+                                            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
+                                                <div className={`${modalColors.buttonBg} ${modalColors.buttonText} shadow-sm`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '72px', height: '72px', borderRadius: '50%', fontSize: '28px' }}>
+                                                    <i className={selectedClassAction.action === 'manage' ? "fas fa-tools" : "fas fa-chart-pie"}></i>
+                                                </div>
+                                            </div>
+                                            <p style={{ fontSize: '15px', lineHeight: '1.5', margin: 0 }}>
+                                                L'interface {selectedClassAction.action === 'manage' ? 'de gestion' : 'des statistiques'} pour cette classe sera bientôt disponible.
+                                            </p>
+                                        </div>
 
-                        <button 
-                            onClick={() => setSelectedClassAction(null)}
-                            className="bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
-                            style={{ width: '100%', padding: '14px', borderRadius: '12px', border: 'none', cursor: 'pointer', fontSize: '15px', fontWeight: 'bold' }}
-                        >
-                            Fermer
-                        </button>
+                                        <button 
+                                            onClick={() => setSelectedClassAction(null)}
+                                            className={`${modalColors.buttonBg} ${modalColors.buttonText} hover:opacity-90 transition-opacity`}
+                                            style={{ width: '100%', padding: '14px', borderRadius: '12px', border: 'none', cursor: 'pointer', fontSize: '15px', fontWeight: 'bold' }}
+                                        >
+                                            Fermer
+                                        </button>
+                                    </div>
+                                </>
+                            );
+                        })()}
                     </div>
                 </div>
             )}
