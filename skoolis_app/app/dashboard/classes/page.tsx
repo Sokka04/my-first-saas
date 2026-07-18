@@ -584,7 +584,7 @@ export default function ClassesPage() {
                             <div style={{ height: '15px' }}></div>
 
                             {/* Tableau d'impression dynamique */}
-                            <table className="w-full text-left border-collapse" style={{ border: '1px solid black', fontSize: '11px' }}>
+                            <table className="w-full text-left border-collapse" style={{ border: '1px solid black', fontSize: '12px' }}>
                                 <thead>
                                     {printType === 'classes_list' && (
                                         <tr className="bg-gray-100">
