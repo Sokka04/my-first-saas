@@ -943,9 +943,9 @@ export default function ClassesPage() {
 
             {/* Modal d'impression */}
             {showPrintModal && (
-                <div className="modal-overlay fixed inset-0 bg-black/50 z-[9999] flex items-center justify-center p-4 backdrop-blur-sm" onClick={() => setShowPrintModal(false)}>
-                    <div className="bg-card text-card-foreground w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden border border-border" onClick={e => e.stopPropagation()}>
-                        <div className="p-6 md:p-8 border-b border-border flex items-center justify-between">
+                <div className="modal-overlay fixed inset-0 bg-black/50 z-[9999] flex items-center justify-center p-6 sm:p-8 backdrop-blur-sm" onClick={() => setShowPrintModal(false)}>
+                    <div className="bg-card text-card-foreground w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden border border-border flex flex-col" onClick={e => e.stopPropagation()} style={{ maxHeight: '90vh' }}>
+                        <div className="p-6 sm:p-8 border-b border-border flex items-center justify-between shrink-0">
                             <h3 className="text-xl font-bold m-0 flex items-center gap-2">
                                 <i className="fas fa-print text-primary"></i> Configuration d'impression
                             </h3>
@@ -954,7 +954,7 @@ export default function ClassesPage() {
                             </button>
                         </div>
                         
-                        <div className="p-6 md:p-8 flex flex-col gap-6">
+                        <div className="p-6 sm:p-8 flex flex-col gap-6 overflow-y-auto">
                             <div className="form-group mb-0">
                                 <label className="block mb-2 font-semibold text-base">Que voulez-vous imprimer ?</label>
                                 <select 
@@ -987,10 +987,10 @@ export default function ClassesPage() {
                             </div>
                         </div>
 
-                        <div className="p-6 md:p-8 border-t border-border bg-muted/20 flex justify-end gap-4">
+                        <div className="p-6 sm:p-8 border-t border-border bg-muted/20 flex flex-wrap justify-end gap-3 sm:gap-4 shrink-0">
                             <button 
                                 onClick={() => setShowPrintModal(false)}
-                                className="px-6 py-3 rounded-lg border border-border bg-background hover:bg-secondary font-medium transition-colors cursor-pointer text-foreground shadow-sm"
+                                className="px-5 py-2.5 sm:px-6 sm:py-3 rounded-lg border border-border bg-background hover:bg-secondary font-medium transition-colors cursor-pointer text-foreground shadow-sm"
                             >
                                 Annuler
                             </button>
@@ -1005,9 +1005,9 @@ export default function ClassesPage() {
                                         setShowPrintModal(false);
                                     }
                                 }}
-                                className="px-6 py-3 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity flex items-center gap-2 cursor-pointer border-none shadow-md"
+                                className="px-5 py-2.5 sm:px-6 sm:py-3 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity flex items-center gap-2 cursor-pointer border-none shadow-md whitespace-nowrap"
                             >
-                                <i className="fas fa-file-pdf text-lg"></i> Générer l'impression
+                                <i className="fas fa-file-pdf text-lg"></i> Imprimer
                             </button>
                         </div>
                     </div>
