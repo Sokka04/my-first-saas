@@ -599,7 +599,7 @@ export default function ClassesPage() {
                                         <tr className="bg-gray-100">
                                             <th className="border border-black p-2 font-bold text-black text-center w-10" style={{ backgroundColor: '#f3f4f6' }}>N°</th>
                                             <th className="border border-black p-2 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Matricule</th>
-                                            <th className="border border-black p-2 px-4 font-bold text-black min-w-[200px]" style={{ backgroundColor: '#f3f4f6' }}>Nom & Prénom(s)</th>
+                                            <th className="border border-black p-2 px-6 font-bold text-black min-w-[200px]" style={{ backgroundColor: '#f3f4f6' }}>Nom & Prénom(s)</th>
                                             <th className="border border-black p-2 font-bold text-black text-center" style={{ backgroundColor: '#f3f4f6' }}>Sexe</th>
                                             <th className="border border-black p-2 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Date de naissance</th>
                                             <th className="border border-black p-2 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Lieu de naissance</th>
@@ -611,7 +611,7 @@ export default function ClassesPage() {
                                         <>
                                             <tr className="bg-gray-100">
                                                 <th rowSpan={2} className="border border-black p-2 font-bold text-black w-10 text-center" style={{ backgroundColor: '#f3f4f6' }}>N°</th>
-                                                <th rowSpan={2} className="border border-black p-2 px-4 font-bold text-black min-w-[200px]" style={{ backgroundColor: '#f3f4f6' }}>Nom & Prénoms</th>
+                                                <th rowSpan={2} className="border border-black p-2 px-6 font-bold text-black min-w-[200px]" style={{ backgroundColor: '#f3f4f6' }}>Nom & Prénoms</th>
                                                 <th colSpan={2} className="border border-black p-2 font-bold text-black text-center" style={{ backgroundColor: '#f3f4f6' }}>Interrogations</th>
                                                 <th colSpan={2} className="border border-black p-2 font-bold text-black text-center" style={{ backgroundColor: '#f3f4f6' }}>Devoirs</th>
                                                 <th rowSpan={2} className="border border-black p-2 font-bold text-black text-center w-24" style={{ backgroundColor: '#f3f4f6' }}>Composition</th>
@@ -628,7 +628,7 @@ export default function ClassesPage() {
                                     {printType === 'attendance' && (
                                         <tr className="bg-gray-100">
                                             <th className="border border-black p-2 font-bold text-black w-10 text-center" style={{ backgroundColor: '#f3f4f6' }}>N°</th>
-                                            <th className="border border-black p-2 px-4 font-bold text-black min-w-[200px]" style={{ backgroundColor: '#f3f4f6' }}>Nom & Prénoms</th>
+                                            <th className="border border-black p-2 px-6 font-bold text-black min-w-[200px]" style={{ backgroundColor: '#f3f4f6' }}>Nom & Prénoms</th>
                                             {Array.from({length: 25}).map((_, i) => (
                                                 <th key={i} className="border border-black p-1 font-bold text-black text-center w-6" style={{ backgroundColor: '#f3f4f6' }}></th>
                                             ))}
@@ -653,7 +653,7 @@ export default function ClassesPage() {
                                                     <>
                                                         <td className="border border-black p-1 px-2 text-center text-black font-medium">{num}</td>
                                                         <td className="border border-black p-1 px-2 text-black font-mono">MAT-{202600 + num}</td>
-                                                        <td className="border border-black p-1 px-4 text-black font-bold uppercase">Élève Exemple {num}</td>
+                                                        <td className="border border-black p-1 px-6 text-black font-bold uppercase">Élève Exemple {num}</td>
                                                         <td className="border border-black p-1 px-2 text-center text-black">{num % 2 === 0 ? 'F' : 'M'}</td>
                                                         <td className="border border-black p-1 px-2 text-black">12/05/201{num%10}</td>
                                                         <td className="border border-black p-1 px-2 text-black">Lomé</td>
@@ -664,7 +664,7 @@ export default function ClassesPage() {
                                                 {printType === 'grades' && (
                                                     <>
                                                         <td className="border border-black p-1 px-2 text-center text-black font-medium">{num}</td>
-                                                        <td className="border border-black p-1 px-4 text-black font-bold uppercase">Élève Exemple {num}</td>
+                                                        <td className="border border-black p-1 px-6 text-black font-bold uppercase">Élève Exemple {num}</td>
                                                         <td className="border border-black p-1" style={{ height: '22px' }}></td>
                                                         <td className="border border-black p-1" style={{ height: '22px' }}></td>
                                                         <td className="border border-black p-1" style={{ height: '22px' }}></td>
@@ -676,7 +676,7 @@ export default function ClassesPage() {
                                                 {printType === 'attendance' && (
                                                     <>
                                                         <td className="border border-black p-1 px-2 text-center text-black font-medium">{num}</td>
-                                                        <td className="border border-black p-1 px-4 text-black font-bold uppercase">Élève Exemple {num}</td>
+                                                        <td className="border border-black p-1 px-6 text-black font-bold uppercase">Élève Exemple {num}</td>
                                                         {Array.from({length: 25}).map((_, i) => (
                                                             <td key={i} className="border border-black p-1 bg-white" style={{ height: '22px', backgroundImage: 'radial-gradient(#e5e7eb 1px, transparent 1px)', backgroundSize: '4px 4px' }}></td>
                                                         ))}
