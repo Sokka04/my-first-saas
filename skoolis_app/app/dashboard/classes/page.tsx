@@ -511,12 +511,12 @@ export default function ClassesPage() {
                     <div className="hidden print:block" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
                         {printType === 'students_list' && (
                             <style type="text/css" media="print">
-                                {`@page { size: landscape; margin: 15mm; }`}
+                                {`@page { size: landscape; margin: 10mm; }`}
                             </style>
                         )}
                         {printType !== 'students_list' && (
                             <style type="text/css" media="print">
-                                {`@page { size: portrait; margin: 15mm; }`}
+                                {`@page { size: portrait; margin: 10mm; }`}
                             </style>
                         )}
 
@@ -579,7 +579,7 @@ export default function ClassesPage() {
                                         <tr className="bg-gray-100">
                                             <th className="border border-black p-2 font-bold text-black text-center w-10" style={{ backgroundColor: '#f3f4f6' }}>N°</th>
                                             <th className="border border-black p-2 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Matricule</th>
-                                            <th className="border border-black p-2 px-4 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Nom & Prénom(s)</th>
+                                            <th className="border border-black p-2 px-4 font-bold text-black min-w-[200px]" style={{ backgroundColor: '#f3f4f6' }}>Nom & Prénom(s)</th>
                                             <th className="border border-black p-2 font-bold text-black text-center" style={{ backgroundColor: '#f3f4f6' }}>Sexe</th>
                                             <th className="border border-black p-2 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Date de naissance</th>
                                             <th className="border border-black p-2 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Lieu de naissance</th>
@@ -591,7 +591,7 @@ export default function ClassesPage() {
                                         <>
                                             <tr className="bg-gray-100">
                                                 <th rowSpan={2} className="border border-black p-2 font-bold text-black w-10 text-center" style={{ backgroundColor: '#f3f4f6' }}>N°</th>
-                                                <th rowSpan={2} className="border border-black p-2 px-4 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Nom & Prénoms</th>
+                                                <th rowSpan={2} className="border border-black p-2 px-4 font-bold text-black min-w-[200px]" style={{ backgroundColor: '#f3f4f6' }}>Nom & Prénoms</th>
                                                 <th colSpan={2} className="border border-black p-2 font-bold text-black text-center" style={{ backgroundColor: '#f3f4f6' }}>Interrogations</th>
                                                 <th colSpan={2} className="border border-black p-2 font-bold text-black text-center" style={{ backgroundColor: '#f3f4f6' }}>Devoirs</th>
                                                 <th rowSpan={2} className="border border-black p-2 font-bold text-black text-center w-24" style={{ backgroundColor: '#f3f4f6' }}>Composition</th>
@@ -608,7 +608,7 @@ export default function ClassesPage() {
                                     {printType === 'attendance' && (
                                         <tr className="bg-gray-100">
                                             <th className="border border-black p-2 font-bold text-black w-10 text-center" style={{ backgroundColor: '#f3f4f6' }}>N°</th>
-                                            <th className="border border-black p-2 px-4 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Nom & Prénoms</th>
+                                            <th className="border border-black p-2 px-4 font-bold text-black min-w-[200px]" style={{ backgroundColor: '#f3f4f6' }}>Nom & Prénoms</th>
                                             {Array.from({length: 25}).map((_, i) => (
                                                 <th key={i} className="border border-black p-1 font-bold text-black text-center w-6" style={{ backgroundColor: '#f3f4f6' }}></th>
                                             ))}
