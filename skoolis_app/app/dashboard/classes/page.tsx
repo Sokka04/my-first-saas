@@ -537,25 +537,24 @@ export default function ClassesPage() {
                                     </div>
                                 </div>
 
-                                {/* Section 2 : Titre du document */}
-                                <div className="flex justify-between items-center py-2 mt-16 mb-12">
-                                    <div className="w-1/4">
+                                {/* Section 2 : Informations et Titre du document */}
+                                <div className="flex flex-col mt-16 mb-10">
+                                    {/* Ligne 1 : Année et Classe */}
+                                    <div className="flex justify-between items-center mb-6">
                                         <p className="text-black font-bold m-0 text-sm">Année scolaire 2026-2027</p>
+                                        <p className="text-black font-bold m-0 text-sm">
+                                            {printTarget === 'all' ? 'Toutes les classes' : `Classe : ${classes.find(c => c.id === printTarget)?.name || ''}`}
+                                        </p>
                                     </div>
                                     
-                                    <div className="w-2/4 flex flex-col items-center">
+                                    {/* Ligne 2 : Titre principal au centre */}
+                                    <div className="flex justify-center w-full">
                                         <h1 className="text-xl font-black uppercase tracking-widest text-black m-0 text-center">
                                             {printType === 'classes_list' && 'Liste globale des classes'}
                                             {printType === 'students_list' && "Fiche d'identité des élèves"}
                                             {printType === 'grades' && 'Fiche de notation trimestrielle'}
                                             {printType === 'attendance' && 'Fiche de suivi des présences'}
                                         </h1>
-                                    </div>
-
-                                    <div className="w-1/4 flex justify-end">
-                                        <p className="text-black font-bold m-0 text-sm">
-                                            {printTarget === 'all' ? 'Toutes les classes' : `Classe : ${classes.find(c => c.id === printTarget)?.name || ''}`}
-                                        </p>
                                     </div>
                                 </div>
 
