@@ -508,7 +508,7 @@ export default function ClassesPage() {
 
                     {/* Vue dédiée pour l'impression (Tableau et En-tête/Pied) */}
                     {/* Vue dédiée pour l'impression (Tableau et En-tête/Pied) */}
-                    <div className="hidden print:block p-[10mm]" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
+                    <div className="hidden print:block" style={{ fontFamily: "'Times New Roman', Times, serif", padding: '8mm' }}>
                         {printType === 'students_list' && (
                             <style type="text/css" media="print">
                                 {`@page { size: landscape; margin: 0; }`}
