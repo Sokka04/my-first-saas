@@ -508,7 +508,7 @@ export default function ClassesPage() {
 
                     {/* Vue dédiée pour l'impression (Tableau et En-tête/Pied) */}
                     {/* Vue dédiée pour l'impression (Tableau et En-tête/Pied) */}
-                    <div className="hidden print:block" style={{ fontFamily: "'Times New Roman', Times, serif", padding: '8mm' }}>
+                    <div className="hidden print:flex flex-col justify-between min-h-screen box-border" style={{ fontFamily: "'Times New Roman', Times, serif", padding: '8mm' }}>
                         {printType === 'students_list' && (
                             <style type="text/css" media="print">
                                 {`@page { size: landscape; margin: 0; }`}
@@ -520,7 +520,7 @@ export default function ClassesPage() {
                             </style>
                         )}
 
-                        <div className="w-full mb-16">
+                        <div className="w-full flex-grow">
                             {/* En-tête d'impression */}
                             <div className="mb-10 flex flex-col">
                                 {/* Section 1 : Info École & République */}
@@ -691,8 +691,8 @@ export default function ClassesPage() {
                             </div>
                         </div>
 
-                        {/* Pied de page global (Non-fixé pour garantir l'impression) */}
-                        <div className="pt-2 mt-12 border-t border-black flex justify-between items-center text-xs text-gray-500 bg-white px-2" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
+                        {/* Pied de page global (poussé au bas de la page avec mt-auto) */}
+                        <div className="pt-2 mt-auto border-t border-black flex justify-between items-center text-xs text-gray-500 bg-white px-2 w-full" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
                             <div className="w-1/3"></div>
                             <p className="m-0 text-xs text-black w-1/3 text-center mb-1">
                                 <span className="italic font-normal">Propulsé par</span> <span className="font-bold">Skoolis</span>
