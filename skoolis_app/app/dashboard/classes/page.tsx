@@ -537,8 +537,8 @@ export default function ClassesPage() {
                                     </div>
                                 </div>
 
-                                {/* Section 2 : Titre du document (Borduré) */}
-                                <div className="flex justify-between items-center border-t-2 border-black border-b-2 py-3 mb-4">
+                                {/* Section 2 : Titre du document */}
+                                <div className="flex justify-between items-center py-2 mb-4">
                                     <div className="w-1/4">
                                         <p className="text-black font-bold m-0 text-xs">Année scolaire 2026-2027</p>
                                     </div>
@@ -550,13 +550,13 @@ export default function ClassesPage() {
                                             {printType === 'grades' && 'Fiche de notation trimestrielle'}
                                             {printType === 'attendance' && 'Fiche de suivi des présences'}
                                         </h1>
-                                        
-                                        <p className="text-black font-bold m-0 mt-2 text-sm px-4 py-1 inline-block border border-black">
+                                    </div>
+
+                                    <div className="w-1/4 flex justify-end">
+                                        <p className="text-black font-bold m-0 text-sm">
                                             {printTarget === 'all' ? 'Toutes les classes' : `Classe : ${classes.find(c => c.id === printTarget)?.name || ''}`}
                                         </p>
                                     </div>
-
-                                    <div className="w-1/4"></div>
                                 </div>
 
                                 {/* Section 3 : Informations supplémentaires (Grades / Attendance) */}
