@@ -473,18 +473,24 @@ export default function ClassesPage() {
                                                         prevBtnText: '← Précédent',
                                                         doneBtnText: 'Compris !',
                                                         progressText: '{{current}} sur {{total}}',
+                                                        allowClose: false,
                                                         steps: [
                                                             { 
                                                                 element: '#form-cycle-select', 
-                                                                popover: { title: '1. Choisissez le cycle', description: 'Vous devez d\'abord sélectionner le cycle (Primaire, Collège, etc.) auquel appartient la classe.', side: "left", align: 'start' },
-                                                                onNextClick: () => {
-                                                                    const cycleSelect = document.getElementById('form-cycle-select') as HTMLSelectElement;
-                                                                    if (!cycleSelect || !cycleSelect.value) {
-                                                                        setShowCycleToast(true);
-                                                                        setTimeout(() => setShowCycleToast(false), 3000);
-                                                                        return;
+                                                                popover: { 
+                                                                    title: '1. Choisissez le cycle', 
+                                                                    description: 'Vous devez d\'abord sélectionner le cycle (Primaire, Collège, etc.) auquel appartient la classe.', 
+                                                                    side: "left", 
+                                                                    align: 'start',
+                                                                    onNextClick: () => {
+                                                                        const cycleSelect = document.getElementById('form-cycle-select') as HTMLSelectElement;
+                                                                        if (!cycleSelect || !cycleSelect.value) {
+                                                                            setShowCycleToast(true);
+                                                                            setTimeout(() => setShowCycleToast(false), 3000);
+                                                                            return;
+                                                                        }
+                                                                        driverObj.moveNext();
                                                                     }
-                                                                    driverObj.moveNext();
                                                                 }
                                                             },
                                                             { element: '#form-level-select', popover: { title: '2. Choisissez la classe', description: 'Une fois le cycle sélectionné, les classes correspondantes apparaîtront ici.', side: "left", align: 'start' }},
