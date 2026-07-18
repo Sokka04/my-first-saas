@@ -417,8 +417,8 @@ export default function ClassesPage() {
                     </div>
 
                     <div className="form-container">
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                            <div className="form-group" style={{ margin: 0 }}>
+                        <div style={{ display: 'flex', flexDirection: 'row', gap: '20px', width: '100%' }}>
+                            <div className="form-group" style={{ margin: 0, flex: 1 }}>
                                 <label>Sélectionner la classe</label>
                                 <select 
                                     className="form-control" 
@@ -432,7 +432,7 @@ export default function ClassesPage() {
                                     ))}
                                 </select>
                             </div>
-                            <div className="form-group" style={{ margin: 0 }}>
+                            <div className="form-group" style={{ margin: 0, flex: 1 }}>
                                 <label>Sélectionner le titulaire</label>
                                 <select 
                                     className="form-control"
