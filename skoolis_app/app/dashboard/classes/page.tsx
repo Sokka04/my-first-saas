@@ -524,7 +524,7 @@ export default function ClassesPage() {
                             {/* En-tête d'impression */}
                             <div className="mb-10 flex flex-col">
                                 {/* Section 1 : Info École & République */}
-                                <div className="flex justify-between items-start mb-2">
+                                <div className="flex justify-between items-start mb-6">
                                     <div className="flex flex-col items-start w-1/3">
                                         <h2 className="text-sm font-black m-0 text-black uppercase">COMPLEXE SCOLAIRE SKOOLIS</h2>
                                         <p className="text-xs text-black m-0 mt-1">BP 12345 Lomé, Togo</p>
@@ -538,7 +538,7 @@ export default function ClassesPage() {
                                 </div>
 
                                 {/* Section 2 : Informations et Titre du document */}
-                                <div className="flex flex-col mt-6 mb-6">
+                                <div className="flex flex-col mt-10 mb-6">
                                     {/* Ligne 1 : Année et Classe */}
                                     <div className="flex justify-between items-center mb-6">
                                         <p className="text-black font-bold m-0 text-sm">Année scolaire 2026-2027</p>
