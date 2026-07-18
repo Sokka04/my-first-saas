@@ -159,14 +159,21 @@ export default function ClassesPage() {
         let matchLevel = true;
         
         if (filterCycle) {
-            const translated = translateCycle(cls.cycle).toLowerCase();
-            const normalizedTranslated = translated.replace('è', 'e').replace('é', 'e');
-            if (normalizedTranslated !== filterCycle) matchCycle = false;
+            const rawCycle = (cls.cycle || '').toLowerCase();
+            const filter = filterCycle.toLowerCase();
+            if (filter === 'primaire' && !(rawCycle.includes('primaire') || rawCycle.includes('primary'))) matchCycle = false;
+            else if (filter === 'college' && !(rawCycle.includes('college') || rawCycle.includes('collège') || rawCycle.includes('middle'))) matchCycle = false;
+            else if (filter === 'lycee' && !(rawCycle.includes('lycee') || rawCycle.includes('lycée') || rawCycle.includes('high'))) matchCycle = false;
+            else if (filter === 'maternelle' && !rawCycle.includes('maternelle')) matchCycle = false;
+            else if (filter === 'creche' && !(rawCycle.includes('creche') || rawCycle.includes('crèche'))) matchCycle = false;
+            // Si le filtre ne correspond à aucun de ces mots-clés, on filtre de manière classique
+            else if (!rawCycle.includes(filter)) matchCycle = false;
         }
 
         if (filterLevel) {
-            const normalizedLevel = (cls.level || '').toLowerCase().replace('è', 'e');
-            if (normalizedLevel !== filterLevel) matchLevel = false;
+            const rawLevel = (cls.level || '').toLowerCase().replace('è', 'e').replace('é', 'e').trim();
+            const filter = filterLevel.toLowerCase().replace('è', 'e').replace('é', 'e').trim();
+            if (!rawLevel.includes(filter)) matchLevel = false;
         }
 
         return matchCycle && matchLevel;
