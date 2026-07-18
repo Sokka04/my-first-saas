@@ -508,15 +508,15 @@ export default function ClassesPage() {
 
                     {/* Vue dédiée pour l'impression (Tableau et En-tête/Pied) */}
                     {/* Vue dédiée pour l'impression (Tableau et En-tête/Pied) */}
-                    <div className="hidden print:block p-8" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
+                    <div className="hidden print:block" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
                         {printType === 'students_list' && (
                             <style type="text/css" media="print">
-                                {`@page { size: landscape; margin: 0; }`}
+                                {`@page { size: landscape; margin: 15mm; }`}
                             </style>
                         )}
                         {printType !== 'students_list' && (
                             <style type="text/css" media="print">
-                                {`@page { size: portrait; margin: 0; }`}
+                                {`@page { size: portrait; margin: 15mm; }`}
                             </style>
                         )}
 
