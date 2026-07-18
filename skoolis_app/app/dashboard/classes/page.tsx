@@ -562,7 +562,7 @@ export default function ClassesPage() {
                                 </div>
 
                                 {/* Espace physique garanti */}
-                                <div style={{ height: '10px' }}></div>
+                                <div style={{ height: '15px' }}></div>
 
                                 {/* Section 3 : Informations supplémentaires (Grades / Attendance) */}
                                 {(printType === 'attendance' || printType === 'grades') && (
