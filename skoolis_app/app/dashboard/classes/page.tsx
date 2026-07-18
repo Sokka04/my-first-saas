@@ -522,7 +522,7 @@ export default function ClassesPage() {
 
                         <div className="w-full flex-grow">
                             {/* En-tête d'impression */}
-                            <div className="mb-12 flex flex-col">
+                            <div className="mb-24 flex flex-col">
                                 {/* Section 1 : Info École & République */}
                                 <div className="flex justify-between items-start mb-6">
                                     <div className="flex flex-col items-start w-1/3">
@@ -538,7 +538,7 @@ export default function ClassesPage() {
                                 </div>
 
                                 {/* Section 2 : Informations et Titre du document */}
-                                <div className="flex flex-col mt-10 mb-10">
+                                <div className="flex flex-col mt-10 mb-16">
                                     {/* Ligne 1 : Année et Classe */}
                                     <div className="flex justify-between items-center mb-6">
                                         <p className="text-black font-bold m-0 text-sm">Année scolaire 2026-2027</p>
@@ -560,7 +560,7 @@ export default function ClassesPage() {
 
                                 {/* Section 3 : Informations supplémentaires (Grades / Attendance) */}
                                 {(printType === 'attendance' || printType === 'grades') && (
-                                    <div className="flex justify-between items-end mb-8 px-2">
+                                    <div className="flex justify-between items-end mb-16 px-2">
                                         {printType === 'attendance' && (
                                             <p className="text-black font-bold m-0 text-sm">Période : ........................................................................</p>
                                         )}
