@@ -385,9 +385,9 @@ export default function ClassesPage() {
                                         <label>Cycle <span className="required">*</span></label>
                                         <select value={formData.cycle} onChange={e => setFormData({...formData, cycle: e.target.value})} required className="form-control">
                                             <option value="">Sélectionner un cycle</option>
-                                            <option value="primaire">Primaire</option>
-                                            <option value="college">Collège</option>
-                                            <option value="lycee">Lycée</option>
+                                            <option value="Primary">Primaire</option>
+                                            <option value="Middle School">Collège</option>
+                                            <option value="High School">Lycée</option>
                                         </select>
                                     </div>
                                     <div className="form-group">
