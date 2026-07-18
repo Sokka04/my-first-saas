@@ -489,6 +489,9 @@ export default function ClassesPage() {
                             <h3>Effectifs et statistiques</h3>
                             <p>Visualisez les statistiques par classe et niveau</p>
                         </div>
+                        <button className="btn btn-primary">
+                            <i className="fas fa-download"></i> Exporter données
+                        </button>
                     </div>
 
                     <div className="stats-container">
