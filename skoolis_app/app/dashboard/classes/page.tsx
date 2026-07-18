@@ -182,20 +182,20 @@ export default function ClassesPage() {
     };
 
     const getCycleColors = (c?: string) => {
-        if (!c) return { badgeBg: 'bg-gray-100', badgeText: 'text-gray-600', cardBg: 'bg-card', cardBorder: 'border-border', barBg: 'bg-gray-400' };
+        if (!c) return { badgeBg: 'bg-gray-100', badgeText: 'text-gray-600', cardBg: 'bg-card', cardBorder: 'border-border', barBg: 'bg-gray-400', buttonBg: 'bg-gray-600', buttonText: 'text-white' };
         const lower = c.toLowerCase();
         if (lower.includes('creche') || lower.includes('crèche')) 
-            return { badgeBg: 'bg-pink-100', badgeText: 'text-pink-600', cardBg: 'bg-pink-50/50', cardBorder: 'border-pink-100', barBg: 'bg-pink-500' };
+            return { badgeBg: 'bg-pink-100', badgeText: 'text-pink-600', cardBg: 'bg-pink-50/50', cardBorder: 'border-pink-100', barBg: 'bg-pink-500', buttonBg: 'bg-pink-600', buttonText: 'text-white' };
         if (lower.includes('maternelle')) 
-            return { badgeBg: 'bg-amber-100', badgeText: 'text-amber-600', cardBg: 'bg-amber-50/50', cardBorder: 'border-amber-100', barBg: 'bg-amber-500' };
+            return { badgeBg: 'bg-amber-100', badgeText: 'text-amber-600', cardBg: 'bg-amber-50/50', cardBorder: 'border-amber-100', barBg: 'bg-amber-500', buttonBg: 'bg-amber-600', buttonText: 'text-white' };
         if (lower.includes('primary') || lower.includes('primaire')) 
-            return { badgeBg: 'bg-blue-100', badgeText: 'text-blue-600', cardBg: 'bg-blue-50/50', cardBorder: 'border-blue-100', barBg: 'bg-blue-500' };
+            return { badgeBg: 'bg-blue-100', badgeText: 'text-blue-600', cardBg: 'bg-blue-50/50', cardBorder: 'border-blue-100', barBg: 'bg-blue-500', buttonBg: 'bg-blue-600', buttonText: 'text-white' };
         if (lower.includes('middle') || lower.includes('college') || lower.includes('collège')) 
-            return { badgeBg: 'bg-emerald-100', badgeText: 'text-emerald-600', cardBg: 'bg-emerald-50/50', cardBorder: 'border-emerald-100', barBg: 'bg-emerald-500' };
+            return { badgeBg: 'bg-emerald-100', badgeText: 'text-emerald-600', cardBg: 'bg-emerald-50/50', cardBorder: 'border-emerald-100', barBg: 'bg-emerald-500', buttonBg: 'bg-emerald-600', buttonText: 'text-white' };
         if (lower.includes('high') || lower.includes('lycee') || lower.includes('lycée')) 
-            return { badgeBg: 'bg-purple-100', badgeText: 'text-purple-600', cardBg: 'bg-purple-50/50', cardBorder: 'border-purple-100', barBg: 'bg-purple-500' };
+            return { badgeBg: 'bg-purple-100', badgeText: 'text-purple-600', cardBg: 'bg-purple-50/50', cardBorder: 'border-purple-100', barBg: 'bg-purple-500', buttonBg: 'bg-purple-600', buttonText: 'text-white' };
         
-        return { badgeBg: 'bg-primary/10', badgeText: 'text-primary', cardBg: 'bg-card', cardBorder: 'border-border', barBg: 'bg-primary' };
+        return { badgeBg: 'bg-primary/10', badgeText: 'text-primary', cardBg: 'bg-card', cardBorder: 'border-border', barBg: 'bg-primary', buttonBg: 'bg-primary', buttonText: 'text-primary-foreground' };
     };
 
     const filteredClasses = classes.filter(cls => {
@@ -394,7 +394,7 @@ export default function ClassesPage() {
                                 </div>
                                    {/* Overlay au survol */}
                                 <div className="absolute inset-0 bg-background/95 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 pointer-events-none group-hover:pointer-events-auto" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '24px' }}>
-                                    <div className="bg-primary/10 text-primary mb-3" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '48px', height: '48px', borderRadius: '50%' }}>
+                                    <div className={`${cycleColors.badgeBg} ${cycleColors.badgeText} mb-3`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '48px', height: '48px', borderRadius: '50%' }}>
                                         <i className="fas fa-eye" style={{ fontSize: '20px' }}></i>
                                     </div>
                                     <h4 className="text-foreground font-bold" style={{ fontSize: '18px', marginBottom: '4px', textAlign: 'center' }}>{cls.name}</h4>
@@ -402,7 +402,7 @@ export default function ClassesPage() {
                                         {cls.students_count || 0} élèves inscrits
                                     </p>
                                     <div style={{ display: 'flex', gap: '10px', width: '100%' }}>
-                                        <button onClick={(e) => { e.preventDefault(); setSelectedClassAction({ id: cls.id, name: cls.name, action: 'manage' }); }} className="bg-primary text-primary-foreground transition-opacity hover:opacity-90" style={{ flex: 1, padding: '10px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '13px', fontWeight: '600' }}>
+                                        <button onClick={(e) => { e.preventDefault(); setSelectedClassAction({ id: cls.id, name: cls.name, action: 'manage' }); }} className={`${cycleColors.buttonBg} ${cycleColors.buttonText} transition-opacity hover:opacity-90`} style={{ flex: 1, padding: '10px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '13px', fontWeight: '600' }}>
                                             <i className="fas fa-edit" style={{ marginRight: '6px' }}></i> Gérer
                                         </button>
                                         <button onClick={(e) => { e.preventDefault(); setSelectedClassAction({ id: cls.id, name: cls.name, action: 'stats' }); }} className="bg-secondary text-secondary-foreground transition-opacity hover:opacity-90" style={{ flex: 1, padding: '10px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '13px', fontWeight: '600' }}>
