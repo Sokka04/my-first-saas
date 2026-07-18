@@ -23,6 +23,7 @@ export default function ClassesPage() {
     const [showCycleToast, setShowCycleToast] = useState(false);
     const [shakeField, setShakeField] = useState<string | null>(null);
     const [validationToastMsg, setValidationToastMsg] = useState<string | null>(null);
+    const [submitFailCount, setSubmitFailCount] = useState(0);
 
     // Form states
     const [formData, setFormData] = useState({
@@ -83,28 +84,68 @@ export default function ClassesPage() {
     const handleSave = async (e: any) => {
         e.preventDefault();
 
-        // Custom validation: handle multiple scenarios
-        if (!formData.name) {
-            setShakeField('name');
-            setValidationToastMsg("Veuillez entrer le nom de la classe.");
+        // Check which field is failing
+        let failingField: 'name' | 'cycle' | 'level' | null = null;
+        if (!formData.name) failingField = 'name';
+        else if (!formData.cycle) failingField = 'cycle';
+        else if (!formData.level) failingField = 'level';
+
+        if (failingField) {
+            const nextFailCount = submitFailCount + 1;
+            setSubmitFailCount(nextFailCount);
+
+            if (nextFailCount >= 2) {
+                // User forced it, show guided tour
+                setValidationToastMsg(null);
+                setShakeField(null);
+                
+                let title = '';
+                let description = '';
+                let elementId = '';
+                
+                if (failingField === 'name') {
+                    title = 'Nom de la classe requis';
+                    description = 'Veuillez saisir le nom de la classe (ex: 6ème A) pour continuer.';
+                    elementId = '#form-name-input';
+                } else if (failingField === 'cycle') {
+                    title = 'Cycle requis';
+                    description = 'Veuillez sélectionner le cycle (Primaire, Collège, etc.) auquel appartient la classe.';
+                    elementId = '#form-cycle-select';
+                } else if (failingField === 'level') {
+                    title = 'Classe requise';
+                    description = 'Veuillez sélectionner la classe dans cette liste.';
+                    elementId = '#form-level-select';
+                }
+
+                const driverObj = driver({
+                    showProgress: false,
+                    animate: true,
+                    popoverClass: 'driverjs-theme',
+                    doneBtnText: 'Compris !',
+                    steps: [
+                        { element: elementId, popover: { title, description, side: "top", align: 'start' } }
+                    ]
+                });
+                driverObj.drive();
+                setSubmitFailCount(0);
+                return;
+            }
+
+            // Normal shake and toast
+            setShakeField(failingField);
+            const messages = {
+                'name': "Veuillez entrer le nom de la classe.",
+                'cycle': "Veuillez sélectionner le cycle.",
+                'level': "Veuillez sélectionner la classe avant d'enregistrer."
+            };
+            setValidationToastMsg(messages[failingField]);
             setTimeout(() => setShakeField(null), 500);
             setTimeout(() => setValidationToastMsg(null), 4000);
             return;
         }
-        if (!formData.cycle) {
-            setShakeField('cycle');
-            setValidationToastMsg("Veuillez sélectionner le cycle.");
-            setTimeout(() => setShakeField(null), 500);
-            setTimeout(() => setValidationToastMsg(null), 4000);
-            return;
-        }
-        if (!formData.level) {
-            setShakeField('level');
-            setValidationToastMsg("Veuillez sélectionner la classe avant d'enregistrer.");
-            setTimeout(() => setShakeField(null), 500);
-            setTimeout(() => setValidationToastMsg(null), 4000);
-            return;
-        }
+
+        // Reset fail count if successful
+        setSubmitFailCount(0);
 
         try {
             const dataToSubmit = {
@@ -465,8 +506,9 @@ export default function ClassesPage() {
                                 <div className="form-grid">
                                     <div className={`form-group ${shakeField === 'name' ? 'shake-animation' : ''}`}>
                                         <label style={shakeField === 'name' ? { color: 'var(--destructive)', fontWeight: 'bold' } : {}}>Nom de la classe <span className="required">*</span></label>
-                                        <input type="text" value={formData.name} onChange={e => {
+                                        <input id="form-name-input" type="text" value={formData.name} onChange={e => {
                                             setFormData({...formData, name: e.target.value});
+                                            setSubmitFailCount(0);
                                             if (shakeField === 'name') { setShakeField(null); setValidationToastMsg(null); }
                                         }} className="form-control" style={shakeField === 'name' ? { borderColor: 'var(--destructive)', outlineColor: 'var(--destructive)', boxShadow: '0 0 0 2px var(--destructive)' } : {}} placeholder="Ex: 3ème A" />
                                     </div>
@@ -476,6 +518,7 @@ export default function ClassesPage() {
                                             // Reset level when cycle changes
                                             setFormData({...formData, cycle: e.target.value, level: ''});
                                             setClasseClickCount(0); // reset tracker when user fixes the issue
+                                            setSubmitFailCount(0);
                                             if (shakeField === 'cycle') { setShakeField(null); setValidationToastMsg(null); }
                                         }} className="form-control" style={shakeField === 'cycle' ? { borderColor: 'var(--destructive)', outlineColor: 'var(--destructive)', boxShadow: '0 0 0 2px var(--destructive)' } : {}}>
                                             <option value="">Sélectionner un cycle</option>
@@ -536,6 +579,7 @@ export default function ClassesPage() {
                                         <div style={!formData.cycle ? { pointerEvents: 'none', cursor: 'not-allowed' } : {}}>
                                             <select id="form-level-select" value={formData.level} onChange={e => {
                                                 setFormData({...formData, level: e.target.value});
+                                                setSubmitFailCount(0);
                                                 if (shakeField === 'level') { setShakeField(null); setValidationToastMsg(null); }
                                             }} className="form-control" disabled={!formData.cycle} style={!formData.cycle ? { pointerEvents: 'none' } : (shakeField === 'level' ? { borderColor: 'var(--destructive)', outlineColor: 'var(--destructive)', boxShadow: '0 0 0 2px var(--destructive)' } : {})}>
                                                 <option value="">Sélectionner une classe</option>
