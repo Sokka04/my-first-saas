@@ -522,9 +522,9 @@ export default function ClassesPage() {
 
                         <div className="w-full flex-grow">
                             {/* En-tête d'impression */}
-                            <div className="mb-24 flex flex-col">
+                            <div className="flex flex-col">
                                 {/* Section 1 : Info École & République */}
-                                <div className="flex justify-between items-start mb-6">
+                                <div className="flex justify-between items-start">
                                     <div className="flex flex-col items-start w-1/3">
                                         <h2 className="text-sm font-black m-0 text-black uppercase">COMPLEXE SCOLAIRE SKOOLIS</h2>
                                         <p className="text-xs text-black m-0 mt-1">BP 12345 Lomé, Togo</p>
@@ -537,8 +537,11 @@ export default function ClassesPage() {
                                     </div>
                                 </div>
 
+                                {/* Espace physique garanti */}
+                                <div style={{ height: '40px' }}></div>
+
                                 {/* Section 2 : Informations et Titre du document */}
-                                <div className="flex flex-col mt-10 mb-16">
+                                <div className="flex flex-col">
                                     {/* Ligne 1 : Année et Classe */}
                                     <div className="flex justify-between items-center mb-6">
                                         <p className="text-black font-bold m-0 text-sm">Année scolaire 2026-2027</p>
@@ -548,7 +551,7 @@ export default function ClassesPage() {
                                     </div>
                                     
                                     {/* Ligne 2 : Titre principal au centre, souligné */}
-                                    <div className="flex justify-center w-full mb-2">
+                                    <div className="flex justify-center w-full">
                                         <h1 className="text-xl font-black uppercase tracking-widest text-black m-0 text-center underline underline-offset-4 decoration-2">
                                             {printType === 'classes_list' && 'Liste globale des classes'}
                                             {printType === 'students_list' && "Fiche d'identité des élèves"}
@@ -558,9 +561,12 @@ export default function ClassesPage() {
                                     </div>
                                 </div>
 
+                                {/* Espace physique garanti */}
+                                <div style={{ height: '40px' }}></div>
+
                                 {/* Section 3 : Informations supplémentaires (Grades / Attendance) */}
                                 {(printType === 'attendance' || printType === 'grades') && (
-                                    <div className="flex justify-between items-end mb-16 px-2">
+                                    <div className="flex justify-between items-end px-2">
                                         {printType === 'attendance' && (
                                             <p className="text-black font-bold m-0 text-sm">Période : ........................................................................</p>
                                         )}
@@ -573,6 +579,9 @@ export default function ClassesPage() {
                                     </div>
                                 )}
                             </div>
+
+                            {/* Grand Espace avant le tableau */}
+                            <div style={{ height: '50px' }}></div>
 
                             {/* Tableau d'impression dynamique */}
                             <table className="w-full text-left border-collapse" style={{ border: '1px solid black', fontSize: '11px' }}>
