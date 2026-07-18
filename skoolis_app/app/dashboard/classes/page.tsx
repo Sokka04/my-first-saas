@@ -182,20 +182,20 @@ export default function ClassesPage() {
     };
 
     const getCycleColors = (c?: string) => {
-        if (!c) return { badgeBg: 'bg-gray-100', badgeText: 'text-gray-600', cardBg: 'bg-card', cardBorder: 'border-border' };
+        if (!c) return { badgeBg: 'bg-gray-100', badgeText: 'text-gray-600', cardBg: 'bg-card', cardBorder: 'border-border', barBg: 'bg-gray-400' };
         const lower = c.toLowerCase();
         if (lower.includes('creche') || lower.includes('crèche')) 
-            return { badgeBg: 'bg-pink-100', badgeText: 'text-pink-600', cardBg: 'bg-pink-50/50', cardBorder: 'border-pink-100' };
+            return { badgeBg: 'bg-pink-100', badgeText: 'text-pink-600', cardBg: 'bg-pink-50/50', cardBorder: 'border-pink-100', barBg: 'bg-pink-500' };
         if (lower.includes('maternelle')) 
-            return { badgeBg: 'bg-amber-100', badgeText: 'text-amber-600', cardBg: 'bg-amber-50/50', cardBorder: 'border-amber-100' };
+            return { badgeBg: 'bg-amber-100', badgeText: 'text-amber-600', cardBg: 'bg-amber-50/50', cardBorder: 'border-amber-100', barBg: 'bg-amber-500' };
         if (lower.includes('primary') || lower.includes('primaire')) 
-            return { badgeBg: 'bg-blue-100', badgeText: 'text-blue-600', cardBg: 'bg-blue-50/50', cardBorder: 'border-blue-100' };
+            return { badgeBg: 'bg-blue-100', badgeText: 'text-blue-600', cardBg: 'bg-blue-50/50', cardBorder: 'border-blue-100', barBg: 'bg-blue-500' };
         if (lower.includes('middle') || lower.includes('college') || lower.includes('collège')) 
-            return { badgeBg: 'bg-emerald-100', badgeText: 'text-emerald-600', cardBg: 'bg-emerald-50/50', cardBorder: 'border-emerald-100' };
+            return { badgeBg: 'bg-emerald-100', badgeText: 'text-emerald-600', cardBg: 'bg-emerald-50/50', cardBorder: 'border-emerald-100', barBg: 'bg-emerald-500' };
         if (lower.includes('high') || lower.includes('lycee') || lower.includes('lycée')) 
-            return { badgeBg: 'bg-purple-100', badgeText: 'text-purple-600', cardBg: 'bg-purple-50/50', cardBorder: 'border-purple-100' };
+            return { badgeBg: 'bg-purple-100', badgeText: 'text-purple-600', cardBg: 'bg-purple-50/50', cardBorder: 'border-purple-100', barBg: 'bg-purple-500' };
         
-        return { badgeBg: 'bg-primary/10', badgeText: 'text-primary', cardBg: 'bg-card', cardBorder: 'border-border' };
+        return { badgeBg: 'bg-primary/10', badgeText: 'text-primary', cardBg: 'bg-card', cardBorder: 'border-border', barBg: 'bg-primary' };
     };
 
     const filteredClasses = classes.filter(cls => {
@@ -381,12 +381,12 @@ export default function ClassesPage() {
                                     {cls.capacity && (
                                         <div className="bg-background/80 border-border border" style={{ height: '8px', width: '100%', borderRadius: '999px', overflow: 'hidden' }}>
                                             <div 
+                                                className={`${((cls.students_count || 0) > cls.capacity) ? 'bg-destructive' : cycleColors.barBg}`}
                                                 style={{ 
                                                     height: '100%',
                                                     borderRadius: '999px',
                                                     transition: 'all 0.5s ease',
-                                                    width: `${Math.min(((cls.students_count || 0) / cls.capacity) * 100, 100)}%`, 
-                                                    backgroundColor: ((cls.students_count || 0) > cls.capacity) ? 'var(--destructive)' : 'var(--primary)' 
+                                                    width: `${Math.min(((cls.students_count || 0) / cls.capacity) * 100, 100)}%`
                                                 }}
                                             ></div>
                                         </div>
