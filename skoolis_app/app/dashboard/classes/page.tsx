@@ -184,8 +184,8 @@ export default function ClassesPage() {
         }
 
         if (filterLevel) {
-            // Frontend Niveau corresponds to Backend 'cycle'
-            const rawLevel = (cls.cycle || '').toLowerCase().replace('è', 'e').replace('é', 'e').trim();
+            // Frontend Niveau corresponds to Backend 'cycle' (and we fallback to name for old records)
+            const rawLevel = (cls.cycle || cls.name || '').toLowerCase().replace('è', 'e').replace('é', 'e').trim();
             const filter = filterLevel.toLowerCase().replace('è', 'e').replace('é', 'e').trim();
             if (!rawLevel.includes(filter)) matchLevel = false;
         }
@@ -289,9 +289,9 @@ export default function ClassesPage() {
                             </select>
                         </div>
                         <div className="filter-group">
-                            <label>Niveau:</label>
+                            <label>Classe:</label>
                             <select className="form-select" value={filterLevel} onChange={(e) => setFilterLevel(e.target.value)}>
-                                <option value="">Tous les niveaux</option>
+                                <option value="">Toutes les classes</option>
                                 <option value="creche">Crèche</option>
                                 <option value="je1">JE1</option>
                                 <option value="je2">JE2</option>
