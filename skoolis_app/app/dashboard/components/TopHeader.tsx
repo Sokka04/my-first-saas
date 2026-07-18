@@ -177,6 +177,12 @@ export default function TopHeader() {
                                     {r.label}
                                 </a>
                             ))}
+                            <a href="/dashboard/aide"
+                               style={{ display: 'block', padding: '10px 16px', textDecoration: 'none', color: 'var(--primary-color, #7b1fa2)', fontSize: '13px', fontWeight: 600, textAlign: 'center', borderTop: '1px solid var(--border-color, rgba(0,0,0,0.08))' }}
+                            >
+                                <i className="fas fa-question-circle" style={{ marginRight: '6px' }}></i>
+                                Regarder l{"'"}aide
+                            </a>
                         </div>
                     )}
                 </div>
