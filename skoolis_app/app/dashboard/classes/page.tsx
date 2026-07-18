@@ -522,29 +522,29 @@ export default function ClassesPage() {
 
                         <div className="w-full mb-16">
                             {/* En-tête d'impression */}
-                            <div className="mb-6 flex flex-col">
+                            <div className="mb-10 flex flex-col">
                                 {/* Section 1 : Info École & République */}
-                                <div className="flex justify-between items-start mb-4">
+                                <div className="flex justify-between items-start mb-8">
                                     <div className="flex flex-col items-start w-1/3">
                                         <h2 className="text-sm font-black m-0 text-black uppercase">COMPLEXE SCOLAIRE SKOOLIS</h2>
-                                        <p className="text-xs text-black m-0">BP 12345 Lomé, Togo</p>
-                                        <p className="text-xs text-black m-0">Tél: +228 90 00 00 00</p>
+                                        <p className="text-xs text-black m-0 mt-1">BP 12345 Lomé, Togo</p>
+                                        <p className="text-xs text-black m-0 mt-1">Tél: +228 90 00 00 00</p>
                                     </div>
                                     <div className="flex flex-col items-end justify-start w-1/3 text-right">
                                         <h3 className="text-sm font-black m-0 text-black uppercase">République Togolaise</h3>
-                                        <p className="text-xs text-black m-0 italic">Travail - Liberté - Patrie</p>
-                                        <div className="w-16 h-[1px] bg-black my-1"></div>
+                                        <p className="text-xs text-black m-0 italic mt-1">Travail - Liberté - Patrie</p>
+                                        <div className="w-16 h-[2px] bg-black my-2"></div>
                                     </div>
                                 </div>
 
                                 {/* Section 2 : Titre du document */}
-                                <div className="flex justify-between items-center py-2 mt-8 mb-6">
+                                <div className="flex justify-between items-center py-2 mt-16 mb-12">
                                     <div className="w-1/4">
-                                        <p className="text-black font-bold m-0 text-xs">Année scolaire 2026-2027</p>
+                                        <p className="text-black font-bold m-0 text-sm">Année scolaire 2026-2027</p>
                                     </div>
                                     
                                     <div className="w-2/4 flex flex-col items-center">
-                                        <h1 className="text-lg font-black uppercase tracking-wider text-black m-0 text-center">
+                                        <h1 className="text-xl font-black uppercase tracking-widest text-black m-0 text-center">
                                             {printType === 'classes_list' && 'Liste globale des classes'}
                                             {printType === 'students_list' && "Fiche d'identité des élèves"}
                                             {printType === 'grades' && 'Fiche de notation trimestrielle'}
@@ -561,14 +561,14 @@ export default function ClassesPage() {
 
                                 {/* Section 3 : Informations supplémentaires (Grades / Attendance) */}
                                 {(printType === 'attendance' || printType === 'grades') && (
-                                    <div className="flex justify-between items-end mb-2 px-2">
+                                    <div className="flex justify-between items-end mb-4 px-2">
                                         {printType === 'attendance' && (
-                                            <p className="text-black font-bold m-0 text-sm">Période : ............................................................</p>
+                                            <p className="text-black font-bold m-0 text-sm">Période : ........................................................................</p>
                                         )}
                                         {printType === 'grades' && (
                                             <div className="flex w-full justify-between">
-                                                <p className="text-sm font-bold text-black m-0">Matière : ............................................................</p>
-                                                <p className="text-sm font-bold text-black m-0">Enseignant : ............................................................</p>
+                                                <p className="text-sm font-bold text-black m-0">Matière : ........................................................................</p>
+                                                <p className="text-sm font-bold text-black m-0">Enseignant : ........................................................................</p>
                                             </div>
                                         )}
                                     </div>
@@ -692,7 +692,7 @@ export default function ClassesPage() {
                         </div>
 
                         {/* Pied de page global */}
-                        <div className="pt-2 border-t border-black flex justify-between items-center text-xs text-gray-500 bg-white px-2" style={{ fontFamily: "'Times New Roman', Times, serif", position: 'fixed', bottom: '8mm', left: '8mm', right: '8mm' }}>
+                        <div className="pt-2 border-t border-black flex justify-between items-center text-xs text-gray-500 bg-white px-2" style={{ fontFamily: "'Times New Roman', Times, serif", position: 'fixed', bottom: '12mm', left: '8mm', right: '8mm' }}>
                             <div className="w-1/3"></div>
                             <p className="m-0 text-xs text-black w-1/3 text-center mb-1">
                                 <span className="italic font-normal">Propulsé par</span> <span className="font-bold">Skoolis</span>
