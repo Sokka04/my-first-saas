@@ -508,15 +508,15 @@ export default function ClassesPage() {
 
                     {/* Vue dédiée pour l'impression (Tableau et En-tête/Pied) */}
                     {/* Vue dédiée pour l'impression (Tableau et En-tête/Pied) */}
-                    <div className="hidden print:block" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
+                    <div className="hidden print:block p-[10mm]" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
                         {printType === 'students_list' && (
                             <style type="text/css" media="print">
-                                {`@page { size: landscape; margin: 10mm; }`}
+                                {`@page { size: landscape; margin: 0; }`}
                             </style>
                         )}
                         {printType !== 'students_list' && (
                             <style type="text/css" media="print">
-                                {`@page { size: portrait; margin: 10mm; }`}
+                                {`@page { size: portrait; margin: 0; }`}
                             </style>
                         )}
 
@@ -667,6 +667,16 @@ export default function ClassesPage() {
                                     )}
                                 </tbody>
                             </table>
+
+                            {/* Signature / Fait à */}
+                            <div className="mt-8 flex justify-end w-full pr-8">
+                                <div className="text-center">
+                                    <p className="text-black text-base m-0 italic">
+                                        Fait à Lomé, le {new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}
+                                    </p>
+                                    <p className="text-black font-bold text-base mt-8">La Direction</p>
+                                </div>
+                            </div>
                         </div>
 
                         {/* Pied de page global (Fixé en bas de la feuille) */}
