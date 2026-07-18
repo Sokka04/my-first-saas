@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('issued_by')->constrained('license_issuers');
             
             $table->enum('status', ['active', 'expired', 'revoked'])->default('active');
-            $table->enum('type', ['P4R5YO', 'B4SY1C', 'PYL8U5', 'B3T4YO']); // PRO, BASIC, PLUS, BETA
+            $table->string('type', 10); // ex: P4R5YO, B4SY1C, PYL8U5, B3T4YO
             
             $table->timestamp('valid_until');
             $table->timestamps();

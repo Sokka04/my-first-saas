@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('currency', 3)->default('XOF');
             
             $table->enum('status', ['pending', 'success', 'failed'])->default('pending');
-            $table->string('gateway_reference')->nullable(); // ID returned by Stripe or aggregator
+            $table->string('gateway_reference')->nullable()->unique(); // ID returned by Stripe or aggregator
             
             $table->timestamps();
         });

@@ -14,6 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
             'school.team' => \App\Http\Middleware\SetPermissionsTeamFromUser::class,
+            'school.license' => \App\Http\Middleware\CheckSchoolLicense::class,
         ]);
         $middleware->api(prepend: [
             \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
