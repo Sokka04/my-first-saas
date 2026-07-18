@@ -763,9 +763,9 @@ export default function ClassesPage() {
                                             <YAxis allowDecimals={false} axisLine={false} tickLine={false} tick={{ fill: 'var(--color-muted-foreground)' }} />
                                             <Tooltip 
                                                 cursor={{ fill: 'var(--color-muted)', opacity: 0.5 }}
-                                                contentStyle={{ borderRadius: '8px', border: '1px solid var(--color-border)', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', backgroundColor: 'var(--color-card)', color: 'var(--color-foreground)' }}
-                                                itemStyle={{ color: 'var(--color-foreground)' }}
-                                                labelStyle={{ color: 'var(--color-muted-foreground)', fontWeight: 'bold', marginBottom: '4px' }}
+                                                contentStyle={{ padding: '12px 16px', borderRadius: '8px', border: '1px solid var(--color-border)', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', backgroundColor: 'var(--color-card)', color: 'var(--color-foreground)' }}
+                                                itemStyle={{ color: 'var(--color-foreground)', padding: 0, margin: 0 }}
+                                                labelStyle={{ color: 'var(--color-muted-foreground)', fontWeight: 'bold', marginBottom: '8px', padding: 0 }}
                                                 formatter={(value) => [`${value} élèves`, 'Effectif']}
                                             />
                                             <Bar dataKey="students_count" radius={[4, 4, 0, 0]} maxBarSize={60}>
