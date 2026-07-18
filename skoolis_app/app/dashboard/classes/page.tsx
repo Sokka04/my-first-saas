@@ -218,11 +218,9 @@ export default function ClassesPage() {
                             <h3 style={{ margin: 0, marginBottom: '4px' }}>Liste des classes</h3>
                             <p style={{ margin: 0 }}>Gérez toutes les classes de l'établissement</p>
                         </div>
-                        <div className="page-actions">
-                            <button className="btn btn-primary">
-                                <i className="fas fa-print"></i> Imprimer liste
-                            </button>
-                        </div>
+                        <button className="btn btn-primary">
+                            <i className="fas fa-print"></i> Imprimer liste
+                        </button>
                     </div>
 
                     <div className="filters-container">
