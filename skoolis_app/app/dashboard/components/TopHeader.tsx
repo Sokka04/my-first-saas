@@ -151,17 +151,22 @@ export default function TopHeader() {
             </div>
             <div className="header-right">
                 {/* Recherche fonctionnelle */}
-                <div className="search-box" style={{ position: 'relative' }}>
+                <div className="search-box" style={{ position: 'relative', overflow: 'visible', zIndex: 999 }}>
                     <i className="fas fa-search"></i>
                     <input
                         type="text"
                         placeholder="Rechercher une page..."
                         value={searchQuery}
                         onChange={(e) => handleSearch(e.target.value)}
-                        onBlur={() => setTimeout(() => setSearchResults([]), 200)}
+                        onBlur={() => setTimeout(() => setSearchResults([]), 300)}
                     />
                     {searchResults.length > 0 && (
-                        <div style={{ ...dropdownStyle, width: '100%', padding: '4px 0' }}>
+                        <div style={{
+                            position: 'absolute', top: '110%', left: 0, right: 0,
+                            background: 'var(--white, #fff)', border: '1px solid var(--border-color, rgba(0,0,0,0.08))',
+                            borderRadius: '12px', boxShadow: '0 10px 40px rgba(0,0,0,0.18)',
+                            zIndex: 1000, padding: '4px 0', maxHeight: '300px', overflowY: 'auto',
+                        }}>
                             {searchResults.map(r => (
                                 <a key={r.href} href={r.href}
                                    style={{ display: 'block', padding: '10px 16px', textDecoration: 'none', color: 'inherit', fontSize: '14px', transition: 'background 0.15s' }}
