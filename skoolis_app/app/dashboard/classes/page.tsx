@@ -40,6 +40,8 @@ export default function ClassesPage() {
     const [showPrintModal, setShowPrintModal] = useState(false);
     const [printTarget, setPrintTarget] = useState('all');
     const [printType, setPrintType] = useState('classes_list');
+    const [printStudents, setPrintStudents] = useState<any[]>([]);
+    const [loadingPrint, setLoadingPrint] = useState(false);
 
     // Form states
     const [formData, setFormData] = useState({
@@ -96,6 +98,30 @@ export default function ClassesPage() {
         fetchClasses();
         fetchTeachers();
     }, []);
+
+    useEffect(() => {
+        const fetchPrintStudents = async () => {
+            if (printTarget && printTarget !== 'all') {
+                try {
+                    setLoadingPrint(true);
+                    const res = await fetch(`${API_BASE_URL}/students?school_class_id=${printTarget}`, {
+                        headers: getAuthHeaders({ 'Accept': 'application/json' })
+                    });
+                    if (res.ok) {
+                        const json = await res.json();
+                        setPrintStudents(json.data || []);
+                    }
+                } catch(e) {
+                    console.error("Erreur récupération élèves pour impression", e);
+                } finally {
+                    setLoadingPrint(false);
+                }
+            } else {
+                setPrintStudents([]);
+            }
+        };
+        fetchPrintStudents();
+    }, [printTarget, API_BASE_URL]);
 
     const handleSave = async (e: any) => {
         e.preventDefault();
@@ -647,43 +673,53 @@ export default function ClassesPage() {
                                             </tr>
                                         ))
                                     ) : (
-                                        [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map((num, idx) => (
-                                            <tr key={num} className={idx % 2 === 0 ? "bg-white" : "bg-gray-50"}>
-                                                {printType === 'students_list' && (
-                                                    <>
-                                                        <td className="border border-black p-1 px-2 text-center text-black font-medium">{num}</td>
-                                                        <td className="border border-black p-1 px-2 text-black font-mono">MAT-{202600 + num}</td>
-                                                        <td className="border border-black p-1 text-black font-bold uppercase" style={{ paddingLeft: '12px' }}>Élève Exemple {num}</td>
-                                                        <td className="border border-black p-1 px-2 text-center text-black">{num % 2 === 0 ? 'F' : 'M'}</td>
-                                                        <td className="border border-black p-1 px-2 text-black">12/05/201{num%10}</td>
-                                                        <td className="border border-black p-1 px-2 text-black">Lomé</td>
-                                                        <td className="border border-black p-1 px-2 text-black">Togolaise</td>
-                                                        <td className="border border-black p-1 px-2 text-black">+228 90 00 00 0{num}</td>
-                                                    </>
-                                                )}
-                                                {printType === 'grades' && (
-                                                    <>
-                                                        <td className="border border-black p-1 px-2 text-center text-black font-medium">{num}</td>
-                                                        <td className="border border-black p-1 text-black font-bold uppercase" style={{ paddingLeft: '12px' }}>Élève Exemple {num}</td>
-                                                        <td className="border border-black p-1" style={{ height: '22px' }}></td>
-                                                        <td className="border border-black p-1" style={{ height: '22px' }}></td>
-                                                        <td className="border border-black p-1" style={{ height: '22px' }}></td>
-                                                        <td className="border border-black p-1" style={{ height: '22px' }}></td>
-                                                        <td className="border border-black p-1" style={{ height: '22px' }}></td>
-                                                        <td className="border border-black p-1" style={{ height: '22px' }}></td>
-                                                    </>
-                                                )}
-                                                {printType === 'attendance' && (
-                                                    <>
-                                                        <td className="border border-black p-1 px-2 text-center text-black font-medium">{num}</td>
-                                                        <td className="border border-black p-1 text-black font-bold uppercase" style={{ paddingLeft: '12px' }}>Élève Exemple {num}</td>
-                                                        {Array.from({length: 25}).map((_, i) => (
-                                                            <td key={i} className="border border-black p-1 bg-white" style={{ height: '22px', backgroundImage: 'radial-gradient(#e5e7eb 1px, transparent 1px)', backgroundSize: '4px 4px' }}></td>
-                                                        ))}
-                                                    </>
-                                                )}
+                                        loadingPrint ? (
+                                            <tr>
+                                                <td colSpan={10} className="border border-black p-4 text-center">Chargement des élèves...</td>
                                             </tr>
-                                        ))
+                                        ) : printStudents.length === 0 ? (
+                                            <tr>
+                                                <td colSpan={10} className="border border-black p-4 text-center italic">Aucun élève dans cette classe</td>
+                                            </tr>
+                                        ) : (
+                                            printStudents.map((student, idx) => (
+                                                <tr key={student.id} className={idx % 2 === 0 ? "bg-white" : "bg-gray-50"}>
+                                                    {printType === 'students_list' && (
+                                                        <>
+                                                            <td className="border border-black p-1 px-2 text-center text-black font-medium">{idx + 1}</td>
+                                                            <td className="border border-black p-1 px-2 text-black font-mono">{student.matricule || '-'}</td>
+                                                            <td className="border border-black p-1 text-black font-bold uppercase" style={{ paddingLeft: '12px' }}>{student.last_name} {student.first_name}</td>
+                                                            <td className="border border-black p-1 px-2 text-center text-black">{student.gender || '-'}</td>
+                                                            <td className="border border-black p-1 px-2 text-black">{student.date_of_birth ? new Date(student.date_of_birth).toLocaleDateString('fr-FR') : '-'}</td>
+                                                            <td className="border border-black p-1 px-2 text-black">{student.place_of_birth || '-'}</td>
+                                                            <td className="border border-black p-1 px-2 text-black">{student.nationality || '-'}</td>
+                                                            <td className="border border-black p-1 px-2 text-black">{student.parent_contact || '-'}</td>
+                                                        </>
+                                                    )}
+                                                    {printType === 'grades' && (
+                                                        <>
+                                                            <td className="border border-black p-1 px-2 text-center text-black font-medium">{idx + 1}</td>
+                                                            <td className="border border-black p-1 text-black font-bold uppercase" style={{ paddingLeft: '12px' }}>{student.last_name} {student.first_name}</td>
+                                                            <td className="border border-black p-1" style={{ height: '22px' }}></td>
+                                                            <td className="border border-black p-1" style={{ height: '22px' }}></td>
+                                                            <td className="border border-black p-1" style={{ height: '22px' }}></td>
+                                                            <td className="border border-black p-1" style={{ height: '22px' }}></td>
+                                                            <td className="border border-black p-1" style={{ height: '22px' }}></td>
+                                                            <td className="border border-black p-1" style={{ height: '22px' }}></td>
+                                                        </>
+                                                    )}
+                                                    {printType === 'attendance' && (
+                                                        <>
+                                                            <td className="border border-black p-1 px-2 text-center text-black font-medium">{idx + 1}</td>
+                                                            <td className="border border-black p-1 text-black font-bold uppercase" style={{ paddingLeft: '12px' }}>{student.last_name} {student.first_name}</td>
+                                                            {Array.from({length: 25}).map((_, i) => (
+                                                                <td key={i} className="border border-black p-1 bg-white" style={{ height: '22px', backgroundImage: 'radial-gradient(#e5e7eb 1px, transparent 1px)', backgroundSize: '4px 4px' }}></td>
+                                                            ))}
+                                                        </>
+                                                    )}
+                                                </tr>
+                                            ))
+                                        )
                                     )}
                                 </tbody>
                             </table>
