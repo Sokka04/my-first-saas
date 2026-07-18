@@ -23,6 +23,7 @@ export default function ClassesPage() {
     const [showCycleToast, setShowCycleToast] = useState(false);
     const [shakeField, setShakeField] = useState<string | null>(null);
     const [validationToastMsg, setValidationToastMsg] = useState<string | null>(null);
+    const [successToastMsg, setSuccessToastMsg] = useState<string | null>(null);
     const [submitFailCount, setSubmitFailCount] = useState(0);
 
     // Form states
@@ -167,7 +168,8 @@ export default function ClassesPage() {
             });
 
             if (res.ok) {
-                alert("Classe créée avec succès !");
+                setSuccessToastMsg("Classe créée avec succès !");
+                setTimeout(() => setSuccessToastMsg(null), 4000);
                 setFormData({ name: '', level: '', cycle: '', capacity: '45', teacher_id: '' });
                 fetchClasses();
                 setActiveTab("liste");
@@ -176,14 +178,16 @@ export default function ClassesPage() {
                 throw new Error(errData.message || "Erreur lors de la création");
             }
         } catch(e: any) {
-            alert(e.message);
+            setValidationToastMsg(e.message || "Une erreur inattendue est survenue");
+            setTimeout(() => setValidationToastMsg(null), 4000);
         }
     };
 
     const handleAssignTeacher = async (e: any) => {
         e.preventDefault();
         if (!assignForm.class_id || !assignForm.teacher_id) {
-            alert("Veuillez sélectionner une classe et un professeur.");
+            setValidationToastMsg("Veuillez sélectionner une classe et un professeur.");
+            setTimeout(() => setValidationToastMsg(null), 4000);
             return;
         }
         try {
@@ -197,7 +201,8 @@ export default function ClassesPage() {
                 body: JSON.stringify({ teacher_id: assignForm.teacher_id })
             });
             if (res.ok) {
-                alert("Professeur assigné avec succès !");
+                setSuccessToastMsg("Professeur assigné avec succès !");
+                setTimeout(() => setSuccessToastMsg(null), 4000);
                 setAssignForm({ class_id: '', teacher_id: '' });
                 fetchClasses();
                 setActiveTab("liste");
@@ -206,7 +211,8 @@ export default function ClassesPage() {
                 throw new Error(errData.message || "Erreur lors de l'assignation");
             }
         } catch(e: any) {
-            alert(e.message);
+            setValidationToastMsg(e.message || "Une erreur inattendue est survenue");
+            setTimeout(() => setValidationToastMsg(null), 4000);
         }
     };
 
@@ -914,8 +920,28 @@ export default function ClassesPage() {
                 <div className="bg-destructive text-destructive-foreground shadow-lg rounded-lg p-4 flex items-center gap-3">
                     <i className="fas fa-exclamation-triangle text-xl"></i>
                     <div>
-                        <h4 className="font-bold text-sm">Erreur de validation</h4>
+                        <h4 className="font-bold text-sm">Erreur</h4>
                         <p className="text-sm opacity-90">{validationToastMsg}</p>
+                    </div>
+                </div>
+            </div>
+
+            {/* Animation Notification pour le succès */}
+            <div 
+                className="fixed bottom-4 right-4 z-[99999] transition-all duration-300 ease-in-out"
+                style={{ 
+                    opacity: successToastMsg ? 1 : 0, 
+                    transform: successToastMsg ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.95)',
+                    pointerEvents: successToastMsg ? 'auto' : 'none'
+                }}
+            >
+                <div className="bg-emerald-500 text-white shadow-xl rounded-lg p-4 flex items-center gap-3 border border-emerald-400/20">
+                    <div className="bg-white/20 rounded-full w-8 h-8 flex items-center justify-center shrink-0">
+                        <i className="fas fa-check text-white"></i>
+                    </div>
+                    <div>
+                        <h4 className="font-bold text-sm">Succès</h4>
+                        <p className="text-sm opacity-90">{successToastMsg}</p>
                     </div>
                 </div>
             </div>
