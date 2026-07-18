@@ -233,3 +233,78 @@
     animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
   }
 }
+
+/* Styles pour l'impression */
+@media print {
+  /* Cacher les éléments inutiles sur papier */
+  .sidebar,
+  header,
+  .topbar,
+  .features-nav,
+  .filters-container,
+  .btn,
+  button,
+  .card-grid,
+  .stats-container,
+  .modal-overlay,
+  .toast-container,
+  .fixed {
+    display: none !important;
+  }
+
+  /* Réinitialiser la structure pour utiliser toute la page */
+  body, .main-content, .container, .legacy-app {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    background: white !important;
+    overflow: visible !important;
+  }
+
+  /* Forcer les couleurs pour économiser l'encre (même si le mode sombre est activé) */
+  .feature-section, .table-container {
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  .page-title h3 {
+    color: black !important;
+    font-size: 24pt !important;
+    margin-bottom: 10px !important;
+  }
+  .page-title p {
+    color: #666 !important;
+    font-size: 12pt !important;
+    margin-bottom: 20px !important;
+  }
+
+  .data-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+  }
+
+  .data-table th {
+    background-color: #f3f4f6 !important;
+    color: black !important;
+    border: 1px solid #ccc !important;
+    padding: 12px 8px !important;
+    text-align: left !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .data-table td {
+    color: black !important;
+    border: 1px solid #ccc !important;
+    padding: 10px 8px !important;
+  }
+
+  /* Cacher les actions dans le tableau */
+  .data-table th:last-child,
+  .data-table td:last-child {
+    display: none !important;
+  }
+}
