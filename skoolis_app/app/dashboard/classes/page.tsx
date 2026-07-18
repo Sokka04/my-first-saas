@@ -21,6 +21,8 @@ export default function ClassesPage() {
     const [selectedClassAction, setSelectedClassAction] = useState<{id: string, name: string, level: string | null, action: 'manage' | 'stats'} | null>(null);
     const [classeClickCount, setClasseClickCount] = useState(0);
     const [showCycleToast, setShowCycleToast] = useState(false);
+    const [shakeClasseField, setShakeClasseField] = useState(false);
+    const [showClasseValidationToast, setShowClasseValidationToast] = useState(false);
 
     // Form states
     const [formData, setFormData] = useState({
@@ -80,6 +82,16 @@ export default function ClassesPage() {
 
     const handleSave = async (e: any) => {
         e.preventDefault();
+
+        // Custom validation: Class is required
+        if (!formData.level) {
+            setShakeClasseField(true);
+            setShowClasseValidationToast(true);
+            setTimeout(() => setShakeClasseField(false), 500);
+            setTimeout(() => setShowClasseValidationToast(false), 4000);
+            return;
+        }
+
         try {
             const dataToSubmit = {
                 ...formData,
@@ -456,7 +468,7 @@ export default function ClassesPage() {
                                             <option value="High School">Lycée</option>
                                         </select>
                                     </div>
-                                    <div className="form-group" onClick={() => {
+                                    <div className={`form-group ${shakeClasseField ? 'shake-animation' : ''}`} onClick={() => {
                                         if (!formData.cycle) {
                                             const next = classeClickCount + 1;
                                             setClasseClickCount(next);
@@ -502,9 +514,13 @@ export default function ClassesPage() {
                                             }
                                         }
                                     }}>
-                                        <label>Classe <span className="required">*</span></label>
+                                        <label className={shakeClasseField ? 'text-destructive font-bold transition-colors' : ''}>Classe <span className="required">*</span></label>
                                         <div style={!formData.cycle ? { pointerEvents: 'none', cursor: 'not-allowed' } : {}}>
-                                            <select id="form-level-select" value={formData.level} onChange={e => setFormData({...formData, level: e.target.value})} required className="form-control" disabled={!formData.cycle} style={!formData.cycle ? { pointerEvents: 'none' } : {}}>
+                                            <select id="form-level-select" value={formData.level} onChange={e => {
+                                                setFormData({...formData, level: e.target.value});
+                                                setShakeClasseField(false);
+                                                setShowClasseValidationToast(false);
+                                            }} className={`form-control ${shakeClasseField ? 'border-destructive ring-destructive' : ''}`} disabled={!formData.cycle} style={!formData.cycle ? { pointerEvents: 'none' } : {}}>
                                                 <option value="">Sélectionner une classe</option>
                                             {levelOptionsForCycle(formData.cycle).map(opt => (
                                                 <option key={opt.v} value={opt.v}>{opt.l}</option>
@@ -821,6 +837,24 @@ export default function ClassesPage() {
                     <div>
                         <h4 className="font-bold text-sm">Action requise</h4>
                         <p className="text-sm opacity-90">Veuillez sélectionner le cycle d'abord !</p>
+                    </div>
+                </div>
+            </div>
+
+            {/* Animation Notification pour l'oubli de la classe à l'enregistrement */}
+            <div 
+                className="fixed bottom-4 right-4 z-[99999] transition-all duration-300 ease-in-out"
+                style={{ 
+                    opacity: showClasseValidationToast ? 1 : 0, 
+                    transform: showClasseValidationToast ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.95)',
+                    pointerEvents: showClasseValidationToast ? 'auto' : 'none'
+                }}
+            >
+                <div className="bg-destructive text-destructive-foreground shadow-lg rounded-lg p-4 flex items-center gap-3">
+                    <i className="fas fa-exclamation-triangle text-xl"></i>
+                    <div>
+                        <h4 className="font-bold text-sm">Erreur de validation</h4>
+                        <p className="text-sm opacity-90">Veuillez sélectionner la classe avant d'enregistrer.</p>
                     </div>
                 </div>
             </div>

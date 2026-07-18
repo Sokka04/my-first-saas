@@ -220,3 +220,16 @@
     @apply text-xs text-muted-foreground font-medium;
   }
 }
+
+/* Shake animation pour les erreurs de validation */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
+  20%, 40%, 60%, 80% { transform: translateX(4px); }
+}
+
+@layer utilities {
+  .shake-animation {
+    animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+  }
+}
