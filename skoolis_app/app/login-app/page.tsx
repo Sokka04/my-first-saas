@@ -38,12 +38,26 @@ export default function LoginPage() {
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<ErrorState | null>(null);
+    const [isDark, setIsDark] = useState(false);
+    const [ready, setReady] = useState(false);
 
-    // Nettoie immédiatement tout paramètre sensible qui aurait atterri dans l'URL
+    // Appliquer le thème sauvegardé + animation d'entrée
     useEffect(() => {
-        if (typeof window !== "undefined" && window.location.search) {
+        // Nettoyer l'URL
+        if (window.location.search) {
             window.history.replaceState({}, "", "/login-app");
         }
+        // Lire le thème sauvegardé
+        const savedTheme = localStorage.getItem('skoolis-theme');
+        const dark = savedTheme === 'dark';
+        setIsDark(dark);
+        if (dark) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+        }
+        // Déclencher l'animation d'apparition
+        requestAnimationFrame(() => setReady(true));
     }, []);
 
     const handleLogin = async (e: React.FormEvent) => {
@@ -122,25 +136,17 @@ export default function LoginPage() {
 
 
     return (
-        <div className="login-root">
+        <div className="login-root" style={{ opacity: ready ? 1 : 0, transform: ready ? 'translateY(0)' : 'translateY(18px)', transition: 'opacity 0.6s cubic-bezier(.4,0,.2,1), transform 0.6s cubic-bezier(.4,0,.2,1)' }}>
             <div className="login-page">
 
                 {/* Marque */}
                 <div className="login-brand">
-                    <picture>
-                        {/* Fond sombre → logo clair */}
-                        <source
-                            srcSet="http://localhost:3001/skoolis_logo_clair.png"
-                            media="(prefers-color-scheme: dark)"
-                        />
-                        {/* Fond clair → logo sombre (défaut) */}
-                        <img
-                            src="http://localhost:3001/skoolis_logo_sombre.png"
-                            alt="Skoolis"
-                            style={{ width: '120px', height: 'auto', marginBottom: '4px' }}
-                        />
-                    </picture>
-                    <p>Espace d'administration scolaire</p>
+                    <img
+                        src={isDark ? "/skoolis_logo_clair.png" : "/skoolis_logo_sombre.png"}
+                        alt="Skoolis"
+                        style={{ width: '120px', height: 'auto', marginBottom: '4px' }}
+                    />
+                    <p>Espace d{"'"}administration scolaire</p>
                 </div>
 
                 {/* Carte */}
