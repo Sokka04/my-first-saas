@@ -519,39 +519,115 @@ export default function ClassesPage() {
                                 </div>
                             </div>
                             <div className="text-right">
-                                <h1 className="text-3xl font-bold uppercase tracking-wider text-black m-0">Liste des classes</h1>
+                                <h1 className="text-3xl font-bold uppercase tracking-wider text-black m-0">
+                                    {printType === 'classes_list' && 'Liste des classes'}
+                                    {printType === 'students_list' && 'Identité des élèves'}
+                                    {printType === 'grades' && 'Fiches de notes'}
+                                    {printType === 'attendance' && 'Registre de présences'}
+                                </h1>
                                 <p className="text-gray-600 m-0">Année scolaire 2026-2027</p>
+                                {printTarget !== 'all' && (
+                                    <p className="text-black font-bold m-0 mt-1 text-lg">
+                                        Classe : {classes.find(c => c.id === printTarget)?.name || ''}
+                                    </p>
+                                )}
                                 <p className="text-sm font-medium mt-2 text-black">Imprimé le {new Date().toLocaleDateString('fr-FR')}</p>
                             </div>
                         </div>
 
-                        {/* Tableau d'impression */}
+                        {/* Tableau d'impression dynamique */}
                         <table className="w-full text-left border-collapse" style={{ border: '1px solid black' }}>
                             <thead>
                                 <tr className="bg-gray-100">
-                                    <th className="border border-black p-3 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Nom de la classe</th>
-                                    <th className="border border-black p-3 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Cycle</th>
-                                    <th className="border border-black p-3 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Niveau</th>
-                                    <th className="border border-black p-3 font-bold text-black text-center" style={{ backgroundColor: '#f3f4f6' }}>Effectif</th>
-                                    <th className="border border-black p-3 font-bold text-black text-center" style={{ backgroundColor: '#f3f4f6' }}>Capacité</th>
+                                    {printType === 'classes_list' && (
+                                        <>
+                                            <th className="border border-black p-3 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Nom de la classe</th>
+                                            <th className="border border-black p-3 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Cycle</th>
+                                            <th className="border border-black p-3 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Niveau</th>
+                                            <th className="border border-black p-3 font-bold text-black text-center" style={{ backgroundColor: '#f3f4f6' }}>Effectif</th>
+                                            <th className="border border-black p-3 font-bold text-black text-center" style={{ backgroundColor: '#f3f4f6' }}>Capacité</th>
+                                        </>
+                                    )}
+                                    {printType === 'students_list' && (
+                                        <>
+                                            <th className="border border-black p-3 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Matricule</th>
+                                            <th className="border border-black p-3 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Nom & Prénom(s)</th>
+                                            <th className="border border-black p-3 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Sexe</th>
+                                            <th className="border border-black p-3 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Date de naissance</th>
+                                            <th className="border border-black p-3 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Contact Parent</th>
+                                        </>
+                                    )}
+                                    {printType === 'grades' && (
+                                        <>
+                                            <th className="border border-black p-3 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Nom & Prénom(s)</th>
+                                            <th className="border border-black p-3 font-bold text-black text-center" style={{ backgroundColor: '#f3f4f6' }}>Moy. Générale</th>
+                                            <th className="border border-black p-3 font-bold text-black text-center" style={{ backgroundColor: '#f3f4f6' }}>Rang</th>
+                                            <th className="border border-black p-3 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Appréciation</th>
+                                        </>
+                                    )}
+                                    {printType === 'attendance' && (
+                                        <>
+                                            <th className="border border-black p-3 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Nom & Prénom(s)</th>
+                                            <th className="border border-black p-3 font-bold text-black text-center" style={{ backgroundColor: '#f3f4f6' }}>Lundi</th>
+                                            <th className="border border-black p-3 font-bold text-black text-center" style={{ backgroundColor: '#f3f4f6' }}>Mardi</th>
+                                            <th className="border border-black p-3 font-bold text-black text-center" style={{ backgroundColor: '#f3f4f6' }}>Mercredi</th>
+                                            <th className="border border-black p-3 font-bold text-black text-center" style={{ backgroundColor: '#f3f4f6' }}>Jeudi</th>
+                                            <th className="border border-black p-3 font-bold text-black text-center" style={{ backgroundColor: '#f3f4f6' }}>Vendredi</th>
+                                        </>
+                                    )}
                                 </tr>
                             </thead>
                             <tbody>
-                                {filteredClasses.map((cls, idx) => (
-                                    <tr key={cls.id} className={idx % 2 === 0 ? "bg-white" : "bg-gray-50"}>
-                                        <td className="border border-black p-3 text-black font-semibold">{cls.name}</td>
-                                        <td className="border border-black p-3 text-black">{cls.cycle || '-'}</td>
-                                        <td className="border border-black p-3 text-black">{translateCycle(cls.level)}</td>
-                                        <td className="border border-black p-3 text-center text-black">{cls.students_count || 0}</td>
-                                        <td className="border border-black p-3 text-center text-black">{cls.capacity}</td>
-                                    </tr>
-                                ))}
+                                {printType === 'classes_list' ? (
+                                    filteredClasses.map((cls, idx) => (
+                                        <tr key={cls.id} className={idx % 2 === 0 ? "bg-white" : "bg-gray-50"}>
+                                            <td className="border border-black p-3 text-black font-semibold">{cls.name}</td>
+                                            <td className="border border-black p-3 text-black">{cls.cycle || '-'}</td>
+                                            <td className="border border-black p-3 text-black">{translateCycle(cls.level)}</td>
+                                            <td className="border border-black p-3 text-center text-black">{cls.students_count || 0}</td>
+                                            <td className="border border-black p-3 text-center text-black">{cls.capacity}</td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    // Données simulées (mock) pour les autres tableaux en attendant la vraie base de données
+                                    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num, idx) => (
+                                        <tr key={num} className={idx % 2 === 0 ? "bg-white" : "bg-gray-50"}>
+                                            {printType === 'students_list' && (
+                                                <>
+                                                    <td className="border border-black p-3 text-black font-mono">MAT-{202600 + num}</td>
+                                                    <td className="border border-black p-3 text-black">Élève Exemple {num}</td>
+                                                    <td className="border border-black p-3 text-black">{num % 2 === 0 ? 'F' : 'M'}</td>
+                                                    <td className="border border-black p-3 text-black">12/05/201{num%10}</td>
+                                                    <td className="border border-black p-3 text-black">+228 90 00 00 0{num}</td>
+                                                </>
+                                            )}
+                                            {printType === 'grades' && (
+                                                <>
+                                                    <td className="border border-black p-3 text-black">Élève Exemple {num}</td>
+                                                    <td className="border border-black p-3 text-center text-black font-bold">{(12 + (num % 5) + (num * 0.1)).toFixed(2)} / 20</td>
+                                                    <td className="border border-black p-3 text-center text-black">{num}{num === 1 ? 'er' : 'ème'}</td>
+                                                    <td className="border border-black p-3 text-black">{num < 3 ? 'Très bien' : num < 6 ? 'Bien' : 'Assez bien'}</td>
+                                                </>
+                                            )}
+                                            {printType === 'attendance' && (
+                                                <>
+                                                    <td className="border border-black p-3 text-black">Élève Exemple {num}</td>
+                                                    <td className="border border-black p-3 text-center"></td>
+                                                    <td className="border border-black p-3 text-center"></td>
+                                                    <td className="border border-black p-3 text-center"></td>
+                                                    <td className="border border-black p-3 text-center"></td>
+                                                    <td className="border border-black p-3 text-center"></td>
+                                                </>
+                                            )}
+                                        </tr>
+                                    ))
+                                )}
                             </tbody>
                         </table>
 
                         {/* Pied de page d'impression */}
                         <div className="mt-12 pt-6 border-t border-gray-300 flex flex-col items-center justify-center">
-                            <p className="text-gray-500 mb-2 text-sm italic">Généré par</p>
+                            <p className="text-gray-500 mb-2 text-sm italic">Document généré par la plateforme de gestion scolaire Skoolis</p>
                             <img src="/skoolis_logo_sombre.png" alt="Skoolis Logo" className="h-8 object-contain opacity-80" />
                         </div>
                     </div>
@@ -1048,14 +1124,8 @@ export default function ClassesPage() {
                             </button>
                             <button 
                                 onClick={() => {
-                                    if (printType === 'classes_list') {
-                                        setShowPrintModal(false);
-                                        setTimeout(() => window.print(), 300);
-                                    } else {
-                                        setValidationToastMsg("Ce module d'impression (élèves, notes, présences) nécessite l'intégration des données élèves qui sera faite prochainement.");
-                                        setTimeout(() => setValidationToastMsg(null), 4000);
-                                        setShowPrintModal(false);
-                                    }
+                                    setShowPrintModal(false);
+                                    setTimeout(() => window.print(), 300);
                                 }}
                                 className="rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity flex items-center gap-2 cursor-pointer border-none shadow-md whitespace-nowrap"
                                 style={{ padding: '12px 24px', fontSize: '16px' }}
