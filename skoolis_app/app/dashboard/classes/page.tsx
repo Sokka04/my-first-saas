@@ -164,12 +164,23 @@ export default function ClassesPage() {
             // Frontend Cycle corresponds to Backend 'level'
             const rawCycle = (cls.level || '').toLowerCase();
             const filter = filterCycle.toLowerCase();
-            if (filter === 'primaire' && !(rawCycle.includes('primaire') || rawCycle.includes('primary'))) matchCycle = false;
-            else if (filter === 'college' && !(rawCycle.includes('college') || rawCycle.includes('collège') || rawCycle.includes('middle'))) matchCycle = false;
-            else if (filter === 'lycee' && !(rawCycle.includes('lycee') || rawCycle.includes('lycée') || rawCycle.includes('high'))) matchCycle = false;
-            else if (filter === 'maternelle' && !rawCycle.includes('maternelle')) matchCycle = false;
-            else if (filter === 'creche' && !(rawCycle.includes('creche') || rawCycle.includes('crèche'))) matchCycle = false;
-            else if (!rawCycle.includes(filter)) matchCycle = false;
+            
+            let isMatch = false;
+            if (filter === 'primaire') {
+                isMatch = rawCycle.includes('primaire') || rawCycle.includes('primary');
+            } else if (filter === 'college') {
+                isMatch = rawCycle.includes('college') || rawCycle.includes('collège') || rawCycle.includes('middle');
+            } else if (filter === 'lycee') {
+                isMatch = rawCycle.includes('lycee') || rawCycle.includes('lycée') || rawCycle.includes('high');
+            } else if (filter === 'maternelle') {
+                isMatch = rawCycle.includes('maternelle');
+            } else if (filter === 'creche') {
+                isMatch = rawCycle.includes('creche') || rawCycle.includes('crèche');
+            } else {
+                isMatch = rawCycle.includes(filter);
+            }
+            
+            if (!isMatch) matchCycle = false;
         }
 
         if (filterLevel) {
