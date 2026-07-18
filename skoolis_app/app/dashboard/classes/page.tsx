@@ -474,7 +474,19 @@ export default function ClassesPage() {
                                                         doneBtnText: 'Compris !',
                                                         progressText: '{{current}} sur {{total}}',
                                                         steps: [
-                                                            { element: '#form-cycle-select', popover: { title: '1. Choisissez le cycle', description: 'Vous devez d\'abord sélectionner le cycle (Primaire, Collège, etc.) auquel appartient la classe.', side: "left", align: 'start' }},
+                                                            { 
+                                                                element: '#form-cycle-select', 
+                                                                popover: { title: '1. Choisissez le cycle', description: 'Vous devez d\'abord sélectionner le cycle (Primaire, Collège, etc.) auquel appartient la classe.', side: "left", align: 'start' },
+                                                                onNextClick: () => {
+                                                                    const cycleSelect = document.getElementById('form-cycle-select') as HTMLSelectElement;
+                                                                    if (!cycleSelect || !cycleSelect.value) {
+                                                                        setShowCycleToast(true);
+                                                                        setTimeout(() => setShowCycleToast(false), 3000);
+                                                                        return;
+                                                                    }
+                                                                    driverObj.moveNext();
+                                                                }
+                                                            },
                                                             { element: '#form-level-select', popover: { title: '2. Choisissez la classe', description: 'Une fois le cycle sélectionné, les classes correspondantes apparaîtront ici.', side: "left", align: 'start' }},
                                                         ]
                                                     });
@@ -792,7 +804,7 @@ export default function ClassesPage() {
 
             {/* Animation Notification pour la sélection de classe sans cycle */}
             <div 
-                className="fixed bottom-4 right-4 z-50 transition-all duration-300 ease-in-out"
+                className="fixed bottom-4 right-4 z-[99999] transition-all duration-300 ease-in-out"
                 style={{ 
                     opacity: showCycleToast ? 1 : 0, 
                     transform: showCycleToast ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.95)',
