@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { driver } from "driver.js";
+import "driver.js/dist/driver.css";
 
 // Ajout auto : helper d'entête d'authentification Bearer
 const getAuthHeaders = (existingHeaders = {}) => {
@@ -17,6 +19,8 @@ export default function ClassesPage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [selectedClassAction, setSelectedClassAction] = useState<{id: string, name: string, level: string | null, action: 'manage' | 'stats'} | null>(null);
+    const [classeClickCount, setClasseClickCount] = useState(0);
+    const [showCycleToast, setShowCycleToast] = useState(false);
 
     // Form states
     const [formData, setFormData] = useState({
@@ -439,9 +443,10 @@ export default function ClassesPage() {
                                     </div>
                                     <div className="form-group">
                                         <label>Cycle <span className="required">*</span></label>
-                                        <select value={formData.cycle} onChange={e => {
+                                        <select id="form-cycle-select" value={formData.cycle} onChange={e => {
                                             // Reset level when cycle changes
                                             setFormData({...formData, cycle: e.target.value, level: ''});
+                                            setClasseClickCount(0); // reset tracker when user fixes the issue
                                         }} required className="form-control">
                                             <option value="">Sélectionner un cycle</option>
                                             <option value="Crèche">Crèche</option>
@@ -451,14 +456,39 @@ export default function ClassesPage() {
                                             <option value="High School">Lycée</option>
                                         </select>
                                     </div>
-                                    <div className="form-group">
+                                    <div className="form-group" onClick={() => {
+                                        if (!formData.cycle) {
+                                            setClasseClickCount(prev => {
+                                                const next = prev + 1;
+                                                if (next === 1) {
+                                                    setShowCycleToast(true);
+                                                    setTimeout(() => setShowCycleToast(false), 3000);
+                                                } else if (next >= 2) {
+                                                    setShowCycleToast(false);
+                                                    const driverObj = driver({
+                                                        showProgress: true,
+                                                        animate: true,
+                                                        steps: [
+                                                            { element: '#form-cycle-select', popover: { title: '1. Choisissez le cycle', description: 'Vous devez d\'abord sélectionner le cycle (Primaire, Collège, etc.) auquel appartient la classe.', side: "left", align: 'start' }},
+                                                            { element: '#form-level-select', popover: { title: '2. Choisissez la classe', description: 'Une fois le cycle sélectionné, les classes correspondantes apparaîtront ici.', side: "left", align: 'start' }},
+                                                        ]
+                                                    });
+                                                    driverObj.drive();
+                                                    return 0; // reset
+                                                }
+                                                return next;
+                                            });
+                                        }
+                                    }}>
                                         <label>Classe <span className="required">*</span></label>
-                                        <select value={formData.level} onChange={e => setFormData({...formData, level: e.target.value})} required className="form-control" disabled={!formData.cycle}>
-                                            <option value="">Sélectionner une classe</option>
+                                        <div style={!formData.cycle ? { pointerEvents: 'none', cursor: 'not-allowed' } : {}}>
+                                            <select id="form-level-select" value={formData.level} onChange={e => setFormData({...formData, level: e.target.value})} required className="form-control" disabled={!formData.cycle} style={!formData.cycle ? { pointerEvents: 'none' } : {}}>
+                                                <option value="">Sélectionner une classe</option>
                                             {levelOptionsForCycle(formData.cycle).map(opt => (
                                                 <option key={opt.v} value={opt.v}>{opt.l}</option>
                                             ))}
-                                        </select>
+                                            </select>
+                                        </div>
                                     </div>
                                     <div className="form-group">
                                         <label>Capacité maximale</label>
@@ -754,6 +784,24 @@ export default function ClassesPage() {
                     </div>
                 </div>
             )}
+
+            {/* Animation Notification pour la sélection de classe sans cycle */}
+            <div 
+                className="fixed bottom-4 right-4 z-50 transition-all duration-300 ease-in-out"
+                style={{ 
+                    opacity: showCycleToast ? 1 : 0, 
+                    transform: showCycleToast ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.95)',
+                    pointerEvents: showCycleToast ? 'auto' : 'none'
+                }}
+            >
+                <div className="bg-destructive text-destructive-foreground shadow-lg rounded-lg p-4 flex items-center gap-3">
+                    <i className="fas fa-exclamation-circle text-xl"></i>
+                    <div>
+                        <h4 className="font-bold text-sm">Action requise</h4>
+                        <p className="text-sm opacity-90">Veuillez sélectionner le cycle d'abord !</p>
+                    </div>
+                </div>
+            </div>
         </>
     );
 }
