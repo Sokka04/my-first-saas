@@ -140,6 +140,15 @@ export default function ClassesPage() {
     const assignedTeachers = new Set(classes.filter(c => c.teacher_id).map(c => c.teacher_id)).size;
     const avgStudents = totalClasses > 0 ? (totalStudents / totalClasses).toFixed(1) : "0";
 
+    const translateCycle = (c?: string) => {
+        if (!c) return 'Non défini';
+        const lower = c.toLowerCase();
+        if (lower.includes('primary') || lower.includes('primaire')) return 'Primaire';
+        if (lower.includes('middle') || lower.includes('college')) return 'Collège';
+        if (lower.includes('high') || lower.includes('lycee') || lower.includes('lycée')) return 'Lycée';
+        return c;
+    };
+
     return (
         <>
             {/* Statistiques rapides */}
@@ -254,7 +263,7 @@ export default function ClassesPage() {
                                     <div style={{ overflow: 'hidden' }}>
                                         <h4 className="text-foreground font-bold truncate" style={{ fontSize: '18px', marginBottom: '4px', margin: 0 }} title={cls.name}>{cls.name}</h4>
                                         <div className="bg-primary/10 text-primary font-semibold truncate" style={{ padding: '4px 10px', borderRadius: '20px', fontSize: '12px', display: 'inline-block', maxWidth: '100%', marginTop: '4px' }}>
-                                            {cls.cycle || 'Non défini'} • {cls.level || '-'}
+                                            {translateCycle(cls.cycle)} • {cls.level || '-'}
                                         </div>
                                     </div>
                                     <div className="bg-primary/10 text-primary shadow-sm" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '40px', height: '40px', borderRadius: '12px', flexShrink: 0 }}>
