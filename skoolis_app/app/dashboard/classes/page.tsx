@@ -538,7 +538,7 @@ export default function ClassesPage() {
                                 </div>
 
                                 {/* Espace physique garanti */}
-                                <div style={{ height: '40px' }}></div>
+                                <div style={{ height: '20px' }}></div>
 
                                 {/* Section 2 : Informations et Titre du document */}
                                 <div className="flex flex-col">
@@ -562,7 +562,7 @@ export default function ClassesPage() {
                                 </div>
 
                                 {/* Espace physique garanti */}
-                                <div style={{ height: '40px' }}></div>
+                                <div style={{ height: '15px' }}></div>
 
                                 {/* Section 3 : Informations supplémentaires (Grades / Attendance) */}
                                 {(printType === 'attendance' || printType === 'grades') && (
@@ -581,7 +581,7 @@ export default function ClassesPage() {
                             </div>
 
                             {/* Grand Espace avant le tableau */}
-                            <div style={{ height: '50px' }}></div>
+                            <div style={{ height: '25px' }}></div>
 
                             {/* Tableau d'impression dynamique */}
                             <table className="w-full text-left border-collapse" style={{ border: '1px solid black', fontSize: '11px' }}>
