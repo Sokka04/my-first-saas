@@ -692,7 +692,7 @@ export default function ClassesPage() {
                             <div style={{ height: '40px' }}></div>
 
                             {/* Signature / Fait à */}
-                            <div className="flex justify-end px-12" style={{ pageBreakInside: 'avoid' }}>
+                            <div className="flex justify-end pr-24" style={{ pageBreakInside: 'avoid' }}>
                                 <div className="text-center">
                                     <p className="text-black m-0 mb-8">Fait à Lomé, le {new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
                                 </div>
