@@ -678,6 +678,11 @@ export default function ClassesPage() {
                                         ))
                                     )}
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colSpan={10} style={{ height: '40px', border: 'none' }}></td>
+                                    </tr>
+                                </tfoot>
                             </table>
 
                             {/* Signature / Fait à */}
@@ -692,7 +697,7 @@ export default function ClassesPage() {
                         </div>
 
                         {/* Pied de page global */}
-                        <div className="pt-2 border-t border-black flex justify-between items-center text-xs text-gray-500 bg-white px-2" style={{ fontFamily: "'Times New Roman', Times, serif", position: 'fixed', bottom: '12mm', left: '8mm', right: '8mm' }}>
+                        <div className="pt-2 border-t border-black flex justify-between items-center text-xs text-gray-500 bg-white px-2" style={{ fontFamily: "'Times New Roman', Times, serif", position: 'fixed', bottom: '12mm', left: '8mm', right: '8mm', zIndex: 1000 }}>
                             <div className="w-1/3"></div>
                             <p className="m-0 text-xs text-black w-1/3 text-center mb-1">
                                 <span className="italic font-normal">Propulsé par</span> <span className="font-bold">Skoolis</span>
