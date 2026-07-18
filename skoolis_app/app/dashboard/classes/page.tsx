@@ -37,6 +37,9 @@ export default function ClassesPage() {
     const [validationToastMsg, setValidationToastMsg] = useState<string | null>(null);
     const [successToastMsg, setSuccessToastMsg] = useState<string | null>(null);
     const [submitFailCount, setSubmitFailCount] = useState(0);
+    const [showPrintModal, setShowPrintModal] = useState(false);
+    const [printTarget, setPrintTarget] = useState('all');
+    const [printType, setPrintType] = useState('classes_list');
 
     // Form states
     const [formData, setFormData] = useState({
@@ -402,8 +405,8 @@ export default function ClassesPage() {
                             <h3 style={{ margin: 0, marginBottom: '4px' }}>Liste des classes</h3>
                             <p style={{ margin: 0 }}>Gérez toutes les classes de l'établissement</p>
                         </div>
-                        <button className="btn btn-primary" onClick={() => window.print()}>
-                            <i className="fas fa-print"></i> Imprimer liste
+                        <button className="btn btn-primary" onClick={() => setShowPrintModal(true)}>
+                            <i className="fas fa-print"></i> Imprimer
                         </button>
                     </div>
 
@@ -937,6 +940,79 @@ export default function ClassesPage() {
                     </div>
                 </div>
             </div>
+
+            {/* Modal d'impression */}
+            {showPrintModal && (
+                <div className="modal-overlay fixed inset-0 bg-black/50 z-[9999] flex items-center justify-center p-4 backdrop-blur-sm" onClick={() => setShowPrintModal(false)}>
+                    <div className="bg-card text-card-foreground w-full max-w-md rounded-2xl shadow-2xl overflow-hidden border border-border" onClick={e => e.stopPropagation()}>
+                        <div className="p-6 border-b border-border flex items-center justify-between">
+                            <h3 className="text-xl font-bold m-0 flex items-center gap-2">
+                                <i className="fas fa-print text-primary"></i> Configuration d'impression
+                            </h3>
+                            <button onClick={() => setShowPrintModal(false)} className="text-muted-foreground hover:bg-secondary w-8 h-8 rounded-full flex items-center justify-center transition-colors border-none bg-transparent cursor-pointer">
+                                <i className="fas fa-times"></i>
+                            </button>
+                        </div>
+                        
+                        <div className="p-6 flex flex-col gap-5">
+                            <div className="form-group mb-0">
+                                <label className="block mb-2 font-semibold">Que voulez-vous imprimer ?</label>
+                                <select 
+                                    className="form-control w-full bg-background border border-border rounded-lg p-3 text-foreground"
+                                    value={printType}
+                                    onChange={(e) => setPrintType(e.target.value)}
+                                >
+                                    <option value="classes_list">Liste globale des classes</option>
+                                    <option value="students_list">Identité des élèves (par classe)</option>
+                                    <option value="grades">Fiches de notes (bulletins)</option>
+                                    <option value="attendance">Registre de présences</option>
+                                </select>
+                            </div>
+
+                            <div className="form-group mb-0">
+                                <label className="block mb-2 font-semibold">Classe concernée</label>
+                                <select 
+                                    className="form-control w-full bg-background border border-border rounded-lg p-3 text-foreground"
+                                    value={printTarget}
+                                    onChange={(e) => setPrintTarget(e.target.value)}
+                                    disabled={printType === 'classes_list'}
+                                    style={printType === 'classes_list' ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
+                                >
+                                    {printType !== 'classes_list' && <option value="all">Toutes les classes</option>}
+                                    {printType === 'classes_list' && <option value="all">Automatique (Vue actuelle)</option>}
+                                    {classes.map(c => (
+                                        <option key={c.id} value={c.id}>{c.name} ({c.cycle})</option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div className="p-6 border-t border-border bg-muted/20 flex justify-end gap-3">
+                            <button 
+                                onClick={() => setShowPrintModal(false)}
+                                className="px-5 py-2.5 rounded-lg border border-border bg-background hover:bg-secondary font-medium transition-colors cursor-pointer text-foreground"
+                            >
+                                Annuler
+                            </button>
+                            <button 
+                                onClick={() => {
+                                    if (printType === 'classes_list') {
+                                        setShowPrintModal(false);
+                                        setTimeout(() => window.print(), 300);
+                                    } else {
+                                        setValidationToastMsg("Ce module d'impression (élèves, notes, présences) nécessite l'intégration des données élèves qui sera faite prochainement.");
+                                        setTimeout(() => setValidationToastMsg(null), 4000);
+                                        setShowPrintModal(false);
+                                    }
+                                }}
+                                className="px-5 py-2.5 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity flex items-center gap-2 cursor-pointer border-none shadow-sm"
+                            >
+                                <i className="fas fa-file-pdf"></i> Générer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* Animation Notification pour l'oubli de la classe à l'enregistrement */}
             <div 
