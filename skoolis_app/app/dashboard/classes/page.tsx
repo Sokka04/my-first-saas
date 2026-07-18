@@ -508,7 +508,7 @@ export default function ClassesPage() {
 
                     {/* Vue dédiée pour l'impression (Tableau et En-tête/Pied) */}
                     {/* Vue dédiée pour l'impression (Tableau et En-tête/Pied) */}
-                    <div className="hidden print:block" style={{ fontFamily: "'Times New Roman', Times, serif", padding: '8mm' }}>
+                    <div className="hidden print:block" style={{ fontFamily: "'Times New Roman', Times, serif", padding: '10mm' }}>
                         {printType === 'students_list' && (
                             <style type="text/css" media="print">
                                 {`@page { size: landscape; margin: 0; }`}
@@ -520,7 +520,7 @@ export default function ClassesPage() {
                             </style>
                         )}
 
-                        <div className="w-full mb-16 mt-4">
+                        <div className="w-full mb-16">
                             {/* En-tête d'impression */}
                             <div className="mb-6 flex flex-col">
                                 {/* Section 1 : Info École & République */}
