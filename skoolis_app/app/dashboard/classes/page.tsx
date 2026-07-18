@@ -679,6 +679,8 @@ export default function ClassesPage() {
                                                         <td className="border border-black p-1 px-4 text-black font-bold uppercase">Élève Exemple {num}</td>
                                                         {Array.from({length: 25}).map((_, i) => (
                                                             <td key={i} className="border border-black p-1 bg-white" style={{ height: '22px', backgroundImage: 'radial-gradient(#e5e7eb 1px, transparent 1px)', backgroundSize: '4px 4px' }}></td>
+                                                        ))}
+                                                    </>
                                                 )}
                                             </tr>
                                         ))
@@ -692,8 +694,7 @@ export default function ClassesPage() {
                             {/* Signature / Fait à */}
                             <div className="flex justify-end px-12" style={{ pageBreakInside: 'avoid' }}>
                                 <div className="text-center">
-                                    <p className="text-black m-0 mb-16">Fait à Lomé, le {new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
-                                    <p className="text-black font-bold m-0">La Direction</p>
+                                    <p className="text-black m-0 mb-8">Fait à Lomé, le {new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
                                 </div>
                             </div>
 
