@@ -181,6 +181,17 @@ export default function ClassesPage() {
         ];
     };
 
+    const getCycleColors = (c?: string) => {
+        if (!c) return { bg: 'bg-gray-100', text: 'text-gray-600' };
+        const lower = c.toLowerCase();
+        if (lower.includes('creche') || lower.includes('crèche')) return { bg: 'bg-pink-100', text: 'text-pink-600' };
+        if (lower.includes('maternelle')) return { bg: 'bg-amber-100', text: 'text-amber-600' };
+        if (lower.includes('primary') || lower.includes('primaire')) return { bg: 'bg-blue-100', text: 'text-blue-600' };
+        if (lower.includes('middle') || lower.includes('college') || lower.includes('collège')) return { bg: 'bg-emerald-100', text: 'text-emerald-600' };
+        if (lower.includes('high') || lower.includes('lycee') || lower.includes('lycée')) return { bg: 'bg-purple-100', text: 'text-purple-600' };
+        return { bg: 'bg-primary/10', text: 'text-primary' };
+    };
+
     const filteredClasses = classes.filter(cls => {
         let matchCycle = true;
         let matchLevel = true;
@@ -327,16 +338,18 @@ export default function ClassesPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                         {loading && <p className="col-span-full text-muted-foreground text-center py-8">Chargement des classes...</p>}
                         {!loading && filteredClasses.length === 0 && <p className="col-span-full text-muted-foreground text-center py-8">Aucune classe trouvée.</p>}
-                        {filteredClasses.map(cls => (
-                            <div key={cls.id} className="bg-card border-border border shadow-sm transition-all group relative" style={{ padding: '24px', borderRadius: '16px', display: 'flex', flexDirection: 'column', gap: '16px', overflow: 'hidden' }}>
+                        {filteredClasses.map(cls => {
+                            const cycleColors = getCycleColors(cls.level);
+                            return (
+                            <div key={cls.id} className="bg-card border-border border shadow-sm transition-all group relative hover:-translate-y-1 hover:shadow-md" style={{ padding: '24px', borderRadius: '16px', display: 'flex', flexDirection: 'column', gap: '16px', overflow: 'hidden' }}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
                                     <div style={{ overflow: 'hidden' }}>
                                         <h4 className="text-foreground font-bold truncate" style={{ fontSize: '18px', marginBottom: '4px', margin: 0 }} title={cls.name}>{cls.name}</h4>
-                                        <div className="bg-primary/10 text-primary font-semibold truncate" style={{ padding: '4px 10px', borderRadius: '20px', fontSize: '12px', display: 'inline-block', maxWidth: '100%', marginTop: '4px' }}>
+                                        <div className={`${cycleColors.bg} ${cycleColors.text} font-semibold truncate`} style={{ padding: '4px 10px', borderRadius: '20px', fontSize: '12px', display: 'inline-block', maxWidth: '100%', marginTop: '4px' }}>
                                             {translateCycle(cls.level)} • {cls.cycle || '-'}
                                         </div>
                                     </div>
-                                    <div className="bg-primary/10 text-primary shadow-sm" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '40px', height: '40px', borderRadius: '12px', flexShrink: 0 }}>
+                                    <div className={`${cycleColors.bg} ${cycleColors.text} shadow-sm`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '40px', height: '40px', borderRadius: '12px', flexShrink: 0 }}>
                                         <i className="fas fa-users" style={{ fontSize: '18px' }}></i>
                                     </div>
                                 </div>
@@ -388,7 +401,7 @@ export default function ClassesPage() {
                                     </div>
                                 </div>
                             </div>
-                        ))}
+                        )})}
                     </div>
                 </div>
             )}
