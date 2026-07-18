@@ -468,6 +468,11 @@ export default function ClassesPage() {
                                                     const driverObj = driver({
                                                         showProgress: true,
                                                         animate: true,
+                                                        popoverClass: 'driverjs-theme',
+                                                        nextBtnText: 'Suivant →',
+                                                        prevBtnText: '← Précédent',
+                                                        doneBtnText: 'Compris !',
+                                                        progressText: '{{current}} sur {{total}}',
                                                         steps: [
                                                             { element: '#form-cycle-select', popover: { title: '1. Choisissez le cycle', description: 'Vous devez d\'abord sélectionner le cycle (Primaire, Collège, etc.) auquel appartient la classe.', side: "left", align: 'start' }},
                                                             { element: '#form-level-select', popover: { title: '2. Choisissez la classe', description: 'Une fois le cycle sélectionné, les classes correspondantes apparaîtront ici.', side: "left", align: 'start' }},
