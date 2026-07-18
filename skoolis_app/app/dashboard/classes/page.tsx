@@ -4,12 +4,24 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, CartesianGrid } from "recharts";
 
 // Ajout auto : helper d'entête d'authentification Bearer
 const getAuthHeaders = (existingHeaders = {}) => {
     if (typeof window === 'undefined') return existingHeaders;
     const token = localStorage.getItem('skoolis_token');
     return token ? { ...existingHeaders, 'Authorization': `Bearer ${token}` } : existingHeaders;
+};
+
+const getCycleColorHex = (cycle: string) => {
+    switch (cycle) {
+        case 'Maternelle': return '#a855f7';
+        case 'Primaire': return '#3b82f6';
+        case 'Collège': return '#10b981';
+        case 'Lycée': return '#f59e0b';
+        case 'Crèche': return '#ec4899';
+        default: return '#64748b';
+    }
 };
 
 export default function ClassesPage() {
@@ -734,19 +746,35 @@ export default function ClassesPage() {
                         </button>
                     </div>
 
-                    <div className="stats-container">
-                        <div className="stats-chart-container">
-                            <div className="chart-container">
-                                <div className="chart-header">
+                    <div className="stats-container" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                        {classes.length > 0 && (
+                            <div className="chart-container" style={{ background: 'var(--card-bg)', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', padding: '24px' }}>
+                                <div className="chart-header" style={{ marginBottom: '20px' }}>
                                     <h3>Répartition des effectifs par classe</h3>
                                 </div>
-                                <div className="chart-placeholder">
-                                    <canvas id="effectifsChart"></canvas>
+                                <div style={{ width: '100%', height: '300px' }}>
+                                    <ResponsiveContainer width="100%" height="100%">
+                                        <BarChart data={classes} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                                            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border-color)" />
+                                            <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: 'var(--text-muted)' }} />
+                                            <YAxis allowDecimals={false} axisLine={false} tickLine={false} tick={{ fill: 'var(--text-muted)' }} />
+                                            <Tooltip 
+                                                cursor={{ fill: 'var(--hover-bg)' }}
+                                                contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', background: 'var(--card-bg)', color: 'var(--text-color)' }}
+                                                formatter={(value) => [`${value} élèves`, 'Effectif']}
+                                            />
+                                            <Bar dataKey="students_count" radius={[4, 4, 0, 0]} maxBarSize={60}>
+                                                {classes.map((entry, index) => (
+                                                    <Cell key={`cell-${index}`} fill={getCycleColorHex(entry.cycle)} />
+                                                ))}
+                                            </Bar>
+                                        </BarChart>
+                                    </ResponsiveContainer>
                                 </div>
                             </div>
-                        </div>
+                        )}
 
-                        <div className="table-container" style={{ marginBottom: '24px', overflowX: 'hidden', width: '100%' }}>
+                        <div className="table-container" style={{ overflowX: 'hidden', width: '100%' }}>
                             <table className="data-table">
                                 <thead>
                                     <tr>
