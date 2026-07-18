@@ -522,39 +522,57 @@ export default function ClassesPage() {
 
                         <div className="w-full mb-16 mt-4">
                             {/* En-tête d'impression */}
-                            <div className="mb-6 flex justify-between items-start border-b-2 border-black pb-4">
-                                <div className="flex flex-col items-center justify-center w-1/4">
-                                    <h2 className="text-sm font-black m-0 text-black uppercase text-center">Complexe Scolaire Skoolis</h2>
-                                    <p className="text-xs text-black m-0 text-center">BP 12345 Lomé, Togo</p>
-                                    <p className="text-xs text-black m-0 text-center">Tél: +228 90 00 00 00</p>
+                            <div className="mb-6 flex flex-col">
+                                {/* Section 1 : Info École & République */}
+                                <div className="flex justify-between items-start mb-4">
+                                    <div className="flex flex-col items-start w-1/3">
+                                        <h2 className="text-sm font-black m-0 text-black uppercase">COMPLEXE SCOLAIRE SKOOLIS</h2>
+                                        <p className="text-xs text-black m-0">BP 12345 Lomé, Togo</p>
+                                        <p className="text-xs text-black m-0">Tél: +228 90 00 00 00</p>
+                                    </div>
+                                    <div className="flex flex-col items-end justify-start w-1/3 text-right">
+                                        <h3 className="text-sm font-black m-0 text-black uppercase">République Togolaise</h3>
+                                        <p className="text-xs text-black m-0 italic">Travail - Liberté - Patrie</p>
+                                        <div className="w-16 h-[1px] bg-black my-1"></div>
+                                    </div>
                                 </div>
-                                <div className="text-center flex-1 px-4 flex flex-col justify-center items-center">
-                                    <h1 className="text-2xl font-black uppercase tracking-wider text-black m-0 text-center">
-                                        {printType === 'classes_list' && 'Liste globale des classes'}
-                                        {printType === 'students_list' && "Fiche d'identité des élèves"}
-                                        {printType === 'grades' && 'Fiche de notation trimestrielle'}
-                                        {printType === 'attendance' && 'Fiche de suivi des présences'}
-                                    </h1>
-                                    <p className="text-black font-bold m-0 mt-3 text-lg border-2 border-black px-6 py-1 inline-block">
-                                        {printTarget === 'all' ? 'Toutes les classes' : `Classe : ${classes.find(c => c.id === printTarget)?.name || ''}`}
-                                    </p>
-                                    <p className="text-black font-bold m-0 mt-3">Année scolaire 2026-2027</p>
+
+                                {/* Section 2 : Titre du document (Borduré) */}
+                                <div className="flex justify-between items-center border-t-2 border-black border-b-2 py-3 mb-4">
+                                    <div className="w-1/4">
+                                        <p className="text-black font-bold m-0 text-xs">Année scolaire 2026-2027</p>
+                                    </div>
                                     
-                                    {printType === 'attendance' && (
-                                        <p className="text-black font-bold m-0 mt-2 text-sm">Période : ............................................................</p>
-                                    )}
-                                    {printType === 'grades' && (
-                                        <div className="flex gap-8 mt-2">
-                                            <p className="text-sm font-bold text-black m-0">Matière : ....................................</p>
-                                            <p className="text-sm font-bold text-black m-0">Enseignant : ....................................</p>
-                                        </div>
-                                    )}
+                                    <div className="w-2/4 flex flex-col items-center">
+                                        <h1 className="text-lg font-black uppercase tracking-wider text-black m-0 text-center">
+                                            {printType === 'classes_list' && 'Liste globale des classes'}
+                                            {printType === 'students_list' && "Fiche d'identité des élèves"}
+                                            {printType === 'grades' && 'Fiche de notation trimestrielle'}
+                                            {printType === 'attendance' && 'Fiche de suivi des présences'}
+                                        </h1>
+                                        
+                                        <p className="text-black font-bold m-0 mt-2 text-sm px-4 py-1 inline-block border border-black">
+                                            {printTarget === 'all' ? 'Toutes les classes' : `Classe : ${classes.find(c => c.id === printTarget)?.name || ''}`}
+                                        </p>
+                                    </div>
+
+                                    <div className="w-1/4"></div>
                                 </div>
-                                <div className="flex flex-col items-center justify-start w-1/4">
-                                    <h3 className="text-sm font-black m-0 text-black uppercase text-center">République Togolaise</h3>
-                                    <p className="text-xs text-black m-0 text-center italic">Travail - Liberté - Patrie</p>
-                                    <div className="w-16 h-[1px] bg-black my-2"></div>
-                                </div>
+
+                                {/* Section 3 : Informations supplémentaires (Grades / Attendance) */}
+                                {(printType === 'attendance' || printType === 'grades') && (
+                                    <div className="flex justify-between items-end mb-2 px-2">
+                                        {printType === 'attendance' && (
+                                            <p className="text-black font-bold m-0 text-sm">Période : ............................................................</p>
+                                        )}
+                                        {printType === 'grades' && (
+                                            <div className="flex w-full justify-between">
+                                                <p className="text-sm font-bold text-black m-0">Matière : ............................................................</p>
+                                                <p className="text-sm font-bold text-black m-0">Enseignant : ............................................................</p>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
                             </div>
 
                             {/* Tableau d'impression dynamique */}
