@@ -506,43 +506,41 @@ export default function ClassesPage() {
                             </div>
                         </div>
 
-                        <div className="detailed-stats">
-                            <div className="table-container">
-                                <table className="data-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Classe</th>
-                                            <th>Niveau</th>
-                                            <th>Effectif</th>
-                                            <th>Capacité</th>
-                                            <th>Taux remplissage</th>
-                                            <th>Titulaire</th>
-                                            <th>Moyenne classe</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {classes.map(cls => {
-                                            const fillRate = cls.capacity ? Math.round(((cls.students_count || 0) / cls.capacity) * 100) : 0;
-                                            return (
-                                                <tr key={cls.id}>
-                                                    <td>{cls.name}</td>
-                                                    <td>{cls.level || '-'}</td>
-                                                    <td>{cls.students_count || 0}</td>
-                                                    <td>{cls.capacity || '-'}</td>
-                                                    <td>
-                                                        <div className="progress-bar-bg" style={{ height: '6px', background: '#e0e0e0', borderRadius: '3px', overflow: 'hidden', display: 'inline-block', width: '60px', verticalAlign: 'middle', marginRight: '10px' }}>
-                                                            <div className="progress-bar-fill" style={{ width: `${Math.min(fillRate, 100)}%`, height: '100%', background: fillRate > 100 ? '#f44336' : 'var(--primary-color)' }}></div>
-                                                        </div>
-                                                        {fillRate}%
-                                                    </td>
-                                                    <td>{cls.teacher ? `${cls.teacher.first_name} ${cls.teacher.last_name}` : 'Aucun'}</td>
-                                                    <td>-</td>
-                                                </tr>
-                                            );
-                                        })}
-                                    </tbody>
-                                </table>
-                            </div>
+                        <div className="table-container" style={{ marginBottom: '24px' }}>
+                            <table className="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Classe</th>
+                                        <th>Niveau</th>
+                                        <th>Effectif</th>
+                                        <th>Capacité</th>
+                                        <th>Taux remplissage</th>
+                                        <th>Titulaire</th>
+                                        <th>Moyenne classe</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {classes.map(cls => {
+                                        const fillRate = cls.capacity ? Math.round(((cls.students_count || 0) / cls.capacity) * 100) : 0;
+                                        return (
+                                            <tr key={cls.id}>
+                                                <td>{cls.name}</td>
+                                                <td>{cls.level || '-'}</td>
+                                                <td>{cls.students_count || 0}</td>
+                                                <td>{cls.capacity || '-'}</td>
+                                                <td>
+                                                    <div className="progress-bar-bg" style={{ height: '6px', background: '#e0e0e0', borderRadius: '3px', overflow: 'hidden', display: 'inline-block', width: '60px', verticalAlign: 'middle', marginRight: '10px' }}>
+                                                        <div className="progress-bar-fill" style={{ width: `${Math.min(fillRate, 100)}%`, height: '100%', background: fillRate > 100 ? '#f44336' : 'var(--primary-color)' }}></div>
+                                                    </div>
+                                                    {fillRate}%
+                                                </td>
+                                                <td>{cls.teacher ? `${cls.teacher.first_name} ${cls.teacher.last_name}` : 'Aucun'}</td>
+                                                <td>-</td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
                         </div>
 
                         <div className="summary-cards">
