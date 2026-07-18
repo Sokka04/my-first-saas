@@ -417,11 +417,12 @@ export default function ClassesPage() {
                     </div>
 
                     <div className="form-container">
-                        <div className="form-grid">
-                            <div className="form-group">
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                            <div className="form-group" style={{ margin: 0 }}>
                                 <label>Sélectionner la classe</label>
                                 <select 
                                     className="form-control" 
+                                    style={{ width: '100%', padding: '12px' }}
                                     value={assignForm.class_id} 
                                     onChange={e => setAssignForm({...assignForm, class_id: e.target.value})}
                                 >
@@ -431,10 +432,11 @@ export default function ClassesPage() {
                                     ))}
                                 </select>
                             </div>
-                            <div className="form-group">
+                            <div className="form-group" style={{ margin: 0 }}>
                                 <label>Sélectionner le titulaire</label>
                                 <select 
                                     className="form-control"
+                                    style={{ width: '100%', padding: '12px' }}
                                     value={assignForm.teacher_id} 
                                     onChange={e => setAssignForm({...assignForm, teacher_id: e.target.value})}
                                 >
