@@ -452,9 +452,9 @@ export default function ClassesPage() {
                                         </select>
                                     </div>
                                     <div className="form-group">
-                                        <label>Niveau <span className="required">*</span></label>
+                                        <label>Classe <span className="required">*</span></label>
                                         <select value={formData.level} onChange={e => setFormData({...formData, level: e.target.value})} required className="form-control" disabled={!formData.cycle}>
-                                            <option value="">Sélectionner un niveau</option>
+                                            <option value="">Sélectionner une classe</option>
                                             {levelOptionsForCycle(formData.cycle).map(opt => (
                                                 <option key={opt.v} value={opt.v}>{opt.l}</option>
                                             ))}
