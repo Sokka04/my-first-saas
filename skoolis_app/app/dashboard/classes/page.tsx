@@ -213,7 +213,7 @@ export default function ClassesPage() {
             {/* Section Liste des classes */}
             {activeTab === 'liste' && (
                 <div className="feature-section active" id="liste">
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+                    <div className="page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
                         <div className="page-title" style={{ margin: 0 }}>
                             <h3 style={{ margin: 0, fontSize: '24px', fontWeight: 600 }}>Liste des classes</h3>
                             <p style={{ margin: '4px 0 0 0', opacity: 0.7, fontSize: '14px' }}>Gérez toutes les classes de l'établissement</p>
