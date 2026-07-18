@@ -506,7 +506,7 @@ export default function ClassesPage() {
                             </div>
                         </div>
 
-                        <div className="table-container" style={{ marginBottom: '24px' }}>
+                        <div className="table-container" style={{ marginBottom: '24px', overflowX: 'hidden', width: '100%' }}>
                             <table className="data-table">
                                 <thead>
                                     <tr>
