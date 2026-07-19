@@ -104,12 +104,18 @@ export default function ClassesPage() {
             if (printTarget && printTarget !== 'all') {
                 try {
                     setLoadingPrint(true);
-                    const res = await fetch(`${API_BASE_URL}/students?class_id=${printTarget}`, {
+                    const res = await fetch(`${API_BASE_URL}/students`, {
                         headers: getAuthHeaders({ 'Accept': 'application/json' })
                     });
                     if (res.ok) {
                         const json = await res.json();
-                        setPrintStudents(json.data || []);
+                        const allStudents = json.data || [];
+                        const classStudents = allStudents.filter((s: any) => 
+                            s.current_enrollment?.school_class_id === printTarget ||
+                            s.school_class_id === printTarget ||
+                            s.class_id === printTarget
+                        );
+                        setPrintStudents(classStudents);
                     }
                 } catch(e) {
                     console.error("Erreur récupération élèves pour impression", e);
