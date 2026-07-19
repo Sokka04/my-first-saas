@@ -800,12 +800,6 @@ export default function ClassesPage() {
                                         )
                                     )}
                                 </tbody>
-                                <tfoot style={{ border: 'none' }}>
-                                    <tr>
-                                        {/* Espaceur invisible pour empêcher le tableau de chevaucher le pied de page fixe sur chaque page */}
-                                        <td colSpan={50} style={{ border: 'none', height: '1.5cm' }}></td>
-                                    </tr>
-                                </tfoot>
                             </table>
 
                             {/* Espace physique garanti avant la signature */}
@@ -825,7 +819,7 @@ export default function ClassesPage() {
                             @media print {
                                 .print-footer {
                                     position: fixed !important;
-                                    bottom: 10mm !important;
+                                    bottom: 0.5cm !important;
                                     left: 10mm !important;
                                     right: 10mm !important;
                                     width: auto !important;
@@ -833,9 +827,9 @@ export default function ClassesPage() {
                                     margin-top: 0 !important;
                                     background: white;
                                 }
-                                /* Eviter que le contenu normal ne passe sous le footer */
+                                /* Eviter que le contenu normal ne passe sous le footer sur la dernière page */
                                 .print-content-wrapper {
-                                    padding-bottom: 2cm !important;
+                                    padding-bottom: 1cm !important;
                                 }
                             }
                         `}} />
