@@ -111,9 +111,9 @@ export default function ClassesPage() {
                         const json = await res.json();
                         const allStudents = json.data || [];
                         const classStudents = allStudents.filter((s: any) => 
-                            s.current_enrollment?.school_class_id === printTarget ||
-                            s.school_class_id === printTarget ||
-                            s.class_id === printTarget
+                            s.current_enrollment?.school_class_id == printTarget ||
+                            s.school_class_id == printTarget ||
+                            s.class_id == printTarget
                         );
                         setPrintStudents(classStudents);
                     }
@@ -578,7 +578,7 @@ export default function ClassesPage() {
                                     <div className="flex justify-between items-center mb-3">
                                         <p className="text-black font-bold m-0 text-sm">Année scolaire 2026-2027</p>
                                         <p className="text-black font-bold m-0 text-sm">
-                                            {printTarget === 'all' ? 'Toutes les classes' : `Classe : ${classes.find(c => c.id === printTarget)?.name || ''}`}
+                                            {printTarget === 'all' ? 'Toutes les classes' : `Classe : ${classes.find(c => c.id == printTarget)?.name || 'Non définie'}`}
                                         </p>
                                     </div>
                                     
