@@ -114,11 +114,15 @@ export default function ClassesPage() {
                     if (res.ok) {
                         const json = await res.json();
                         const allStudents = json.data || [];
-                        const classStudents = allStudents.filter((s: any) => 
-                            s.current_enrollment?.school_class_id == printTarget ||
-                            s.school_class_id == printTarget ||
-                            s.class_id == printTarget
-                        );
+                        const classStudents = allStudents.filter((s: any) => {
+                            if (s.school_class_id == printTarget) return true;
+                            if (s.class_id == printTarget) return true;
+                            if (s.current_enrollment?.school_class_id == printTarget) return true;
+                            if (s.enrollments && Array.isArray(s.enrollments)) {
+                                return s.enrollments.some((e: any) => e.school_class_id == printTarget);
+                            }
+                            return false;
+                        });
                         setPrintStudents(classStudents);
                     }
                 } catch(e) {
