@@ -804,12 +804,6 @@ export default function ClassesPage() {
                                         )
                                     )}
                                 </tbody>
-                                <tfoot className="print-only-spacer" style={{ border: 'none' }}>
-                                    <tr>
-                                        {/* Espaceur invisible pour empêcher le tableau de chevaucher le pied de page fixe sur chaque page */}
-                                        <td colSpan={50} style={{ border: 'none', height: '1.5cm', padding: 0 }}></td>
-                                    </tr>
-                                </tfoot>
                             </table>
 
                             {/* Espace physique garanti avant la signature */}
@@ -847,13 +841,9 @@ export default function ClassesPage() {
                                     padding-bottom: 10mm !important;
                                 }
                                 .print-footer {
-                                    position: fixed !important;
-                                    bottom: 0.5cm !important;
-                                    left: 10mm !important;
-                                    right: 10mm !important;
-                                    width: auto !important;
+                                    width: 100% !important;
                                     box-sizing: border-box !important;
-                                    margin-top: 0 !important;
+                                    margin-top: 40px !important;
                                     background: white;
                                 }
                             }
