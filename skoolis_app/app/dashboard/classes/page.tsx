@@ -143,8 +143,8 @@ export default function ClassesPage() {
                 headers: getAuthHeaders({ 'Content-Type': 'application/json' }),
                 body: JSON.stringify({
                     name: manageForm.name,
-                    cycle: manageForm.cycle,
-                    level: manageForm.level,
+                    cycle: manageForm.level, // Backend 'cycle' stores UI 'level'
+                    level: manageForm.cycle, // Backend 'level' stores UI 'cycle'
                     capacity: parseInt(manageForm.capacity, 10),
                     teacher_id: manageForm.teacher_id || null
                 })
@@ -566,8 +566,8 @@ export default function ClassesPage() {
                                             e.preventDefault(); 
                                             setManageForm({ 
                                                 name: cls.name || '', 
-                                                cycle: cls.cycle || '', 
-                                                level: cls.level || '', 
+                                                cycle: cls.level || '', 
+                                                level: cls.cycle || '', 
                                                 capacity: cls.capacity?.toString() || '45', 
                                                 teacher_id: cls.teacher?.id || cls.teacher_id || '' 
                                             });
@@ -1194,41 +1194,52 @@ export default function ClassesPage() {
 
                                         <div style={{ marginBottom: '24px', textAlign: 'left' }}>
                                             {selectedClassAction.action === 'manage' ? (
-                                                <form onSubmit={handleSaveManage} className="flex flex-col gap-4" style={{ marginTop: '16px' }}>
-                                                    <div>
-                                                        <label className="block text-sm font-medium mb-1 text-gray-700">Nom de la classe</label>
-                                                        <input type="text" value={manageForm.name} onChange={e => setManageForm({...manageForm, name: e.target.value})} className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-transparent outline-none" required />
+                                                <form onSubmit={handleSaveManage} style={{ marginTop: '16px' }}>
+                                                    <div className="form-group" style={{ marginBottom: '16px' }}>
+                                                        <label>Nom de la classe <span className="required">*</span></label>
+                                                        <input type="text" value={manageForm.name} onChange={e => setManageForm({...manageForm, name: e.target.value})} className="form-control" placeholder="Ex: 3ème A" required />
                                                     </div>
-                                                    <div className="flex gap-4">
-                                                        <div className="flex-1">
-                                                            <label className="block text-sm font-medium mb-1 text-gray-700">Cycle</label>
-                                                            <select value={manageForm.cycle} onChange={e => setManageForm({...manageForm, cycle: e.target.value})} className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-transparent outline-none" required>
+                                                    <div style={{ display: 'flex', gap: '16px', marginBottom: '16px' }}>
+                                                        <div className="form-group" style={{ flex: 1, margin: 0 }}>
+                                                            <label>Cycle <span className="required">*</span></label>
+                                                            <select value={manageForm.cycle} onChange={e => {
+                                                                setManageForm({...manageForm, cycle: e.target.value, level: ''});
+                                                            }} className="form-control" required>
+                                                                <option value="">Sélectionner</option>
+                                                                <option value="Crèche">Crèche</option>
                                                                 <option value="Maternelle">Maternelle</option>
-                                                                <option value="Primaire">Primaire</option>
-                                                                <option value="Collège">Collège</option>
-                                                                <option value="Lycée">Lycée</option>
+                                                                <option value="Primary">Primaire</option>
+                                                                <option value="Middle School">Collège</option>
+                                                                <option value="High School">Lycée</option>
                                                             </select>
                                                         </div>
-                                                        <div className="flex-1">
-                                                            <label className="block text-sm font-medium mb-1 text-gray-700">Niveau</label>
-                                                            <input type="text" value={manageForm.level} onChange={e => setManageForm({...manageForm, level: e.target.value})} className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-transparent outline-none" required />
+                                                        <div className="form-group" style={{ flex: 1, margin: 0 }}>
+                                                            <label>Niveau <span className="required">*</span></label>
+                                                            <select value={manageForm.level} onChange={e => setManageForm({...manageForm, level: e.target.value})} className="form-control" disabled={!manageForm.cycle} style={!manageForm.cycle ? { pointerEvents: 'none' } : {}} required>
+                                                                <option value="">Sélectionner</option>
+                                                                {levelOptionsForCycle(manageForm.cycle).map(opt => (
+                                                                    <option key={opt.v} value={opt.v}>{opt.l}</option>
+                                                                ))}
+                                                            </select>
                                                         </div>
                                                     </div>
-                                                    <div>
-                                                        <label className="block text-sm font-medium mb-1 text-gray-700">Capacité maximale</label>
-                                                        <input type="number" value={manageForm.capacity} onChange={e => setManageForm({...manageForm, capacity: e.target.value})} className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-transparent outline-none" />
+                                                    <div className="form-group" style={{ marginBottom: '16px' }}>
+                                                        <label>Capacité maximale</label>
+                                                        <input type="number" value={manageForm.capacity} onChange={e => setManageForm({...manageForm, capacity: e.target.value})} min="1" max="100" className="form-control" />
                                                     </div>
-                                                    <div>
-                                                        <label className="block text-sm font-medium mb-1 text-gray-700">Professeur titulaire</label>
-                                                        <select value={manageForm.teacher_id} onChange={e => setManageForm({...manageForm, teacher_id: e.target.value})} className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
-                                                            <option value="">Aucun assigné</option>
+                                                    <div className="form-group" style={{ marginBottom: '24px' }}>
+                                                        <label>Professeur titulaire</label>
+                                                        <select value={manageForm.teacher_id} onChange={e => setManageForm({...manageForm, teacher_id: e.target.value})} className="form-select">
+                                                            <option value="">Aucun titulaire assigné</option>
                                                             {teachers.map(t => <option key={t.id} value={t.id}>{t.first_name} {t.last_name}</option>)}
                                                         </select>
                                                     </div>
-                                                    <div className="flex justify-end gap-3 mt-6">
-                                                        <button type="button" onClick={() => setSelectedClassAction(null)} className="px-5 py-2.5 bg-gray-200 text-gray-800 rounded-lg font-medium hover:bg-gray-300 transition-colors">Annuler</button>
-                                                        <button type="submit" disabled={isSavingManage} className={`${modalColors.buttonBg} ${modalColors.buttonText} px-5 py-2.5 rounded-lg font-bold hover:opacity-90 transition-opacity flex items-center justify-center min-w-[120px]`}>
-                                                            {isSavingManage ? <i className="fas fa-spinner fa-spin"></i> : 'Enregistrer'}
+                                                    <div className="form-actions" style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px' }}>
+                                                        <button type="button" onClick={() => setSelectedClassAction(null)} className="btn btn-secondary" style={{ display: 'flex', alignItems: 'center' }}>
+                                                            <i className="fas fa-times" style={{ marginRight: '6px' }}></i> Annuler
+                                                        </button>
+                                                        <button type="submit" disabled={isSavingManage} className="btn btn-primary" style={{ display: 'flex', alignItems: 'center' }}>
+                                                            {isSavingManage ? <i className="fas fa-spinner fa-spin" style={{ marginRight: '6px' }}></i> : <i className="fas fa-save" style={{ marginRight: '6px' }}></i>} Enregistrer
                                                         </button>
                                                     </div>
                                                 </form>
