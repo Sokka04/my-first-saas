@@ -135,7 +135,7 @@ export default function ClassesPage() {
             }
         };
         fetchPrintStudents();
-    }, []);
+    }, [printTarget, showPrintModal]);
 
     const handleSaveManage = async (e: React.FormEvent) => {
         e.preventDefault();
