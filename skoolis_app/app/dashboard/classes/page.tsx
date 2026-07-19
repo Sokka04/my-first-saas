@@ -819,10 +819,10 @@ export default function ClassesPage() {
                             @media print {
                                 .print-footer {
                                     position: fixed !important;
-                                    bottom: 0 !important;
-                                    left: 0 !important;
-                                    right: 0 !important;
-                                    width: 100% !important;
+                                    bottom: 10mm !important;
+                                    left: 10mm !important;
+                                    right: 10mm !important;
+                                    width: auto !important;
                                     box-sizing: border-box !important;
                                     margin-top: 0 !important;
                                     background: white;
