@@ -43,6 +43,10 @@ export default function ClassesPage() {
     const [printStudents, setPrintStudents] = useState<any[]>([]);
     const [loadingPrint, setLoadingPrint] = useState(false);
 
+    // Modal states
+    const [manageForm, setManageForm] = useState({ name: '', cycle: '', level: '', capacity: '45', teacher_id: '' });
+    const [isSavingManage, setIsSavingManage] = useState(false);
+
     // Form states
     const [formData, setFormData] = useState({
         name: '',
@@ -127,9 +131,42 @@ export default function ClassesPage() {
             }
         };
         fetchPrintStudents();
-    }, [printTarget, API_BASE_URL]);
+        fetchData();
+    }, []);
 
-    const handleSave = async (e: any) => {
+    const handleSaveManage = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!selectedClassAction) return;
+        try {
+            setIsSavingManage(true);
+            const res = await fetch(`${API_BASE_URL}/school-classes/${selectedClassAction.id}`, {
+                method: 'PUT',
+                headers: getAuthHeaders({ 'Content-Type': 'application/json' }),
+                body: JSON.stringify({
+                    name: manageForm.name,
+                    cycle: manageForm.cycle,
+                    level: manageForm.level,
+                    capacity: parseInt(manageForm.capacity, 10),
+                    teacher_id: manageForm.teacher_id || null
+                })
+            });
+            if (res.ok) {
+                setSuccessToastMsg("Classe modifiée avec succès");
+                setTimeout(() => setSuccessToastMsg(null), 3000);
+                setSelectedClassAction(null);
+                fetchData();
+            } else {
+                setValidationToastMsg("Erreur lors de la modification");
+                setTimeout(() => setValidationToastMsg(null), 3000);
+            }
+        } catch(err) {
+            console.error(err);
+        } finally {
+            setIsSavingManage(false);
+        }
+    };
+
+    const handleSave = async (e: React.FormEvent) => {
         e.preventDefault();
 
         // Check which field is failing
@@ -526,10 +563,23 @@ export default function ClassesPage() {
                                         {cls.students_count || 0} élèves inscrits
                                     </p>
                                     <div style={{ display: 'flex', gap: '10px', width: '100%' }}>
-                                        <button onClick={(e) => { e.preventDefault(); setSelectedClassAction({ id: cls.id, name: cls.name, level: cls.level, action: 'manage' }); }} className={`${cycleColors.buttonBg} ${cycleColors.buttonText} transition-opacity hover:opacity-90`} style={{ flex: 1, padding: '10px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '13px', fontWeight: '600' }}>
+                                        <button onClick={(e) => { 
+                                            e.preventDefault(); 
+                                            setManageForm({ 
+                                                name: cls.name || '', 
+                                                cycle: cls.cycle || '', 
+                                                level: cls.level || '', 
+                                                capacity: cls.capacity?.toString() || '45', 
+                                                teacher_id: cls.teacher?.id || cls.teacher_id || '' 
+                                            });
+                                            setSelectedClassAction({ id: cls.id, name: cls.name, level: cls.level, action: 'manage' }); 
+                                        }} className={`${cycleColors.buttonBg} ${cycleColors.buttonText} transition-opacity hover:opacity-90`} style={{ flex: 1, padding: '10px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '13px', fontWeight: '600' }}>
                                             <i className="fas fa-edit" style={{ marginRight: '6px' }}></i> Gérer
                                         </button>
-                                        <button onClick={(e) => { e.preventDefault(); setSelectedClassAction({ id: cls.id, name: cls.name, level: cls.level, action: 'stats' }); }} className="bg-secondary text-secondary-foreground transition-opacity hover:opacity-90" style={{ flex: 1, padding: '10px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '13px', fontWeight: '600' }}>
+                                        <button onClick={(e) => { 
+                                            e.preventDefault(); 
+                                            setSelectedClassAction({ id: cls.id, name: cls.name, level: cls.level, action: 'stats' }); 
+                                        }} className="bg-secondary text-secondary-foreground transition-opacity hover:opacity-90" style={{ flex: 1, padding: '10px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '13px', fontWeight: '600' }}>
                                             <i className="fas fa-chart-pie" style={{ marginRight: '6px' }}></i> Stats
                                         </button>
                                     </div>
@@ -1143,24 +1193,102 @@ export default function ClassesPage() {
                                             </span>
                                         </div>
 
-                                        <div className="text-muted-foreground" style={{ textAlign: 'center', padding: '24px 0', marginBottom: '32px' }}>
-                                            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
-                                                <div className={`${modalColors.buttonBg} ${modalColors.buttonText} shadow-sm`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '72px', height: '72px', borderRadius: '50%', fontSize: '28px' }}>
-                                                    <i className={selectedClassAction.action === 'manage' ? "fas fa-tools" : "fas fa-chart-pie"}></i>
+                                        <div style={{ marginBottom: '24px', textAlign: 'left' }}>
+                                            {selectedClassAction.action === 'manage' ? (
+                                                <form onSubmit={handleSaveManage} className="flex flex-col gap-4" style={{ marginTop: '16px' }}>
+                                                    <div>
+                                                        <label className="block text-sm font-medium mb-1 text-gray-700">Nom de la classe</label>
+                                                        <input type="text" value={manageForm.name} onChange={e => setManageForm({...manageForm, name: e.target.value})} className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-transparent outline-none" required />
+                                                    </div>
+                                                    <div className="flex gap-4">
+                                                        <div className="flex-1">
+                                                            <label className="block text-sm font-medium mb-1 text-gray-700">Cycle</label>
+                                                            <select value={manageForm.cycle} onChange={e => setManageForm({...manageForm, cycle: e.target.value})} className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-transparent outline-none" required>
+                                                                <option value="Maternelle">Maternelle</option>
+                                                                <option value="Primaire">Primaire</option>
+                                                                <option value="Collège">Collège</option>
+                                                                <option value="Lycée">Lycée</option>
+                                                            </select>
+                                                        </div>
+                                                        <div className="flex-1">
+                                                            <label className="block text-sm font-medium mb-1 text-gray-700">Niveau</label>
+                                                            <input type="text" value={manageForm.level} onChange={e => setManageForm({...manageForm, level: e.target.value})} className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-transparent outline-none" required />
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <label className="block text-sm font-medium mb-1 text-gray-700">Capacité maximale</label>
+                                                        <input type="number" value={manageForm.capacity} onChange={e => setManageForm({...manageForm, capacity: e.target.value})} className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-transparent outline-none" />
+                                                    </div>
+                                                    <div>
+                                                        <label className="block text-sm font-medium mb-1 text-gray-700">Professeur titulaire</label>
+                                                        <select value={manageForm.teacher_id} onChange={e => setManageForm({...manageForm, teacher_id: e.target.value})} className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                                            <option value="">Aucun assigné</option>
+                                                            {teachers.map(t => <option key={t.id} value={t.id}>{t.first_name} {t.last_name}</option>)}
+                                                        </select>
+                                                    </div>
+                                                    <div className="flex justify-end gap-3 mt-6">
+                                                        <button type="button" onClick={() => setSelectedClassAction(null)} className="px-5 py-2.5 bg-gray-200 text-gray-800 rounded-lg font-medium hover:bg-gray-300 transition-colors">Annuler</button>
+                                                        <button type="submit" disabled={isSavingManage} className={`${modalColors.buttonBg} ${modalColors.buttonText} px-5 py-2.5 rounded-lg font-bold hover:opacity-90 transition-opacity flex items-center justify-center min-w-[120px]`}>
+                                                            {isSavingManage ? <i className="fas fa-spinner fa-spin"></i> : 'Enregistrer'}
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            ) : (
+                                                <div className="flex flex-col gap-5 mt-4">
+                                                    {(() => {
+                                                        const clsObj = classes.find(c => c.id === selectedClassAction.id);
+                                                        const studentsCount = clsObj?.students_count || 0;
+                                                        const cap = clsObj?.capacity || 1;
+                                                        const rate = Math.min((studentsCount / cap) * 100, 100).toFixed(1);
+                                                        return (
+                                                            <>
+                                                                <div className="bg-gray-50 rounded-xl p-4 border border-gray-100 shadow-sm flex items-center justify-between">
+                                                                    <div className="flex items-center gap-3">
+                                                                        <div className={`${modalColors.badgeBg} ${modalColors.badgeText} w-10 h-10 rounded-full flex items-center justify-center`}>
+                                                                            <i className="fas fa-users text-lg"></i>
+                                                                        </div>
+                                                                        <div className="flex flex-col">
+                                                                            <span className="text-xs text-gray-500 font-semibold uppercase tracking-wider">Effectif actuel</span>
+                                                                            <span className="font-bold text-gray-900 text-lg">{studentsCount} <span className="text-sm font-normal text-gray-500">/ {cap} places</span></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="text-right">
+                                                                        <span className={`text-xl font-black ${Number(rate) >= 100 ? 'text-red-500' : 'text-gray-900'}`}>{rate}%</span>
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                                <div className="w-full bg-gray-200 rounded-full h-2.5 mb-1 overflow-hidden">
+                                                                    <div className={`${Number(rate) >= 100 ? 'bg-red-500' : modalColors.barBg} h-2.5 rounded-full transition-all duration-1000 ease-out`} style={{ width: `${rate}%` }}></div>
+                                                                </div>
+                                                                
+                                                                <div className="bg-gray-50 rounded-xl p-4 border border-gray-100 shadow-sm flex items-center gap-3 mt-2">
+                                                                    <div className="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
+                                                                        <i className="fas fa-chalkboard-teacher text-lg"></i>
+                                                                    </div>
+                                                                    <div className="flex flex-col">
+                                                                        <span className="text-xs text-gray-500 font-semibold uppercase tracking-wider">Titulaire</span>
+                                                                        <span className="font-bold text-gray-900">{clsObj?.teacher ? `${clsObj.teacher.first_name} ${clsObj.teacher.last_name}` : 'Non assigné'}</span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div className="mt-6">
+                                                                    <button onClick={() => {
+                                                                        setSelectedClassAction(null);
+                                                                        setPrintTarget(selectedClassAction.id);
+                                                                        setPrintType('students_list');
+                                                                        setShowPrintModal(true);
+                                                                    }} className={`${modalColors.buttonBg} ${modalColors.buttonText} w-full py-3.5 rounded-xl font-bold hover:opacity-90 transition-all shadow-md flex items-center justify-center gap-2`}>
+                                                                        <i className="fas fa-print"></i> Imprimer la liste des élèves
+                                                                    </button>
+                                                                </div>
+                                                            </>
+                                                        )
+                                                    })()}
                                                 </div>
-                                            </div>
-                                            <p style={{ fontSize: '15px', lineHeight: '1.5', margin: 0 }}>
-                                                L'interface {selectedClassAction.action === 'manage' ? 'de gestion' : 'des statistiques'} pour cette classe sera bientôt disponible.
-                                            </p>
+                                            )}
                                         </div>
 
-                                        <button 
-                                            onClick={() => setSelectedClassAction(null)}
-                                            className={`${modalColors.buttonBg} ${modalColors.buttonText} hover:opacity-90 transition-opacity`}
-                                            style={{ width: '100%', padding: '14px', borderRadius: '12px', border: 'none', cursor: 'pointer', fontSize: '15px', fontWeight: 'bold' }}
-                                        >
-                                            Fermer
-                                        </button>
+
                                     </div>
                                 </>
                             );
