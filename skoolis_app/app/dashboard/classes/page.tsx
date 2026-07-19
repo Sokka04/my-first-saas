@@ -821,10 +821,9 @@ export default function ClassesPage() {
                                 .print-footer {
                                     position: fixed !important;
                                     bottom: 0.8cm !important;
-                                    left: 0 !important;
-                                    right: 0 !important;
-                                    width: 100% !important;
-                                    padding: 0 8mm !important;
+                                    left: 8mm !important;
+                                    right: 8mm !important;
+                                    width: auto !important;
                                     box-sizing: border-box !important;
                                     margin-top: 0 !important;
                                     background: white;
@@ -835,7 +834,7 @@ export default function ClassesPage() {
                                 }
                             }
                         `}} />
-                        <div className="print-footer pt-2 mt-8 border-t border-black flex justify-between items-center bg-white px-2 w-full" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
+                        <div className="print-footer pt-2 mt-8 border-t border-black flex justify-between items-center bg-white w-full" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
                             <div className="w-1/3"></div>
                             <p className="m-0 text-black w-1/3 text-center mb-1" style={{ fontSize: '10px' }}>
                                 <span className="italic font-normal">Propulsé par</span> <span className="font-bold" style={{ fontSize: '11px' }}>Skoolis</span>
