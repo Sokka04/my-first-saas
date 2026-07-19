@@ -610,12 +610,12 @@ export default function ClassesPage() {
                     <div className="hidden print:block box-border w-full" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
                         {printType === 'students_list' && (
                             <style type="text/css" media="print">
-                                {`@page { size: landscape; margin: 10mm; }`}
+                                {`@page { size: landscape; margin: 0 10mm 10mm 10mm; }`}
                             </style>
                         )}
                         {printType !== 'students_list' && (
                             <style type="text/css" media="print">
-                                {`@page { size: portrait; margin: 10mm; }`}
+                                {`@page { size: portrait; margin: 0 10mm 10mm 10mm; }`}
                             </style>
                         )}
 
@@ -833,14 +833,16 @@ export default function ClassesPage() {
                             }
                             @media print {
                                 @page {
-                                    margin: 10mm !important;
+                                    margin: 0 10mm 10mm 10mm !important;
                                 }
                                 body {
                                     -webkit-print-color-adjust: exact;
                                     print-color-adjust: exact;
                                 }
                                 .print-content-wrapper {
-                                    /* La marge du navigateur (10mm) gère le haut, on protège juste la signature en bas */
+                                    /* Marge haute interne pour compenser le margin-top: 0 de la page */
+                                    padding-top: 10mm !important;
+                                    /* On protège la signature en bas */
                                     padding-bottom: 25mm !important; 
                                 }
                                 .print-footer {
