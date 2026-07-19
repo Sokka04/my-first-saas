@@ -104,11 +104,12 @@ export default function ClassesPage() {
     }, []);
 
     useEffect(() => {
-        if (!showPrintModal || !printTarget || printTarget === 'all') {
+        if (!showPrintModal) {
             setPrintStudents([]);
             setLoadingPrint(false);
             return;
         }
+        
         let cancelled = false;
         const doFetch = async () => {
             try {
@@ -119,15 +120,19 @@ export default function ClassesPage() {
                 if (res.ok && !cancelled) {
                     const json = await res.json();
                     const allStudents = json.data || [];
-                    const classStudents = allStudents.filter((s: any) => {
-                        if (s.school_class_id == printTarget) return true;
-                        if (s.class_id == printTarget) return true;
-                        if (s.current_enrollment?.school_class_id == printTarget) return true;
-                        if (s.enrollments && Array.isArray(s.enrollments)) {
-                            return s.enrollments.some((e: any) => e.school_class_id == printTarget);
-                        }
-                        return false;
-                    });
+                    
+                    const classStudents = printTarget === 'all' 
+                        ? allStudents 
+                        : allStudents.filter((s: any) => {
+                            if (s.school_class_id == printTarget) return true;
+                            if (s.class_id == printTarget) return true;
+                            if (s.current_enrollment?.school_class_id == printTarget) return true;
+                            if (s.enrollments && Array.isArray(s.enrollments)) {
+                                return s.enrollments.some((e: any) => e.school_class_id == printTarget);
+                            }
+                            return false;
+                        });
+                        
                     if (!cancelled) setPrintStudents(classStudents);
                 }
             } catch(e) {
@@ -737,11 +742,16 @@ export default function ClassesPage() {
                                     ) : (
                                         loadingPrint ? (
                                             <tr>
-                                                <td colSpan={10} className="border border-black p-4 text-center">Chargement des élèves...</td>
+                                                <td colSpan={10} className="border border-black p-8">
+                                                    <div className="flex flex-col items-center justify-center space-y-3">
+                                                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                                                        <p className="text-gray-500 italic font-medium m-0">Chargement et préparation des données d'impression...</p>
+                                                    </div>
+                                                </td>
                                             </tr>
                                         ) : printStudents.length === 0 ? (
                                             <tr>
-                                                <td colSpan={10} className="border border-black p-4 text-center italic">Aucun élève dans cette classe</td>
+                                                <td colSpan={10} className="border border-black p-8 text-center text-gray-500 italic font-medium">Aucun élève trouvé pour cette sélection</td>
                                             </tr>
                                         ) : (
                                             printStudents.map((student, idx) => (
@@ -749,11 +759,11 @@ export default function ClassesPage() {
                                                     {printType === 'students_list' && (
                                                         <>
                                                             <td className="border border-black p-1 px-2 text-center text-black font-medium">{idx + 1}</td>
-                                                            <td className="border border-black p-1 px-2 text-black font-mono">{student.matricule || '-'}</td>
+                                                            <td className="border border-black p-1 px-2 text-black font-mono">{student.registration_number || student.matricule || '-'}</td>
                                                             <td className="border border-black p-1 text-black font-bold uppercase" style={{ paddingLeft: '12px' }}>{student.last_name} {student.first_name}</td>
                                                             <td className="border border-black p-1 px-2 text-center text-black">{student.gender || '-'}</td>
-                                                            <td className="border border-black p-1 px-2 text-black">{student.date_of_birth ? new Date(student.date_of_birth).toLocaleDateString('fr-FR') : '-'}</td>
-                                                            <td className="border border-black p-1 px-2 text-black">{student.place_of_birth || '-'}</td>
+                                                            <td className="border border-black p-1 px-2 text-black">{student.birth_date || student.date_of_birth ? new Date(student.birth_date || student.date_of_birth).toLocaleDateString('fr-FR') : '-'}</td>
+                                                            <td className="border border-black p-1 px-2 text-black">{student.birth_place || student.place_of_birth || '-'}</td>
                                                             <td className="border border-black p-1 px-2 text-black">{student.nationality || '-'}</td>
                                                             <td className="border border-black p-1 px-2 text-black">{student.parent_contact || '-'}</td>
                                                         </>
