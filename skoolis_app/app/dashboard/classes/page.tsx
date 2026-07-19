@@ -104,37 +104,40 @@ export default function ClassesPage() {
     }, []);
 
     useEffect(() => {
-        const fetchPrintStudents = async () => {
-            if (printTarget && printTarget !== 'all') {
-                try {
-                    setLoadingPrint(true);
-                    const res = await fetch(`${API_BASE_URL}/students`, {
-                        headers: getAuthHeaders({ 'Accept': 'application/json' })
+        if (!showPrintModal || !printTarget || printTarget === 'all') {
+            setPrintStudents([]);
+            setLoadingPrint(false);
+            return;
+        }
+        let cancelled = false;
+        const doFetch = async () => {
+            try {
+                setLoadingPrint(true);
+                const res = await fetch(`${API_BASE_URL}/students`, {
+                    headers: getAuthHeaders({ 'Accept': 'application/json' })
+                });
+                if (res.ok && !cancelled) {
+                    const json = await res.json();
+                    const allStudents = json.data || [];
+                    const classStudents = allStudents.filter((s: any) => {
+                        if (s.school_class_id == printTarget) return true;
+                        if (s.class_id == printTarget) return true;
+                        if (s.current_enrollment?.school_class_id == printTarget) return true;
+                        if (s.enrollments && Array.isArray(s.enrollments)) {
+                            return s.enrollments.some((e: any) => e.school_class_id == printTarget);
+                        }
+                        return false;
                     });
-                    if (res.ok) {
-                        const json = await res.json();
-                        const allStudents = json.data || [];
-                        const classStudents = allStudents.filter((s: any) => {
-                            if (s.school_class_id == printTarget) return true;
-                            if (s.class_id == printTarget) return true;
-                            if (s.current_enrollment?.school_class_id == printTarget) return true;
-                            if (s.enrollments && Array.isArray(s.enrollments)) {
-                                return s.enrollments.some((e: any) => e.school_class_id == printTarget);
-                            }
-                            return false;
-                        });
-                        setPrintStudents(classStudents);
-                    }
-                } catch(e) {
-                    console.error("Erreur récupération élèves pour impression", e);
-                } finally {
-                    setLoadingPrint(false);
+                    if (!cancelled) setPrintStudents(classStudents);
                 }
-            } else {
-                setPrintStudents([]);
+            } catch(e) {
+                console.error("Erreur print students", e);
+            } finally {
+                if (!cancelled) setLoadingPrint(false);
             }
         };
-        fetchPrintStudents();
+        doFetch();
+        return () => { cancelled = true; };
     }, [printTarget, showPrintModal]);
 
     const handleSaveManage = async (e: React.FormEvent) => {
