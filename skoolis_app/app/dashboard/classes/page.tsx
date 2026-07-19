@@ -607,16 +607,15 @@ export default function ClassesPage() {
                     </div>
 
                     {/* Vue dédiée pour l'impression (Tableau et En-tête/Pied) */}
-                    {/* Vue dédiée pour l'impression (Tableau et En-tête/Pied) */}
-                    <div className="hidden print:block box-border" style={{ fontFamily: "'Times New Roman', Times, serif", padding: '8mm' }}>
+                    <div className="hidden print:block box-border w-full" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
                         {printType === 'students_list' && (
                             <style type="text/css" media="print">
-                                {`@page { size: landscape; margin: 0; }`}
+                                {`@page { size: landscape; margin: 10mm; }`}
                             </style>
                         )}
                         {printType !== 'students_list' && (
                             <style type="text/css" media="print">
-                                {`@page { size: portrait; margin: 0; }`}
+                                {`@page { size: portrait; margin: 10mm; }`}
                             </style>
                         )}
 
@@ -820,10 +819,10 @@ export default function ClassesPage() {
                             @media print {
                                 .print-footer {
                                     position: fixed !important;
-                                    bottom: 0.8cm !important;
-                                    left: 8mm !important;
-                                    right: 8mm !important;
-                                    width: auto !important;
+                                    bottom: 0 !important;
+                                    left: 0 !important;
+                                    right: 0 !important;
+                                    width: 100% !important;
                                     box-sizing: border-box !important;
                                     margin-top: 0 !important;
                                     background: white;
