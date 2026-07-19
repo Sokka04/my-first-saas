@@ -42,7 +42,6 @@ export default function ClassesPage() {
     const [printType, setPrintType] = useState('classes_list');
     const [printStudents, setPrintStudents] = useState<any[]>([]);
     const [loadingPrint, setLoadingPrint] = useState(false);
-    const [isPreparingPrint, setIsPreparingPrint] = useState(false);
 
     // Modal states
     const [manageForm, setManageForm] = useState({ name: '', cycle: '', level: '', capacity: '45', teacher_id: '' });
@@ -751,9 +750,9 @@ export default function ClassesPage() {
                                         loadingPrint ? (
                                             <tr>
                                                 <td colSpan={10} className="border border-black p-8">
-                                                    <div className="flex flex-col items-center justify-center space-y-3">
-                                                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-                                                        <p className="text-gray-500 italic font-medium m-0">Chargement et préparation des données d'impression...</p>
+                                                    <div className="flex flex-col items-center justify-center space-y-2">
+                                                        <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
+                                                        <p className="text-gray-500 italic text-sm m-0">Chargement des données...</p>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -1425,14 +1424,13 @@ export default function ClassesPage() {
                             <button 
                                 onClick={() => {
                                     setShowPrintModal(false);
-                                    setIsPreparingPrint(true);
-                                    // 1000ms minimum garantit que React a fini de rendre le DOM complexe (tableau de 50+ élèves)
-                                    // et que le navigateur a eu le temps de "peindre" (paint) le HTML avant la capture PDF
+                                    // Laisse React cacher le modal, puis lance l'impression.
+                                    // Une fois l'impression terminée (fenêtre système fermée), on nettoie la mémoire.
                                     setTimeout(() => {
-                                        setIsPreparingPrint(false);
-                                        // Petit délai de 100ms pour laisser l'overlay disparaître avant la capture
-                                        setTimeout(() => window.print(), 100);
-                                    }, 1000);
+                                        window.print();
+                                        setPrintStudents([]);
+                                        setLoadingPrint(false);
+                                    }, 150);
                                 }}
                                 className="rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity flex items-center gap-2 cursor-pointer border-none shadow-md whitespace-nowrap"
                                 style={{ padding: '12px 24px', fontSize: '16px' }}
@@ -1482,14 +1480,6 @@ export default function ClassesPage() {
                 </div>
             </div>
 
-            {/* Full-screen print preparation overlay */}
-            {isPreparingPrint && (
-                <div className="fixed inset-0 z-[99999] bg-background/90 backdrop-blur-md flex flex-col items-center justify-center">
-                    <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-primary mb-6"></div>
-                    <h2 className="text-2xl font-bold text-foreground">Préparation de l'impression...</h2>
-                    <p className="text-muted-foreground mt-2">Veuillez patienter quelques instants</p>
-                </div>
-            )}
         </>
     );
 }
