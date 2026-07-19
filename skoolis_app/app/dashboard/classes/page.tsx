@@ -1415,13 +1415,18 @@ export default function ClassesPage() {
 
                         <div className="border-t border-border bg-muted/20 flex flex-wrap justify-end gap-4 shrink-0" style={{ padding: '32px' }}>
                             <button 
-                                onClick={() => setShowPrintModal(false)}
+                                onClick={() => {
+                                    setShowPrintModal(false);
+                                    setPrintStudents([]);
+                                    setLoadingPrint(false);
+                                }}
                                 className="rounded-lg border border-border bg-background hover:bg-secondary font-medium transition-colors cursor-pointer text-foreground shadow-sm"
                                 style={{ padding: '12px 24px', fontSize: '16px' }}
                             >
                                 Annuler
                             </button>
                             <button 
+                                disabled={loadingPrint}
                                 onClick={() => {
                                     setShowPrintModal(false);
                                     // Laisse React cacher le modal, puis lance l'impression.
@@ -1432,8 +1437,8 @@ export default function ClassesPage() {
                                         setLoadingPrint(false);
                                     }, 150);
                                 }}
-                                className="rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity flex items-center gap-2 cursor-pointer border-none shadow-md whitespace-nowrap"
-                                style={{ padding: '12px 24px', fontSize: '16px' }}
+                                className={`rounded-lg font-medium flex items-center gap-2 shadow-md whitespace-nowrap ${loadingPrint ? 'bg-gray-400 cursor-not-allowed opacity-70' : 'bg-primary hover:opacity-90 cursor-pointer text-primary-foreground'}`}
+                                style={{ padding: '12px 24px', fontSize: '16px', border: 'none' }}
                             >
                                 <i className="fas fa-file-pdf text-lg"></i> Imprimer
                             </button>
