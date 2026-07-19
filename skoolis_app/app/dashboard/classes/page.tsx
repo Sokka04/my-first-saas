@@ -824,6 +824,8 @@ export default function ClassesPage() {
                                     left: 0 !important;
                                     right: 0 !important;
                                     width: 100% !important;
+                                    padding: 0 8mm !important;
+                                    box-sizing: border-box !important;
                                     margin-top: 0 !important;
                                     background: white;
                                 }
