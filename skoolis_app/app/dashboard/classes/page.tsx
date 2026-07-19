@@ -144,6 +144,14 @@ export default function ClassesPage() {
         return () => { cancelled = true; };
     }, [printTarget, showPrintModal]);
 
+    // Nettoyer les données d'impression quand l'utilisateur change d'onglet
+    useEffect(() => {
+        if (activeTab !== 'liste') {
+            setPrintStudents([]);
+            setLoadingPrint(false);
+        }
+    }, [activeTab]);
+
     const handleSaveManage = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!selectedClassAction) return;
