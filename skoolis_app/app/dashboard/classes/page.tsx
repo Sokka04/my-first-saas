@@ -800,6 +800,12 @@ export default function ClassesPage() {
                                         )
                                     )}
                                 </tbody>
+                                <tfoot style={{ border: 'none' }}>
+                                    <tr>
+                                        {/* Espaceur invisible pour empêcher le tableau de chevaucher le pied de page fixe sur chaque page */}
+                                        <td colSpan={50} style={{ border: 'none', height: '1.5cm' }}></td>
+                                    </tr>
+                                </tfoot>
                             </table>
 
                             {/* Espace physique garanti avant la signature */}
