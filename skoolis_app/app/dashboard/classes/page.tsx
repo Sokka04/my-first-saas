@@ -131,7 +131,6 @@ export default function ClassesPage() {
             }
         };
         fetchPrintStudents();
-        fetchData();
     }, []);
 
     const handleSaveManage = async (e: React.FormEvent) => {
@@ -154,7 +153,7 @@ export default function ClassesPage() {
                 setSuccessToastMsg("Classe modifiée avec succès");
                 setTimeout(() => setSuccessToastMsg(null), 3000);
                 setSelectedClassAction(null);
-                fetchData();
+                fetchClasses();
             } else {
                 setValidationToastMsg("Erreur lors de la modification");
                 setTimeout(() => setValidationToastMsg(null), 3000);
