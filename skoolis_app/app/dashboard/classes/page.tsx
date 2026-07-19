@@ -620,7 +620,7 @@ export default function ClassesPage() {
                             </style>
                         )}
 
-                        <div className="w-full">
+                        <div className="w-full print-content-wrapper">
                             {/* En-tête d'impression */}
                             <div className="flex flex-col">
                                 {/* Section 1 : Info École & République */}
@@ -815,8 +815,25 @@ export default function ClassesPage() {
 
                         </div>
 
-                        {/* Pied de page global */}
-                        <div className="pt-2 mt-8 border-t border-black flex justify-between items-center text-xs text-gray-500 bg-white px-2 w-full" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
+                        {/* Pied de page global fixé au bas de chaque page à l'impression */}
+                        <style dangerouslySetInnerHTML={{__html: `
+                            @media print {
+                                .print-footer {
+                                    position: fixed !important;
+                                    bottom: 0.8cm !important;
+                                    left: 0 !important;
+                                    right: 0 !important;
+                                    width: 100% !important;
+                                    margin-top: 0 !important;
+                                    background: white;
+                                }
+                                /* Eviter que le contenu normal ne passe sous le footer */
+                                .print-content-wrapper {
+                                    padding-bottom: 2cm !important;
+                                }
+                            }
+                        `}} />
+                        <div className="print-footer pt-2 mt-8 border-t border-black flex justify-between items-center text-xs text-gray-500 bg-white px-2 w-full" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
                             <div className="w-1/3"></div>
                             <p className="m-0 text-xs text-black w-1/3 text-center mb-1">
                                 <span className="italic font-normal">Propulsé par</span> <span className="font-bold">Skoolis</span>
