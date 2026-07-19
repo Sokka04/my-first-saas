@@ -105,14 +105,13 @@ export default function ClassesPage() {
 
     useEffect(() => {
         if (!showPrintModal) {
-            setPrintStudents([]);
-            setLoadingPrint(false);
             return;
         }
         
         let cancelled = false;
         const doFetch = async () => {
             try {
+                setPrintStudents([]);
                 setLoadingPrint(true);
                 const res = await fetch(`${API_BASE_URL}/students`, {
                     headers: getAuthHeaders({ 'Accept': 'application/json' })
