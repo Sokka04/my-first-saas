@@ -833,18 +833,15 @@ export default function ClassesPage() {
                             }
                             @media print {
                                 @page {
-                                    margin-top: 0 !important;
-                                    margin-bottom: 0 !important;
-                                    margin-left: 10mm !important;
-                                    margin-right: 10mm !important;
+                                    margin: 10mm !important;
                                 }
                                 body {
                                     -webkit-print-color-adjust: exact;
                                     print-color-adjust: exact;
                                 }
                                 .print-content-wrapper {
-                                    padding-top: 10mm !important;
-                                    padding-bottom: 30mm !important; /* Protège la signature */
+                                    /* La marge du navigateur (10mm) gère le haut, on protège juste la signature en bas */
+                                    padding-bottom: 25mm !important; 
                                 }
                                 .print-footer {
                                     position: fixed !important;
