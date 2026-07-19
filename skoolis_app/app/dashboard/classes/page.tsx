@@ -685,10 +685,6 @@ export default function ClassesPage() {
                             {/* Tableau d'impression dynamique */}
                             <table className="w-full text-left border-collapse" style={{ border: '1px solid black', fontSize: '12px' }}>
                                 <thead>
-                                    {/* Espaceur invisible pour simuler une marge haute sur les pages 2, 3, etc. */}
-                                    <tr className="print-only-spacer" style={{ border: 'none', backgroundColor: 'white' }}>
-                                        <td colSpan={50} style={{ border: 'none', height: '10mm', padding: 0 }}></td>
-                                    </tr>
                                     {printType === 'classes_list' && (
                                         <tr className="bg-gray-100">
                                             <th className="border border-black p-2 font-bold text-black" style={{ backgroundColor: '#f3f4f6' }}>Nom de la classe</th>
@@ -804,6 +800,12 @@ export default function ClassesPage() {
                                         )
                                     )}
                                 </tbody>
+                                <tfoot className="print-only-spacer" style={{ border: 'none' }}>
+                                    <tr>
+                                        {/* Espaceur pour empêcher le chevauchement avec le pied de page fixe */}
+                                        <td colSpan={50} style={{ border: 'none', height: '1.5cm', padding: 0 }}></td>
+                                    </tr>
+                                </tfoot>
                             </table>
 
                             {/* Espace physique garanti avant la signature */}
@@ -827,23 +829,20 @@ export default function ClassesPage() {
                             }
                             @media print {
                                 @page {
-                                    margin-top: 0 !important;
-                                    margin-bottom: 0 !important;
-                                    margin-left: 10mm !important;
-                                    margin-right: 10mm !important;
+                                    margin: 10mm !important;
                                 }
                                 body {
                                     -webkit-print-color-adjust: exact;
                                     print-color-adjust: exact;
                                 }
-                                .print-content-wrapper {
-                                    padding-top: 10mm !important;
-                                    padding-bottom: 10mm !important;
-                                }
                                 .print-footer {
-                                    width: 100% !important;
+                                    position: fixed !important;
+                                    bottom: 10mm !important;
+                                    left: 10mm !important;
+                                    right: 10mm !important;
+                                    width: auto !important;
                                     box-sizing: border-box !important;
-                                    margin-top: 40px !important;
+                                    margin-top: 0 !important;
                                     background: white;
                                 }
                             }
